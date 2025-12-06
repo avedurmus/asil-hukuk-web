@@ -10,8 +10,7 @@ export default function ContactForm() {
     const [subject, setSubject] = useState("");
 
     // Access Key for Web3Forms
-    // TODO: USER MUST REPLACE THIS WITH THEIR OWN KEY FROM https://web3forms.com/
-    const ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+    const ACCESS_KEY = "ef4c3b16-d244-4715-a4f9-d696bf255c36";
 
     useEffect(() => {
         const konu = searchParams.get("konu");
@@ -27,9 +26,6 @@ export default function ContactForm() {
         const formData = new FormData(e.currentTarget);
 
         // Append access key
-        // If the user hasn't set a key, this will likely fail or go to a demo endpoint if Web3Forms allows.
-        // For now, we simulate success if it's the placeholder, to show the UI state, 
-        // BUT we should try to really send it if they have a key.
         formData.append("access_key", ACCESS_KEY);
         formData.append("subject", subject || "Yeni İletişim Formu Mesajı");
         formData.append("from_name", "Asil Hukuk Web Sitesi");

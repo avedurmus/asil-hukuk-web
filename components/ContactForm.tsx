@@ -31,7 +31,7 @@ export default function ContactForm() {
         formData.append("_subject", subject || "Yeni İletişim Formu Mesajı");
 
         try {
-            const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+            const response = await fetch(`https://formspree.io/f/mblnkeke`, {
                 method: "POST",
                 body: formData,
                 headers: {
@@ -157,3 +157,4 @@ export default function ContactForm() {
         </>
     );
 }
+

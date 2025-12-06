@@ -9,8 +9,8 @@ export default function ContactForm() {
     const [message, setMessage] = useState("");
     const [subject, setSubject] = useState("");
 
-    // Access Key for Web3Forms
-    const ACCESS_KEY = "ef4c3b16-d244-4715-a4f9-d696bf255c36";
+    // Formspree Form ID
+    const FORMSPREE_ID = "mblnkeke";
 
     useEffect(() => {
         const konu = searchParams.get("konu");
@@ -21,30 +21,42 @@ export default function ContactForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         setStatus("submitting");
 
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
-        // Append access key
-        formData.append("access_key", ACCESS_KEY);
-        formData.append("subject", subject || "Yeni İletişim Formu Mesajı");
-        formData.append("from_name", "Asil Hukuk Web Sitesi");
+        // Custom config for Formspree
+        const finalData = {
+            ...data,
+            _subject: subject || "Yeni İletişim Formu Mesajı",
+        };
 
         try {
-            const response = await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
                 method: "POST",
-                body: formData
+                body: JSON.stringify(finalData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             });
 
-            const result = await response.json();
-
-            if (result.success) {
+            if (response.ok) {
                 setStatus("success");
                 setMessage("Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.");
-                (e.target as HTMLFormElement).reset();
+                form.reset();
             } else {
+                const result = await response.json();
                 setStatus("error");
-                setMessage(result.message || "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
+                // Formspree error handling
+                if (result.errors) {
+                    setMessage(result.errors.map((err: any) => err.message).join(", "));
+                } else {
+                    setMessage("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
+                }
             }
         } catch (error) {
             setStatus("error");

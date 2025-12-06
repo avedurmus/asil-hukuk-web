@@ -26,21 +26,16 @@ export default function ContactForm() {
 
         const form = e.currentTarget;
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
 
-        // Custom config for Formspree
-        const finalData = {
-            ...data,
-            _subject: subject || "Yeni İletişim Formu Mesajı",
-        };
+        // Formspree uses _subject for subject line
+        formData.append("_subject", subject || "Yeni İletişim Formu Mesajı");
 
         try {
             const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
                 method: "POST",
-                body: JSON.stringify(finalData),
+                body: formData,
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 }
             });
 
@@ -81,8 +76,8 @@ export default function ContactForm() {
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Hidden input for bot protection (Honeypot) */}
-                    <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+                    {/* Hidden input for bot protection (Honeypot) - Formspree expects _gotcha */}
+                    <input type="text" name="_gotcha" className="hidden" style={{ display: 'none' }} />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>

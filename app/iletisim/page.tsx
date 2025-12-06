@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
@@ -78,13 +79,15 @@ export default function ContactPage() {
                         />
                         {/* Contact Form */}
                         <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg border border-slate-100">
-                            <ContactForm />
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <ContactForm />
+                            </Suspense>
                         </div>
 
                         {/* Map */}
                         <div className="bg-slate-200 rounded-2xl overflow-hidden min-h-[400px] shadow-inner relative">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3014.6534576395567!2d29.218683576449176!3d40.92336337136209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c3293881df3e9f%3A0xe53a31da90610330!2sMai%20Residence!5e0!3m2!1str!2str!4v1715433230491!5m2!1str!2str"
+                                src={siteContent.contact.mapUrl}
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}

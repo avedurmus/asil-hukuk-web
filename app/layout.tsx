@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -8,14 +9,14 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const metadata: Metadata = {
     metadataBase: new URL('https://asilhukuk.net'),
     title: {
-        default: "Asil Hukuk | Av. Emre Durmuş - İstanbul Kartal Boşanma ve Ceza Avukatı",
+        default: "Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk ve Danışmanlık Bürosu",
         template: "%s | Asil Hukuk - İstanbul Kartal"
     },
-    description: "İstanbul Kartal'da deneyimli avukatlık hizmeti. Boşanma, Ağır Ceza, Gayrimenkul ve İş Hukuku davalarında 20 yıllık tecrübe. Av. Emre Durmuş liderliğinde sonuç odaklı hukuk bürosu.",
+    description: "İstanbul Kartal'da faaliyet gösteren Asil Hukuk, boşanma, ceza, gayrimenkul ve iş hukuku alanlarında hukuki danışmanlık ve avukatlık hizmeti sunmaktadır. Av. Emre Durmuş - 20+ Yıl Tecrübe.",
     keywords: [
-        'Avukat', 'Hukuk Bürosu', 'İstanbul Avukat', 'Kartal Avukat', 'Boşanma Avukatı',
-        'Ceza Avukatı', 'Ağır Ceza Avukatı', 'Gayrimenkul Avukatı', 'İş Mahkemesi Avukatı',
-        'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Emre Durmuş', 'Asil Hukuk'
+        'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
+        'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Soğanlık Avukat', 'Yakacık Avukat',
+        'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı'
     ],
     authors: [{ name: 'Av. Emre Durmuş', url: 'https://asilhukuk.net/hakkimizda' }],
     creator: 'Av. Emre Durmuş',
@@ -126,12 +127,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="tr" className="scroll-smooth">
-            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased pb-16 md:pb-0`}>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
                 {children}
+                <MobileBottomNav />
             </body>
         </html>
     );

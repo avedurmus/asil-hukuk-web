@@ -21,10 +21,10 @@ export default function ServiceCard({ title, description, icon: Icon, id }: Serv
                 {description}
             </p>
             <Link
-                href={`/iletisim?konu=${encodeURIComponent(title)}`}
+                href={`/calisma-alanlarimiz/${id}`}
                 className="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 hover:gap-2 transition-all"
             >
-                Danışmanlık Al <ArrowRight className="ml-1 h-4 w-4" />
+                Detaylı Bilgi <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
         </div>
     );

@@ -19,10 +19,10 @@ export default function Home() {
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16 max-w-3xl mx-auto">
-                            <span className="text-primary-600 font-semibold tracking-wider uppercase text-sm mb-2 block">Çalışma Alanlarımız</span>
-                            <h2 className="text-4xl font-serif font-bold text-slate-900 mb-4">Uzmanlık Alanlarımız</h2>
+                            <span className="text-primary-600 font-semibold tracking-wider uppercase text-sm mb-2 block">Faaliyet Alanlarımız</span>
+                            <h2 className="text-4xl font-serif font-bold text-slate-900 mb-4">Çalışma Alanlarımız</h2>
                             <p className="text-lg text-slate-600 font-light">
-                                Hukukun çeşitli alanlarında uzmanlaşmış kadromuzla, size en doğru hukuki desteği sunuyoruz.
+                                Hukukun çeşitli alanlarındaki deneyimimizle, size en doğru hukuki desteği sunuyoruz.
                             </p>
                         </div>
 

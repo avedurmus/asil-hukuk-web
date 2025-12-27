@@ -4,54 +4,54 @@ import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe } from "l
 export const siteContent = {
     hero: {
         title: "Adalet, Güven ve Modern Çözümler",
-        subtitle: "Asil Hukuk ve Danışmanlık Bürosu olarak, karmaşık hukuki süreçlerinizi şeffaf, hızlı ve sonuç odaklı yönetiyoruz.",
-        cta: "Hukuki Destek Al",
-        secondaryCta: "Hizmetlerimiz"
+        subtitle: "Asil Hukuk ve Danışmanlık Bürosu olarak, hukuki süreçlerinizi şeffaf, hızlı ve güvenilir bir şekilde yönetiyoruz.",
+        cta: "İletişime Geç",
+        secondaryCta: "Çalışma Alanlarımız"
     },
     about: {
         title: "Hakkımızda",
-        description: "2004 yılında Av. Emre Durmuş tarafından kurulan büromuz, 21 yılı aşkın deneyimiyle yurt içi ve yurt dışı müvekkillerine, tüzel ve gerçek kişilere kapsamlı hukuk ve danışmanlık hizmeti sunmaktadır. İlke edindiğimiz şeffaflık ve güven ile hukukun üstünlüğünü savunuyoruz.",
+        description: "2004 yılında Av. Emre Durmuş tarafından kurulan büromuz, 21 yılı aşkın mesleki tecrübesiyle hukukun üstünlüğü ilkesi çerçevesinde faaliyet göstermektedir. Şeffaflık, gizlilik ve meslek etiğine bağlılık temel değerlerimizdir.",
         stats: [
-            { value: "20+", label: "Yıllık Deneyim" },
-            { value: "500+", label: "Mutlu Müvekkil" },
-            { value: "98%", label: "Başarı Oranı" }
+            { value: "2004", label: "Yılından Beri" },
+            { value: "20+", label: "Yıllık Tecrübe" },
+            { value: "İstanbul", label: "Kartal Merkezli" }
         ]
     },
     services: [
         {
-            id: "bosanma",
+            id: "bosanma-ve-aile-hukuku",
             title: "Boşanma ve Aile Hukuku",
-            description: "Boşanma, velayet, nafaka ve mal paylaşımı davalarında hassas ve sonuç odaklı yaklaşım.",
+            description: "Anlaşmalı ve çekişmeli boşanma, velayet, nafaka ve mal paylaşımı davalarında hukuki destek.",
             icon: Users
         },
         {
-            id: "ceza",
+            id: "ceza-hukuku",
             title: "Ceza Hukuku",
-            description: "Soruşturma ve kovuşturma aşamalarında şüpheli, sanık veya mağdur vekilliği.",
+            description: "Soruşturma ve kovuşturma evrelerinde müdafi ve vekil olarak hukuki temsil.",
             icon: Shield
         },
         {
-            id: "ticaret",
+            id: "ticaret-ve-sirketler-hukuku",
             title: "Ticaret ve Şirketler Hukuku",
-            description: "Şirket kuruluşu, birleşme, devralma ve ticari sözleşmelerin düzenlenmesi.",
+            description: "Şirket kuruluşu, esas sözleşme değişiklikleri ve ticari uyuşmazlıklarda danışmanlık.",
             icon: Building
         },
         {
-            id: "gayrimenkul",
+            id: "gayrimenkul-hukuku",
             title: "Gayrimenkul Hukuku",
-            description: "Tapu iptal, tescil, kira tespit ve tahliye davaları süreçlerinin yönetimi.",
+            description: "Tapu iptal tescil, kira tespiti ve tahliye davaları süreçlerinde hukuki yardım.",
             icon: Globe
         },
         {
-            id: "is-hukuku",
+            id: "is-ve-sosyal-guvenlik-hukuku",
             title: "İş ve Sosyal Güvenlik Hukuku",
-            description: "İşe iade, kıdem ve ihbar tazminatı, iş kazası davalarında uzman destek.",
+            description: "İşe iade, işçilik alacakları ve hizmet tespiti davalarında hukuki süreç takibi.",
             icon: FileText
         },
         {
             id: "arabuluculuk",
             title: "Arabuluculuk",
-            description: "Hukuki uyuşmazlıkların dava yoluna gitmeden, hızlı ve ekonomik çözümü.",
+            description: "Hukuki uyuşmazlıkların dava dışı yollarla çözümü için arabuluculuk hizmeti.",
             icon: Scale
         }
     ],

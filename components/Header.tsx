@@ -29,8 +29,11 @@ export default function Header() {
                         <Link href="/hakkimizda" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             Hakkımızda
                         </Link>
-                        <Link href="/#uzmanliklar" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
-                            Uzmanlık Alanları
+                        <Link href="/calisma-alanlarimiz" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
+                            Çalışma Alanlarımız
+                        </Link>
+                        <Link href="/blog" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
+                            Blog
                         </Link>
                         <Link href="/iletisim" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             İletişim
@@ -68,11 +71,18 @@ export default function Header() {
                             Hakkımızda
                         </Link>
                         <Link
-                            href="/#uzmanliklar"
+                            href="/calisma-alanlarimiz"
                             className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-primary-900 hover:bg-slate-50 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Uzmanlık Alanları
+                            Çalışma Alanlarımız
+                        </Link>
+                        <Link
+                            href="/blog"
+                            className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-primary-900 hover:bg-slate-50 rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Blog
                         </Link>
                         <Link
                             href="/iletisim"

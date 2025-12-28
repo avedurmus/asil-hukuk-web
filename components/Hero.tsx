@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
 
 export default function Hero() {
@@ -34,6 +35,18 @@ export default function Hero() {
                         {siteContent.hero.secondaryCta}
                     </Link>
                 </div>
+            </div>
+
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/images/hero-bg.png"
+                    alt="Asil Hukuk Ofis"
+                    fill
+                    className="object-cover opacity-10"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/80 to-slate-50/90"></div>
             </div>
 
             {/* Decorative Elements */}

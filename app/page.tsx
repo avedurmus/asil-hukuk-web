@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import { siteContent } from "@/data/siteContent";
 import { ArrowRight, Star } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
     return (
@@ -72,16 +73,19 @@ export default function Home() {
                                     Daha Fazla Bilgi <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </div>
-                            <div className="relative">
-                                {/* Abstract Image Representation could be here, or use a placeholder div for now */}
-                                <div className="aspect-square rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 p-8 flex flex-col justify-center relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                        <Star className="w-64 h-64" />
-                                    </div>
-                                    <blockquote className="text-xl font-serif italic text-slate-300 mb-6 relative z-10">
+                            <div className="relative h-full min-h-[400px]">
+                                <Image
+                                    src="/images/justice-symbol.png"
+                                    alt="Adalet Sembolü"
+                                    fill
+                                    className="object-cover rounded-2xl shadow-2xl"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl"></div>
+                                <div className="absolute bottom-0 left-0 p-8 z-10">
+                                    <blockquote className="text-xl font-serif italic text-slate-100 mb-2">
                                         "Adalet mülkün temelidir. Biz bu temeli sağlam tutmak için çalışıyoruz."
                                     </blockquote>
-                                    <cite className="text-primary-500 font-bold not-italic">- {siteContent.brand.name}</cite>
+                                    <cite className="text-primary-400 font-bold not-italic">- {siteContent.brand.name}</cite>
                                 </div>
                             </div>
                         </div>

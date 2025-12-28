@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
 import { Scale, Award, Heart, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
 import { Metadata } from "next";
 
@@ -76,10 +77,12 @@ export default function AboutPage() {
                         <div className="order-1 lg:order-2 relative">
                             {/* Placeholder for an office image or lawyer portrait */}
                             <div className="aspect-[4/5] bg-slate-200 rounded-2xl relative overflow-hidden shadow-2xl">
-                                <div className="absolute inset-0 flex items-center justify-center text-slate-400 bg-slate-100">
-                                    <Scale className="w-32 h-32 opacity-20" />
-                                    <span className="absolute bottom-10 font-serif text-2xl text-slate-900 opacity-50">Asil Hukuk</span>
-                                </div>
+                                <Image
+                                    src="/images/about-office.png"
+                                    alt="Asil Hukuk Bürosu"
+                                    fill
+                                    className="object-cover"
+                                />
                             </div>
                             {/* Floating Stat Card */}
                             <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-xl shadow-xl border border-slate-100 hidden md:block">

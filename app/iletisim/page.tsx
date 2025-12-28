@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import Image from "next/image";
 
 import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
@@ -34,8 +35,20 @@ export default function ContactPage() {
         <div className="min-h-screen bg-slate-50 flex flex-col">
             <Header />
 
-            <main className="flex-grow pt-32 pb-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className="flex-grow pt-32 pb-20 relative">
+                {/* Background for Header */}
+                <div className="absolute top-0 left-0 w-full h-[500px] z-0">
+                    <Image
+                        src="/images/kartal-view.png"
+                        alt="Kartal İstanbul"
+                        fill
+                        className="object-cover opacity-10"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/90 to-slate-50"></div>
+                </div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-16">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">İletişim</h1>
                         <p className="text-xl text-slate-600 font-light max-w-2xl mx-auto">

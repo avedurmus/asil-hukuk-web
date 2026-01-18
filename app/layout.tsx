@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
@@ -134,6 +135,7 @@ export default function RootLayout({
                 />
                 {children}
                 <MobileBottomNav />
+                <GoogleAnalytics gaId="G-293723421" />
             </body>
         </html>
     );

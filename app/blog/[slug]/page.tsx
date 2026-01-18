@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { blogPosts } from "@/data/blogPosts";
-import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Tag, Share2, Linkedin, Facebook, Twitter } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
@@ -85,6 +85,53 @@ export default function BlogPostPage({ params }: Props) {
                                 className="prose prose-slate prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-a:text-primary-600 hover:prose-a:text-primary-700"
                                 dangerouslySetInnerHTML={{ __html: post.content }}
                             />
+
+                            {/* --- AUTHOR BIO & SHARE --- */}
+                            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 pt-10 border-t border-slate-100">
+                                {/* Author Bio */}
+                                <div className="md:col-span-2 flex items-start gap-6">
+                                    <div className="flex-shrink-0">
+                                        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-2xl">
+                                            ED
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-slate-900 mb-2">Av. Emre Durmuş</h3>
+                                        <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                                            Asil Hukuk Bürosu kurucusu. 20 yılı aşkın tecrübesiyle Aile, Ceza ve Gayrimenkul hukuku alanlarında müvekkillerine hizmet vermektedir.
+                                        </p>
+                                        <Link href="/hakkimizda" className="text-primary-600 font-medium text-sm hover:underline">
+                                            Detaylı Profil →
+                                        </Link>
+                                    </div>
+                                </div>
+
+                                {/* Share & Contact */}
+                                <div className="md:col-span-1 bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                    <h4 className="font-bold text-sm text-slate-900 mb-4 flex items-center uppercase tracking-wider">
+                                        <Share2 className="w-4 h-4 mr-2" /> Paylaş
+                                    </h4>
+                                    <div className="flex gap-3 mb-6">
+                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                            <Linkedin className="w-5 h-5" />
+                                        </button>
+                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                            <Twitter className="w-5 h-5" />
+                                        </button>
+                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                            <Facebook className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <Link
+                                            href="/iletisim"
+                                            className="block w-full py-2.5 bg-primary-600 text-white text-center rounded-lg font-medium hover:bg-primary-700 transition-colors text-sm"
+                                        >
+                                            Hukuki Destek Al
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </article>

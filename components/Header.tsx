@@ -35,6 +35,9 @@ export default function Header() {
                         <Link href="/blog" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             Blog
                         </Link>
+                        <Link href="/sss" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
+                            S.S.S.
+                        </Link>
                         <Link href="/iletisim" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             İletişim
                         </Link>
@@ -83,6 +86,13 @@ export default function Header() {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Blog
+                        </Link>
+                        <Link
+                            href="/sss"
+                            className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-primary-900 hover:bg-slate-50 rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            S.S.S.
                         </Link>
                         <Link
                             href="/iletisim"

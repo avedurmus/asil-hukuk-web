@@ -61,6 +61,26 @@ export const siteContent = {
         email: "emre@asilhukuk.net",
         mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3014.6534576395567!2d29.216394915174567!3d40.900355479261756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac48dec79614d%3A0x3c934d7002e8fd2b!2sAsil%20Hukuk%20B%C3%BCrosu!5e0!3m2!1str!2str!4v1765044431872!5m2!1str!2str"
     },
+    testimonials: [
+        {
+            id: 1,
+            name: "Ayşe Y.",
+            role: "Boşanma Davası Müvekkili",
+            content: "Zorlu boşanma sürecimde Emre Bey'in profesyonel yaklaşımı ve manevi desteği benim için çok kıymetliydi. Haklarımı sonuna kadar savunduğu için teşekkür ederim."
+        },
+        {
+            id: 2,
+            name: "Mehmet K.",
+            role: "Ticaret Hukuku Danışmanlığı",
+            content: "Şirketimizin kuruluşundan bu yana hukuki danışmanlığımızı yürüten Asil Hukuk, ticari risklerimizi minimize etmemizde büyük rol oynadı."
+        },
+        {
+            id: 3,
+            name: "Zeynep T.",
+            role: "İş Hukuku Davası",
+            content: "İşe iade davamda sürecin başından sonuna kadar şeffaf bir iletişim kurdular. Sonuçtan çok memnunum."
+        }
+    ],
     brand: {
         name: "Asil Hukuk",
         slogan: "Hukuk & Danışmanlık"

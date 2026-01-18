@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
         date: "27 Aralık 2024",
         readTime: "4 dk okuma",
         category: "Aile Hukuku",
-        imageUrl: "https://images.unsplash.com/photo-1590081874249-14a514d2e1c9?auto=format&fit=crop&q=80&w=800", // Placeholder generic legal image
+        imageUrl: "/images/anlasmali-bosanma-header.png",
         content: `
             <p>Anlaşmalı boşanma, evlilik birliğinin temelden sarsılması nedeniyle eşlerin boşanma ve boşanmanın mali sonuçları (nafaka, tazminat) ile çocukların durumu (velayet) konusunda anlaşarak mahkemeye başvurmalarıdır. 4721 sayılı Türk Medeni Kanunu'nun 166. maddesinde düzenlenmiştir.</p>
 
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
         date: "20 Aralık 2024",
         readTime: "5 dk okuma",
         category: "İş Hukuku",
-        imageUrl: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800",
+        imageUrl: "/images/ise-iade-header.png",
         content: `
             <p>İş güvencesi kapsamında olan işçiler, geçerli bir neden olmaksızın işten çıkarıldıklarında işe iade davası açabilirler. İş Kanunu, işverenin fesih (işten çıkarma) yetkisini sınırlandırmıştır.</p>
 

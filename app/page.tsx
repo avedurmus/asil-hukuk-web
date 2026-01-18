@@ -3,8 +3,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
+import Testimonials from "@/components/Testimonials"; // New Import
 import { siteContent } from "@/data/siteContent";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, HelpCircle } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -89,6 +90,24 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <Testimonials />
+
+                {/* --- FAQ CTA SECTION --- */}
+                <section className="py-20 bg-primary-900 text-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <HelpCircle className="w-16 h-16 mx-auto mb-6 text-primary-300 opacity-80" />
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">Aklınızda Soru İşaretleri mi Var?</h2>
+                        <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+                            Hukuki süreçler hakkında en çok merak edilen soruları sizin için cevapladık.
+                        </p>
+                        <Link
+                            href="/sss"
+                            className="inline-flex items-center px-8 py-4 bg-white text-primary-900 rounded-full font-bold hover:bg-primary-50 transition-colors shadow-lg"
+                        >
+                            Sıkça Sorulan Sorular <ArrowRight className="ml-2 w-5 h-5" />
+                        </Link>
                     </div>
                 </section>
             </main>

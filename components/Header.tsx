@@ -32,6 +32,9 @@ export default function Header() {
                         <Link href="/calisma-alanlarimiz" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             Çalışma Alanlarımız
                         </Link>
+                        <Link href="/kentsel-donusum-rehberi" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
+                            Kentsel Dönüşüm
+                        </Link>
                         <Link href="/ai-hukuk" className="text-blue-600 hover:text-blue-800 font-bold transition-colors animate-pulse">
                             AI Hukuk
                         </Link>
@@ -82,6 +85,13 @@ export default function Header() {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Çalışma Alanlarımız
+                        </Link>
+                        <Link
+                            href="/kentsel-donusum-rehberi"
+                            className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-primary-900 hover:bg-slate-50 rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Kentsel Dönüşüm
                         </Link>
                         <Link
                             href="/ai-hukuk"

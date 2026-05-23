@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         'ICBM': '40.89, 29.19'
     },
     verification: {
-        google: 'google-site-verification-code', // Reminder to user
+        google: 'ikCUHrQbKy3f8efZEj7Bp1Az5uQ7F3svuLfCtYPZt3I',
     }
 };
 

@@ -8,6 +8,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Hukuk Blogu | Asil Hukuk - Güncel Hukuki Makaleler",
     description: "Boşanma, ceza, iş ve gayrimenkul hukuku alanında güncel makaleler, yargıtay kararları ve hukuki rehberler.",
+    alternates: {
+        canonical: "/blog",
+    },
 };
 
 export default function BlogIndexPage() {

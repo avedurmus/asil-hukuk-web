@@ -6,6 +6,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Sıkça Sorulan Sorular | Asil Hukuk Bürosu",
     description: "Boşanma, ceza, iş ve gayrimenkul hukuku hakkında en çok sorulan sorular ve avukatımızın detaylı cevapları.",
+    alternates: {
+        canonical: "/sss",
+    },
 };
 
 export default function FAQPage() {

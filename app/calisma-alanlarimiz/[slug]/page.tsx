@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${service.title} | Asil Hukuk - İstanbul Kartal`,
         description: service.shortDescription,
+        alternates: {
+            canonical: `/calisma-alanlarimiz/${params.slug}`,
+        },
     };
 }
 

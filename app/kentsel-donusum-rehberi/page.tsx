@@ -1,9 +1,15 @@
-"use client";
-
 import React from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { ArrowRight, Building, CheckCircle2, FileText, Gavel, FileCheck, Landmark, Users } from 'lucide-react';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Yeni Kentsel Dönüşüm Süreci Rehberi (2025) | Asil Hukuk",
+    description: "6306 Sayılı Kanun kapsamındaki salt çoğunluk (%50+1) ile kentsel dönüşüm kararı, yeni tebligat usulleri ve pay satışı süreçlerine dair pratik hukuki rehber.",
+    alternates: {
+        canonical: "/kentsel-donusum-rehberi",
+    },
+};
 
 export default function KentselDonusumRehberi() {
   return (

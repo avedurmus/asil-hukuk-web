@@ -29,9 +29,6 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: '/',
-        languages: {
-            'tr-TR': '/tr',
-        },
     },
     openGraph: {
         title: 'Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk Bürosu',
@@ -42,7 +39,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg', // We should ensure this exists or use a generic one if possible later
+                url: '/og-image.png',
                 width: 1200,
                 height: 630,
                 alt: 'Asil Hukuk Bürosu',

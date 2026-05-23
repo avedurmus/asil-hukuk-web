@@ -8,6 +8,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Çalışma Alanlarımız | Asil Hukuk Bürosu - İstanbul Kartal",
     description: "Boşanma, Ceza, Gayrimenkul, İş ve Ticaret Hukuku alanlarında uzmanlaşmış Asil Hukuk Bürosu'nun faaliyet alanları.",
+    alternates: {
+        canonical: "/calisma-alanlarimiz",
+    },
 };
 
 export default function ServicesPage() {

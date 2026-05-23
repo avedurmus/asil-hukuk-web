@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${post.title} | Asil Hukuk Blog`,
         description: post.excerpt,
+        alternates: {
+            canonical: `/blog/${params.slug}`,
+        },
     };
 }
 

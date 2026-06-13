@@ -151,15 +151,33 @@ export default function BlogPostPage({ params }: Props) {
                                         <Share2 className="w-4 h-4 mr-2" /> Paylaş
                                     </h4>
                                     <div className="flex gap-3 mb-6">
-                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                        <a
+                                            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://asilhukuk.net/blog/${post.id}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors"
+                                            aria-label="LinkedIn'de Paylaş"
+                                        >
                                             <Linkedin className="w-5 h-5" />
-                                        </button>
-                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                        </a>
+                                        <a
+                                            href={`https://twitter.com/intent/tweet?url=https://asilhukuk.net/blog/${post.id}&text=${encodeURIComponent(post.title)}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors"
+                                            aria-label="X'te Paylaş"
+                                        >
                                             <Twitter className="w-5 h-5" />
-                                        </button>
-                                        <button className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors">
+                                        </a>
+                                        <a
+                                            href={`https://www.facebook.com/sharer/sharer.php?u=https://asilhukuk.net/blog/${post.id}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-colors"
+                                            aria-label="Facebook'ta Paylaş"
+                                        >
                                             <Facebook className="w-5 h-5" />
-                                        </button>
+                                        </a>
                                     </div>
                                     <div>
                                         <Link

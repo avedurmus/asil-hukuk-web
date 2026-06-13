@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteContent } from "@/data/siteContent";
-import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook, Twitter } from "lucide-react";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -60,10 +60,18 @@ export default function Footer() {
                 <div className="border-t border-slate-900 mt-12 pt-8 text-center text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center">
                     <p>&copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
-                        {/* Social placeholders */}
-                        <Instagram className="w-5 h-5 cursor-pointer hover:text-white transition-colors" />
-                        <Linkedin className="w-5 h-5 cursor-pointer hover:text-white transition-colors" />
-                        <Facebook className="w-5 h-5 cursor-pointer hover:text-white transition-colors" />
+                        <a href="https://www.instagram.com/asilhukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Instagram">
+                            <Instagram className="w-5 h-5" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn">
+                            <Linkedin className="w-5 h-5" />
+                        </a>
+                        <a href="https://x.com/AsilHukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="X (Twitter)">
+                            <Twitter className="w-5 h-5" />
+                        </a>
+                        <a href="https://www.facebook.com/asilhukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Facebook">
+                            <Facebook className="w-5 h-5" />
+                        </a>
                     </div>
                 </div>
             </div>

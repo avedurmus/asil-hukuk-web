@@ -45,7 +45,7 @@ export default function BlogPostPage({ params }: Props) {
         "headline": post.title,
         "description": post.excerpt,
         "image": `https://asilhukuk.net${post.imageUrl}`,
-        "datePublished": post.id === "kiraci-tahliye-davasi-sartlari-suresi" ? "2026-06-13" : post.id === "bosanma-surecinde-mal-kacirma" ? "2026-01-07" : post.id === "ise-iade-davasi-sartlari" ? "2024-12-20" : "2024-12-27",
+        "datePublished": post.id === "kiraci-tahliye-davasi-sartlari-suresi" ? "2026-06-13" : post.id === "sirketlerde-alacak-tahsili-ve-icra-takibi" ? "2026-06-13" : post.id === "bosanma-surecinde-mal-kacirma" ? "2026-01-07" : post.id === "ise-iade-davasi-sartlari" ? "2024-12-20" : "2024-12-27",
         "author": {
             "@type": "Person",
             "name": "Av. Emre Durmuş",

@@ -250,5 +250,104 @@ export const blogPosts: BlogPost[] = [
 
             <p><em>Uyarı: Bu makaledeki bilgiler genel bilgilendirme amaçlı olup yasal danışmanlık yerine geçmez. Kira hukuku süreleri ve usul kuralları çok sıkı olan bir alandır; hak kaybına uğramamak adına bir avukata danışmanız önerilir.</em></p>
         `
+    },
+    {
+        id: "sirketlerde-alacak-tahsili-ve-icra-takibi",
+        title: "Şirketlerde Alacak Tahsili ve İcra Takibi Rehberi",
+        excerpt: "Şirketlerin fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz kararı, ticari arabuluculuk ve icra takibi süreçleri hakkında şirket yöneticileri için yasal rehber.",
+        date: "13 Haziran 2026",
+        readTime: "8 dk okuma",
+        category: "Ticaret Hukuku",
+        imageUrl: "/images/justice-symbol.png",
+        content: `
+            <p>Ticari hayatta nakit akışının düzenli sağlanması, şirketlerin sürdürülebilirliği açısından hayati öneme sahiptir. Ancak mal teslimi veya hizmet ifasına rağmen zamanında ödenmeyen faturalar, cari hesap alacakları ve karşılıksız çek/senetler şirketleri ciddi finansal dar boğazlara sürükleyebilir. Bu gibi durumlarda, yasal süreçlerin hızlı ve doğru işletilmesi alacağın tahsil kabiliyetini doğrudan belirler.</p>
+
+            <p>Bu rehberimizde, şirketlerin ticari alacaklarını tahsil ederken kullanabileceği hukuki mekanizmaları, icra takibi yöntemlerini ve **ihtiyati haciz** gibi koruyucu önlemleri şirket yöneticileri için sadeleştirerek ele alacağız.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>1. Ticari Alacak Türleri ve Belgelendirme</h3>
+            <p>Bir icra takibinin başarıya ulaşmasındaki en önemli unsur alacağın belgelendirilmesidir. Şirketlerin en sık karşılaştığı alacak türleri şunlardır:</p>
+            <ul>
+                <li><strong>Fatura ve Cari Hesap Alacakları:</strong> Satılan mal veya verilen hizmet karşılığında düzenlenen faturaya ve taraflar arasındaki cari hesap ekstresine dayanan alacaklardır. Faturaya 8 gün içinde itiraz edilmemesi, içeriğinin kabul edildiği anlamına gelir (TTK m. 21/2).</li>
+                <li><strong>Kambiyo Senetleri (Çek, Senet/Bono):</strong> Ticari işlemlerde en güçlü güvencelerden biridir. Kambiyo senetlerine dayalı icra takipleri, normal takiplere göre çok daha hızlı sonuçlanır.</li>
+                <li><strong>Sözleşmeye Dayalı Alacaklar:</strong> İki şirket arasında imzalanmış, teslim ve ödeme vadelerini belirten yazılı sözleşmelerdir.</li>
+            </ul>
+
+            <h3>2. Alacak Tahsilinde Hızlı Çözüm: İhtiyati Haciz Kararı</h3>
+            <p>Borçlunun mallarını kaçırmasını veya gizlemesini önlemek amacıyla, henüz icra takibi kesinleşmeden önce mahkemeden alınan geçici hukuki koruma kararına **İhtiyati Haciz** denir.</p>
+            <p>Şirketlerin alacaklarını garanti altına alması için en etkili hukuki yoldur. İhtiyati haciz kararı alabilmek için:</p>
+            <ul>
+                <li>Alacağın vadesinin gelmiş (muaccel) olması,</li>
+                <li>Alacağın bir rehinle teminat altına alınmamış olması,</li>
+                <li>Alacağın varlığına dair mahkemeye yaklaşık bir ispat sunulması (fatura, sevk irsaliyesi, sözleşme vb.) gerekir.</li>
+            </ul>
+            <p>Karar alındıktan sonra 10 gün içinde icra dairesine başvurularak borçlunun banka hesaplarına, araçlarına ve tapularına **anında fiili veya kaydi haciz** uygulanır. Bu durum, borçlu şirketi anlaşma masasına oturmaya zorlayan en büyük kozdur.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>3. İcra Takip Yolları ve İtiraz Süreçleri</h3>
+            <p>Şirketler alacakları için temelde iki farklı icra takibi yolu seçebilir:</p>
+
+            <h4>A. Genel Haciz Yoluyla İlamsız Takip</h4>
+            <p>Herhangi bir mahkeme kararı veya kambiyo senedi olmadan, sadece fatura veya sözleşmeye dayanarak (hatta belgesiz olarak bile) açılabilen takip türüdür.
+            Borçluya ödeme emri gönderilir. **Borçlunun ödeme emrine 7 gün içinde itiraz etme hakkı vardır.** İtiraz edildiği anda icra takibi durur.</p>
+
+            <h4>B. Kambiyo Senetlerine Özgü Haciz Yolu</h4>
+            <p>Alacağın çek veya bonoya (senet) dayanması durumunda açılır. Borçlunun itiraz süresi **5 gündür** ve itiraz etmek takibi kendiliğinden durdurmaz (satışı durdurur). İtiraz ancak İcra Mahkemesine yapılabilir.</p>
+
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg my-6">
+                <p className="text-amber-800 text-sm md:text-base">
+                    <strong>Kritik Uyarı:</strong> İlamsız icra takiplerinde borçlu şirketin kötü niyetli olarak borca itiraz etmesi durumunda, alacaklı şirket **İtirazın İptali Davası** açmalıdır. Mahkeme alacaklıyı haklı bulursa, borçlu şirket alacağın yanı sıra en az **%20 oranında İcra İnkar Tazminatı** ödemeye mahkum edilir.
+                </p>
+            </div>
+
+            <h3>4. Zorunlu Ticari Arabuluculuk Süreci</h3>
+            <p>Türk Ticaret Kanunu (TTK m. 5/A) uyarınca, konusu bir miktar paranın ödenmesi olan ticari uyuşmazlıklarda dava açmadan önce **arabuluculuk sürecinin tamamlanmış olması dava şartıdır.**</p>
+            <p>İcra takibine itiraz edilmesi sonucu açılacak İtirazın İptali davalarından önce de ticari arabulucuya başvurulması zorunludur. Arabuluculuk aşamasında anlaşma sağlanırsa düzenlenen tutanak mahkeme ilamı hükmündedir ve doğrudan icra edilebilir.</p>
+
+            <h3>Özet Tablo: Ticari Alacak Yönetim Adımları</h3>
+            <div class="overflow-x-auto my-6">
+                <table class="w-full text-sm text-left text-gray-600 border border-gray-200">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 border-r border-b">Aşama</th>
+                            <th scope="col" class="px-6 py-3 border-r border-b">Yapılacak İşlem</th>
+                            <th scope="col" class="px-6 py-3 border-b">Hukuki Sonuç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">1. Adım</td>
+                            <td class="px-6 py-4 border-r">Faturanın Karşı Tarafa Tebliği & Cari Hesap Mutabakatı</td>
+                            <td class="px-6 py-4">8 günlük itiraz süresi başlar, alacak kesinleşir.</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">2. Adım</td>
+                            <td class="px-6 py-4 border-r">Asliye Ticaret Mahkemesinden İhtiyati Haciz Talebi</td>
+                            <td class="px-6 py-4">Dava açılmadan borçlunun mal kaçırması engellenir.</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">3. Adım</td>
+                            <td class="px-6 py-4 border-r">İlamsız İcra Takibinin Başlatılması</td>
+                            <td class="px-6 py-4">Borçluya 7 günlük ödeme/itiraz süresi verilir.</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">4. Adım</td>
+                            <td class="px-6 py-4 border-r">Borçlu İtiraz Ederse: Ticari Arabuluculuğa Başvuru</td>
+                            <td class="px-6 py-4">Dava şartı yerine getirilir, anlaşma aranır.</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">5. Adım</td>
+                            <td class="px-6 py-4 border-r">Anlaşamama Halinde: İtirazın İptali Davası</td>
+                            <td class="px-6 py-4">Borç kesinleşir, haciz işlemleri devam eder + %20 tazminat alınır.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><em>Not: Şirketlerin alacak takipleri yüksek meblağlar içerdiğinden, usul hataları alacağın tamamen tahsil edilemez hale gelmesine sebep olabilir. Sürecin başından itibaren uzman bir ticaret ve icra avukatı ile çalışılması firmanızın finansal güvenliği için elzemdir.</em></p>
+        `
     }
 ];
+

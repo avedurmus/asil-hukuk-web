@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
@@ -135,7 +135,19 @@ export default function RootLayout({
                 />
                 {children}
                 <MobileBottomNav />
-                <GoogleAnalytics gaId="G-J7F4RKQLG1" />
+                {/* Google tag (gtag.js) */}
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-J7F4RKQLG1"
+                    strategy="afterInteractive"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-J7F4RKQLG1');
+                    `}
+                </Script>
             </body>
         </html>
     );

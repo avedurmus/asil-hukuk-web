@@ -97,6 +97,61 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Kurucumuz Section */}
+                <div className="bg-slate-100 border-t border-b border-slate-200/50 py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                            {/* Portrait Image */}
+                            <div className="lg:col-span-1 relative max-w-sm mx-auto lg:mx-0 w-full">
+                                <div className="aspect-[4/5] bg-slate-200 rounded-2xl relative overflow-hidden shadow-xl border border-slate-200">
+                                    <Image
+                                        src="/images/emre-durmus.jpg"
+                                        alt="Av. Emre Durmuş"
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                </div>
+                            </div>
+                            
+                            {/* Bio Content */}
+                            <div className="lg:col-span-2">
+                                <span className="text-primary-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
+                                    Kurucumuz
+                                </span>
+                                <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">
+                                    Av. Emre Durmuş
+                                </h2>
+                                <p className="text-slate-700 mb-6 leading-relaxed text-lg">
+                                    Asil Hukuk Bürosu'nun kurucusu olan Av. Emre Durmuş, 20 yılı aşkın mesleki birikimiyle müvekkillerine ceza hukuku, aile hukuku, gayrimenkul hukuku ve iş hukuku başta olmak üzere hukukun birçok dalında profesyonel danışmanlık ve avukatlık hizmeti vermektedir.
+                                </p>
+                                <p className="text-slate-600 mb-8 leading-relaxed">
+                                    İstanbul Barosu bünyesinde çalışmalarını sürdüren Av. Emre Durmuş, hukukun üstünlüğü ve adaletin tecellisi ilkelerinden taviz vermeksizin, müvekkillerinin haklarını korumak amacıyla dürüst, şeffaf ve sonuç odaklı çözümler üretmektedir. Aynı zamanda Adalet Bakanlığı bünyesinde kayıtlı uzman arabulucu olarak uyuşmazlıkların barışçıl yollarla çözüme kavuşturulmasında aktif rol oynamaktadır.
+                                </p>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700">
+                                    <div className="flex items-center space-x-3">
+                                        <Award className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <span>İstanbul Barosu Üyesi</span>
+                                    </div>
+                                    <div className="flex items-center space-x-3">
+                                        <Scale className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <span>Uzman Arabulucu</span>
+                                    </div>
+                                    <div className="flex items-center space-x-3">
+                                        <Award className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <span>21 Yılı Aşkın Mesleki Tecrübe</span>
+                                    </div>
+                                    <div className="flex items-center space-x-3">
+                                        <ShieldCheck className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <span>Şeffaf ve Güvenilir Temsil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
 
             <Footer />

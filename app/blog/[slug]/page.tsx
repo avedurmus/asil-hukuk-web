@@ -5,6 +5,7 @@ import { blogPosts } from "@/data/blogPosts";
 import { Calendar, Clock, ArrowLeft, Tag, Share2, Linkedin, Facebook, Twitter } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import Image from "next/image";
 
 interface Props {
     params: {
@@ -94,8 +95,13 @@ export default function BlogPostPage({ params }: Props) {
                                 {/* Author Bio */}
                                 <div className="md:col-span-2 flex items-start gap-6">
                                     <div className="flex-shrink-0">
-                                        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-2xl">
-                                            ED
+                                        <div className="w-16 h-16 rounded-full overflow-hidden relative border border-slate-200">
+                                            <Image
+                                                src="/images/emre-durmus.jpg"
+                                                alt="Av. Emre Durmuş"
+                                                fill
+                                                className="object-cover"
+                                            />
                                         </div>
                                     </div>
                                     <div>

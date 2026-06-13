@@ -135,7 +135,7 @@ export default function RootLayout({
                 />
                 {children}
                 <MobileBottomNav />
-                <GoogleAnalytics gaId="G-293723421" />
+                <GoogleAnalytics gaId="G-J7F4RKQLG1" />
             </body>
         </html>
     );

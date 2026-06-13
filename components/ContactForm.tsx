@@ -42,6 +42,17 @@ export default function ContactForm() {
             if (response.ok) {
                 setStatus("success");
                 setMessage("Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.");
+                
+                // Google Analytics 4 (GA4) Conversion Event
+                if (typeof window !== "undefined" && (window as any).gtag) {
+                    (window as any).gtag("event", "generate_lead", {
+                        event_category: "Contact",
+                        event_label: "Contact Form Submission Success",
+                        value: 1.0,
+                        currency: "TRY"
+                    });
+                }
+
                 form.reset();
             } else {
                 const result = await response.json();

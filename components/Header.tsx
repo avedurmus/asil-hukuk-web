@@ -49,6 +49,14 @@ export default function Header() {
                         </Link>
                         <Link
                             href="/iletisim"
+                            onClick={() => {
+                                if (typeof window !== "undefined" && (window as any).gtag) {
+                                    (window as any).gtag("event", "click_appointment_button", {
+                                        event_category: "Contact",
+                                        event_label: "Header Desktop - Randevu Al"
+                                    });
+                                }
+                            }}
                             className="flex items-center px-5 py-2.5 bg-primary-900 text-white rounded-md hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
                         >
                             <Phone className="w-4 h-4 mr-2" />
@@ -124,7 +132,15 @@ export default function Header() {
                         <Link
                             href="/iletisim"
                             className="block w-full text-center mt-4 px-5 py-3 bg-primary-900 text-white rounded-md font-medium"
-                            onClick={() => setIsMenuOpen(false)}
+                            onClick={() => {
+                                setIsMenuOpen(false);
+                                if (typeof window !== "undefined" && (window as any).gtag) {
+                                    (window as any).gtag("event", "click_appointment_button", {
+                                        event_category: "Contact",
+                                        event_label: "Header Mobile - Randevu Al"
+                                    });
+                                }
+                            }}
                         >
                             Randevu Al
                         </Link>

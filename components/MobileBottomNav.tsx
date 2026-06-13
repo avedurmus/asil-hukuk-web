@@ -9,6 +9,14 @@ export default function MobileBottomNav() {
             <div className="grid grid-cols-2 gap-4 p-3">
                 <a
                     href={`tel:${siteContent.contact.phone.replace(/\s/g, '')}`}
+                    onClick={() => {
+                        if (typeof window !== "undefined" && (window as any).gtag) {
+                            (window as any).gtag("event", "click_phone", {
+                                event_category: "Contact",
+                                event_label: "Mobile Bottom Nav - Call Now"
+                            });
+                        }
+                    }}
                     className="flex flex-col items-center justify-center bg-primary-600 text-white rounded-lg py-3 active:bg-primary-700 transition-colors shadow-sm"
                 >
                     <Phone className="w-5 h-5 mb-1" />
@@ -18,6 +26,14 @@ export default function MobileBottomNav() {
                     href={`https://wa.me/90${siteContent.contact.phone.replace(/\s+|^0/g, '')}?text=Merhaba,%20hukuki%20destek%20almak%20istiyorum.`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                        if (typeof window !== "undefined" && (window as any).gtag) {
+                            (window as any).gtag("event", "click_whatsapp", {
+                                event_category: "Contact",
+                                event_label: "Mobile Bottom Nav - WhatsApp Click"
+                            });
+                        }
+                    }}
                     className="flex flex-col items-center justify-center bg-green-600 text-white rounded-lg py-3 active:bg-green-700 transition-colors shadow-sm"
                 >
                     <MessageCircle className="w-5 h-5 mb-1" />

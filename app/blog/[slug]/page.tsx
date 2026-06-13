@@ -39,10 +39,40 @@ export default function BlogPostPage({ params }: Props) {
         notFound();
     }
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://asilhukuk.net${post.imageUrl}`,
+        "datePublished": post.id === "kiraci-tahliye-davasi-sartlari-suresi" ? "2026-06-13" : post.id === "bosanma-surecinde-mal-kacirma" ? "2026-01-07" : post.id === "ise-iade-davasi-sartlari" ? "2024-12-20" : "2024-12-27",
+        "author": {
+            "@type": "Person",
+            "name": "Av. Emre Durmuş",
+            "url": "https://asilhukuk.net/hakkimizda"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Asil Hukuk Bürosu",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://asilhukuk.net/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://asilhukuk.net/blog/${post.id}`
+        }
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col">
             <Header />
             <main className="flex-grow pt-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
                 <article>
                     {/* Article Header */}
                     <div className="bg-slate-900 text-white py-16 px-4">

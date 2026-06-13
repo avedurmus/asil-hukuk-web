@@ -170,5 +170,85 @@ export const blogPosts: BlogPost[] = [
                 </table>
             </div>
         `
+    },
+    {
+        id: "kiraci-tahliye-davasi-sartlari-suresi",
+        title: "Kiracı Tahliye Davası Nasıl Açılır? Şartları ve Süresi 2026",
+        excerpt: "Kiracı tahliye davası şartları, tahliye taahhütnamesi ile tahliye, kiranın ödenmemesi nedeniyle tahliye ve zorunlu arabuluculuk süreci hakkında güncel hukuki rehber.",
+        date: "13 Haziran 2026",
+        readTime: "7 dk okuma",
+        category: "Gayrimenkul Hukuku",
+        imageUrl: "/images/justice-symbol.png",
+        content: `
+            <p>Son yıllarda yaşanan ekonomik gelişmeler ve kira fiyatlarındaki artışlar, ev sahibi ile kiracı arasındaki uyuşmazlıkları zirveye taşımıştır. Bu kapsamda en çok merak edilen konulardan biri de <strong>"Kiracı Tahliye Davası"</strong> süreçleridir. Türk Borçlar Kanunu (TBK), kiracının korunması ilkesini benimsemiş olsa da belirli şartların varlığı halinde ev sahibine kiracıyı tahliye etme hakkı tanımıştır.</p>
+
+            <p>Bu rehberimizde, 2026 yılı güncel mevzuatı ve Yargıtay kararları ışığında kiracı tahliye davası şartlarını, tahliye sebeplerini ve sürecin ne kadar sürdüğünü detaylıca ele alacağız.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>1. En Sık Kullanılan Kiracı Tahliye Sebepleri</h3>
+            <p>Ev sahibinin kiracıyı keyfi olarak evden çıkarması yasal olarak mümkün değildir. Tahliye için kanunda sınırlı olarak sayılan sebeplerden en az birinin gerçekleşmiş olması gerekir:</p>
+
+            <h4>A. Yazılı Tahliye Taahhütnamesi ile Tahliye</h4>
+            <p>Kiracının, kiralananı belirli bir tarihte boşaltmayı yazılı olarak üstlendiği belgedir. Tahliye taahhütnamesinin geçerli olabilmesi için şu şartlar zorunludur:</p>
+            <ul>
+                <li><strong>Yazılı Olmalıdır:</strong> Sözlü taahhüt geçersizdir.</li>
+                <li><strong>Serbest İradeyle İmzalanmalıdır:</strong> Kiracı baskı altında olmadan imzalamış olmalıdır.</li>
+                <li><strong>Düzenleme Tarihi Kira Sözleşmesinden Sonra Olmalıdır:</strong> En kritik şart budur. Kira sözleşmesi ile aynı gün veya sözleşme imzalanmadan önce alınan taahhütnameler Yargıtay kararlarına göre geçersiz sayılır. Tahliye tarihi ise net olarak belirtilmelidir.</li>
+            </ul>
+
+            <h4>B. İhtiyaç Nedeniyle Tahliye (Gereksinim)</h4>
+            <p>Ev sahibinin kendisi, eşi, altsoyu (çocukları, torunları), üstsoyu (anne, babası) veya kanunen bakmakla yükümlü olduğu diğer kişiler için konut veya işyeri gereksinimi ortaya çıkarsa tahliye davası açılabilir. Bu ihtiyacın <strong>gerçek, samimi ve zorunlu</strong> olması şarttır. Geçici veya spekülatif ihtiyaçlar tahliye nedeni sayılmaz.</p>
+
+            <h4>C. İki Haklı İhtar Nedeniyle Tahliye</h4>
+            <p>Bir kira yılı içerisinde, kira bedelinin ödenmemesi nedeniyle kiracıya farklı aylarda <strong>iki haklı ihtarname</strong> çekilmişse, ev sahibi kira yılının bitiminden itibaren 1 ay içinde tahliye davası açabilir. İhtarnamelerin noter kanalıyla çekilmesi ispat kolaylığı açısından çok önemlidir.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>2. Kira Uyuşmazlıklarında Zorunlu Arabuluculuk Şartı</h3>
+            <p>Yasal düzenlemeler uyarınca, kira uyuşmazlıklarında doğrudan dava açılması mümkün değildir. <strong>Tahliye davası açmadan önce arabulucuya başvurulması zorunludur.</strong></p>
+            <p>Arabuluculuk sürecinde taraflar anlaşamazsa, arabulucunun düzenlediği "anlaşmazlık son tutanağı" ile birlikte Sulh Hukuk Mahkemesinde dava açılabilir. Arabuluculuk süreci genellikle 3 ila 4 hafta içerisinde tamamlanmaktadır.</p>
+
+            <h3>3. Kiracı Tahliye Davası Ne Kadar Sürer?</h3>
+            <p>Tahliye davalarının süresi, dayanılan tahliye sebebine ve mahkemenin iş yoğunluğuna göre değişiklik gösterir:</p>
+
+            <div class="overflow-x-auto my-6">
+                <table class="w-full text-sm text-left text-gray-600 border border-gray-200">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 border-r border-b">Tahliye Gerekçesi</th>
+                            <th scope="col" class="px-6 py-3 border-b">Ortalama Dava Süresi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">Geçerli Tahliye Taahhütnamesi</td>
+                            <td class="px-6 py-4">3 - 6 Ay (İlamsız İcra takibi ile daha hızlı)</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">İhtiyaç (Gereksinim) Nedeniyle Tahliye</td>
+                            <td class="px-6 py-4">8 - 14 Ay</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">İki Haklı İhtar Nedeniyle Tahliye</td>
+                            <td class="px-6 py-4">10 - 18 Ay</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r">Kira Bedelinin Ödenmemesi (İcra Takibi)</td>
+                            <td class="px-6 py-4">6 - 10 Ay</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <blockquote class="bg-blue-50 border-l-4 border-blue-600 p-4 my-4 italic text-gray-700">
+                <strong>Profesyonel Tavsiye:</strong> Tahliye taahhütnamelerinde süreler çok katıdır. Taahhüt edilen tarihten itibaren <strong>1 ay içinde</strong> icra takibi veya dava açılmazsa hak düşer ve taahhütname geçerliliğini yitirir. Bu nedenle süre takibinin profesyonel bir gayrimenkul avukatı tarafından yapılması kritik önem taşır.
+            </blockquote>
+
+            <h3>4. Görevli ve Yetkili Mahkeme</h3>
+            <p>Kiracı tahliye davalarında görevli mahkeme **Sulh Hukuk Mahkemesi**'dir. Yetkili mahkeme ise taşınmazın bulunduğu yer mahkemesidir. Örneğin, İstanbul Kartal'daki bir taşınmaz için açılacak tahliye davasında **İstanbul Anadolu (Kartal) Sulh Hukuk Mahkemeleri** yetkilidir.</p>
+
+            <p><em>Uyarı: Bu makaledeki bilgiler genel bilgilendirme amaçlı olup yasal danışmanlık yerine geçmez. Kira hukuku süreleri ve usul kuralları çok sıkı olan bir alandır; hak kaybına uğramamak adına bir avukata danışmanız önerilir.</em></p>
+        `
     }
 ];

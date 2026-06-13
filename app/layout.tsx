@@ -17,7 +17,9 @@ export const metadata: Metadata = {
     keywords: [
         'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
         'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Soğanlık Avukat', 'Yakacık Avukat',
-        'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı'
+        'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı',
+        'Kartal kira avukatı', 'tahliye davası avukatı', 'Pendik avukat', 'Maltepe avukat',
+        'Kartal arabulucu avukat', 'İstanbul tahliye avukatı'
     ],
     authors: [{ name: 'Av. Emre Durmuş', url: 'https://asilhukuk.net/hakkimizda' }],
     creator: 'Av. Emre Durmuş',

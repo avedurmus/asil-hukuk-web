@@ -38,12 +38,41 @@ export default function ServiceDetailPage({ params }: Props) {
         notFound();
     }
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": service.title,
+        "description": service.shortDescription,
+        "provider": {
+            "@type": "LegalService",
+            "name": "Asil Hukuk Bürosu",
+            "url": "https://asilhukuk.net",
+            "telephone": "0530 432 20 25",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Yalı Mah. Topselvi Cad. No:100 Mai Residence K:14 D:124",
+                "addressLocality": "Kartal",
+                "addressRegion": "İstanbul",
+                "postalCode": "34873",
+                "addressCountry": "TR"
+            }
+        },
+        "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "İstanbul"
+        }
+    };
+
     const Icon = service.icon;
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col">
             <Header />
             <main className="flex-grow pt-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
                 {/* Hero Section */}
                 <div className="bg-slate-900 text-white py-16 px-4 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-primary-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>

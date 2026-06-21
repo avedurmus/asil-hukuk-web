@@ -38,6 +38,9 @@ export default function Header() {
                         <Link href="/ai-hukuk" className="text-blue-600 hover:text-blue-800 font-bold transition-colors animate-pulse">
                             AI Hukuk
                         </Link>
+                        <Link href="/asistan" className="text-amber-600 hover:text-amber-800 font-bold transition-colors">
+                            YargıAsistan
+                        </Link>
                         <Link href="/blog" className="text-slate-600 hover:text-primary-900 font-medium transition-colors">
                             Blog
                         </Link>
@@ -107,6 +110,13 @@ export default function Header() {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             AI Hukuk
+                        </Link>
+                        <Link
+                            href="/asistan"
+                            className="block px-3 py-3 text-base font-bold text-amber-600 hover:bg-amber-50 rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            YargıAsistan
                         </Link>
                         <Link
                             href="/blog"

@@ -29,6 +29,7 @@ export default function Footer() {
                             <li><Link href="/" className="hover:text-primary-500 transition-colors">Ana Sayfa</Link></li>
                             <li><Link href="/hakkimizda" className="hover:text-primary-500 transition-colors">Hakkımızda</Link></li>
                             <li><Link href="/#uzmanliklar" className="hover:text-primary-500 transition-colors">Uzmanlık Alanlarımız</Link></li>
+                            <li><Link href="/asistan" className="hover:text-amber-500 transition-colors font-semibold">YargıAsistan (AI)</Link></li>
                             <li><Link href="/iletisim" className="hover:text-primary-500 transition-colors">İletişim</Link></li>
                         </ul>
                     </div>

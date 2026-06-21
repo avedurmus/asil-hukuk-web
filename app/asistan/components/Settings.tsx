@@ -107,9 +107,11 @@ export default function Settings({ onResetData, onExportData, onImportData }: Se
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
               >
-                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Hızlı &amp; Verimli - Önerilen)</option>
-                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Daha Detaylı Analiz &amp; Muhakeme)</option>
-                <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash Experimental</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Hızlı &amp; Akıllı - Önerilen)</option>
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Derin Hukuki Muhakeme)</option>
+                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Eski Sürüm)</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Eski Sürüm)</option>
               </select>
             </div>
 

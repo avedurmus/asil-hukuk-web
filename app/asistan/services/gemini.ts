@@ -1,7 +1,7 @@
 import { CaseFile, Decision, Message } from '../types';
 
 // Helper to make the API call to Gemini
-async function callGeminiAPI(apiKey: string, model: string = "gemini-1.5-flash", prompt: string): Promise<string> {
+async function callGeminiAPI(apiKey: string, model: string = "gemini-2.5-flash", prompt: string): Promise<string> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   
   const response = await fetch(url, {
@@ -53,8 +53,8 @@ export function saveApiKey(key: string): void {
 }
 
 export function getPreferredModel(): string {
-  if (typeof window === 'undefined') return "gemini-1.5-flash";
-  return localStorage.getItem("yargi_asistan_gemini_model") || "gemini-1.5-flash";
+  if (typeof window === 'undefined') return "gemini-2.5-flash";
+  return localStorage.getItem("yargi_asistan_gemini_model") || "gemini-2.5-flash";
 }
 
 export function savePreferredModel(model: string): void {

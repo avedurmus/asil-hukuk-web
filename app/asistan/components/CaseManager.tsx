@@ -33,6 +33,44 @@ export default function CaseManager({
     subject: '',
     details: ''
   });
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/parse-document", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `HTTP Hata ${res.status}`);
+      }
+      const data = await res.json();
+      const meta = data.metadata || {};
+      const fileTitle = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+      
+      setNewCase({
+        title: meta.court && meta.caseNumber ? `${meta.court} - ${meta.caseNumber}` : fileTitle,
+        court: meta.court || '',
+        caseNumber: meta.caseNumber || '',
+        client: meta.client || '',
+        subject: meta.subject || '',
+        details: data.text || ''
+      });
+    } catch (err: any) {
+      setUploadError(err.message || 'Dosya çözümlenirken bilinmeyen bir hata oluştu.');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Chat states
   const [chatMessage, setChatMessage] = useState('');
@@ -532,6 +570,26 @@ export default function CaseManager({
             <h3 className="card-title">Yeni Dava Dosyası Başlat</h3>
             
             <form onSubmit={handleAddCaseSubmit}>
+              <div className="form-group" style={{ border: '2px dashed var(--border-light)', padding: '1.25rem', borderRadius: '10px', textAlign: 'center', marginBottom: '1.5rem', backgroundColor: 'var(--bg-tertiary)' }}>
+                <label style={{ cursor: 'pointer', display: 'block', margin: 0 }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 0.5rem auto', color: 'var(--accent-gold)' }}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  <span style={{ fontWeight: '600', color: 'var(--text-primary)' }}>UYAP UDF veya PDF Dosyası Yükle</span>
+                  <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>Dava verileri otomatik çözümlenip doldurulacaktır.</span>
+                  <input type="file" accept=".udf,.pdf" onChange={handleFileUpload} style={{ display: 'none' }} disabled={uploading} />
+                </label>
+                {uploading && (
+                  <div style={{ marginTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
+                    <div className="spinner"></div>
+                    <span>Belge çözümleniyor, lütfen bekleyin...</span>
+                  </div>
+                )}
+                {uploadError && (
+                  <div style={{ marginTop: '0.75rem', color: '#f87171', fontSize: '0.85rem' }}>
+                    ⚠️ {uploadError}
+                  </div>
+                )}
+              </div>
+
               <div className="form-group">
                 <label>Dava Başlığı (Dostane/Kısa İsim) *</label>
                 <input 

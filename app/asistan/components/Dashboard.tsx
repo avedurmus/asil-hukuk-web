@@ -67,10 +67,45 @@ export default function Dashboard({ cases, decisions, onNavigate, onAddCaseClick
             Son İşlem Gören Davalar
           </h3>
           {cases.length === 0 ? (
-            <div className="empty-state">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-              <p>Henüz aktif dava dosyası bulunmuyor.</p>
-              <button className="btn btn-secondary btn-sm" style={{ marginTop: '1rem' }} onClick={onAddCaseClick}>İlk Davayı Oluştur</button>
+            <div style={{ marginTop: '1rem' }}>
+              <div className="empty-state" style={{ padding: '2rem 1.5rem', marginBottom: '1.5rem' }}>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--text-secondary)' }}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <p style={{ margin: '0.5rem 0 1rem 0', fontSize: '0.95rem' }}>Henüz aktif bir dava dosyası bulunmuyor.</p>
+                <button className="btn btn-primary btn-sm" onClick={onAddCaseClick}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.35rem' }}><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  İlk Dava Dosyasını Başlat
+                </button>
+              </div>
+
+              {/* 3 Steps Guide Cards */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <div style={{ display: 'flex', gap: '1rem', backgroundColor: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--border-light)', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent-gold)', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.85rem', flexShrink: 0 }}>1</div>
+                  <div>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.2rem', color: 'var(--text-primary)' }}>Dava Detaylarını Ekleyin</h4>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>UDF veya PDF dosyası yükleyerek veya manuel detay yazarak dava dosyası başlatın.</p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '1rem', backgroundColor: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--border-light)', alignItems: 'flex-start', cursor: 'pointer', transition: 'transform 0.2s ease' }} onClick={() => onNavigate('search')} className="hover-lift">
+                  <div style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-blue)', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.85rem', flexShrink: 0 }}>2</div>
+                  <div style={{ flexGrow: 1 }}>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.2rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                      Emsal Kararları Sorgulayın & Eşleştirin
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </h4>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>Yargıtay ve Danıştay veri havuzunda canlı aramalar yaparak kararları davayla eşleştirin.</p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '1rem', backgroundColor: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--border-light)', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.85rem', flexShrink: 0 }}>3</div>
+                  <div>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.2rem', color: 'var(--text-primary)' }}>Yapay Zeka Analizini Başlatın</h4>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>Dava dosyanızın içinden AI asistanını açarak hukuki mütalaa ve dilekçe taslakları oluşturun.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>

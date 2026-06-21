@@ -152,6 +152,7 @@
   font-size: 0.95rem;
   transition: var(--transition-normal);
   border: 1px solid transparent;
+  position: relative;
 }
 
 .nav-item svg {
@@ -170,6 +171,18 @@
   color: var(--text-primary);
   border-color: var(--border-gold);
   box-shadow: var(--shadow-gold);
+  padding-left: 1.25rem; /* Indent text slightly to balance the left border bar */
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  background-color: var(--accent-gold);
+  border-radius: 0 4px 4px 0;
 }
 
 .nav-item.active svg {

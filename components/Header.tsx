@@ -56,18 +56,30 @@ export default function Header() {
                         <Link href="/calisma-alanlarimiz" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
                             Çalışma Alanlarımız
                         </Link>
-                        <Link href="/kentsel-donusum-rehberi" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            Kentsel Dönüşüm
-                        </Link>
-                        <Link href="/ai-hukuk" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-bold transition-colors animate-pulse">
-                            AI Hukuk
-                        </Link>
-                        <Link href="/asistan" className="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 font-bold transition-colors">
-                            YargıAsistan
-                        </Link>
-                        <Link href="/blog" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            Blog
-                        </Link>
+                        <div className="relative group py-2">
+                            <button className="flex items-center text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors gap-1 outline-none">
+                                <span>Dijital Hukuk & Yayınlar</span>
+                                <svg className="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div className="absolute left-0 mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div className="p-2 space-y-1">
+                                    <Link href="/kentsel-donusum-rehberi" className="block px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
+                                        Kentsel Dönüşüm
+                                    </Link>
+                                    <Link href="/ai-hukuk" className="block px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg font-bold transition-colors">
+                                        AI Hukuk
+                                    </Link>
+                                    <Link href="/asistan" className="block px-4 py-2.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 rounded-lg font-bold transition-colors">
+                                        YargıAsistan
+                                    </Link>
+                                    <Link href="/blog" className="block px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
+                                        Blog
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                         <Link href="/sss" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
                             S.S.S.
                         </Link>
@@ -129,34 +141,40 @@ export default function Header() {
                         >
                             Çalışma Alanlarımız
                         </Link>
-                        <Link
-                            href="/kentsel-donusum-rehberi"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Kentsel Dönüşüm
-                        </Link>
-                        <Link
-                            href="/ai-hukuk"
-                            className="block px-3 py-3 text-base font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            AI Hukuk
-                        </Link>
-                        <Link
-                            href="/asistan"
-                            className="block px-3 py-3 text-base font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            YargıAsistan
-                        </Link>
-                        <Link
-                            href="/blog"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Blog
-                        </Link>
+                        
+                        <div className="border-l-2 border-slate-100 dark:border-slate-800 pl-3 py-1 my-2 space-y-1">
+                            <span className="block px-3 py-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                Dijital Hukuk & Yayınlar
+                            </span>
+                            <Link
+                                href="/kentsel-donusum-rehberi"
+                                className="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Kentsel Dönüşüm
+                            </Link>
+                            <Link
+                                href="/ai-hukuk"
+                                className="block px-3 py-2 text-base font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-900 rounded-md"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                AI Hukuk
+                            </Link>
+                            <Link
+                                href="/asistan"
+                                className="block px-3 py-2 text-base font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-900 rounded-md"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                YargıAsistan
+                            </Link>
+                            <Link
+                                href="/blog"
+                                className="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Blog
+                            </Link>
+                        </div>
                         <Link
                             href="/sss"
                             className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"

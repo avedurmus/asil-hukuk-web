@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Dashboard from './components/Dashboard';
 import CaseManager from './components/CaseManager';
 import PrecedentSearch from './components/PrecedentSearch';
@@ -243,16 +244,26 @@ export default function AsistanClient() {
       <div className="app-container">
         {/* Sidebar navigation */}
         <aside className="sidebar">
-          <div className="logo-container">
+          <Link href="/" className="logo-container" style={{ textDecoration: 'none', display: 'flex' }}>
             <div className="logo-icon">
               <svg viewBox="0 0 24 24">
                 <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM12 17h.01M12 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </div>
-            <span className="logo-text">Alfa<span>Asistan</span></span>
-          </div>
+            <span className="logo-text">Yargı<span>Asistan</span></span>
+          </Link>
 
           <ul className="nav-links">
+            <li>
+              <Link 
+                href="/"
+                className="nav-item"
+                style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', borderRadius: '0', paddingBottom: '1rem' }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Ana Sayfaya Dön
+              </Link>
+            </li>
             <li>
               <div 
                 className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}

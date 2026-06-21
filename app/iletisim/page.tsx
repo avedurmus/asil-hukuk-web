@@ -32,7 +32,7 @@ const jsonLd = {
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
 
             <main className="flex-grow pt-32 pb-20 relative">
@@ -45,43 +45,43 @@ export default function ContactPage() {
                         className="object-cover opacity-10"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/90 to-slate-50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/90 to-slate-50 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">İletişim</h1>
-                        <p className="text-xl text-slate-600 font-light max-w-2xl mx-auto">
+                        <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">İletişim</h1>
+                        <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
                             Hukuki sorularınız için bize ulaşın. Size en kısa sürede dönüş yapacağız.
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
                         {/* Contact Info Cards */}
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                            <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mb-6">
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
+                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
                                 <Phone className="w-6 h-6" />
                             </div>
-                            <h3 className="font-bold text-lg mb-2">Telefon</h3>
-                            <p className="text-slate-600">{siteContent.contact.phone}</p>
-                            <p className="text-slate-400 text-sm mt-2">Hafta içi: 09:00 - 18:00</p>
+                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Telefon</h3>
+                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.phone}</p>
+                            <p className="text-slate-400 dark:text-slate-555 text-sm mt-2">Hafta içi: 09:00 - 18:00</p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                            <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mb-6">
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
+                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
                                 <Mail className="w-6 h-6" />
                             </div>
-                            <h3 className="font-bold text-lg mb-2">E-Posta</h3>
-                            <p className="text-slate-600">{siteContent.contact.email}</p>
-                            <p className="text-slate-400 text-sm mt-2">24 saat içinde dönüş</p>
+                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">E-Posta</h3>
+                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.email}</p>
+                            <p className="text-slate-400 dark:text-slate-555 text-sm mt-2">24 saat içinde dönüş</p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                            <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mb-6">
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
+                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
                                 <MapPin className="w-6 h-6" />
                             </div>
-                            <h3 className="font-bold text-lg mb-2">Adres</h3>
-                            <p className="text-slate-600">{siteContent.contact.address}</p>
+                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Adres</h3>
+                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.address}</p>
                         </div>
                     </div>
 
@@ -91,14 +91,14 @@ export default function ContactPage() {
                             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                         />
                         {/* Contact Form */}
-                        <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg border border-slate-100">
+                        <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 transition-colors duration-300">
                             <Suspense fallback={<div>Loading...</div>}>
                                 <ContactForm />
                             </Suspense>
                         </div>
 
                         {/* Map */}
-                        <div className="bg-slate-200 rounded-2xl overflow-hidden min-h-[400px] shadow-inner relative">
+                        <div className="bg-slate-200 dark:bg-slate-850 rounded-2xl overflow-hidden min-h-[400px] shadow-inner relative border dark:border-slate-800">
                             <iframe
                                 src={siteContent.contact.mapUrl}
                                 width="100%"
@@ -107,7 +107,7 @@ export default function ContactPage() {
                                 allowFullScreen
                                 loading="lazy"
                                 title="Ofis Konumu"
-                                className="absolute inset-0"
+                                className="absolute inset-0 dark:opacity-85"
                             ></iframe>
                         </div>
                     </div>

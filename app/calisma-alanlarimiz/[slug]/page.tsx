@@ -66,7 +66,7 @@ export default function ServiceDetailPage({ params }: Props) {
     const Icon = service.icon;
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
                 <script
@@ -74,7 +74,7 @@ export default function ServiceDetailPage({ params }: Props) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
                 {/* Hero Section */}
-                <div className="bg-slate-900 text-white py-16 px-4 relative overflow-hidden">
+                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-16 px-4 relative overflow-hidden transition-colors duration-300">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-primary-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
                     <div className="max-w-4xl mx-auto relative z-10">
                         <Link href="/calisma-alanlarimiz" className="inline-flex items-center text-slate-300 hover:text-white mb-6 transition-colors font-medium">
@@ -92,39 +92,39 @@ export default function ServiceDetailPage({ params }: Props) {
 
                 {/* Content Section */}
                 <div className="max-w-4xl mx-auto px-4 py-12 sm:px-6">
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 md:p-12">
-                        <div className="prose prose-slate max-w-none">
-                            <p className="text-lg text-slate-700 leading-relaxed mb-8">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 p-8 md:p-12 transition-colors duration-300">
+                        <div className="prose prose-slate dark:prose-invert max-w-none">
+                            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
                                 {service.detailContent.intro}
                             </p>
 
-                            <h3 className="text-2xl font-serif font-bold text-slate-900 mb-6">Hizmet Kapsamı</h3>
+                            <h3 className="text-2xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-6">Hizmet Kapsamı</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                                 {service.detailContent.features.map((feature, idx) => (
                                     <div key={idx} className="flex items-start">
-                                        <CheckCircle2 className="w-5 h-5 text-primary-600 mt-1 mr-3 flex-shrink-0" />
-                                        <span className="text-slate-700">{feature}</span>
+                                        <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-1 mr-3 flex-shrink-0" />
+                                        <span className="text-slate-700 dark:text-slate-300">{feature}</span>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                                <h3 className="text-xl font-serif font-bold text-slate-900 mb-4">Süreç Yönetimi</h3>
-                                <p className="text-slate-600">
+                            <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-6 border border-slate-100 dark:border-slate-800 transition-colors duration-300">
+                                <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">Süreç Yönetimi</h3>
+                                <p className="text-slate-600 dark:text-slate-400">
                                     {service.detailContent.process}
                                 </p>
                             </div>
                         </div>
 
                         {/* CTA Section */}
-                        <div className="mt-12 pt-8 border-t border-slate-100">
-                            <h3 className="text-xl font-bold text-slate-900 mb-4">Hukuki Desteğe mi İhtiyacınız Var?</h3>
-                            <p className="text-slate-600 mb-6">
+                        <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">Hukuki Desteğe mi İhtiyacınız Var?</h3>
+                            <p className="text-slate-600 dark:text-slate-400 mb-6">
                                 {service.title} konusundaki sorularınız ve hukuki süreçleriniz için bizimle iletişime geçebilirsiniz.
                             </p>
                             <Link
                                 href="/iletisim"
-                                className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                                className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors"
                             >
                                 Avukatla Görüş
                             </Link>

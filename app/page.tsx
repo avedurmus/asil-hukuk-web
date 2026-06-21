@@ -10,20 +10,20 @@ import Image from "next/image";
 
 export default function Home() {
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
 
             <main className="flex-grow">
                 <Hero />
 
                 {/* --- UZMANLIK ALANLARI --- */}
-                <section id="uzmanliklar" className="py-24 bg-white relative">
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+                <section id="uzmanliklar" className="py-24 bg-white dark:bg-slate-900 relative transition-colors duration-300">
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent"></div>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16 max-w-3xl mx-auto">
-                            <span className="text-primary-600 font-semibold tracking-wider uppercase text-sm mb-2 block">Faaliyet Alanlarımız</span>
-                            <h2 className="text-4xl font-serif font-bold text-slate-900 mb-4">Çalışma Alanlarımız</h2>
-                            <p className="text-lg text-slate-600 font-light">
+                            <span className="text-primary-600 dark:text-primary-400 font-semibold tracking-wider uppercase text-sm mb-2 block">Faaliyet Alanlarımız</span>
+                            <h2 className="text-4xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">Çalışma Alanlarımız</h2>
+                            <p className="text-lg text-slate-600 dark:text-slate-400 font-light">
                                 Hukukun çeşitli alanlarındaki deneyimimizle, size en doğru hukuki desteği sunuyoruz.
                             </p>
                         </div>

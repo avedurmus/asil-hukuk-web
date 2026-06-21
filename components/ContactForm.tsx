@@ -72,15 +72,15 @@ export default function ContactForm() {
 
     return (
         <>
-            <h2 className="text-2xl font-serif font-bold mb-6">Bize Yazın</h2>
+            <h2 className="text-2xl font-serif font-bold mb-6 text-slate-900 dark:text-slate-100">Bize Yazın</h2>
 
             {status === "success" ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-xl text-center">
+                <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900/30 text-green-700 dark:text-green-400 p-6 rounded-xl text-center">
                     <p className="text-lg font-medium mb-2">Teşekkürler!</p>
                     <p>{message}</p>
                     <button
                         onClick={() => setStatus("idle")}
-                        className="mt-4 text-green-700 underline text-sm hover:text-green-800"
+                        className="mt-4 text-green-700 dark:text-green-400 underline text-sm hover:text-green-800 dark:hover:text-green-300"
                     >
                         Yeni mesaj gönder
                     </button>
@@ -92,62 +92,62 @@ export default function ContactForm() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Adınız</label>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Adınız</label>
                             <input
                                 type="text"
                                 name="name"
                                 required
-                                className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
                                 placeholder="Adınız"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Soyadınız</label>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Soyadınız</label>
                             <input
                                 type="text"
                                 name="surname"
                                 required
-                                className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
                                 placeholder="Soyadınız"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">E-Posta Adresiniz</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">E-Posta Adresiniz</label>
                         <input
                             type="email"
                             name="email"
                             required
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
                             placeholder="ornek@email.com"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Telefon Numaranız</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Telefon Numaranız</label>
                         <input
                             type="tel"
                             name="phone"
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
                             placeholder="05XX XXX XX XX"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Mesajınız</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Mesajınız</label>
                         <textarea
                             name="message"
                             required
                             rows={5}
                             defaultValue={subject ? `${subject} konusunda bilgi almak istiyorum.` : ""}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
                             placeholder="Konu hakkında detaylı bilgi..."
                         ></textarea>
                     </div>
 
                     {status === "error" && (
-                        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">
+                        <div className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/30 p-3 rounded-lg">
                             {message}
                         </div>
                     )}
@@ -155,12 +155,12 @@ export default function ContactForm() {
                     <button
                         type="submit"
                         disabled={status === "submitting"}
-                        className="w-full py-4 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-slate-200 dark:text-slate-950 text-white font-bold rounded-lg transition-colors shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                         {status === "submitting" ? "Gönderiliyor..." : "Mesajı Gönder"}
                     </button>
 
-                    <p className="text-center text-xs text-slate-400 mt-4">
+                    <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
                         Bu form üzerinden gönderilen bilgiler KVKK kapsamında korunmaktadır.
                     </p>
                 </form>

@@ -15,13 +15,13 @@ export const metadata: Metadata = {
 
 export default function BlogIndexPage() {
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
-                <div className="bg-slate-900 text-white py-20 px-4">
+                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
                     <div className="max-w-7xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Hukuk Blogu</h1>
-                        <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-300 dark:text-slate-400 max-w-2xl mx-auto">
                             Hukuki konularda güncel bilgiler, rehberler ve yargı dünyasından gelişmeler.
                         </p>
                     </div>
@@ -33,9 +33,9 @@ export default function BlogIndexPage() {
                             <Link
                                 key={post.id}
                                 href={`/blog/${post.id}`}
-                                className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all border border-slate-100 overflow-hidden flex flex-col"
+                                className="group bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:shadow-lg transition-all border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col"
                             >
-                                <div className="h-48 overflow-hidden relative bg-slate-200">
+                                <div className="h-48 overflow-hidden relative bg-slate-200 dark:bg-slate-800">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                         src={post.imageUrl}
@@ -47,7 +47,7 @@ export default function BlogIndexPage() {
                                     </div>
                                 </div>
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <div className="flex items-center text-slate-500 text-sm mb-3 space-x-4">
+                                    <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mb-3 space-x-4">
                                         <div className="flex items-center">
                                             <Calendar className="w-4 h-4 mr-1" />
                                             {post.date}
@@ -57,13 +57,13 @@ export default function BlogIndexPage() {
                                             {post.readTime}
                                         </div>
                                     </div>
-                                    <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
+                                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                                         {post.title}
                                     </h2>
-                                    <p className="text-slate-600 mb-4 line-clamp-3 text-sm flex-grow">
+                                    <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 text-sm flex-grow">
                                         {post.excerpt}
                                     </p>
-                                    <div className="flex items-center text-primary-600 font-medium text-sm mt-auto pt-4 border-t border-slate-100">
+                                    <div className="flex items-center text-primary-600 dark:text-primary-400 font-medium text-sm mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
                                         Devamını Oku <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </div>

@@ -29,7 +29,7 @@ const jsonLd = {
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
 
             <main className="flex-grow pt-32">
@@ -38,7 +38,7 @@ export default function AboutPage() {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
                 {/* Banner */}
-                <div className="bg-slate-900 text-white py-20 relative overflow-hidden">
+                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 relative overflow-hidden transition-colors duration-300">
                     <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
                     <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Hakkımızda</h1>
@@ -51,32 +51,32 @@ export default function AboutPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1">
-                            <h2 className="text-3xl font-serif font-bold text-slate-900 mb-6">
+                            <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-6">
                                 {siteContent.brand.name} Hakkında
                             </h2>
-                            <p className="text-slate-600 mb-6 leading-relaxed text-lg">
+                            <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed text-lg">
                                 {siteContent.about.description}
                             </p>
-                            <p className="text-slate-600 mb-6 leading-relaxed">
+                            <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
                                 Müvekkillerimizle kurduğumuz ilişki, sadece bir vekalet ilişkisi değil, karşılıklı güvene dayalı bir çözüm ortaklığıdır.
                                 Hukuki süreçlerin her aşamasında şeffaf bilgilendirme yaparak, müvekkillerimizin haklarını en etkin şekilde savunuyoruz.
                             </p>
                             <div className="grid grid-cols-2 gap-6 mt-8">
-                                <div className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-                                    <Award className="w-8 h-8 text-primary-600 mb-2" />
-                                    <h4 className="font-bold text-slate-900">Uzman Kadro</h4>
-                                    <p className="text-sm text-slate-500">Alanında deneyimli avukatlar</p>
+                                <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-colors duration-300">
+                                    <Award className="w-8 h-8 text-primary-600 dark:text-primary-400 mb-2" />
+                                    <h4 className="font-bold text-slate-900 dark:text-slate-100">Uzman Kadro</h4>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">Alanında deneyimli avukatlar</p>
                                 </div>
-                                <div className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-                                    <ShieldCheck className="w-8 h-8 text-primary-600 mb-2" />
-                                    <h4 className="font-bold text-slate-900">Güvenilirlik</h4>
-                                    <p className="text-sm text-slate-500">Şeffaf ve dürüst hizmet</p>
+                                <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-colors duration-300">
+                                    <ShieldCheck className="w-8 h-8 text-primary-600 dark:text-primary-400 mb-2" />
+                                    <h4 className="font-bold text-slate-900 dark:text-slate-100">Güvenilirlik</h4>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">Şeffaf ve dürüst hizmet</p>
                                 </div>
                             </div>
                         </div>
                         <div className="order-1 lg:order-2 relative">
                             {/* Placeholder for an office image or lawyer portrait */}
-                            <div className="aspect-[4/5] bg-slate-200 rounded-2xl relative overflow-hidden shadow-2xl">
+                            <div className="aspect-[4/5] bg-slate-200 dark:bg-slate-800 rounded-2xl relative overflow-hidden shadow-2xl">
                                 <Image
                                     src="/images/about-office.png"
                                     alt="Asil Hukuk Bürosu"
@@ -85,12 +85,12 @@ export default function AboutPage() {
                                 />
                             </div>
                             {/* Floating Stat Card */}
-                            <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-xl shadow-xl border border-slate-100 hidden md:block">
+                            <div className="absolute -bottom-8 -left-8 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 hidden md:block transition-colors duration-300">
                                 <div className="flex items-center space-x-4">
                                     <Heart className="w-10 h-10 text-red-500" />
                                     <div>
-                                        <div className="text-2xl font-bold text-slate-900">500+</div>
-                                        <div className="text-sm text-slate-500">Memnun Müvekkil</div>
+                                        <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">500+</div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-400">Memnun Müvekkil</div>
                                     </div>
                                 </div>
                             </div>
@@ -99,12 +99,12 @@ export default function AboutPage() {
                 </div>
 
                 {/* Kurucumuz Section */}
-                <div className="bg-slate-100 border-t border-b border-slate-200/50 py-20">
+                <div className="bg-slate-100 dark:bg-slate-900/40 border-t border-b border-slate-200/50 dark:border-slate-800/80 py-20 transition-colors duration-300">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
                             {/* Portrait Image */}
                             <div className="lg:col-span-1 relative max-w-sm mx-auto lg:mx-0 w-full">
-                                <div className="aspect-[4/5] bg-slate-200 rounded-2xl relative overflow-hidden shadow-xl border border-slate-200">
+                                <div className="aspect-[4/5] bg-slate-200 dark:bg-slate-800 rounded-2xl relative overflow-hidden shadow-xl border border-slate-200 dark:border-slate-850">
                                     <Image
                                         src="/images/emre-durmus.jpg"
                                         alt="Av. Emre Durmuş"
@@ -117,34 +117,34 @@ export default function AboutPage() {
                             
                             {/* Bio Content */}
                             <div className="lg:col-span-2">
-                                <span className="text-primary-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
+                                <span className="text-primary-600 dark:text-primary-400 font-semibold tracking-wider uppercase text-sm mb-2 block">
                                     Kurucumuz
                                 </span>
-                                <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">
+                                <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-6">
                                     Av. Emre Durmuş
                                 </h2>
-                                <p className="text-slate-700 mb-6 leading-relaxed text-lg">
+                                <p className="text-slate-700 dark:text-slate-300 mb-6 leading-relaxed text-lg">
                                     Asil Hukuk Bürosu'nun kurucusu olan Av. Emre Durmuş, 20 yılı aşkın mesleki birikimiyle müvekkillerine ceza hukuku, aile hukuku, gayrimenkul hukuku ve iş hukuku başta olmak üzere hukukun birçok dalında profesyonel danışmanlık ve avukatlık hizmeti vermektedir.
                                 </p>
-                                <p className="text-slate-600 mb-8 leading-relaxed">
+                                <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
                                     İstanbul Barosu bünyesinde çalışmalarını sürdüren Av. Emre Durmuş, hukukun üstünlüğü ve adaletin tecellisi ilkelerinden taviz vermeksizin, müvekkillerinin haklarını korumak amacıyla dürüst, şeffaf ve sonuç odaklı çözümler üretmektedir. Aynı zamanda Adalet Bakanlığı bünyesinde kayıtlı uzman arabulucu olarak uyuşmazlıkların barışçıl yollarla çözüme kavuşturulmasında aktif rol oynamaktadır.
                                 </p>
                                 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700 dark:text-slate-300">
                                     <div className="flex items-center space-x-3">
-                                        <Award className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <Award className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
                                         <span>İstanbul Barosu Üyesi</span>
                                     </div>
                                     <div className="flex items-center space-x-3">
-                                        <Scale className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <Scale className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
                                         <span>Uzman Arabulucu</span>
                                     </div>
                                     <div className="flex items-center space-x-3">
-                                        <Award className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <Award className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
                                         <span>21 Yılı Aşkın Mesleki Tecrübe</span>
                                     </div>
                                     <div className="flex items-center space-x-3">
-                                        <ShieldCheck className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                                        <ShieldCheck className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
                                         <span>Şeffaf ve Güvenilir Temsil</span>
                                     </div>
                                 </div>

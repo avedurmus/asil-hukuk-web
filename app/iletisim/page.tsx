@@ -64,7 +64,7 @@ export default function ContactPage() {
                             </div>
                             <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Telefon</h3>
                             <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.phone}</p>
-                            <p className="text-slate-400 dark:text-slate-555 text-sm mt-2">Hafta içi: 09:00 - 18:00</p>
+                            <p className="text-slate-400 dark:text-slate-500 text-sm mt-2">Hafta içi: 09:00 - 18:00</p>
                         </div>
 
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
@@ -73,7 +73,7 @@ export default function ContactPage() {
                             </div>
                             <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">E-Posta</h3>
                             <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.email}</p>
-                            <p className="text-slate-400 dark:text-slate-555 text-sm mt-2">24 saat içinde dönüş</p>
+                            <p className="text-slate-400 dark:text-slate-500 text-sm mt-2">24 saat içinde dönüş</p>
                         </div>
 
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
 import { Menu, X, Phone, Sun, Moon } from "lucide-react";
 
@@ -38,12 +39,22 @@ export default function Header() {
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
-                        <Link href="/" className="flex flex-col">
-                            <span className="text-2xl font-serif font-bold text-primary-900 dark:text-slate-100 tracking-tight leading-none">
-                                {siteContent.brand.name}
-                            </span>
-                            <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">
-                                {siteContent.brand.slogan}
+                        <Link href="/" className="flex items-center gap-3">
+                            <Image
+                                src="/logo.png"
+                                alt={`${siteContent.brand.name} Logo`}
+                                width={44}
+                                height={44}
+                                className="rounded-xl shadow-sm shrink-0"
+                                priority
+                            />
+                            <span className="flex flex-col">
+                                <span className="text-2xl font-serif font-bold text-primary-900 dark:text-slate-100 tracking-tight leading-none">
+                                    {siteContent.brand.name}
+                                </span>
+                                <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">
+                                    {siteContent.brand.slogan}
+                                </span>
                             </span>
                         </Link>
                     </div>

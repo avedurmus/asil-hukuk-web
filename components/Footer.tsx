@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
 import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook, Twitter } from "lucide-react";
 
@@ -11,11 +12,20 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                     {/* Brand & Info */}
                     <div className="space-y-6">
-                        <div>
-                            <h3 className="text-2xl font-serif font-bold text-white tracking-tight">
-                                {siteContent.brand.name}
-                            </h3>
-                            <p className="text-xs uppercase tracking-widest text-slate-500 mt-1">{siteContent.brand.slogan}</p>
+                        <div className="flex items-center gap-3">
+                            <Image
+                                src="/logo.png"
+                                alt={`${siteContent.brand.name} Logo`}
+                                width={44}
+                                height={44}
+                                className="rounded-xl shrink-0"
+                            />
+                            <div>
+                                <h3 className="text-2xl font-serif font-bold text-white tracking-tight">
+                                    {siteContent.brand.name}
+                                </h3>
+                                <p className="text-xs uppercase tracking-widest text-slate-500 mt-1">{siteContent.brand.slogan}</p>
+                            </div>
                         </div>
                         <p className="text-slate-400 font-light leading-relaxed max-w-sm">
                             Hukuki süreçlerinizde güvenilir, şeffaf ve profesyonel çözüm ortağınız.

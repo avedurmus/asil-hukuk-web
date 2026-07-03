@@ -28,7 +28,24 @@ const config: Config = {
                     900: '#0c4a6e', // Deep blue
                 },
                 gold: {
+                    50: '#fbf6ea',
+                    100: '#f4e8c8',
+                    300: '#e6cd8a',
                     500: '#d4af37', // Gold highlight
+                    600: '#b8912a',
+                    700: '#96751f',
+                },
+                // In-between slate shades used across the site for finer
+                // light/dark contrast steps than Tailwind's default scale.
+                slate: {
+                    150: '#eaeef4',
+                    250: '#d6dee8',
+                    350: '#b0bccc',
+                    450: '#7c8ca2',
+                    550: '#56647a',
+                    650: '#3d4b5f',
+                    750: '#283548',
+                    850: '#162032',
                 }
             }
         },

@@ -55,6 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.8,
         },
+        {
+            url: `${baseUrl}/asistan`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.6,
+        },
     ]
 
     // Dynamic services pages
@@ -68,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Dynamic blog pages
     const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.id}`,
-        lastModified: new Date(),
+        lastModified: new Date(post.dateISO),
         changeFrequency: 'monthly',
         priority: 0.7,
     }))

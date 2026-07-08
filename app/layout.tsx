@@ -81,11 +81,26 @@ const jsonLd = {
     '@type': 'LegalService',
     'name': 'Asil Hukuk Bürosu',
     'image': 'https://asilhukuk.net/logo.png',
+    'logo': 'https://asilhukuk.net/logo.png',
     'description': 'İstanbul Kartal bölgesinde boşanma, ceza ve gayrimenkul hukuku alanlarında uzman avukatlık hizmeti.',
     '@id': 'https://asilhukuk.net',
     'url': 'https://asilhukuk.net',
     'telephone': '0530 432 20 25',
+    'email': 'emre@asilhukuk.net',
     'priceRange': '$$',
+    'foundingDate': '2004',
+    'founder': {
+        '@type': 'Person',
+        'name': 'Av. Emre Durmuş',
+        'jobTitle': 'Avukat ve Arabulucu',
+        'url': 'https://asilhukuk.net/hakkimizda'
+    },
+    'areaServed': [
+        { '@type': 'City', 'name': 'İstanbul' },
+        { '@type': 'AdministrativeArea', 'name': 'Kartal' },
+        { '@type': 'AdministrativeArea', 'name': 'Pendik' },
+        { '@type': 'AdministrativeArea', 'name': 'Maltepe' }
+    ],
     'address': {
         '@type': 'PostalAddress',
         'streetAddress': 'Yalı Mah. Topselvi Cad. No:100 Mai Residence K:14 D:124',

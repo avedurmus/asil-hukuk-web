@@ -6,7 +6,7 @@ import { ArrowRight, Building, CheckCircle2, FileText, Gavel, FileCheck, Landmar
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Yeni Kentsel Dönüşüm Süreci Rehberi (2025) | Asil Hukuk",
+    title: "Yeni Kentsel Dönüşüm Süreci Rehberi (2026)",
     description: "6306 Sayılı Kanun kapsamındaki salt çoğunluk (%50+1) ile kentsel dönüşüm kararı, yeni tebligat usulleri ve pay satışı süreçlerine dair pratik hukuki rehber.",
     alternates: {
         canonical: "/kentsel-donusum-rehberi",

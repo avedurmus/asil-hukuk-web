@@ -24,10 +24,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!post) return { title: "Yazı Bulunamadı" };
 
     return {
-        title: `${post.title} | Asil Hukuk Blog`,
+        title: post.title,
         description: post.excerpt,
         alternates: {
             canonical: `/blog/${params.slug}`,
+        },
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            url: `https://asilhukuk.net/blog/${params.slug}`,
+            type: "article",
+            publishedTime: post.dateISO,
+            authors: ["Av. Emre Durmuş"],
+            section: post.category,
+            images: [
+                {
+                    url: post.imageUrl,
+                    alt: post.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description: post.excerpt,
         },
     };
 }
@@ -45,7 +65,9 @@ export default function BlogPostPage({ params }: Props) {
         "headline": post.title,
         "description": post.excerpt,
         "image": `https://asilhukuk.net${post.imageUrl}`,
-        "datePublished": post.id === "kiraci-tahliye-davasi-sartlari-suresi" ? "2026-06-13" : post.id === "sirketlerde-alacak-tahsili-ve-icra-takibi" ? "2026-06-13" : post.id === "bosanma-surecinde-mal-kacirma" ? "2026-01-07" : post.id === "ise-iade-davasi-sartlari" ? "2024-12-20" : "2024-12-27",
+        "datePublished": post.dateISO,
+        "dateModified": post.dateISO,
+        "inLanguage": "tr-TR",
         "author": {
             "@type": "Person",
             "name": "Av. Emre Durmuş",
@@ -65,6 +87,16 @@ export default function BlogPostPage({ params }: Props) {
         }
     };
 
+    const breadcrumbLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": "https://asilhukuk.net" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://asilhukuk.net/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://asilhukuk.net/blog/${post.id}` }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
@@ -72,6 +104,10 @@ export default function BlogPostPage({ params }: Props) {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
                 />
                 <article>
                     {/* Article Header */}
@@ -92,7 +128,7 @@ export default function BlogPostPage({ params }: Props) {
                             <div className="flex items-center text-slate-300 text-sm space-x-6">
                                 <div className="flex items-center">
                                     <Calendar className="w-4 h-4 mr-2" />
-                                    {post.date}
+                                    <time dateTime={post.dateISO}>{post.date}</time>
                                 </div>
                                 <div className="flex items-center">
                                     <Clock className="w-4 h-4 mr-2" />
@@ -155,7 +191,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://www.linkedin.com/sharing/share-offsite/?url=https://asilhukuk.net/blog/${post.id}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-450 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
                                             aria-label="LinkedIn'de Paylaş"
                                         >
                                             <Linkedin className="w-5 h-5" />
@@ -164,7 +200,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://twitter.com/intent/tweet?url=https://asilhukuk.net/blog/${post.id}&text=${encodeURIComponent(post.title)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-450 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
                                             aria-label="X'te Paylaş"
                                         >
                                             <Twitter className="w-5 h-5" />
@@ -173,7 +209,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://www.facebook.com/sharer/sharer.php?u=https://asilhukuk.net/blog/${post.id}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-450 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
                                             aria-label="Facebook'ta Paylaş"
                                         >
                                             <Facebook className="w-5 h-5" />

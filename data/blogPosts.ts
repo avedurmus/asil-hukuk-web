@@ -3,6 +3,7 @@ export interface BlogPost {
     title: string;
     excerpt: string;
     date: string;
+    dateISO: string;
     readTime: string;
     category: string;
     imageUrl: string;
@@ -15,6 +16,7 @@ export const blogPosts: BlogPost[] = [
         title: "Anlaşmalı Boşanma Davası Ne Kadar Sürer? 2025 Güncel Süreç",
         excerpt: "Anlaşmalı boşanma davası şartları, süreci ve gerekli belgeler hakkında detaylı rehber. Tek celsede boşanmak mümkün mü?",
         date: "27 Aralık 2024",
+        dateISO: "2024-12-27",
         readTime: "4 dk okuma",
         category: "Aile Hukuku",
         imageUrl: "/images/anlasmali-bosanma-header.png",
@@ -43,6 +45,7 @@ export const blogPosts: BlogPost[] = [
         title: "İşe İade Davası Şartları ve Süreci",
         excerpt: "Haksız yere işten çıkarılan işçilerin hakları nelerdir? İşe iade davası açma süresi ve arabuluculuk şartı.",
         date: "20 Aralık 2024",
+        dateISO: "2024-12-20",
         readTime: "5 dk okuma",
         category: "İş Hukuku",
         imageUrl: "/images/ise-iade-header.png",
@@ -69,6 +72,7 @@ export const blogPosts: BlogPost[] = [
         title: "Boşanma Sürecinde Mal Kaçırma ve Hukuki Çareler",
         excerpt: "Boşanma sürecinde mal kaçırma, Edinilmiş Mallara Katılma Rejimi kapsamında en sık karşılaşılan sorunlardan biridir. Hukuki zemin, önleyici tedbirler ve alacak haklarını inceliyoruz.",
         date: "7 Ocak 2026",
+        dateISO: "2026-01-07",
         readTime: "6 dk okuma",
         category: "Aile Hukuku",
         imageUrl: "/images/bosanma-mal-kacirma.png",
@@ -176,6 +180,7 @@ export const blogPosts: BlogPost[] = [
         title: "Kiracı Tahliye Davası Nasıl Açılır? Şartları ve Süresi 2026",
         excerpt: "Kiracı tahliye davası şartları, tahliye taahhütnamesi ile tahliye, kiranın ödenmemesi nedeniyle tahliye ve zorunlu arabuluculuk süreci hakkında güncel hukuki rehber.",
         date: "13 Haziran 2026",
+        dateISO: "2026-06-13",
         readTime: "7 dk okuma",
         category: "Gayrimenkul Hukuku",
         imageUrl: "/images/justice-symbol.png",
@@ -256,6 +261,7 @@ export const blogPosts: BlogPost[] = [
         title: "Şirketlerde Alacak Tahsili ve İcra Takibi Rehberi",
         excerpt: "Şirketlerin fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz kararı, ticari arabuluculuk ve icra takibi süreçleri hakkında şirket yöneticileri için yasal rehber.",
         date: "13 Haziran 2026",
+        dateISO: "2026-06-13",
         readTime: "8 dk okuma",
         category: "Ticaret Hukuku",
         imageUrl: "/images/justice-symbol.png",

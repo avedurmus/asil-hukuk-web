@@ -6,14 +6,22 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Hukuk Blogu | Asil Hukuk - Güncel Hukuki Makaleler",
+    title: "Hukuk Blogu - Güncel Hukuki Makaleler",
     description: "Boşanma, ceza, iş ve gayrimenkul hukuku alanında güncel makaleler, yargıtay kararları ve hukuki rehberler.",
     alternates: {
         canonical: "/blog",
     },
+    openGraph: {
+        title: "Hukuk Blogu | Asil Hukuk",
+        description: "Boşanma, ceza, iş ve gayrimenkul hukuku alanında güncel makaleler ve hukuki rehberler.",
+        url: "https://asilhukuk.net/blog",
+        type: "website",
+    },
 };
 
 export default function BlogIndexPage() {
+    const sortedPosts = [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
@@ -29,7 +37,7 @@ export default function BlogIndexPage() {
 
                 <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {blogPosts.map((post) => (
+                        {sortedPosts.map((post) => (
                             <Link
                                 key={post.id}
                                 href={`/blog/${post.id}`}
@@ -50,7 +58,7 @@ export default function BlogIndexPage() {
                                     <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mb-3 space-x-4">
                                         <div className="flex items-center">
                                             <Calendar className="w-4 h-4 mr-1" />
-                                            {post.date}
+                                            <time dateTime={post.dateISO}>{post.date}</time>
                                         </div>
                                         <div className="flex items-center">
                                             <Clock className="w-4 h-4 mr-1" />

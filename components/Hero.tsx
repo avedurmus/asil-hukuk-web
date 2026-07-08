@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Award, Scale, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
 
@@ -34,6 +34,22 @@ export default function Hero() {
                     >
                         {siteContent.hero.secondaryCta}
                     </Link>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-slate-500 dark:text-slate-400">
+                    <span className="flex items-center gap-2">
+                        <Scale className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        İstanbul Barosu Üyesi
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        Adalet Bakanlığı Kayıtlı Arabulucu
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <Award className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        2004'ten Beri Hizmetinizde
+                    </span>
                 </div>
             </div>
 

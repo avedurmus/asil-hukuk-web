@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-    title: "İletişim | Asil Hukuk - Av. Emre Durmuş",
+    title: "İletişim ve Randevu",
     description: "Hukuki danışmanlık ve randevu talepleriniz için Asil Hukuk iletişim bilgileri. Telefon, E-posta ve Adres detayları.",
     alternates: {
         canonical: '/iletisim',

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Hakkımızda | Asil Hukuk - Av. Emre Durmuş",
+    title: "Hakkımızda - Av. Emre Durmuş",
     description: "20 yılı aşkın tecrübesiyle İstanbul Kartal'da hizmet veren Asil Hukuk Bürosu ve kurucusu Av. Emre Durmuş hakkında detaylı bilgi.",
     alternates: {
         canonical: '/hakkimizda',
@@ -27,6 +27,35 @@ const jsonLd = {
     }
 }
 
+const personLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    'name': 'Av. Emre Durmuş',
+    'jobTitle': 'Avukat ve Arabulucu',
+    'image': 'https://asilhukuk.net/images/emre-durmus.jpg',
+    'url': 'https://asilhukuk.net/hakkimizda',
+    'worksFor': {
+        '@type': 'LegalService',
+        'name': 'Asil Hukuk Bürosu',
+        'url': 'https://asilhukuk.net'
+    },
+    'memberOf': {
+        '@type': 'Organization',
+        'name': 'İstanbul Barosu'
+    },
+    'knowsAbout': [
+        'Boşanma ve Aile Hukuku',
+        'Ceza Hukuku',
+        'Gayrimenkul Hukuku',
+        'İş ve Sosyal Güvenlik Hukuku',
+        'Ticaret ve Şirketler Hukuku',
+        'Arabuluculuk'
+    ],
+    'sameAs': [
+        'https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/'
+    ]
+}
+
 export default function AboutPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
@@ -36,6 +65,10 @@ export default function AboutPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
                 />
                 {/* Banner */}
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 relative overflow-hidden transition-colors duration-300">

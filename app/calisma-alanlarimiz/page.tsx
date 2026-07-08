@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Çalışma Alanlarımız | Asil Hukuk Bürosu - İstanbul Kartal",
+    title: "Çalışma Alanlarımız",
     description: "Boşanma, Ceza, Gayrimenkul, İş ve Ticaret Hukuku alanlarında uzmanlaşmış Asil Hukuk Bürosu'nun faaliyet alanları.",
     alternates: {
         canonical: "/calisma-alanlarimiz",

@@ -38,7 +38,9 @@ export default function Footer() {
                         <ul className="space-y-3">
                             <li><Link href="/" className="hover:text-primary-500 transition-colors">Ana Sayfa</Link></li>
                             <li><Link href="/hakkimizda" className="hover:text-primary-500 transition-colors">Hakkımızda</Link></li>
-                            <li><Link href="/#uzmanliklar" className="hover:text-primary-500 transition-colors">Uzmanlık Alanlarımız</Link></li>
+                            <li><Link href="/calisma-alanlarimiz" className="hover:text-primary-500 transition-colors">Çalışma Alanlarımız</Link></li>
+                            <li><Link href="/blog" className="hover:text-primary-500 transition-colors">Hukuk Blogu</Link></li>
+                            <li><Link href="/sss" className="hover:text-primary-500 transition-colors">Sıkça Sorulan Sorular</Link></li>
                             <li><Link href="/asistan" className="hover:text-amber-500 transition-colors font-semibold">YargıAsistan (AI)</Link></li>
                             <li><Link href="/iletisim" className="hover:text-primary-500 transition-colors">İletişim</Link></li>
                         </ul>
@@ -68,7 +70,12 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-slate-900 mt-12 pt-8 text-center text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center">
+                <p className="mt-12 text-xs text-slate-600 leading-relaxed max-w-3xl">
+                    Yasal Uyarı: Bu internet sitesinde yer alan bilgiler yalnızca genel bilgilendirme amaçlıdır ve hukuki tavsiye
+                    niteliği taşımaz. Somut durumunuza ilişkin hukuki değerlendirme için bir avukata danışmanız önerilir.
+                </p>
+
+                <div className="border-t border-slate-900 mt-8 pt-8 text-center text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center">
                     <p>&copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="https://www.instagram.com/asilhukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Instagram">

@@ -23,10 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!service) return { title: "Sayfa Bulunamadı" };
 
     return {
-        title: `${service.title} | Asil Hukuk - İstanbul Kartal`,
+        title: service.title,
         description: service.shortDescription,
         alternates: {
             canonical: `/calisma-alanlarimiz/${params.slug}`,
+        },
+        openGraph: {
+            title: `${service.title} | Asil Hukuk`,
+            description: service.shortDescription,
+            url: `https://asilhukuk.net/calisma-alanlarimiz/${params.slug}`,
+            type: "website",
         },
     };
 }
@@ -63,6 +69,16 @@ export default function ServiceDetailPage({ params }: Props) {
         }
     };
 
+    const breadcrumbLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": "https://asilhukuk.net" },
+            { "@type": "ListItem", "position": 2, "name": "Çalışma Alanlarımız", "item": "https://asilhukuk.net/calisma-alanlarimiz" },
+            { "@type": "ListItem", "position": 3, "name": service.title, "item": `https://asilhukuk.net/calisma-alanlarimiz/${service.id}` }
+        ]
+    };
+
     const Icon = service.icon;
 
     return (
@@ -72,6 +88,10 @@ export default function ServiceDetailPage({ params }: Props) {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
                 />
                 {/* Hero Section */}
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-16 px-4 relative overflow-hidden transition-colors duration-300">

@@ -1,1 +1,1 @@
-Av. Emre Durmuş - Asil Hukuk ve D>anışmanlık Bürosu web sitesi 
+Av. Emre Durmuş - Asil Hukuk ve Danışmanlık Bürosu web sitesi 

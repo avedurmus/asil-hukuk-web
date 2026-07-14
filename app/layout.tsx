@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
@@ -178,6 +179,7 @@ export default function RootLayout({
                         gtag('config', 'G-J7F4RKQLG1');
                     `}
                 </Script>
+                <Analytics />
             </body>
         </html>
     );

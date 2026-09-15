@@ -107,9 +107,9 @@ export default function Header() {
                                     });
                                 }
                             }}
-                            className="flex items-center px-5 py-2.5 bg-primary-900 text-white rounded-md hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
+                            className="flex items-center rounded-lg bg-primary-900 px-5 py-2.5 font-medium text-white shadow-md ring-1 ring-primary-900/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 hover:shadow-gold-glow dark:bg-white dark:text-slate-950 dark:ring-white/20 dark:hover:bg-gold-100"
                         >
-                            <Phone className="w-4 h-4 mr-2" />
+                            <Phone className="mr-2 h-4 w-4" />
                             <span>Randevu Al</span>
                         </Link>
 

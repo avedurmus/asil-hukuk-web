@@ -72,7 +72,7 @@ export default function AboutPage() {
                 />
                 {/* Banner */}
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 relative overflow-hidden transition-colors duration-300">
-                    <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                    <div className="absolute inset-0 opacity-20 bg-noise"></div>
                     <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Hakkımızda</h1>
                         <p className="text-xl text-slate-400 font-light max-w-2xl mx-auto">

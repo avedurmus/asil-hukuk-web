@@ -153,6 +153,11 @@ export default function RootLayout({
                                 } else {
                                     document.documentElement.classList.remove('dark');
                                 }
+                                // Scroll animasyonları yalnızca JS ve IntersectionObserver
+                                // varken devreye girer; aksi halde içerik baştan görünür kalır.
+                                if ('IntersectionObserver' in window) {
+                                    document.documentElement.classList.add('reveal-ready');
+                                }
                             } catch (_) {}
                         `
                     }}

@@ -59,7 +59,7 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
                         {/* Contact Info Cards */}
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
+                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
                                 <Phone className="w-6 h-6" />
                             </div>
                             <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Telefon</h3>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
+                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
                                 <Mail className="w-6 h-6" />
                             </div>
                             <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">E-Posta</h3>
@@ -77,7 +77,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-6">
+                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
                                 <MapPin className="w-6 h-6" />
                             </div>
                             <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Adres</h3>

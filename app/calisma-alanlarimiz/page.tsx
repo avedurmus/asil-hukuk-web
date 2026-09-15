@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ServiceCard from "@/components/ServiceCard";
+import Reveal from "@/components/Reveal";
 import { services } from "@/data/services";
-import { ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,43 +15,40 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
-                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
-                    <div className="max-w-7xl mx-auto text-center">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Çalışma Alanlarımız</h1>
-                        <p className="text-xl text-slate-300 dark:text-slate-400 max-w-2xl mx-auto">
-                            Hukukun farklı disiplinlerindeki deneyimimizle, müvekkillerimize kapsamlı ve sonuç odaklı çözümler sunuyoruz.
+                {/* Sayfa başlığı */}
+                <div className="relative overflow-hidden bg-slate-950 px-4 py-24 text-white">
+                    <div className="absolute inset-0 bg-noise opacity-[0.12]" />
+                    <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary-800 opacity-25 blur-3xl animate-blob" />
+                    <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-gold-700 opacity-[0.14] blur-3xl animate-blob animation-delay-4000" />
+
+                    <div className="relative z-10 mx-auto max-w-7xl text-center">
+                        <span className="mb-4 block text-sm font-semibold uppercase tracking-[0.18em] text-gold-500">
+                            Faaliyet Alanlarımız
+                        </span>
+                        <h1 className="mb-5 font-serif text-4xl font-bold md:text-5xl">Çalışma Alanlarımız</h1>
+                        <div aria-hidden="true" className="mx-auto mb-6 h-px w-20 rule-gold" />
+                        <p className="mx-auto max-w-2xl text-xl text-slate-300">
+                            Hukukun farklı disiplinlerindeki deneyimimizle, müvekkillerimize kapsamlı ve sonuç odaklı
+                            çözümler sunuyoruz.
                         </p>
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {services.map((service) => {
-                            const Icon = service.icon;
-                            return (
-                                <Link
-                                    key={service.id}
-                                    href={`/calisma-alanlarimiz/${service.id}`}
-                                    className="group bg-white dark:bg-slate-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all border border-slate-100 dark:border-slate-800 flex flex-col"
-                                >
-                                    <div className="w-12 h-12 bg-primary-50 dark:bg-primary-950/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 transition-colors">
-                                        <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-slate-600 dark:text-slate-400 mb-6 flex-grow">
-                                        {service.shortDescription}
-                                    </p>
-                                    <div className="flex items-center text-primary-600 dark:text-primary-400 font-medium text-sm">
-                                        Detaylı Bilgi <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        {services.map((service, i) => (
+                            <Reveal key={service.id} delay={(i % 3) * 120}>
+                                <ServiceCard
+                                    id={service.id}
+                                    title={service.title}
+                                    description={service.shortDescription}
+                                    icon={service.icon}
+                                />
+                            </Reveal>
+                        ))}
                     </div>
                 </div>
             </main>

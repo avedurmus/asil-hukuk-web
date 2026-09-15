@@ -303,7 +303,7 @@ export default function KentselDonusumClient() {
                 className={`flex items-center gap-3 p-5 text-left border-b-2 md:border-b-4 transition-all duration-300 relative ${
                   isActive
                     ? "border-gold-500 bg-white dark:bg-slate-900/40 text-primary-900 dark:text-white"
-                    : "border-transparent text-slate-555 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30"
+                    : "border-transparent text-slate-550 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30"
                 }`}
               >
                 <div
@@ -377,7 +377,7 @@ export default function KentselDonusumClient() {
                           <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
                           {detail.label}
                         </h4>
-                        <p className="text-slate-600 dark:text-slate-405 text-xs leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
                           {detail.desc}
                         </p>
                       </div>

@@ -70,25 +70,52 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <p className="mt-12 text-xs text-slate-600 leading-relaxed max-w-3xl">
-                    Yasal Uyarı: Bu internet sitesinde yer alan bilgiler yalnızca genel bilgilendirme amaçlıdır ve hukuki tavsiye
-                    niteliği taşımaz. Somut durumunuza ilişkin hukuki değerlendirme için bir avukata danışmanız önerilir.
-                </p>
+                <div className="mt-12 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
+                    <p className="max-w-4xl text-xs leading-relaxed text-slate-400">
+                        <span className="font-semibold text-slate-300">Yasal Uyarı:</span> Bu internet sitesinde yer alan
+                        bilgiler yalnızca genel bilgilendirme amaçlıdır ve hukuki tavsiye niteliği taşımaz. Somut
+                        durumunuza ilişkin hukuki değerlendirme için bir avukata danışmanız önerilir.
+                    </p>
+                </div>
 
-                <div className="border-t border-slate-900 mt-8 pt-8 text-center text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center">
+                <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-slate-800 pt-8 text-center text-sm text-slate-400 md:flex-row">
                     <p>&copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.</p>
-                    <div className="flex space-x-6 mt-4 md:mt-0">
-                        <a href="https://www.instagram.com/asilhukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Instagram">
-                            <Instagram className="w-5 h-5" />
+                    <div className="flex gap-3">
+                        <a
+                            href="https://www.instagram.com/asilhukuk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
+                            aria-label="Instagram"
+                        >
+                            <Instagram className="h-4 w-4" />
                         </a>
-                        <a href="https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn">
-                            <Linkedin className="w-5 h-5" />
+                        <a
+                            href="https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
+                            aria-label="LinkedIn"
+                        >
+                            <Linkedin className="h-4 w-4" />
                         </a>
-                        <a href="https://x.com/AsilHukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="X (Twitter)">
-                            <Twitter className="w-5 h-5" />
+                        <a
+                            href="https://x.com/AsilHukuk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
+                            aria-label="X (Twitter)"
+                        >
+                            <Twitter className="h-4 w-4" />
                         </a>
-                        <a href="https://www.facebook.com/asilhukuk" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Facebook">
-                            <Facebook className="w-5 h-5" />
+                        <a
+                            href="https://www.facebook.com/asilhukuk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
+                            aria-label="Facebook"
+                        >
+                            <Facebook className="h-4 w-4" />
                         </a>
                     </div>
                 </div>

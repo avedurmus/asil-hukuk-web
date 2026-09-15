@@ -1,79 +1,108 @@
 import Link from "next/link";
 import { ArrowRight, Award, Scale, ShieldCheck } from "lucide-react";
-import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
+
+const trustPoints = [
+    { icon: Scale, label: "İstanbul Barosu Üyesi" },
+    { icon: ShieldCheck, label: "Adalet Bakanlığı Kayıtlı Arabulucu" },
+    { icon: Award, label: "2004'ten Beri Hizmetinizde" },
+];
 
 export default function Hero() {
     return (
-        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/30 border border-primary-100 dark:border-primary-900/30">
-                    <span className="text-sm font-semibold text-primary-700 dark:text-primary-400 tracking-wide uppercase">
+        <section className="relative isolate overflow-hidden bg-slate-50 dark:bg-slate-950 pt-36 pb-24 lg:pt-48 lg:pb-32 transition-colors duration-300">
+            {/* --- Soyut arka plan katmanları --- */}
+
+            {/* Yumuşak gradyan taban */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900" />
+
+            {/* Hareketli gradyan kütleleri */}
+            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                <div className="absolute -top-40 -left-32 h-[38rem] w-[38rem] rounded-full bg-primary-200/40 dark:bg-primary-900/20 blur-3xl animate-blob" />
+                <div className="absolute -bottom-48 -right-24 h-[34rem] w-[34rem] rounded-full bg-gold-100/60 dark:bg-gold-700/10 blur-3xl animate-blob animation-delay-4000" />
+                <div className="absolute top-1/3 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-indigo-200/30 dark:bg-indigo-900/15 blur-3xl animate-blob animation-delay-2000" />
+            </div>
+
+            {/* İnce ızgara — merkeze doğru solan soyut doku */}
+            <div
+                className="absolute inset-0 -z-10 text-slate-900 dark:text-slate-100 opacity-[0.06] dark:opacity-[0.10] pointer-events-none"
+                style={{
+                    backgroundImage:
+                        "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+                    backgroundSize: "64px 64px",
+                    maskImage:
+                        "radial-gradient(ellipse 75% 60% at 50% 38%, black 35%, transparent 100%)",
+                    WebkitMaskImage:
+                        "radial-gradient(ellipse 75% 60% at 50% 38%, black 35%, transparent 100%)",
+                }}
+            />
+
+            {/* Film grenli doku */}
+            <div className="absolute inset-0 -z-10 bg-noise opacity-[0.15] dark:opacity-[0.08] pointer-events-none" />
+
+            {/* --- İçerik --- */}
+            <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+                {/* Üst rozet */}
+                <div className="inline-flex items-center gap-2.5 rounded-full border border-gold-300/70 dark:border-gold-700/50 bg-white/70 dark:bg-slate-900/60 px-4 py-1.5 backdrop-blur-sm shadow-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+                    <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-700 dark:text-slate-200">
                         {siteContent.about.stats[0].value} {siteContent.about.stats[0].label}
                     </span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-8 leading-tight tracking-tight">
-                    Adalet, Güven ve <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-700 to-primary-500 dark:from-primary-400 dark:to-primary-300">
-                        Modern Çözümler
+
+                {/* Başlık */}
+                <h1 className="mt-8 font-serif font-bold tracking-tight text-slate-900 dark:text-white text-[2.75rem] leading-[1.08] sm:text-6xl lg:text-7xl">
+                    Adalet, Güven ve
+                    <span className="relative mt-3 block w-fit mx-auto pb-4">
+                        <span className="bg-gradient-to-r from-primary-800 via-primary-600 to-primary-500 dark:from-primary-300 dark:via-primary-400 dark:to-primary-200 bg-clip-text text-transparent">
+                            Modern Çözümler
+                        </span>
+                        {/* Altın vurgu çizgisi */}
+                        <span
+                            aria-hidden="true"
+                            className="absolute bottom-0 left-0 h-[3px] w-full rounded-full bg-gradient-to-r from-gold-500/0 via-gold-500 to-gold-500/0"
+                        />
                     </span>
                 </h1>
-                <p className="border-l-4 border-primary-500 pl-6 text-xl text-slate-600 dark:text-slate-350 max-w-2xl mx-auto mb-10 font-light text-left md:text-center md:border-l-0 md:pl-0">
+
+                {/* Alt başlık */}
+                <p className="mx-auto mt-10 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-slate-600 dark:text-slate-300">
                     {siteContent.hero.subtitle}
                 </p>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
+
+                {/* Eylem düğmeleri */}
+                <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4">
                     <Link
                         href="/iletisim"
-                        className="flex items-center justify-center px-8 py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-slate-250 dark:text-slate-950 text-white rounded-lg transition-all text-lg font-medium shadow-lg hover:shadow-xl hover:-translate-y-1"
+                        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary-900 px-8 py-4 text-lg font-medium text-white shadow-lg ring-1 ring-primary-900/20 transition-all duration-300 hover:bg-primary-800 hover:shadow-gold-glow hover:-translate-y-0.5 dark:bg-white dark:text-slate-950 dark:ring-white/20 dark:hover:bg-gold-100"
                     >
-                        {siteContent.hero.cta} <ArrowRight className="ml-2 h-5 w-5" />
+                        {siteContent.hero.cta}
+                        <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                     <Link
                         href="/#uzmanliklar"
-                        className="flex items-center justify-center px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-lg font-medium hover:-translate-y-1"
+                        className="inline-flex items-center justify-center rounded-xl border border-slate-300 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 px-8 py-4 text-lg font-medium text-slate-900 dark:text-slate-100 backdrop-blur-sm transition-all duration-300 hover:border-gold-400 hover:bg-white dark:hover:border-gold-600 dark:hover:bg-slate-800 hover:-translate-y-0.5"
                     >
                         {siteContent.hero.secondaryCta}
                     </Link>
                 </div>
 
-                {/* Trust Indicators */}
-                <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-slate-500 dark:text-slate-400">
-                    <span className="flex items-center gap-2">
-                        <Scale className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                        İstanbul Barosu Üyesi
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                        Adalet Bakanlığı Kayıtlı Arabulucu
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <Award className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                        2004'ten Beri Hizmetinizde
-                    </span>
+                {/* Güven göstergeleri */}
+                <div className="mt-14">
+                    <div aria-hidden="true" className="mx-auto h-px w-28 rule-gold opacity-70" />
+                    <ul className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                        {trustPoints.map(({ icon: Icon, label }) => (
+                            <li
+                                key={label}
+                                className="inline-flex items-center gap-2.5 rounded-full border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm backdrop-blur-sm"
+                            >
+                                <Icon className="h-4 w-4 shrink-0 text-gold-600 dark:text-gold-500" />
+                                {label}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
-
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/images/hero-bg.png"
-                    alt="Asil Hukuk Ofis"
-                    fill
-                    className="object-cover opacity-10"
-                    priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/80 to-slate-50/90 dark:from-slate-950/95 dark:via-slate-950/80 dark:to-slate-950/95"></div>
-            </div>
-
-            {/* Decorative Elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-100/40 dark:bg-indigo-950/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-blob"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] bg-blue-100/40 dark:bg-blue-950/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-blob animation-delay-2000"></div>
-                <div className="absolute top-[20%] right-[20%] w-[30rem] h-[30rem] bg-slate-200/40 dark:bg-slate-800/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-blob animation-delay-4000"></div>
-            </div>
-
-            {/* Grid Pattern Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-10 z-0"></div>
         </section>
     );
 }

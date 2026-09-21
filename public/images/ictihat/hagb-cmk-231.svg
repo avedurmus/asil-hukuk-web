@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="HAGB CMK m. 231">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b2540"/>
+      <stop offset="55%" stop-color="#0c4a6e"/>
+      <stop offset="100%" stop-color="#082f49"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#f4e8c8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.6">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- ince ızgara dokusu -->
+  <g stroke="#ffffff" stroke-opacity="0.045" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/>
+    <line x1="1200" y1="0" x2="1200" y2="630"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/>
+    <line x1="0" y1="126" x2="1200" y2="126"/>
+    <line x1="0" y1="252" x2="1200" y2="252"/>
+    <line x1="0" y1="378" x2="1200" y2="378"/>
+    <line x1="0" y1="504" x2="1200" y2="504"/>
+    <line x1="0" y1="630" x2="1200" y2="630"/>
+  </g>
+
+  <!-- terazi motifi -->
+  <g transform="translate(940 300)" stroke="#d4af37" stroke-opacity="0.34" stroke-width="5" fill="none" stroke-linecap="round">
+    <line x1="0" y1="-150" x2="0" y2="150"/>
+    <line x1="-130" y1="-110" x2="130" y2="-110"/>
+    <path d="M -130 -110 L -185 10 A 60 60 0 0 0 -75 10 Z"/>
+    <path d="M 130 -110 L 75 10 A 60 60 0 0 0 185 10 Z"/>
+    <line x1="-70" y1="150" x2="70" y2="150"/>
+    <circle cx="0" cy="-110" r="11" fill="#d4af37" fill-opacity="0.5" stroke="none"/>
+  </g>
+
+  <!-- metin -->
+  <rect x="90" y="196" width="58" height="4" rx="2" fill="url(#gold)"/>
+  <text x="90" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="bold" fill="#ffffff">HAGB</text>
+  <text x="90" y="392" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="bold" fill="#e6cd8a">CMK m. 231</text>
+  <text x="90" y="460" font-family="Helvetica, Arial, sans-serif" font-size="29" fill="#b8cadd">7589 s. Kanun — 16.07.2026</text>
+
+  <line x1="90" y1="522" x2="1110" y2="522" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1"/>
+  <text x="90" y="564" font-family="Helvetica, Arial, sans-serif" font-size="25" letter-spacing="2" fill="#94adc4">CEZA HUKUKU · ASİL HUKUK BÜROSU</text>
+</svg>

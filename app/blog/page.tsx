@@ -1,19 +1,20 @@
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BlogListClient from "./BlogListClient";
 import { blogPosts } from "@/data/blogPosts";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Hukuk Blogu - Güncel Hukuki Makaleler",
-    description: "Boşanma, ceza, iş ve gayrimenkul hukuku alanında güncel makaleler, yargıtay kararları ve hukuki rehberler.",
+    title: "Hukuk Blogu - İçtihat Notları ve Güncel Makaleler",
+    description:
+        "Yargıtay ve Anayasa Mahkemesi kararları üzerine içtihat notları; boşanma, iş, ceza, kira ve ticaret hukuku alanında güncel rehber yazılar.",
     alternates: {
         canonical: "/blog",
     },
     openGraph: {
         title: "Hukuk Blogu | Asil Hukuk",
-        description: "Boşanma, ceza, iş ve gayrimenkul hukuku alanında güncel makaleler ve hukuki rehberler.",
+        description:
+            "Yargıtay ve Anayasa Mahkemesi kararları üzerine içtihat notları ve güncel hukuki rehberler.",
         url: "https://asilhukuk.net/blog",
         type: "website",
     },
@@ -21,63 +22,41 @@ export const metadata: Metadata = {
 
 export default function BlogIndexPage() {
     const sortedPosts = [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
+    const ictihatCount = sortedPosts.filter((post) => post.kind === "ictihat").length;
+
+    const itemListLd = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Asil Hukuk — Hukuk Blogu",
+        itemListElement: sortedPosts.map((post, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: `https://asilhukuk.net/blog/${post.id}`,
+            name: post.title,
+        })),
+    };
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+                />
+
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
                     <div className="max-w-7xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Hukuk Blogu</h1>
-                        <p className="text-xl text-slate-300 dark:text-slate-400 max-w-2xl mx-auto">
-                            Hukuki konularda güncel bilgiler, rehberler ve yargı dünyasından gelişmeler.
+                        <p className="text-xl text-slate-300 dark:text-slate-400 max-w-3xl mx-auto">
+                            {ictihatCount} içtihat notu ve {sortedPosts.length - ictihatCount} rehber yazı.
+                            Kararlar künyeleriyle birlikte verilir, ilkeler kaynağından aktarılır.
                         </p>
                     </div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {sortedPosts.map((post) => (
-                            <Link
-                                key={post.id}
-                                href={`/blog/${post.id}`}
-                                className="group bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:shadow-lg transition-all border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col"
-                            >
-                                <div className="h-48 overflow-hidden relative bg-slate-200 dark:bg-slate-800">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={post.imageUrl}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    />
-                                    <div className="absolute top-4 left-4 bg-primary-900/90 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm">
-                                        {post.category}
-                                    </div>
-                                </div>
-                                <div className="p-6 flex flex-col flex-grow">
-                                    <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mb-3 space-x-4">
-                                        <div className="flex items-center">
-                                            <Calendar className="w-4 h-4 mr-1" />
-                                            <time dateTime={post.dateISO}>{post.date}</time>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <Clock className="w-4 h-4 mr-1" />
-                                            {post.readTime}
-                                        </div>
-                                    </div>
-                                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
-                                        {post.title}
-                                    </h2>
-                                    <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 text-sm flex-grow">
-                                        {post.excerpt}
-                                    </p>
-                                    <div className="flex items-center text-primary-600 dark:text-primary-400 font-medium text-sm mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
-                                        Devamını Oku <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    <BlogListClient posts={sortedPosts} />
                 </div>
             </main>
             <Footer />

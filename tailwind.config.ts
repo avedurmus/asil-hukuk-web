@@ -5,6 +5,9 @@ const config: Config = {
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        // Blog ve SSS içerikleri data/ altında HTML dizesi olarak tutuluyor;
+        // bu dosyalar taranmazsa içerikteki yardımcı sınıflar üretilmez.
+        "./data/**/*.{js,ts}",
     ],
     darkMode: "class",
     theme: {

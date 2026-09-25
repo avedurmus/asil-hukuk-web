@@ -4,22 +4,14 @@ import Footer from "@/components/Footer";
 import FAQClient from "./FAQClient";
 import { faqCategories, faqs } from "@/data/faq";
 import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Sıkça Sorulan Sorular",
+export const metadata: Metadata = pageMetadata({
+    title: "Sıkça Sorulan Hukuki Sorular",
     description:
         "Boşanma, iş, ceza, kira, kentsel dönüşüm, miras ve icra hukuku hakkında en çok sorulan sorular ve avukatımızın güncel mevzuata dayalı cevapları.",
-    alternates: {
-        canonical: "/sss",
-    },
-    openGraph: {
-        title: "Sıkça Sorulan Sorular | Asil Hukuk",
-        description:
-            "Sekiz hukuk alanında sık sorulan soruların güncel mevzuat ve Yargıtay uygulaması ışığında cevapları.",
-        url: "https://asilhukuk.net/sss",
-        type: "website",
-    },
-};
+    path: "/sss",
+});
 
 export default function FAQPage() {
     const structuredData = {

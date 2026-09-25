@@ -52,6 +52,10 @@ export default function Hero() {
 
                 {/* Başlık */}
                 <h1 className="mt-8 font-serif font-bold tracking-tight text-slate-900 dark:text-white text-[2.75rem] leading-[1.08] sm:text-6xl lg:text-7xl">
+                    {/* Arama motorları için sayfanın konusunu ve konumunu başlığa taşır. */}
+                    <span className="mb-5 block font-sans text-sm sm:text-base font-semibold uppercase tracking-[0.18em] text-gold-600 dark:text-gold-400">
+                        Kartal Avukat ve Hukuk Bürosu
+                    </span>
                     Adalet, Güven ve
                     <span className="relative mt-3 block w-fit mx-auto pb-4">
                         <span className="bg-gradient-to-r from-primary-800 via-primary-600 to-primary-500 dark:from-primary-300 dark:via-primary-400 dark:to-primary-200 bg-clip-text text-transparent">

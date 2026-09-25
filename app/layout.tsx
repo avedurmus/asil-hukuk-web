@@ -3,17 +3,21 @@ import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { DEFAULT_OG_IMAGE, ORGANIZATION_ID, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { services } from "@/data/services";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+// Türkçe karakterler (ğ, ş, ı, İ) "latin-ext" alt kümesindedir; yalnızca "latin"
+// yüklendiğinde bu harfler yedek fonttan çizilir ve sayfa düzeni kayar.
+const inter = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin", "latin-ext"], variable: "--font-playfair", display: "swap" });
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://asilhukuk.net'),
+    metadataBase: new URL(SITE_URL),
     title: {
         default: "Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk ve Danışmanlık Bürosu",
-        template: "%s | Asil Hukuk - İstanbul Kartal"
+        template: "%s | Asil Hukuk"
     },
-    description: "İstanbul Kartal'da faaliyet gösteren Asil Hukuk, boşanma, ceza, gayrimenkul ve iş hukuku alanlarında hukuki danışmanlık ve avukatlık hizmeti sunmaktadır. Av. Emre Durmuş - 20+ Yıl Tecrübe.",
+    description: "Kartal avukat ve hukuk bürosu: Av. Emre Durmuş ile 2004'ten bu yana boşanma, ceza, kira-tahliye, iş ve ticaret hukukunda danışmanlık ve dava takibi.",
     keywords: [
         'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
         'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Soğanlık Avukat', 'Yakacık Avukat',
@@ -29,30 +33,22 @@ export const metadata: Metadata = {
         address: false,
         telephone: false,
     },
-    alternates: {
-        canonical: '/',
-    },
     openGraph: {
         title: 'Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk Bürosu',
         description: 'Güvenilir, şeffaf ve modern hukuki çözümler. Boşanma, Ceza ve Gayrimenkul hukuku uzmanı.',
-        url: 'https://asilhukuk.net',
-        siteName: 'Asil Hukuk & Danışmanlık',
+        url: SITE_URL,
+        siteName: SITE_NAME,
         locale: 'tr_TR',
         type: 'website',
-        images: [
-            {
-                url: '/og-image.png',
-                width: 1200,
-                height: 630,
-                alt: 'Asil Hukuk Bürosu',
-            },
-        ],
+        images: [DEFAULT_OG_IMAGE],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'Asil Hukuk | Av. Emre Durmuş',
         description: 'İstanbul Kartal Hukuk Bürosu. Boşanma ve Ceza davalarında uzman.',
-        creator: '@asilhukuk', // Placeholder, can be removed or updated
+        site: '@AsilHukuk',
+        creator: '@AsilHukuk',
+        images: [DEFAULT_OG_IMAGE.url],
     },
     robots: {
         index: true,
@@ -79,18 +75,34 @@ export const metadata: Metadata = {
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
-    'name': 'Asil Hukuk Bürosu',
+    '@id': ORGANIZATION_ID,
+    'name': SITE_NAME,
+    'alternateName': 'Asil Hukuk ve Danışmanlık Bürosu',
     'image': 'https://asilhukuk.net/logo.png',
     'logo': 'https://asilhukuk.net/logo.png',
     'description': 'İstanbul Kartal bölgesinde boşanma, ceza ve gayrimenkul hukuku alanlarında uzman avukatlık hizmeti.',
-    '@id': 'https://asilhukuk.net',
-    'url': 'https://asilhukuk.net',
-    'telephone': '0530 432 20 25',
+    'url': SITE_URL,
+    'telephone': '+90 530 432 20 25',
     'email': 'emre@asilhukuk.net',
     'priceRange': '$$',
+    'knowsLanguage': ['tr'],
+    'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'Çalışma Alanlarımız',
+        'itemListElement': services.map((service) => ({
+            '@type': 'Offer',
+            'itemOffered': {
+                '@type': 'Service',
+                'name': service.title,
+                'description': service.shortDescription,
+                'url': `${SITE_URL}/calisma-alanlarimiz/${service.id}`,
+            },
+        })),
+    },
     'foundingDate': '2004',
     'founder': {
         '@type': 'Person',
+        '@id': `${SITE_URL}/hakkimizda#emre-durmus`,
         'name': 'Av. Emre Durmuş',
         'jobTitle': 'Avukat ve Arabulucu',
         'url': 'https://asilhukuk.net/hakkimizda'
@@ -136,6 +148,16 @@ const jsonLd = {
     ]
 }
 
+const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    'url': SITE_URL,
+    'name': SITE_NAME,
+    'inLanguage': 'tr-TR',
+    'publisher': { '@id': ORGANIZATION_ID },
+}
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -167,6 +189,10 @@ export default function RootLayout({
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
                 />
                 {children}
                 <MobileBottomNav />

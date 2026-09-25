@@ -16,6 +16,12 @@ import {
     ShieldCheck,
 } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+// Başlık, açıklama ve paylaşım bilgileri kök düzenden gelir.
+export const metadata: Metadata = {
+    alternates: { canonical: "/" },
+};
 
 const processSteps = [
     {

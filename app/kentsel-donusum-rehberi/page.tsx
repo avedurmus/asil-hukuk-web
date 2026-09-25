@@ -5,20 +5,28 @@ import Footer from "@/components/Footer";
 import KentselDonusumClient from '@/components/KentselDonusumClient';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Metadata } from "next";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Yeni Kentsel Dönüşüm Süreci Rehberi (2026)",
+export const metadata: Metadata = pageMetadata({
+    title: "Kentsel Dönüşüm Rehberi (2026)",
     description: "6306 Sayılı Kanun kapsamındaki salt çoğunluk (%50+1) ile kentsel dönüşüm kararı, yeni tebligat usulleri ve pay satışı süreçlerine dair pratik hukuki rehber.",
-    alternates: {
-        canonical: "/kentsel-donusum-rehberi",
-    },
-};
+    path: "/kentsel-donusum-rehberi",
+    openGraph: { type: "article" },
+});
 
 export default function KentselDonusumRehberi() {
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen flex flex-col transition-colors duration-300">
       <Header />
       <main className="flex-grow pt-24 pb-20">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              breadcrumbJsonLd([{ name: "Kentsel Dönüşüm Rehberi", path: "/kentsel-donusum-rehberi" }])
+            ),
+          }}
+        />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header Section with Richer Design */}

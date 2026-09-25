@@ -19,6 +19,7 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Image from "next/image";
+import { breadcrumbJsonLd, DEFAULT_OG_IMAGE, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
 
 interface Props {
     params: {
@@ -37,6 +38,15 @@ function coverImage(post: BlogPost): string {
     return `https://asilhukuk.net${post.imageUrl ?? "/images/justice-symbol.png"}`;
 }
 
+/**
+ * Paylaşım kartı görseli. Facebook, LinkedIn ve X önizlemelerinde SVG
+ * gösterilmediği için SVG kapaklı yazılarda varsayılan görsel kullanılır.
+ */
+function socialImage(post: BlogPost) {
+    if (!post.imageUrl || post.imageUrl.endsWith(".svg")) return DEFAULT_OG_IMAGE;
+    return { url: post.imageUrl, alt: post.title };
+}
+
 /** Kararın "E. 2013/11078, K. 2014/3241" biçimindeki künyesi. */
 function decisionLabel(decision: NonNullable<BlogPost["decisions"]>[number]): string {
     if (decision.basvuruNo) return `B. No: ${decision.basvuruNo}`;
@@ -49,31 +59,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const post = blogPosts.find((p) => p.id === params.slug);
     if (!post) return { title: "Yazı Bulunamadı" };
 
-    return {
+    return pageMetadata({
         title: post.title,
         description: post.excerpt,
+        path: `/blog/${post.id}`,
+        socialTitle: post.title,
         keywords: post.tags,
-        alternates: {
-            canonical: `/blog/${params.slug}`,
-        },
+        images: [socialImage(post)],
         openGraph: {
-            title: post.title,
-            description: post.excerpt,
-            url: `https://asilhukuk.net/blog/${params.slug}`,
             type: "article",
             publishedTime: post.dateISO,
-            authors: ["Av. Emre Durmuş"],
+            authors: [`${SITE_URL}/hakkimizda`],
             section: post.category,
             tags: post.tags,
-            images: [{ url: coverImage(post), alt: post.title }],
         },
-        twitter: {
-            card: "summary_large_image",
-            title: post.title,
-            description: post.excerpt,
-            images: [coverImage(post)],
-        },
-    };
+    });
 }
 
 export default function BlogPostPage({ params }: Props) {
@@ -98,18 +98,20 @@ export default function BlogPostPage({ params }: Props) {
         "@type": post.kind === "ictihat" ? "ScholarlyArticle" : "BlogPosting",
         headline: post.title,
         description: post.excerpt,
-        image: coverImage(post),
+        image: Array.from(new Set([coverImage(post), `${SITE_URL}${socialImage(post).url}`])),
         datePublished: post.dateISO,
         dateModified: post.dateISO,
         inLanguage: "tr-TR",
         keywords: post.tags?.join(", "),
         author: {
             "@type": "Person",
+            "@id": `${SITE_URL}/hakkimizda#emre-durmus`,
             name: "Av. Emre Durmuş",
             url: "https://asilhukuk.net/hakkimizda",
         },
         publisher: {
             "@type": "Organization",
+            "@id": ORGANIZATION_ID,
             name: "Asil Hukuk Bürosu",
             logo: {
                 "@type": "ImageObject",
@@ -131,20 +133,10 @@ export default function BlogPostPage({ params }: Props) {
             : {}),
     };
 
-    const breadcrumbLd = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://asilhukuk.net" },
-            { "@type": "ListItem", position: 2, name: "Blog", item: "https://asilhukuk.net/blog" },
-            {
-                "@type": "ListItem",
-                position: 3,
-                name: post.title,
-                item: `https://asilhukuk.net/blog/${post.id}`,
-            },
-        ],
-    };
+    const breadcrumbLd = breadcrumbJsonLd([
+        { name: "Blog", path: "/blog" },
+        { name: post.title, path: `/blog/${post.id}` },
+    ]);
 
     const shareUrl = `https://asilhukuk.net/blog/${post.id}`;
 

@@ -4,20 +4,27 @@ import ServiceCard from "@/components/ServiceCard";
 import Reveal from "@/components/Reveal";
 import { services } from "@/data/services";
 import { Metadata } from "next";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Çalışma Alanlarımız",
-    description: "Boşanma, Ceza, Gayrimenkul, İş ve Ticaret Hukuku alanlarında uzmanlaşmış Asil Hukuk Bürosu'nun faaliyet alanları.",
-    alternates: {
-        canonical: "/calisma-alanlarimiz",
-    },
-};
+export const metadata: Metadata = pageMetadata({
+    title: "Çalışma Alanlarımız - Kartal Avukat",
+    description: "Kartal'da boşanma ve aile, ceza, gayrimenkul ve kira, iş ve sosyal güvenlik, ticaret ve şirketler hukuku ile arabuluculuk alanlarında avukatlık hizmetleri.",
+    path: "/calisma-alanlarimiz",
+});
 
 export default function ServicesPage() {
     return (
         <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(
+                            breadcrumbJsonLd([{ name: "Çalışma Alanlarımız", path: "/calisma-alanlarimiz" }])
+                        ),
+                    }}
+                />
                 {/* Sayfa başlığı */}
                 <div className="relative overflow-hidden bg-slate-950 px-4 py-24 text-white">
                     <div className="absolute inset-0 bg-noise opacity-[0.12]" />

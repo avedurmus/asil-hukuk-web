@@ -5,14 +5,14 @@ import { Scale, Award, Heart, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
 import { Metadata } from "next";
+import { breadcrumbJsonLd, ORGANIZATION_ID, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Hakkımızda - Av. Emre Durmuş",
-    description: "20 yılı aşkın tecrübesiyle İstanbul Kartal'da hizmet veren Asil Hukuk Bürosu ve kurucusu Av. Emre Durmuş hakkında detaylı bilgi.",
-    alternates: {
-        canonical: '/hakkimizda',
-    },
-};
+export const metadata: Metadata = pageMetadata({
+    title: "Hakkımızda - Av. Emre Durmuş, Kartal Avukat",
+    description: "2004'ten bu yana İstanbul Kartal'da avukatlık ve arabuluculuk yapan Av. Emre Durmuş ve Asil Hukuk Bürosu hakkında: tecrübe, değerler ve çalışma anlayışı.",
+    path: "/hakkimizda",
+    images: [{ url: "/images/emre-durmus.jpg", width: 1024, height: 937, alt: "Av. Emre Durmuş" }],
+});
 
 const jsonLd = {
     '@context': 'https://schema.org',
@@ -20,25 +20,19 @@ const jsonLd = {
     'name': 'Hakkımızda',
     'description': 'Asil Hukuk Bürosu tarihçesi, vizyonu ve uzman kadrosu hakkında bilgiler.',
     'url': 'https://asilhukuk.net/hakkimizda',
-    'publisher': {
-        '@type': 'LegalService',
-        'name': 'Asil Hukuk Bürosu',
-        'image': 'https://asilhukuk.net/logo.png'
-    }
+    'about': { '@id': ORGANIZATION_ID },
+    'publisher': { '@id': ORGANIZATION_ID }
 }
 
 const personLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': 'https://asilhukuk.net/hakkimizda#emre-durmus',
     'name': 'Av. Emre Durmuş',
     'jobTitle': 'Avukat ve Arabulucu',
     'image': 'https://asilhukuk.net/images/emre-durmus.jpg',
     'url': 'https://asilhukuk.net/hakkimizda',
-    'worksFor': {
-        '@type': 'LegalService',
-        'name': 'Asil Hukuk Bürosu',
-        'url': 'https://asilhukuk.net'
-    },
+    'worksFor': { '@id': ORGANIZATION_ID },
     'memberOf': {
         '@type': 'Organization',
         'name': 'İstanbul Barosu'
@@ -69,6 +63,12 @@ export default function AboutPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(breadcrumbJsonLd([{ name: "Hakkımızda", path: "/hakkimizda" }])),
+                    }}
                 />
                 {/* Banner */}
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 relative overflow-hidden transition-colors duration-300">

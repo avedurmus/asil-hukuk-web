@@ -3,22 +3,15 @@ import Footer from "@/components/Footer";
 import BlogListClient from "./BlogListClient";
 import { blogPosts } from "@/data/blogPosts";
 import { Metadata } from "next";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
     title: "Hukuk Blogu - İçtihat Notları ve Güncel Makaleler",
     description:
         "Yargıtay ve Anayasa Mahkemesi kararları üzerine içtihat notları; boşanma, iş, ceza, kira ve ticaret hukuku alanında güncel rehber yazılar.",
-    alternates: {
-        canonical: "/blog",
-    },
-    openGraph: {
-        title: "Hukuk Blogu | Asil Hukuk",
-        description:
-            "Yargıtay ve Anayasa Mahkemesi kararları üzerine içtihat notları ve güncel hukuki rehberler.",
-        url: "https://asilhukuk.net/blog",
-        type: "website",
-    },
-};
+    path: "/blog",
+    socialTitle: "Hukuk Blogu | Asil Hukuk",
+});
 
 export default function BlogIndexPage() {
     const sortedPosts = [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
@@ -43,6 +36,12 @@ export default function BlogIndexPage() {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(breadcrumbJsonLd([{ name: "Hukuk Blogu", path: "/blog" }])),
+                    }}
                 />
 
                 <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">

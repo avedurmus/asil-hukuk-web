@@ -39,7 +39,7 @@ export default function FAQPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="min-h-screen bg-ivory-100 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
                 <script
@@ -52,7 +52,7 @@ export default function FAQPage() {
                 />
 
                 {/* Hero */}
-                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
+                <div className="bg-primary-950 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
                     <div className="max-w-4xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
                             Sıkça Sorulan Sorular
@@ -67,7 +67,7 @@ export default function FAQPage() {
                 <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
                     <FAQClient />
 
-                    <div className="mt-16 text-center bg-blue-50 dark:bg-blue-950/20 rounded-2xl p-8 border border-blue-100 dark:border-blue-900/30 transition-colors duration-300">
+                    <div className="mt-16 text-center bg-white dark:bg-slate-900 rounded-3xl p-8 border border-gold-500/30 dark:border-slate-800 transition-colors duration-300">
                         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                             Aradığınız cevabı bulamadınız mı?
                         </h2>

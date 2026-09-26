@@ -4,7 +4,7 @@ import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe } from "l
 export const siteContent = {
     hero: {
         title: "Adalet, Güven ve Modern Çözümler",
-        subtitle: "Asil Hukuk ve Danışmanlık Bürosu olarak, hukuki süreçlerinizi şeffaf, hızlı ve güvenilir bir şekilde yönetiyoruz.",
+        subtitle: "2004'ten bu yana Kartal'da; aile, ceza, gayrimenkul, iş ve ticaret hukukunda süreçlerinizi şeffaf, planlı ve kişisel ilgiyle yürütüyoruz.",
         cta: "İletişime Geç",
         secondaryCta: "Çalışma Alanlarımız"
     },

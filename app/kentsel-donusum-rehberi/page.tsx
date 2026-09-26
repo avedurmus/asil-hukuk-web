@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function KentselDonusumRehberi() {
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen flex flex-col transition-colors duration-300">
+    <div className="bg-ivory-100 dark:bg-slate-950 min-h-screen flex flex-col transition-colors duration-300">
       <Header />
       <main className="flex-grow pt-24 pb-20">
         <script
@@ -48,7 +48,7 @@ export default function KentselDonusumRehberi() {
 
           {/* Enhanced CTA Section */}
           <div className="mt-16 bg-gradient-to-br from-primary-900 to-slate-900 dark:from-slate-900/80 dark:to-slate-950/80 rounded-3xl p-8 md:p-12 text-center shadow-xl text-white relative overflow-hidden border border-slate-800">
-            <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px] opacity-5" />
+            <div className="absolute inset-0 bg-[radial-gradient(#c09652_1px,transparent_1px)] [background-size:24px_24px] opacity-5" />
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl font-bold font-serif">Sürecinizi Birlikte Güvenle Yönetelim</h2>
               <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">

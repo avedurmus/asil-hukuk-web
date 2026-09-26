@@ -1,123 +1,152 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
-import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook, Twitter } from "lucide-react";
+import { OFFICE_HOURS, PHONE_HREF } from "@/lib/contact";
+import { OFFICE_MAP_URL } from "@/lib/seo";
+import { MapPin, Phone, Mail, Clock, Instagram, Linkedin, Facebook, Twitter, ArrowUpRight } from "lucide-react";
+
+const socials = [
+    { href: "https://www.instagram.com/asilhukuk", label: "Instagram", icon: Instagram },
+    { href: "https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/", label: "LinkedIn", icon: Linkedin },
+    { href: "https://x.com/AsilHukuk", label: "X (Twitter)", icon: Twitter },
+    { href: "https://www.facebook.com/asilhukuk", label: "Facebook", icon: Facebook },
+];
+
+const corporateLinks = [
+    { href: "/hakkimizda", label: "Hakkımızda" },
+    { href: "/blog", label: "Hukuk Blogu" },
+    { href: "/sss", label: "Sıkça Sorulan Sorular" },
+    { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi" },
+    { href: "/asistan", label: "YargıAsistan (AI)" },
+    { href: "/iletisim", label: "İletişim & Randevu" },
+];
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    {/* Brand & Info */}
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-3">
+        <footer className="relative border-t border-white/5 bg-[#0b1320] text-slate-400">
+            <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px rule-gold opacity-40" />
+            <div className="mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
+                    {/* Marka */}
+                    <div className="space-y-6 lg:col-span-4">
+                        <Link href="/" className="flex items-center gap-3">
                             <Image
                                 src="/logo.png"
                                 alt={`${siteContent.brand.name} Logo`}
-                                width={44}
-                                height={44}
-                                className="rounded-xl shrink-0"
+                                width={48}
+                                height={48}
+                                className="shrink-0 rounded-xl"
                             />
-                            <div>
-                                <h3 className="text-2xl font-serif font-bold text-white tracking-tight">
+                            <span>
+                                <span className="block font-serif text-2xl font-medium tracking-tight text-white">
                                     {siteContent.brand.name}
-                                </h3>
-                                <p className="text-xs uppercase tracking-widest text-slate-500 mt-1">{siteContent.brand.slogan}</p>
-                            </div>
-                        </div>
-                        <p className="text-slate-400 font-light leading-relaxed max-w-sm">
-                            Hukuki süreçlerinizde güvenilir, şeffaf ve profesyonel çözüm ortağınız.
+                                </span>
+                                <span className="mt-1 block text-[10px] uppercase tracking-[0.28em] text-gold-400">
+                                    {siteContent.brand.slogan}
+                                </span>
+                            </span>
+                        </Link>
+                        <p className="max-w-sm font-light leading-relaxed">
+                            2004&apos;ten bu yana Kartal&apos;da; hukuki süreçlerinizde güvenilir, şeffaf ve özenli
+                            çözüm ortağınız.
                         </p>
+                        <div className="flex gap-2.5">
+                            {socials.map(({ href, label, icon: Icon }) => (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={label}
+                                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
+                                >
+                                    <Icon className="h-4 w-4" />
+                                </a>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-6">Hızlı Bağlantılar</h4>
-                        <ul className="space-y-3">
-                            <li><Link href="/" className="hover:text-primary-500 transition-colors">Ana Sayfa</Link></li>
-                            <li><Link href="/hakkimizda" className="hover:text-primary-500 transition-colors">Hakkımızda</Link></li>
-                            <li><Link href="/calisma-alanlarimiz" className="hover:text-primary-500 transition-colors">Çalışma Alanlarımız</Link></li>
-                            <li><Link href="/blog" className="hover:text-primary-500 transition-colors">Hukuk Blogu</Link></li>
-                            <li><Link href="/sss" className="hover:text-primary-500 transition-colors">Sıkça Sorulan Sorular</Link></li>
-                            <li><Link href="/asistan" className="hover:text-amber-500 transition-colors font-semibold">YargıAsistan (AI)</Link></li>
-                            <li><Link href="/iletisim" className="hover:text-primary-500 transition-colors">İletişim</Link></li>
+                    {/* Çalışma alanları */}
+                    <div className="lg:col-span-3">
+                        <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-white">Çalışma Alanları</h3>
+                        <ul className="space-y-3 text-[15px]">
+                            {siteContent.services.map((s) => (
+                                <li key={s.id}>
+                                    <Link href={`/calisma-alanlarimiz/${s.id}`} className="transition-colors hover:text-gold-300">
+                                        {s.title}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
-                    {/* Contact Info */}
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-6">İletişim</h4>
-                        <ul className="space-y-4">
-                            <li className="flex items-start">
-                                <MapPin className="h-5 w-5 text-primary-500 mr-3 mt-1 flex-shrink-0" />
-                                <span>{siteContent.contact.address}</span>
-                            </li>
-                            <li className="flex items-center">
-                                <Phone className="h-5 w-5 text-primary-500 mr-3 flex-shrink-0" />
-                                <a href={`tel:${siteContent.contact.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">
+                    {/* Kurumsal */}
+                    <div className="lg:col-span-2">
+                        <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-white">Büro</h3>
+                        <ul className="space-y-3 text-[15px]">
+                            {corporateLinks.map((l) => (
+                                <li key={l.href}>
+                                    <Link href={l.href} className="transition-colors hover:text-gold-300">
+                                        {l.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* İletişim */}
+                    <div className="lg:col-span-3">
+                        <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-white">İletişim</h3>
+                        <ul className="space-y-4 text-[15px]">
+                            <li className="flex items-start gap-3">
+                                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                                <a href={PHONE_HREF} className="font-semibold text-white transition-colors hover:text-gold-300">
                                     {siteContent.contact.phone}
                                 </a>
                             </li>
-                            <li className="flex items-center">
-                                <Mail className="h-5 w-5 text-primary-500 mr-3 flex-shrink-0" />
-                                <a href={`mailto:${siteContent.contact.email}`} className="hover:text-white transition-colors">
+                            <li className="flex items-start gap-3">
+                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                                <a href={`mailto:${siteContent.contact.email}`} className="transition-colors hover:text-white">
                                     {siteContent.contact.email}
                                 </a>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                                <span>{OFFICE_HOURS}</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                                <span>
+                                    {siteContent.contact.address}
+                                    <a
+                                        href={OFFICE_MAP_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-2 flex w-fit items-center gap-1 text-sm font-semibold text-gold-400 hover:text-gold-300"
+                                    >
+                                        Yol tarifi al <ArrowUpRight className="h-3.5 w-3.5" />
+                                    </a>
+                                </span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="mt-12 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-                    <p className="max-w-4xl text-xs leading-relaxed text-slate-400">
-                        <span className="font-semibold text-slate-300">Yasal Uyarı:</span> Bu internet sitesinde yer alan
+                <div className="mt-14 rounded-2xl border border-white/5 bg-white/[0.02] p-5">
+                    <p className="text-xs leading-relaxed text-slate-500">
+                        <span className="font-semibold text-slate-400">Yasal Uyarı:</span> Bu internet sitesinde yer alan
                         bilgiler yalnızca genel bilgilendirme amaçlıdır ve hukuki tavsiye niteliği taşımaz. Somut
                         durumunuza ilişkin hukuki değerlendirme için bir avukata danışmanız önerilir.
                     </p>
                 </div>
 
-                <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-slate-800 pt-8 text-center text-sm text-slate-400 md:flex-row">
-                    <p>&copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.</p>
-                    <div className="flex gap-3">
-                        <a
-                            href="https://www.instagram.com/asilhukuk"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
-                            aria-label="Instagram"
-                        >
-                            <Instagram className="h-4 w-4" />
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/in/avukat-emre-durmu%C5%9F-a5981523/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
-                            aria-label="LinkedIn"
-                        >
-                            <Linkedin className="h-4 w-4" />
-                        </a>
-                        <a
-                            href="https://x.com/AsilHukuk"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
-                            aria-label="X (Twitter)"
-                        >
-                            <Twitter className="h-4 w-4" />
-                        </a>
-                        <a
-                            href="https://www.facebook.com/asilhukuk"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400 transition-colors hover:border-gold-500 hover:text-gold-400"
-                            aria-label="Facebook"
-                        >
-                            <Facebook className="h-4 w-4" />
-                        </a>
-                    </div>
+                <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-center text-sm text-slate-500 md:flex-row">
+                    <p>
+                        &copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.
+                    </p>
+                    <p className="font-serif italic text-slate-500">Av. Emre Durmuş · İstanbul Barosu</p>
                 </div>
             </div>
         </footer>

@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
 import Reveal from "@/components/Reveal";
+import ContactCTA from "@/components/ContactCTA";
 import { services } from "@/data/services";
 import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
@@ -14,9 +15,9 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ServicesPage() {
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
             <Header />
-            <main className="flex-grow pt-20">
+            <main className="flex-grow">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -26,30 +27,29 @@ export default function ServicesPage() {
                     }}
                 />
                 {/* Sayfa başlığı */}
-                <div className="relative overflow-hidden bg-slate-950 px-4 py-24 text-white">
-                    <div className="absolute inset-0 bg-noise opacity-[0.12]" />
-                    <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary-800 opacity-25 blur-3xl animate-blob" />
-                    <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-gold-700 opacity-[0.14] blur-3xl animate-blob animation-delay-4000" />
-
-                    <div className="relative z-10 mx-auto max-w-7xl text-center">
-                        <span className="mb-4 block text-sm font-semibold uppercase tracking-[0.18em] text-gold-500">
-                            Faaliyet Alanlarımız
-                        </span>
-                        <h1 className="mb-5 font-serif text-4xl font-bold md:text-5xl">Çalışma Alanlarımız</h1>
-                        <div aria-hidden="true" className="mx-auto mb-6 h-px w-20 rule-gold" />
-                        <p className="mx-auto max-w-2xl text-xl text-slate-300">
+                <section className="relative isolate overflow-hidden bg-primary-950 pb-24 pt-36 text-white lg:pt-44">
+                    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
+                    <div
+                        aria-hidden="true"
+                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
+                    />
+                    <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+                        <span className="eyebrow justify-center !text-gold-400">Faaliyet Alanlarımız</span>
+                        <h1 className="mt-6 font-serif text-4xl font-medium md:text-6xl">Çalışma Alanlarımız</h1>
+                        <p className="mx-auto mt-6 max-w-2xl text-lg font-light text-slate-300">
                             Hukukun farklı disiplinlerindeki deneyimimizle, müvekkillerimize kapsamlı ve sonuç odaklı
                             çözümler sunuyoruz.
                         </p>
                     </div>
-                </div>
+                </section>
 
-                <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {services.map((service, i) => (
-                            <Reveal key={service.id} delay={(i % 3) * 120}>
+                            <Reveal key={service.id} delay={(i % 3) * 110} className="h-full">
                                 <ServiceCard
                                     id={service.id}
+                                    index={i + 1}
                                     title={service.title}
                                     description={service.shortDescription}
                                     icon={service.icon}
@@ -58,6 +58,8 @@ export default function ServicesPage() {
                         ))}
                     </div>
                 </div>
+
+                <ContactCTA />
             </main>
             <Footer />
         </div>

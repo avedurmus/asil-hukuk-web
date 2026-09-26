@@ -2,12 +2,12 @@ import Header from "@/components/Header";
 import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
-import Image from "next/image";
+import { Mail, MapPin, Phone, Clock, MessageCircle, ArrowUpRight, FileText, ShieldCheck } from "lucide-react";
+import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
 
 import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
-import { pageMetadata } from "@/lib/seo";
+import { OFFICE_MAP_URL, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
     title: "İletişim ve Randevu - Kartal Hukuk Bürosu",
@@ -29,75 +29,155 @@ const jsonLd = {
     }
 }
 
+const channels = [
+    {
+        icon: Phone,
+        label: "Telefon",
+        value: siteContent.contact.phone,
+        note: OFFICE_HOURS,
+        href: PHONE_HREF,
+    },
+    {
+        icon: MessageCircle,
+        label: "WhatsApp",
+        value: "Mesaj gönderin",
+        note: "Kısa sorularınız için en hızlı yol",
+        href: whatsappHref(),
+        external: true,
+    },
+    {
+        icon: Mail,
+        label: "E-posta",
+        value: siteContent.contact.email,
+        note: "24 saat içinde dönüş",
+        href: `mailto:${siteContent.contact.email}`,
+    },
+];
+
+const preparation = [
+    "Varsa dava veya tebligat evrakı, sözleşme ve tapu gibi belgeler",
+    "Olayların kısa bir tarih sıralaması",
+    "Karşı tarafın ve tanıkların bilinen iletişim bilgileri",
+];
+
 export default function ContactPage() {
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
             <Header />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-            <main className="flex-grow pt-32 pb-20 relative">
-                {/* Background for Header */}
-                <div className="absolute top-0 left-0 w-full h-[500px] z-0">
-                    <Image
-                        src="/images/kartal-view.png"
-                        alt="Kartal İstanbul"
-                        fill
-                        className="object-cover opacity-10"
-                        priority
+            <main className="flex-grow">
+                {/* Başlık */}
+                <section className="relative isolate overflow-hidden bg-primary-950 pb-40 pt-36 text-white lg:pt-44">
+                    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
+                    <div
+                        aria-hidden="true"
+                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/90 to-slate-50 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950"></div>
-                </div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">İletişim</h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
-                            Hukuki sorularınız için bize ulaşın. Size en kısa sürede dönüş yapacağız.
+                    <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+                        <span className="eyebrow justify-center !text-gold-400">İletişim & Randevu</span>
+                        <h1 className="mt-6 font-serif text-4xl font-medium md:text-6xl">
+                            Size nasıl <em className="italic text-gold-300">yardımcı</em> olabiliriz?
+                        </h1>
+                        <p className="mx-auto mt-6 max-w-2xl text-lg font-light text-slate-300">
+                            Formu doldurun, arayın ya da WhatsApp&apos;tan yazın. Talebinizi dinleyip size en kısa
+                            sürede dönüş yapalım.
                         </p>
                     </div>
+                </section>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                        {/* Contact Info Cards */}
-                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
-                                <Phone className="w-6 h-6" />
-                            </div>
-                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Telefon</h3>
-                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.phone}</p>
-                            <p className="text-slate-400 dark:text-slate-500 text-sm mt-2">Hafta içi: 09:00 - 18:00</p>
-                        </div>
-
-                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
-                                <Mail className="w-6 h-6" />
-                            </div>
-                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">E-Posta</h3>
-                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.email}</p>
-                            <p className="text-slate-400 dark:text-slate-500 text-sm mt-2">24 saat içinde dönüş</p>
-                        </div>
-
-                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-colors duration-300">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-800 to-primary-950 text-gold-400 shadow-md ring-1 ring-primary-900/20">
-                                <MapPin className="w-6 h-6" />
-                            </div>
-                            <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Adres</h3>
-                            <p className="text-slate-600 dark:text-slate-300">{siteContent.contact.address}</p>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                        <script
-                            type="application/ld+json"
-                            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-                        />
-                        {/* Contact Form */}
-                        <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 transition-colors duration-300">
-                            <Suspense fallback={<div>Loading...</div>}>
+                <div className="relative z-10 mx-auto -mt-28 max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+                        {/* Form */}
+                        <div
+                            id="randevu"
+                            className="rounded-3xl border border-slate-200/80 bg-white p-7 shadow-elegant dark:border-slate-800 dark:bg-slate-900 md:p-10 lg:col-span-7"
+                        >
+                            <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">Randevu Talep Formu</h2>
+                            <p className="mb-8 mt-2 text-slate-600 dark:text-slate-400">
+                                Birkaç bilgi yeterli; ayrıntıları görüşmede konuşuruz.
+                            </p>
+                            <Suspense fallback={<div className="h-96" />}>
                                 <ContactForm />
                             </Suspense>
                         </div>
 
-                        {/* Map */}
-                        <div className="bg-slate-200 dark:bg-slate-850 rounded-2xl overflow-hidden min-h-[400px] shadow-inner relative border dark:border-slate-800">
+                        {/* İletişim kanalları */}
+                        <aside className="space-y-4 lg:col-span-5">
+                            {channels.map((c) => (
+                                <a
+                                    key={c.label}
+                                    href={c.href}
+                                    {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    className="group flex items-center gap-5 rounded-3xl border border-slate-200/80 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-500/60 hover:shadow-elegant dark:border-slate-800 dark:bg-slate-900"
+                                >
+                                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-900 text-gold-300 dark:bg-slate-950">
+                                        <c.icon className="h-6 w-6" />
+                                    </span>
+                                    <span className="min-w-0 flex-grow">
+                                        <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                            {c.label}
+                                        </span>
+                                        <span className="mt-0.5 block truncate font-serif text-xl text-slate-900 dark:text-slate-100">
+                                            {c.value}
+                                        </span>
+                                        <span className="block text-sm text-slate-500 dark:text-slate-400">{c.note}</span>
+                                    </span>
+                                    <ArrowUpRight className="h-5 w-5 shrink-0 text-gold-600 transition-transform duration-300 group-hover:rotate-45" />
+                                </a>
+                            ))}
+
+                            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-slate-900">
+                                <div className="flex items-start gap-4">
+                                    <MapPin className="mt-1 h-5 w-5 shrink-0 text-gold-600" />
+                                    <div>
+                                        <p className="font-semibold text-slate-900 dark:text-slate-100">Büromuz</p>
+                                        <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                            {siteContent.contact.address}
+                                        </p>
+                                        <a
+                                            href={OFFICE_MAP_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary-800 hover:text-gold-700 dark:text-gold-400"
+                                        >
+                                            Yol tarifi al <ArrowUpRight className="h-4 w-4" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="my-5 h-px bg-slate-100 dark:bg-slate-800" />
+                                <div className="flex items-start gap-4">
+                                    <Clock className="mt-1 h-5 w-5 shrink-0 text-gold-600" />
+                                    <div>
+                                        <p className="font-semibold text-slate-900 dark:text-slate-100">Çalışma Saatleri</p>
+                                        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                            {OFFICE_HOURS} · Görüşmeler randevu ile yapılır.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+
+                    {/* Görüşmeye hazırlık + harita */}
+                    <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12">
+                        <div className="rounded-3xl bg-primary-900 p-8 text-white lg:col-span-5">
+                            <FileText className="h-7 w-7 text-gold-300" strokeWidth={1.5} />
+                            <h2 className="mt-5 font-serif text-2xl">Görüşmeye gelirken</h2>
+                            <p className="mt-2 text-sm text-slate-300">
+                                Aşağıdakileri yanınızda getirmeniz, ilk görüşmeyi çok daha verimli kılar:
+                            </p>
+                            <ul className="mt-6 space-y-3">
+                                {preparation.map((item) => (
+                                    <li key={item} className="flex items-start gap-3 text-sm text-slate-200">
+                                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="relative min-h-[380px] overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-200 shadow-card dark:border-slate-800 dark:bg-slate-850 lg:col-span-7">
                             <iframe
                                 src={siteContent.contact.mapUrl}
                                 width="100%"
@@ -105,8 +185,8 @@ export default function ContactPage() {
                                 style={{ border: 0 }}
                                 allowFullScreen
                                 loading="lazy"
-                                title="Ofis Konumu"
-                                className="absolute inset-0 dark:opacity-85"
+                                title="Asil Hukuk Bürosu konumu"
+                                className="absolute inset-0 grayscale-[35%] dark:opacity-85"
                             ></iframe>
                         </div>
                     </div>

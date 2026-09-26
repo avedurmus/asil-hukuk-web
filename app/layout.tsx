@@ -15,13 +15,13 @@ const playfair = Playfair_Display({ subsets: ["latin", "latin-ext"], variable: "
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: "Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk ve Danışmanlık Bürosu",
+        default: "Kartal Avukat | Asil Hukuk Bürosu - Av. Emre Durmuş",
         template: "%s | Asil Hukuk"
     },
     description: "Kartal avukat ve hukuk bürosu: Av. Emre Durmuş ile 2004'ten bu yana boşanma, ceza, kira-tahliye, iş ve ticaret hukukunda danışmanlık ve dava takibi.",
     keywords: [
         'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
-        'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Soğanlık Avukat', 'Yakacık Avukat',
+        'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Kartal Taşınmaz Avukatı', 'Kartal Avukat', 'Soğanlık Avukat', 'Yakacık Avukat',
         'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı',
         'Kartal kira avukatı', 'tahliye davası avukatı', 'Pendik avukat', 'Maltepe avukat',
         'Kartal arabulucu avukat', 'İstanbul tahliye avukatı'
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         telephone: false,
     },
     openGraph: {
-        title: 'Asil Hukuk | Av. Emre Durmuş - Kartal Hukuk Bürosu',
+        title: 'Kartal Avukat | Asil Hukuk Bürosu - Av. Emre Durmuş',
         description: 'Güvenilir, şeffaf ve modern hukuki çözümler. Boşanma, Ceza ve Gayrimenkul hukuku uzmanı.',
         url: SITE_URL,
         siteName: SITE_NAME,

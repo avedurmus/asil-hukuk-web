@@ -30,7 +30,7 @@ export default function BlogIndexPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="min-h-screen bg-ivory-100 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
                 <script
@@ -44,7 +44,7 @@ export default function BlogIndexPage() {
                     }}
                 />
 
-                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
+                <div className="bg-primary-950 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
                     <div className="max-w-7xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Hukuk Blogu</h1>
                         <p className="text-xl text-slate-300 dark:text-slate-400 max-w-3xl mx-auto">

@@ -2,64 +2,76 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, Lock, Loader2 } from "lucide-react";
+import { siteContent } from "@/data/siteContent";
+import { trackEvent } from "@/lib/contact";
+
+// Formspree Form ID
+const FORMSPREE_ID = "mblnkeke";
+
+const OTHER_TOPIC = "Diğer / Emin değilim";
+const topics = [...siteContent.services.map((s) => s.title), OTHER_TOPIC];
+const contactMethods = ["Telefon", "WhatsApp", "E-posta"] as const;
+
+const inputClass =
+    "w-full rounded-xl border border-slate-200 bg-ivory-50 px-4 py-3.5 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-gold-500 focus:bg-white focus:ring-4 focus:ring-gold-500/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:bg-slate-900";
+const labelClass = "mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300";
 
 export default function ContactForm() {
     const searchParams = useSearchParams();
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
-    const [subject, setSubject] = useState("");
-
-    // Formspree Form ID
-    const FORMSPREE_ID = "mblnkeke";
+    const [topic, setTopic] = useState("");
+    const [method, setMethod] = useState<(typeof contactMethods)[number]>("Telefon");
 
     useEffect(() => {
         const konu = searchParams.get("konu");
-        if (konu) {
-            setSubject(`${konu} Hakkında Danışmanlık Talebi`);
-        }
+        if (!konu) return;
+        const match = topics.find((t) => t.toLocaleLowerCase("tr-TR") === konu.toLocaleLowerCase("tr-TR"));
+        setTopic(match ?? OTHER_TOPIC);
     }, [searchParams]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         setStatus("submitting");
 
         const form = e.currentTarget;
         const formData = new FormData(form);
 
         // Formspree uses _subject for subject line
-        formData.append("_subject", subject || "Yeni İletişim Formu Mesajı");
+        formData.append("_subject", topic ? `${topic} Hakkında Danışmanlık Talebi` : "Yeni İletişim Formu Mesajı");
 
         try {
-            const response = await fetch(`https://formspree.io/f/mblnkeke`, {
+            const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
                 method: "POST",
                 body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    Accept: "application/json",
+                },
             });
 
             if (response.ok) {
                 setStatus("success");
-                setMessage("Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.");
-                
+                setMessage("Talebiniz bize ulaştı. Mesai saatleri içinde en kısa sürede sizinle iletişime geçeceğiz.");
+
                 // Google Analytics 4 (GA4) Conversion Event
-                if (typeof window !== "undefined" && (window as any).gtag) {
-                    (window as any).gtag("event", "generate_lead", {
-                        event_category: "Contact",
-                        event_label: "Contact Form Submission Success",
-                        value: 1.0,
-                        currency: "TRY"
-                    });
-                }
+                const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+                gtag?.("event", "generate_lead", {
+                    event_category: "Contact",
+                    event_label: "Contact Form Submission Success",
+                    value: 1.0,
+                    currency: "TRY",
+                });
 
                 form.reset();
+                setTopic("");
             } else {
-                const result = await response.json();
+                const result = await response.json().catch(() => ({}));
                 setStatus("error");
                 // Formspree error handling
                 if (result.errors) {
-                    setMessage(result.errors.map((err: any) => err.message).join(", "));
+                    setMessage(result.errors.map((err: { message: string }) => err.message).join(", "));
                 } else {
                     setMessage("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
                 }
@@ -70,102 +82,171 @@ export default function ContactForm() {
         }
     };
 
-    return (
-        <>
-            <h2 className="text-2xl font-serif font-bold mb-6 text-slate-900 dark:text-slate-100">Bize Yazın</h2>
-
-            {status === "success" ? (
-                <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900/30 text-green-700 dark:text-green-400 p-6 rounded-xl text-center">
-                    <p className="text-lg font-medium mb-2">Teşekkürler!</p>
-                    <p>{message}</p>
+    if (status === "success") {
+        return (
+            <div className="flex flex-col items-center py-10 text-center">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gold-500/15 text-gold-600">
+                    <CheckCircle2 className="h-8 w-8" />
+                </span>
+                <h3 className="mt-6 font-serif text-3xl text-slate-900 dark:text-slate-100">Teşekkür ederiz</h3>
+                <p className="mt-3 max-w-sm text-slate-600 dark:text-slate-400">{message}</p>
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
+                    <Link
+                        href="/blog"
+                        className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:border-gold-500 dark:border-slate-700 dark:text-slate-200"
+                    >
+                        Bu arada blogumuza göz atın
+                    </Link>
                     <button
+                        type="button"
                         onClick={() => setStatus("idle")}
-                        className="mt-4 text-green-700 dark:text-green-400 underline text-sm hover:text-green-800 dark:hover:text-green-300"
+                        className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary-800 underline underline-offset-4 dark:text-gold-400"
                     >
                         Yeni mesaj gönder
                     </button>
                 </div>
-            ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Hidden input for bot protection (Honeypot) - Formspree expects _gotcha */}
-                    <input type="text" name="_gotcha" className="hidden" style={{ display: 'none' }} />
+            </div>
+        );
+    }
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Adınız</label>
-                            <input
-                                type="text"
-                                name="name"
-                                required
-                                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                                placeholder="Adınız"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Soyadınız</label>
-                            <input
-                                type="text"
-                                name="surname"
-                                required
-                                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                                placeholder="Soyadınız"
-                            />
-                        </div>
-                    </div>
+    return (
+        <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Hidden input for bot protection (Honeypot) - Formspree expects _gotcha */}
+            <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" style={{ display: "none" }} />
+            <input type="hidden" name="preferred_contact" value={method} />
 
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">E-Posta Adresiniz</label>
-                        <input
-                            type="email"
-                            name="email"
-                            required
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                            placeholder="ornek@email.com"
-                        />
-                    </div>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div>
+                    <label htmlFor="cf-name" className={labelClass}>
+                        Adınız Soyadınız
+                    </label>
+                    <input id="cf-name" type="text" name="name" required autoComplete="name" className={inputClass} placeholder="Adınız Soyadınız" />
+                </div>
+                <div>
+                    <label htmlFor="cf-phone" className={labelClass}>
+                        Telefon Numaranız
+                    </label>
+                    <input
+                        id="cf-phone"
+                        type="tel"
+                        name="phone"
+                        required
+                        autoComplete="tel"
+                        inputMode="tel"
+                        className={inputClass}
+                        placeholder="05XX XXX XX XX"
+                    />
+                </div>
+            </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Telefon Numaranız</label>
-                        <input
-                            type="tel"
-                            name="phone"
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                            placeholder="05XX XXX XX XX"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-1">Mesajınız</label>
-                        <textarea
-                            name="message"
-                            required
-                            rows={5}
-                            defaultValue={subject ? `${subject} konusunda bilgi almak istiyorum.` : ""}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                            placeholder="Konu hakkında detaylı bilgi..."
-                        ></textarea>
-                    </div>
-
-                    {status === "error" && (
-                        <div className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/30 p-3 rounded-lg">
-                            {message}
-                        </div>
-                    )}
-
-                    <button
-                        type="submit"
-                        disabled={status === "submitting"}
-                        className="w-full py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-slate-200 dark:text-slate-950 text-white font-bold rounded-lg transition-colors shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div>
+                    <label htmlFor="cf-email" className={labelClass}>
+                        E-posta <span className="font-normal text-slate-400">(isteğe bağlı)</span>
+                    </label>
+                    <input id="cf-email" type="email" name="email" autoComplete="email" className={inputClass} placeholder="ornek@email.com" />
+                </div>
+                <div>
+                    <label htmlFor="cf-topic" className={labelClass}>
+                        Konu
+                    </label>
+                    <select
+                        id="cf-topic"
+                        name="topic"
+                        required
+                        value={topic}
+                        onChange={(e) => setTopic(e.target.value)}
+                        className={`${inputClass} appearance-none bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a67c3e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")] bg-[length:1.1rem] bg-[right_1rem_center] bg-no-repeat pr-10`}
                     >
-                        {status === "submitting" ? "Gönderiliyor..." : "Mesajı Gönder"}
-                    </button>
+                        <option value="" disabled>
+                            Seçiniz
+                        </option>
+                        {topics.map((t) => (
+                            <option key={t} value={t}>
+                                {t}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
 
-                    <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
-                        Bu form üzerinden gönderilen bilgiler KVKK kapsamında korunmaktadır.
-                    </p>
-                </form>
+            <div>
+                <label htmlFor="cf-message" className={labelClass}>
+                    Kısaca durumunuz
+                </label>
+                <textarea
+                    id="cf-message"
+                    name="message"
+                    required
+                    rows={5}
+                    className={inputClass}
+                    placeholder="Yaşadığınız hukuki sorunu birkaç cümleyle anlatabilirsiniz..."
+                ></textarea>
+            </div>
+
+            <fieldset>
+                <legend className={labelClass}>Size nasıl ulaşalım?</legend>
+                <div className="flex flex-wrap gap-2">
+                    {contactMethods.map((m) => (
+                        <button
+                            key={m}
+                            type="button"
+                            onClick={() => setMethod(m)}
+                            aria-pressed={method === m}
+                            className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                                method === m
+                                    ? "border-primary-900 bg-primary-900 text-white dark:border-gold-500 dark:bg-gold-500 dark:text-slate-950"
+                                    : "border-slate-200 text-slate-600 hover:border-gold-500 dark:border-slate-700 dark:text-slate-300"
+                            }`}
+                        >
+                            {m}
+                        </button>
+                    ))}
+                </div>
+            </fieldset>
+
+            <label className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                <input
+                    type="checkbox"
+                    name="kvkk_onay"
+                    value="Onaylandı"
+                    required
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 accent-primary-900"
+                />
+                <span>
+                    Paylaştığım bilgilerin, talebime dönüş yapılması amacıyla 6698 sayılı KVKK kapsamında işlenmesine
+                    onay veriyorum.
+                </span>
+            </label>
+
+            {status === "error" && (
+                <div role="alert" className="rounded-xl border border-red-100 bg-red-50 p-3 text-sm text-red-600 dark:border-red-900/30 dark:bg-red-950/30 dark:text-red-400">
+                    {message}
+                </div>
             )}
-        </>
+
+            <button
+                type="submit"
+                disabled={status === "submitting"}
+                onClick={() => trackEvent("click_form_submit", "Contact Form - Submit")}
+                className="group flex w-full items-center justify-center gap-2 rounded-full bg-primary-900 py-4 font-semibold text-white shadow-elegant transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
+            >
+                {status === "submitting" ? (
+                    <>
+                        <Loader2 className="h-5 w-5 animate-spin" /> Gönderiliyor...
+                    </>
+                ) : (
+                    <>
+                        Randevu Talebini Gönder
+                        <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </>
+                )}
+            </button>
+
+            <p className="flex items-center justify-center gap-1.5 text-center text-xs text-slate-500">
+                <Lock className="h-3.5 w-3.5" />
+                Bilgileriniz avukat–müvekkil gizliliği ve KVKK kapsamında korunur.
+            </p>
+        </form>
     );
 }
-

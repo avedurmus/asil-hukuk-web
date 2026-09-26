@@ -4,7 +4,11 @@ import Footer from "@/components/Footer";
 import { services } from "@/data/services";
 import { blogPosts } from "@/data/blogPosts";
 import { faqs } from "@/data/faq";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock, MessageCircle, Phone, CalendarCheck, Plus } from "lucide-react";
+import Image from "next/image";
+import ContactCTA from "@/components/ContactCTA";
+import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
+import { siteContent } from "@/data/siteContent";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { breadcrumbJsonLd, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
@@ -71,11 +75,13 @@ export default function ServiceDetailPage({ params }: Props) {
         .slice(0, 4);
 
     const Icon = service.icon;
+    const otherServices = services.filter((s) => s.id !== service.id);
+    const formHref = `/iletisim?konu=${encodeURIComponent(service.title)}#randevu`;
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
             <Header />
-            <main className="flex-grow pt-20">
+            <main className="flex-grow">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -84,106 +90,224 @@ export default function ServiceDetailPage({ params }: Props) {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
                 />
-                {/* Hero Section */}
-                <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-16 px-4 relative overflow-hidden transition-colors duration-300">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-primary-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="max-w-4xl mx-auto relative z-10">
-                        <Link href="/calisma-alanlarimiz" className="inline-flex items-center text-slate-300 hover:text-white mb-6 transition-colors font-medium">
-                            <ArrowLeft className="w-4 h-4 mr-2" />
-                            Tüm Çalışma Alanları
-                        </Link>
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="p-3 bg-primary-500/10 rounded-lg border border-primary-500/20">
-                                <Icon className="w-8 h-8 text-primary-400" />
-                            </div>
-                            <h1 className="text-3xl md:text-5xl font-serif font-bold">{service.title}</h1>
+
+                {/* Başlık alanı */}
+                <section className="relative isolate overflow-hidden bg-primary-950 pb-20 pt-36 text-white lg:pb-24 lg:pt-44">
+                    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
+                    <div
+                        aria-hidden="true"
+                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
+                    />
+                    <Icon
+                        aria-hidden="true"
+                        className="absolute -right-10 top-24 -z-10 h-80 w-80 text-white/[0.03]"
+                        strokeWidth={0.75}
+                    />
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <nav aria-label="Sayfa konumu" className="flex items-center gap-2 text-sm text-slate-400">
+                            <Link href="/" className="transition-colors hover:text-white">Ana Sayfa</Link>
+                            <span>/</span>
+                            <Link href="/calisma-alanlarimiz" className="transition-colors hover:text-white">
+                                Çalışma Alanları
+                            </Link>
+                        </nav>
+                        <div className="mt-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/30 bg-white/5">
+                            <Icon className="h-8 w-8 text-gold-300" strokeWidth={1.5} />
+                        </div>
+                        <h1 className="mt-6 max-w-3xl font-serif text-4xl font-medium leading-tight md:text-6xl">
+                            {service.title}
+                        </h1>
+                        <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-slate-300">
+                            {service.shortDescription}
+                        </p>
+                        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                            <Link
+                                href={formHref}
+                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-7 py-3.5 font-semibold text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+                            >
+                                Bu konuda randevu alın
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </Link>
+                            <a
+                                href={PHONE_HREF}
+                                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold transition-colors hover:border-gold-400"
+                            >
+                                <Phone className="h-4 w-4 text-gold-300" />
+                                {siteContent.contact.phone}
+                            </a>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                {/* Content Section */}
-                <div className="max-w-4xl mx-auto px-4 py-12 sm:px-6">
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 p-8 md:p-12 transition-colors duration-300">
-                        <div className="prose prose-slate dark:prose-invert max-w-none">
-                            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
-                                {service.detailContent.intro}
+                {/* İçerik + yapışkan iletişim kartı */}
+                <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-24">
+                    <div className="lg:col-span-8">
+                        <p className="font-serif text-2xl leading-relaxed text-slate-800 first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-7xl first-letter:leading-[0.85] first-letter:text-gold-600 dark:text-slate-200">
+                            {service.detailContent.intro}
+                        </p>
+
+                        <h2 className="mt-16 font-serif text-3xl text-slate-900 dark:text-slate-100">Hizmet Kapsamı</h2>
+                        <ul className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-2">
+                            {service.detailContent.features.map((feature) => (
+                                <li
+                                    key={feature}
+                                    className="flex items-start gap-3 rounded-2xl border border-slate-200/80 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"
+                                >
+                                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-gold-700 dark:text-gold-400">
+                                        <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                                    </span>
+                                    <span className="text-slate-700 dark:text-slate-300">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="mt-12 rounded-3xl border-l-4 border-gold-500 bg-white p-8 dark:bg-slate-900">
+                            <h2 className="font-serif text-2xl text-slate-900 dark:text-slate-100">Süreç Yönetimi</h2>
+                            <p className="mt-3 leading-relaxed text-slate-600 dark:text-slate-400">
+                                {service.detailContent.process}
                             </p>
-
-                            <h2 className="text-2xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-6">Hizmet Kapsamı</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-                                {service.detailContent.features.map((feature, idx) => (
-                                    <div key={idx} className="flex items-start">
-                                        <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-1 mr-3 flex-shrink-0" />
-                                        <span className="text-slate-700 dark:text-slate-300">{feature}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-6 border border-slate-100 dark:border-slate-800 transition-colors duration-300">
-                                <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">Süreç Yönetimi</h2>
-                                <p className="text-slate-600 dark:text-slate-400">
-                                    {service.detailContent.process}
-                                </p>
-                            </div>
                         </div>
 
                         {relatedFaqs.length > 0 && (
-                            <div className="mt-12">
-                                <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">
-                                    {service.title} Hakkında Sık Sorulanlar
+                            <div className="mt-16">
+                                <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">
+                                    Sık sorulanlar
                                 </h2>
-                                <ul className="space-y-3">
+                                <div className="mt-6 divide-y divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
                                     {relatedFaqs.map((faq) => (
-                                        <li key={faq.id}>
-                                            <Link
-                                                href={`/sss#${faq.id}`}
-                                                className="group flex items-start gap-2 text-slate-700 dark:text-slate-300 hover:text-primary-700 dark:hover:text-primary-400 transition-colors"
-                                            >
-                                                <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 text-primary-600 dark:text-primary-400" />
-                                                <span className="group-hover:underline">{faq.question}</span>
-                                            </Link>
-                                        </li>
+                                        <details key={faq.id} className="group">
+                                            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+                                                <span className="font-serif text-lg text-slate-900 dark:text-slate-100">
+                                                    {faq.question}
+                                                </span>
+                                                <Plus className="h-5 w-5 shrink-0 text-gold-600 transition-transform duration-300 group-open:rotate-45" />
+                                            </summary>
+                                            <div className="pb-6 leading-relaxed text-slate-600 dark:text-slate-400">
+                                                {faq.answer}
+                                                <Link
+                                                    href={`/sss#${faq.id}`}
+                                                    className="mt-3 block text-sm font-semibold text-primary-800 hover:underline dark:text-gold-400"
+                                                >
+                                                    Tüm SSS sayfasında görüntüle →
+                                                </Link>
+                                            </div>
+                                        </details>
                                     ))}
-                                </ul>
+                                </div>
                             </div>
                         )}
 
                         {relatedPosts.length > 0 && (
-                            <div className="mt-12">
-                                <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-4">
-                                    İlgili Yazılar
-                                </h2>
-                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="mt-16">
+                                <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">İlgili yazılar</h2>
+                                <ul className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
                                     {relatedPosts.map((post) => (
                                         <li key={post.id}>
                                             <Link
                                                 href={`/blog/${post.id}`}
-                                                className="block h-full rounded-xl border border-slate-100 dark:border-slate-800 p-4 hover:border-primary-300 dark:hover:border-primary-700 transition-colors"
+                                                className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-500/60 hover:shadow-elegant dark:border-slate-800 dark:bg-slate-900"
                                             >
-                                                <span className="block font-semibold text-slate-900 dark:text-slate-100 mb-1">{post.title}</span>
-                                                <span className="block text-sm text-slate-600 dark:text-slate-400 line-clamp-2">{post.excerpt}</span>
+                                                <span className="font-serif text-lg leading-snug text-slate-900 group-hover:text-primary-800 dark:text-slate-100 dark:group-hover:text-gold-300">
+                                                    {post.title}
+                                                </span>
+                                                <span className="mt-2 line-clamp-2 flex-grow text-sm text-slate-600 dark:text-slate-400">
+                                                    {post.excerpt}
+                                                </span>
+                                                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-800 dark:text-gold-400">
+                                                    Oku <ArrowUpRight className="h-4 w-4" />
+                                                </span>
                                             </Link>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         )}
+                    </div>
 
-                        {/* CTA Section */}
-                        <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">Hukuki Desteğe mi İhtiyacınız Var?</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">
-                                {service.title} konusundaki sorularınız ve hukuki süreçleriniz için bizimle iletişime geçebilirsiniz.
-                            </p>
+                    {/* Yapışkan iletişim kartı */}
+                    <aside className="lg:col-span-4">
+                        <div className="sticky top-28 space-y-5">
+                            <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-elegant dark:border-slate-800 dark:bg-slate-900">
+                                <div className="flex items-center gap-4 bg-primary-900 p-6 text-white">
+                                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-gold-400/60">
+                                        <Image
+                                            src="/images/emre-durmus.jpg"
+                                            alt="Av. Emre Durmuş"
+                                            fill
+                                            sizes="64px"
+                                            className="object-cover object-[60%_20%]"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="font-serif text-xl">Av. Emre Durmuş</p>
+                                        <p className="text-sm text-slate-300">Avukat · Arabulucu</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-3 p-6">
+                                    <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                        {service.title} alanındaki sorunuzu paylaşın; durumunuzu değerlendirip size yol gösterelim.
+                                    </p>
+                                    <Link
+                                        href={formHref}
+                                        className="flex items-center justify-center gap-2 rounded-full bg-primary-900 py-3.5 font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
+                                    >
+                                        <CalendarCheck className="h-4 w-4" /> Randevu Talep Et
+                                    </Link>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <a
+                                            href={PHONE_HREF}
+                                            className="flex items-center justify-center gap-2 rounded-full border border-slate-200 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-gold-500 dark:border-slate-700 dark:text-slate-200"
+                                        >
+                                            <Phone className="h-4 w-4 text-gold-600" /> Ara
+                                        </a>
+                                        <a
+                                            href={whatsappHref(`Merhaba, ${service.title} konusunda hukuki destek almak istiyorum.`)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-2 rounded-full border border-slate-200 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-green-600 dark:border-slate-700 dark:text-slate-200"
+                                        >
+                                            <MessageCircle className="h-4 w-4 text-green-600" /> WhatsApp
+                                        </a>
+                                    </div>
+                                    <p className="flex items-center justify-center gap-1.5 pt-1 text-xs text-slate-500">
+                                        <Clock className="h-3.5 w-3.5" /> {OFFICE_HOURS}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                    Diğer çalışma alanları
+                                </p>
+                                <ul className="mt-4 space-y-1">
+                                    {otherServices.map((s) => (
+                                        <li key={s.id}>
+                                            <Link
+                                                href={`/calisma-alanlarimiz/${s.id}`}
+                                                className="group flex items-center justify-between rounded-xl px-3 py-2.5 text-[15px] text-slate-700 transition-colors hover:bg-ivory-100 hover:text-primary-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                                            >
+                                                {s.title}
+                                                <ArrowRight className="h-4 w-4 text-gold-600 opacity-0 transition-opacity group-hover:opacity-100" />
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
                             <Link
-                                href="/iletisim"
-                                className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors"
+                                href="/calisma-alanlarimiz"
+                                className="inline-flex items-center gap-2 px-2 text-sm font-medium text-slate-500 hover:text-primary-900 dark:hover:text-white"
                             >
-                                Avukatla Görüş
+                                <ArrowLeft className="h-4 w-4" /> Tüm çalışma alanları
                             </Link>
                         </div>
-                    </div>
+                    </aside>
                 </div>
+
+                <ContactCTA
+                    topic={service.title}
+                    title={`${service.title} konusunda desteğe mi ihtiyacınız var?`}
+                />
             </main>
             <Footer />
         </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ContactCTA from "@/components/ContactCTA";
 import { blogPosts, type BlogPost } from "@/data/blogPosts";
 import { faqs } from "@/data/faq";
 import {
@@ -142,7 +143,7 @@ export default function BlogPostPage({ params }: Props) {
     const shareUrl = `https://asilhukuk.net/blog/${post.id}`;
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-300">
+        <div className="min-h-screen bg-ivory-100 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-20">
                 <script
@@ -155,7 +156,7 @@ export default function BlogPostPage({ params }: Props) {
                 />
                 <article>
                     {/* Başlık alanı */}
-                    <div className="bg-slate-900 dark:bg-slate-900/60 text-white py-16 px-4 transition-colors duration-300">
+                    <div className="bg-primary-950 dark:bg-slate-900/60 text-white py-16 px-4 transition-colors duration-300">
                         <div className="max-w-3xl mx-auto">
                             <Link
                                 href="/blog"
@@ -426,8 +427,8 @@ export default function BlogPostPage({ params }: Props) {
                                         </a>
                                     </div>
                                     <Link
-                                        href="/iletisim"
-                                        className="block w-full py-2.5 bg-primary-600 text-white text-center rounded-lg font-medium hover:bg-primary-700 transition-colors text-sm"
+                                        href="/iletisim#randevu"
+                                        className="block w-full rounded-full bg-primary-900 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                                     >
                                         Hukuki Destek Al
                                     </Link>
@@ -467,6 +468,11 @@ export default function BlogPostPage({ params }: Props) {
                         )}
                     </div>
                 </article>
+
+                <ContactCTA
+                    title="Bu konuda aklınıza takılan bir soru mu var?"
+                    description="Yazıda anlatılanların sizin durumunuza nasıl uygulanacağını birlikte değerlendirelim."
+                />
             </main>
             <Footer />
         </div>

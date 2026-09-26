@@ -10,13 +10,30 @@
     }
 
     ::selection {
-        background-color: #0c4a6e;
+        background-color: #1a2942;
         color: #ffffff;
     }
 
     .dark ::selection {
-        background-color: #d4af37;
+        background-color: #c09652;
         color: #0f172a;
+    }
+
+    body {
+        @apply bg-ivory-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    }
+
+    /* Klavye kullanıcıları için belirgin, markaya uygun odak halkası */
+    :focus-visible {
+        outline: 2px solid #c09652;
+        outline-offset: 3px;
+    }
+
+    /* Başlıklarda tek kelimelik yetim satırları önler */
+    h1,
+    h2,
+    h3 {
+        text-wrap: balance;
     }
 
     /* Sabit başlık altında kalmayan bölüm hedefleri */
@@ -44,9 +61,24 @@
         animation-delay: 6s;
     }
 
+    /* Bölüm üstü küçük başlık (eyebrow) */
+    .eyebrow {
+        @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gold-700 dark:text-gold-400;
+    }
+
+    .eyebrow::before {
+        content: "";
+        @apply block h-px w-8 bg-gold-500/80;
+    }
+
+    /* İnce altın çerçeveli portre / görsel süsü */
+    .frame-gold {
+        @apply ring-1 ring-gold-500/30;
+    }
+
     /* Altın ince ayraç */
     .rule-gold {
-        background-image: linear-gradient(90deg, transparent, #d4af37, transparent);
+        background-image: linear-gradient(90deg, transparent, #c09652, transparent);
     }
 
     /* Scroll ile beliren bölümler — Reveal bileşeni tarafından kullanılır.

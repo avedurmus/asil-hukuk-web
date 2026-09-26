@@ -17,7 +17,7 @@ const suggestions = [
 
 export default function NotFound() {
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="flex min-h-screen flex-col bg-ivory-100 dark:bg-slate-950 transition-colors duration-300">
             <Header />
             <main className="flex-grow pt-32 pb-24 px-4">
                 <div className="mx-auto max-w-2xl text-center">

@@ -388,7 +388,7 @@ export default function KentselDonusumClient() {
                 {/* VISUAL INFOGRAPHIC / SHAPES SIDE */}
                 <div className="w-full lg:w-2/5 bg-slate-50 dark:bg-slate-950/40 rounded-2xl p-6 border border-slate-200/40 dark:border-slate-800/50 flex flex-col justify-center items-center relative overflow-hidden min-h-[260px]">
                   {/* Decorative mesh background */}
-                  <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]" />
+                  <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none bg-[radial-gradient(#c09652_1px,transparent_1px)] [background-size:16px_16px]" />
 
                   {/* Render Custom Infographics depending on the Step */}
                   {activeStep === 1 && (

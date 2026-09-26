@@ -3,11 +3,32 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { siteContent } from "@/data/siteContent";
-import { Menu, X, Phone, Sun, Moon } from "lucide-react";
+import { PHONE_HREF, OFFICE_HOURS, trackEvent, whatsappHref } from "@/lib/contact";
+import { Menu, X, Phone, Sun, Moon, ChevronDown, CalendarCheck, MessageCircle, ArrowRight } from "lucide-react";
+
+const mainLinks = [
+    { href: "/hakkimizda", label: "Hakkımızda" },
+    { href: "/calisma-alanlarimiz", label: "Çalışma Alanları" },
+];
+
+const digitalLinks = [
+    { href: "/blog", label: "Hukuk Blogu", note: "Güncel yazılar ve içtihat notları" },
+    { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi", note: "Adım adım süreç ve haklarınız" },
+    { href: "/ai-hukuk", label: "AI Hukuk", note: "Yapay zekâ ve hukuk" },
+    { href: "/asistan", label: "YargıAsistan", note: "İçtihat arama asistanı" },
+];
+
+const endLinks = [
+    { href: "/sss", label: "S.S.S." },
+    { href: "/iletisim", label: "İletişim" },
+];
 
 export default function Header() {
+    const pathname = usePathname() ?? "/";
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState<"light" | "dark">("light");
 
     useEffect(() => {
@@ -21,223 +42,266 @@ export default function Header() {
         }
     }, []);
 
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 12);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    // Mobil menü açıkken arka plan kaydırılmasın
+    useEffect(() => {
+        document.body.style.overflow = isMenuOpen ? "hidden" : "";
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isMenuOpen]);
+
     const toggleTheme = () => {
-        if (theme === "light") {
-            setTheme("dark");
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            setTheme("light");
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
+        const next = theme === "light" ? "dark" : "light";
+        setTheme(next);
+        document.documentElement.classList.toggle("dark", next === "dark");
+        try {
+            localStorage.setItem("theme", next);
+        } catch (_) {}
     };
 
-    return (
-        <nav className="fixed w-full bg-white/75 dark:bg-slate-950/75 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 z-50 transition-all duration-300 shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-20">
-                    {/* Logo */}
-                    <div className="flex-shrink-0 flex items-center">
-                        <Link href="/" className="flex items-center gap-3">
-                            <Image
-                                src="/logo.png"
-                                alt={`${siteContent.brand.name} Logo`}
-                                width={44}
-                                height={44}
-                                className="rounded-xl shadow-sm shrink-0"
-                                priority
-                            />
-                            <span className="flex flex-col">
-                                <span className="text-2xl font-serif font-bold text-primary-900 dark:text-slate-100 tracking-tight leading-none">
-                                    {siteContent.brand.name}
-                                </span>
-                                <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">
-                                    {siteContent.brand.slogan}
-                                </span>
-                            </span>
-                        </Link>
-                    </div>
+    const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+    const digitalActive = digitalLinks.some((l) => isActive(l.href));
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:flex space-x-8 items-center">
-                        <Link href="/hakkimizda" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            Hakkımızda
-                        </Link>
-                        <Link href="/calisma-alanlarimiz" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            Çalışma Alanlarımız
-                        </Link>
-                        <div className="relative group py-2">
-                            <button className="flex items-center text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors gap-1 outline-none">
-                                <span>Dijital Hukuk & Yayınlar</span>
-                                <svg className="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                </svg>
+    const linkClass = (active: boolean) =>
+        `relative py-2 text-[15px] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-gold-500 after:transition-transform after:duration-300 ${
+            active
+                ? "text-primary-900 dark:text-white after:scale-x-100"
+                : "text-slate-600 hover:text-primary-900 dark:text-slate-300 dark:hover:text-white after:scale-x-0 hover:after:scale-x-100"
+        }`;
+
+    return (
+        <header
+            className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+                scrolled || isMenuOpen
+                    ? "border-b border-slate-200/70 bg-ivory-50/90 shadow-[0_8px_30px_-12px_rgb(15_26_44/0.18)] backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/90"
+                    : "border-b border-slate-200/40 bg-ivory-50/95 backdrop-blur-md dark:border-slate-800/40 dark:bg-slate-950/90"
+            }`}
+        >
+            <nav aria-label="Ana menü" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="flex h-20 items-center justify-between gap-6">
+                    {/* Logo */}
+                    <Link href="/" className="flex shrink-0 items-center gap-3" aria-label={`${siteContent.brand.name} ana sayfa`}>
+                        <Image
+                            src="/logo.png"
+                            alt=""
+                            width={44}
+                            height={44}
+                            className="shrink-0 rounded-xl shadow-sm"
+                            priority
+                        />
+                        <span className="flex flex-col">
+                            <span className="font-serif text-[1.6rem] font-semibold leading-none tracking-tight text-primary-900 dark:text-slate-100">
+                                {siteContent.brand.name}
+                            </span>
+                            <span className="mt-1.5 text-[10px] uppercase tracking-[0.28em] text-gold-700 dark:text-gold-400">
+                                {siteContent.brand.slogan}
+                            </span>
+                        </span>
+                    </Link>
+
+                    {/* Masaüstü menü */}
+                    <div className="hidden items-center gap-7 lg:flex">
+                        {mainLinks.map((l) => (
+                            <Link key={l.href} href={l.href} className={linkClass(isActive(l.href))}>
+                                {l.label}
+                            </Link>
+                        ))}
+
+                        <div className="group relative">
+                            <button
+                                type="button"
+                                aria-haspopup="true"
+                                className={`${linkClass(digitalActive)} inline-flex items-center gap-1 outline-none`}
+                            >
+                                Yayınlar & Araçlar
+                                <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180" />
                             </button>
-                            <div className="absolute left-0 mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                <div className="p-2 space-y-1">
-                                    <Link href="/kentsel-donusum-rehberi" className="block px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                                        Kentsel Dönüşüm
-                                    </Link>
-                                    <Link href="/ai-hukuk" className="block px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg font-bold transition-colors">
-                                        AI Hukuk
-                                    </Link>
-                                    <Link href="/asistan" className="block px-4 py-2.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 rounded-lg font-bold transition-colors">
-                                        YargıAsistan
-                                    </Link>
-                                    <Link href="/blog" className="block px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                                        Blog
-                                    </Link>
+                            <div className="invisible absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                                <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-2 shadow-elegant dark:border-slate-800 dark:bg-slate-900">
+                                    {digitalLinks.map((l) => (
+                                        <Link
+                                            key={l.href}
+                                            href={l.href}
+                                            className="group/item flex items-start justify-between gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-ivory-100 dark:hover:bg-slate-800"
+                                        >
+                                            <span>
+                                                <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                                                    {l.label}
+                                                </span>
+                                                <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">
+                                                    {l.note}
+                                                </span>
+                                            </span>
+                                            <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-gold-600 opacity-0 transition-all duration-300 group-hover/item:translate-x-0.5 group-hover/item:opacity-100" />
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                        <Link href="/sss" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            S.S.S.
-                        </Link>
-                        <Link href="/iletisim" className="text-slate-600 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white font-medium transition-colors">
-                            İletişim
-                        </Link>
-                        <Link
-                            href="/iletisim"
-                            onClick={() => {
-                                if (typeof window !== "undefined" && (window as any).gtag) {
-                                    (window as any).gtag("event", "click_appointment_button", {
-                                        event_category: "Contact",
-                                        event_label: "Header Desktop - Randevu Al"
-                                    });
-                                }
-                            }}
-                            className="flex items-center rounded-lg bg-primary-900 px-5 py-2.5 font-medium text-white shadow-md ring-1 ring-primary-900/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 hover:shadow-gold-glow dark:bg-white dark:text-slate-950 dark:ring-white/20 dark:hover:bg-gold-100"
+
+                        {endLinks.map((l) => (
+                            <Link key={l.href} href={l.href} className={linkClass(isActive(l.href))}>
+                                {l.label}
+                            </Link>
+                        ))}
+                    </div>
+
+                    {/* Sağ taraf: telefon + randevu + tema */}
+                    <div className="hidden items-center gap-4 lg:flex">
+                        <a
+                            href={PHONE_HREF}
+                            onClick={() => trackEvent("click_phone", "Header Desktop - Phone")}
+                            className="group hidden items-center gap-2.5 xl:flex"
                         >
-                            <Phone className="mr-2 h-4 w-4" />
-                            <span>Randevu Al</span>
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold-500/40 text-gold-700 transition-colors group-hover:bg-gold-500 group-hover:text-white dark:text-gold-400">
+                                <Phone className="h-4 w-4" />
+                            </span>
+                            <span className="leading-tight">
+                                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                                    Hemen Arayın
+                                </span>
+                                <span className="block text-sm font-semibold text-primary-900 dark:text-white">
+                                    {siteContent.contact.phone}
+                                </span>
+                            </span>
+                        </a>
+
+                        <Link
+                            href="/iletisim#randevu"
+                            onClick={() => trackEvent("click_appointment_button", "Header Desktop - Randevu Al")}
+                            className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 hover:shadow-gold-glow dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
+                        >
+                            <CalendarCheck className="h-4 w-4" />
+                            Randevu Al
                         </Link>
 
                         <button
+                            type="button"
                             onClick={toggleTheme}
-                            className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 rounded-md transition-all border border-slate-200 dark:border-slate-700 flex items-center justify-center"
-                            aria-label="Tema Değiştir"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-gold-400 hover:text-primary-900 dark:border-slate-700 dark:text-slate-300 dark:hover:text-white"
+                            aria-label={theme === "light" ? "Karanlık moda geç" : "Aydınlık moda geç"}
                         >
-                            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                            {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
                         </button>
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center">
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="text-slate-600 hover:text-primary-900 focus:outline-none"
+                    {/* Mobil: hızlı arama + menü düğmesi */}
+                    <div className="flex items-center gap-2 lg:hidden">
+                        <a
+                            href={PHONE_HREF}
+                            onClick={() => trackEvent("click_phone", "Header Mobile - Phone Icon")}
+                            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-900 text-white dark:bg-gold-500 dark:text-slate-950"
+                            aria-label="Hemen ara"
                         >
-                            {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+                            <Phone className="h-5 w-5" />
+                        </a>
+                        <button
+                            type="button"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-200"
+                            aria-expanded={isMenuOpen}
+                            aria-controls="mobil-menu"
+                            aria-label={isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+                        >
+                            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
                     </div>
                 </div>
-            </div>
+            </nav>
 
-            {/* Mobile Menu Dropdown */}
+            {/* Mobil menü */}
             {isMenuOpen && (
-                <div className="md:hidden bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 absolute w-full">
-                    <div className="px-4 pt-2 pb-6 space-y-2 shadow-lg">
-                        <Link
-                            href="/hakkimizda"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Hakkımızda
-                        </Link>
-                        <Link
-                            href="/calisma-alanlarimiz"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Çalışma Alanlarımız
-                        </Link>
-                        
-                        <div className="border-l-2 border-slate-100 dark:border-slate-800 pl-3 py-1 my-2 space-y-1">
-                            <span className="block px-3 py-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                                Dijital Hukuk & Yayınlar
-                            </span>
+                <div
+                    id="mobil-menu"
+                    className="h-[calc(100dvh-5rem)] overflow-y-auto border-t border-slate-200 bg-ivory-50 dark:border-slate-800 dark:bg-slate-950 lg:hidden"
+                >
+                    <div className="space-y-1 px-4 pb-28 pt-4">
+                        {[...mainLinks, ...endLinks].map((l) => (
                             <Link
-                                href="/kentsel-donusum-rehberi"
-                                className="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
+                                key={l.href}
+                                href={l.href}
                                 onClick={() => setIsMenuOpen(false)}
+                                className={`flex items-center justify-between rounded-xl px-4 py-3.5 font-serif text-xl ${
+                                    isActive(l.href)
+                                        ? "bg-white text-primary-900 shadow-sm dark:bg-slate-900 dark:text-white"
+                                        : "text-slate-800 dark:text-slate-200"
+                                }`}
                             >
-                                Kentsel Dönüşüm
+                                {l.label}
+                                <ArrowRight className="h-4 w-4 text-gold-600" />
                             </Link>
-                            <Link
-                                href="/ai-hukuk"
-                                className="block px-3 py-2 text-base font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-900 rounded-md"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                AI Hukuk
-                            </Link>
-                            <Link
-                                href="/asistan"
-                                className="block px-3 py-2 text-base font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-900 rounded-md"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                YargıAsistan
-                            </Link>
-                            <Link
-                                href="/blog"
-                                className="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                Blog
-                            </Link>
-                        </div>
-                        <Link
-                            href="/sss"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            S.S.S.
-                        </Link>
-                        <Link
-                            href="/iletisim"
-                            className="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            İletişim
-                        </Link>
+                        ))}
 
-                        <div className="flex justify-between items-center py-2 border-t border-b border-slate-100 dark:border-slate-800 my-4 px-3">
-                            <span className="text-slate-600 dark:text-slate-300 font-medium">Tema Modu</span>
-                            <button
-                                onClick={toggleTheme}
-                                className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-md border border-slate-200 dark:border-slate-700 font-medium"
-                            >
-                                {theme === "light" ? (
-                                    <>
-                                        <Moon className="w-4 h-4" />
-                                        <span>Karanlık Mod</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Sun className="w-4 h-4" />
-                                        <span>Aydınlık Mod</span>
-                                    </>
-                                )}
-                            </button>
+                        <p className="px-4 pb-1 pt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                            Yayınlar & Araçlar
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                            {digitalLinks.map((l) => (
+                                <Link
+                                    key={l.href}
+                                    href={l.href}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+                                >
+                                    {l.label}
+                                </Link>
+                            ))}
                         </div>
-                        <Link
-                            href="/iletisim"
-                            className="block w-full text-center mt-4 px-5 py-3 bg-primary-900 text-white rounded-md font-medium"
-                            onClick={() => {
-                                setIsMenuOpen(false);
-                                if (typeof window !== "undefined" && (window as any).gtag) {
-                                    (window as any).gtag("event", "click_appointment_button", {
-                                        event_category: "Contact",
-                                        event_label: "Header Mobile - Randevu Al"
-                                    });
-                                }
-                            }}
+
+                        <div className="mt-6 space-y-3 rounded-2xl bg-primary-900 p-5 text-white dark:bg-slate-900">
+                            <p className="font-serif text-lg">Hukuki durumunuzu konuşalım</p>
+                            <p className="text-sm text-primary-100/80 dark:text-slate-400">{OFFICE_HOURS}</p>
+                            <div className="grid grid-cols-2 gap-2 pt-1">
+                                <a
+                                    href={PHONE_HREF}
+                                    onClick={() => trackEvent("click_phone", "Mobile Menu - Call")}
+                                    className="flex items-center justify-center gap-2 rounded-xl bg-gold-500 py-3 text-sm font-bold text-slate-950"
+                                >
+                                    <Phone className="h-4 w-4" /> Ara
+                                </a>
+                                <a
+                                    href={whatsappHref()}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => trackEvent("click_whatsapp", "Mobile Menu - WhatsApp")}
+                                    className="flex items-center justify-center gap-2 rounded-xl bg-white/10 py-3 text-sm font-bold text-white ring-1 ring-white/20"
+                                >
+                                    <MessageCircle className="h-4 w-4" /> WhatsApp
+                                </a>
+                            </div>
+                            <Link
+                                href="/iletisim#randevu"
+                                onClick={() => {
+                                    setIsMenuOpen(false);
+                                    trackEvent("click_appointment_button", "Header Mobile - Randevu Al");
+                                }}
+                                className="flex items-center justify-center gap-2 rounded-xl bg-white py-3 text-sm font-bold text-primary-900"
+                            >
+                                <CalendarCheck className="h-4 w-4" /> Randevu Talep Et
+                            </Link>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={toggleTheme}
+                            className="mt-4 flex w-full items-center justify-between rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300"
                         >
-                            Randevu Al
-                        </Link>
+                            <span className="font-medium">Tema</span>
+                            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm dark:border-slate-700">
+                                {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                                {theme === "light" ? "Karanlık" : "Aydınlık"}
+                            </span>
+                        </button>
                     </div>
                 </div>
             )}
-        </nav>
+        </header>
     );
 }

@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { DEFAULT_OG_IMAGE, OFFICE_GEO, OFFICE_MAP_URL, ORGANIZATION_ID, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { services } from "@/data/services";
 
@@ -185,7 +186,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased pb-16 md:pb-0`}>
+            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased pb-20 md:pb-0`}>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -195,6 +196,7 @@ export default function RootLayout({
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
                 />
                 {children}
+                <FloatingWhatsApp />
                 <MobileBottomNav />
                 {/* Google tag (gtag.js) */}
                 <Script

@@ -40,6 +40,10 @@ export interface BlogPost {
     excerpt: string;
     date: string;
     dateISO: string;
+    /** İçerik veya başlık sonradan güncellendiyse "26 Eylül 2026" biçiminde tarih. */
+    updated?: string;
+    /** Güncelleme tarihi (ISO); arama motorlarına dateModified olarak bildirilir. */
+    updatedISO?: string;
     readTime: string;
     category: string;
     /** Kapak görseli. Belirtilmezse listede tipografik bir kapak üretilir. */
@@ -61,15 +65,81 @@ export const blogCategories = [
     "Gayrimenkul Hukuku",
     "Ticaret Hukuku",
     "Anayasa Hukuku",
+    "Genel",
 ] as const;
 
 export const blogPosts: BlogPost[] = [
     {
+        id: "bir-avukat-ile-neden-calismaliyiz",
+        title: "Bir Avukat ile Neden Çalışmalıyız?",
+        excerpt: "Hak düşürücü süreler, zorunlu arabuluculuk, delil ve usul kuralları: Hukuki bir sorunla karşılaştığınızda avukattan destek almanın önemi ve avukatla çalışırken dikkat edilmesi gerekenler.",
+        date: "26 Eylül 2026",
+        dateISO: "2026-09-26",
+        readTime: "6 dk okuma",
+        category: "Genel",
+        tags: ["avukat", "hukuki danışmanlık", "hak düşürücü süre", "arabuluculuk", "vekalet ücreti"],
+        sources: [
+            { label: "1136 sayılı Avukatlık Kanunu (m. 35, 36, 163, 164)", url: "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=1136&MevzuatTur=1&MevzuatTertip=5" },
+            { label: "6100 sayılı Hukuk Muhakemeleri Kanunu (m. 345)", url: "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6100&MevzuatTur=1&MevzuatTertip=5" },
+            { label: "5271 sayılı Ceza Muhakemesi Kanunu (m. 150)", url: "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=5271&MevzuatTur=1&MevzuatTertip=5" },
+        ],
+        content: `
+            <p>Hukuki bir sorunla karşılaşan pek çok kişinin ilk sorusu şudur: <strong>"Bu işi kendim halledemez miyim?"</strong> Türk hukukunda kural olarak herkes kendi davasını bizzat takip edebilir. Ancak dava açmak, süreleri doğru hesaplamak, delilleri zamanında sunmak ve usul kurallarına uymak, hukuki eğitim ve tecrübe gerektiren işlerdir. Bu yazıda, bir avukatla çalışmanın hangi durumlarda ve neden önem taşıdığını ele alıyoruz.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>1. Avukatlık, Kanunla Tanımlanmış Bir Kamu Hizmetidir</h3>
+            <p>1136 sayılı Avukatlık Kanunu'nun 35. maddesine göre kanun işleri hakkında mütalaa vermek, hakları dava etmek ve savunmak, adli işlemleri takip etmek ve bunlara ilişkin belgeleri düzenlemek avukatlara aittir. Yargı mercileri önünde başkasını temsil yetkisi de kural olarak baroya kayıtlı avukatlara tanınmıştır.</p>
+            <p>Avukat, müvekkilinin sırlarını saklamakla yükümlüdür (Av. K. m. 36). Bu yükümlülük, avukatla paylaştığınız bilgilerin güvence altında olduğu anlamına gelir; sorununuzu tüm ayrıntılarıyla anlatabilmeniz doğru hukuki değerlendirmenin ön koşuludur.</p>
+
+            <h3>2. Süreler Kaçırıldığında Hak Kaybı Geri Dönülmez Olabilir</h3>
+            <p>Hukukta pek çok süre <strong>hak düşürücü</strong> niteliktedir; süre geçtikten sonra hak, haklı olsanız bile kullanılamaz. Örneğin:</p>
+            <ul>
+                <li><strong>İşe iade:</strong> Fesih bildiriminin tebliğinden itibaren 1 ay içinde arabulucuya başvurulmalıdır.</li>
+                <li><strong>Tahliye taahhüdü:</strong> Taahhüt edilen tahliye tarihinden itibaren 1 ay içinde icra takibi veya dava yoluna gidilmelidir.</li>
+                <li><strong>İstinaf:</strong> Hukuk davalarında ilk derece mahkemesi kararına karşı istinaf süresi, kararın tebliğinden itibaren iki haftadır (HMK m. 345).</li>
+            </ul>
+            <p>Bu sürelerin başlangıcı, tebligatın usulüne uygun yapılıp yapılmadığı ve tatil günlerine denk gelmesi gibi ayrıntılar sonucu doğrudan etkiler. Süre takibi, avukatlık hizmetinin en temel ve en kritik parçalarından biridir.</p>
+
+            <h3>3. Dava Açmadan Önce Zorunlu Aşamalar Var</h3>
+            <p>Günümüzde birçok uyuşmazlıkta doğrudan dava açmak mümkün değildir. İş hukukundan kaynaklanan alacak ve işe iade talepleri, ticari alacaklar, tüketici uyuşmazlıkları ve kira ilişkisinden doğan uyuşmazlıklarda <strong>arabulucuya başvuru dava şartıdır</strong>. Bu aşama atlanırsa dava usulden reddedilir.</p>
+            <p>Arabuluculuk görüşmeleri, çoğu zaman uyuşmazlığın mahkemeye gitmeden çözülebileceği en önemli fırsattır. Bu görüşmelere hangi talep ve belgelerle gidileceğinin önceden planlanması, varılacak anlaşmanın içeriğini doğrudan belirler.</p>
+
+            <h3>4. Davayı Kazandıran Çoğu Zaman Delil ve Usuldür</h3>
+            <p>Haklı olmak ile hakkı ispat edebilmek aynı şey değildir. Hangi vakıanın hangi delille ispat edileceği, tanık dinletilip dinletilemeyeceği, bilirkişi raporuna süresinde itiraz edilip edilmediği gibi usul kuralları, davanın sonucunu esastan belirleyebilir. Dilekçeler aşamasında ileri sürülmeyen bir iddia veya gösterilmeyen bir delil, sonradan çoğu zaman dikkate alınmaz.</p>
+
+            <h3>5. Bazı Durumlarda Avukat Yardımı Zorunludur</h3>
+            <p>Ceza muhakemesinde, şüpheli veya sanık çocuksa, kendisini savunamayacak derecede malulse ya da alt sınırı beş yıldan fazla hapis cezasını gerektiren bir suçtan soruşturma veya kovuşturma yürütülüyorsa, istemi aranmaksızın bir <strong>müdafi</strong> görevlendirilir (CMK m. 150). Ancak müdafi yardımı bu hâllerle sınırlı değildir; şüpheli, ifade verdiği ilk andan itibaren bir avukatın hukuki yardımından yararlanma hakkına sahiptir.</p>
+
+            <h3>6. Önleyici Hukuk: Sorun Çıkmadan Önce Danışmak</h3>
+            <p>Avukatlık yalnızca dava takibinden ibaret değildir. Kira, satış, kat karşılığı inşaat veya iş sözleşmesi imzalamadan önce yapılacak bir hukuki inceleme, ileride yıllar sürebilecek bir uyuşmazlığı baştan önleyebilir. Özellikle taşınmaz alım-satımı, şirket kuruluşu ve ortaklık ilişkileri gibi yüksek değerli işlemlerde bu inceleme, maliyetinin çok üzerinde bir güvence sağlar.</p>
+
+            <hr class="my-6 border-gray-200" />
+
+            <h3>Avukatla Çalışırken Nelere Dikkat Edilmeli?</h3>
+            <ul>
+                <li><strong>Baro kaydını kontrol edin:</strong> Avukatlık yapma yetkisi yalnızca baroya kayıtlı avukatlara aittir. Kayıt durumu, ilgili baronun veya Türkiye Barolar Birliği'nin avukat sorgulama hizmetlerinden öğrenilebilir.</li>
+                <li><strong>Ücret sözleşmesini yazılı yapın:</strong> Avukatlık ücretinin kapsamı, ödeme şekli ve masrafların kime ait olduğu yazılı bir sözleşmeyle belirlenmelidir (Av. K. m. 163). Ücret, Türkiye Barolar Birliği tarafından her yıl belirlenen Avukatlık Asgari Ücret Tarifesi'nin altında olamaz.</li>
+                <li><strong>Vekaletnamenin kapsamını bilin:</strong> Vekaletname notere düzenletilir; avukata hangi işlemler için yetki verildiği vekaletnamede açıkça yer alır.</li>
+                <li><strong>Karşı vekalet ücretini sorun:</strong> Davanın kazanılması hâlinde mahkemece karşı tarafa yükletilen vekalet ücreti, kanun gereği avukata aittir (Av. K. m. 164). Bu konunun sözleşmede açıkça düzenlenmesi, sonradan doğabilecek yanlış anlamaları önler.</li>
+                <li><strong>Bilgi ve belgeleri eksiksiz paylaşın:</strong> Size karşı olan bilgiler de dahil olmak üzere tüm ayrıntıları avukatınızla paylaşmanız, gerçekçi bir değerlendirme ve doğru strateji için gereklidir.</li>
+            </ul>
+
+            <blockquote class="bg-blue-50 border-l-4 border-blue-600 p-4 my-4 italic text-gray-700">
+                <strong>Özetle:</strong> Avukatla çalışmak, bir uyuşmazlığı kazanmanın garantisi değildir; hiçbir avukat dava sonucu için güvence veremez. Ancak sürelerin doğru takip edilmesi, zorunlu aşamaların eksiksiz tamamlanması ve iddiaların doğru delillerle ileri sürülmesi, hakkınıza ulaşma ihtimalini önemli ölçüde artırır.
+            </blockquote>
+
+            <p><em>Not: Bu yazı genel bilgilendirme amaçlıdır ve somut olaylar için hukuki danışmanlık yerine geçmez.</em></p>
+        `
+    },
+    {
         id: "anlasmali-bosanma-davasi-ne-kadar-surer",
-        title: "Anlaşmalı Boşanma Davası Ne Kadar Sürer? 2025 Güncel Süreç",
+        title: "Anlaşmalı Boşanma Davası Ne Kadar Sürer? 2026 Güncel Süreç",
         excerpt: "Anlaşmalı boşanma davası şartları, süreci ve gerekli belgeler hakkında detaylı rehber. Tek celsede boşanmak mümkün mü?",
         date: "27 Aralık 2024",
         dateISO: "2024-12-27",
+        updated: "26 Eylül 2026",
+        updatedISO: "2026-09-26",
         readTime: "4 dk okuma",
         category: "Aile Hukuku",
         imageUrl: "/images/anlasmali-bosanma-header.png",

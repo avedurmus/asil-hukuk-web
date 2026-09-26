@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
-import { DEFAULT_OG_IMAGE, ORGANIZATION_ID, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, OFFICE_GEO, OFFICE_MAP_URL, ORGANIZATION_ID, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { services } from "@/data/services";
 
 // Türkçe karakterler (ğ, ş, ı, İ) "latin-ext" alt kümesindedir; yalnızca "latin"
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
     other: {
         'geo.region': 'TR-34',
         'geo.placename': 'Kartal',
-        'geo.position': '40.89;29.19', // Approximate coords for Kartal/Istanbul
-        'ICBM': '40.89, 29.19'
+        'geo.position': `${OFFICE_GEO.latitude};${OFFICE_GEO.longitude}`,
+        'ICBM': `${OFFICE_GEO.latitude}, ${OFFICE_GEO.longitude}`
     },
     verification: {
         google: 'ikCUHrQbKy3f8efZEj7Bp1Az5uQ7F3svuLfCtYPZt3I',
@@ -123,9 +123,9 @@ const jsonLd = {
     },
     'geo': {
         '@type': 'GeoCoordinates',
-        'latitude': 40.923363,
-        'longitude': 29.218684
+        ...OFFICE_GEO
     },
+    'hasMap': OFFICE_MAP_URL,
     'openingHoursSpecification': [
         {
             '@type': 'OpeningHoursSpecification',

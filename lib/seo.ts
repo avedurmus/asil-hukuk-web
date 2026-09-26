@@ -5,6 +5,11 @@ export const SITE_NAME = "Asil Hukuk Bürosu";
 /** Yapılandırılmış verilerde firmaya atıf için kullanılan kalıcı kimlik. */
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 
+/** Büronun Google Haritalar'daki iğne konumu (Mai Residence, Kartal). */
+export const OFFICE_GEO = { latitude: 40.900362, longitude: 29.21898 };
+/** Google Haritalar işletme kaydı (CID) bağlantısı. */
+export const OFFICE_MAP_URL = "https://www.google.com/maps?cid=4364917607332642091";
+
 /**
  * Varsayılan paylaşım görseli: sosyal ağların beklediği 1200x630 (1.91:1)
  * oranında. Boyutlar dosyanın gerçek ölçüleriyle aynı tutulmalıdır.

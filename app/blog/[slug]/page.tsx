@@ -69,6 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         openGraph: {
             type: "article",
             publishedTime: post.dateISO,
+            modifiedTime: post.updatedISO ?? post.dateISO,
             authors: [`${SITE_URL}/hakkimizda`],
             section: post.category,
             tags: post.tags,
@@ -100,7 +101,7 @@ export default function BlogPostPage({ params }: Props) {
         description: post.excerpt,
         image: Array.from(new Set([coverImage(post), `${SITE_URL}${socialImage(post).url}`])),
         datePublished: post.dateISO,
-        dateModified: post.dateISO,
+        dateModified: post.updatedISO ?? post.dateISO,
         inLanguage: "tr-TR",
         keywords: post.tags?.join(", "),
         author: {
@@ -183,6 +184,11 @@ export default function BlogPostPage({ params }: Props) {
                                 <span className="flex items-center">
                                     <Calendar className="w-4 h-4 mr-2" />
                                     <time dateTime={post.dateISO}>{post.date}</time>
+                                    {post.updated && post.updatedISO && (
+                                        <span className="ml-2 text-slate-400">
+                                            (Güncelleme: <time dateTime={post.updatedISO}>{post.updated}</time>)
+                                        </span>
+                                    )}
                                 </span>
                                 <span className="flex items-center">
                                     <Clock className="w-4 h-4 mr-2" />

@@ -20,6 +20,8 @@ export interface Service {
         intro: string;
         features: string[];
         process: string;
+        /** Hizmet sayfasında ayrıntılı rehber olarak gösterilen başlıklı bölümler. */
+        guide?: { heading: string; body: string }[];
     };
 }
 
@@ -94,8 +96,8 @@ export const services: Service[] = [
         id: "gayrimenkul-hukuku",
         title: "Gayrimenkul Hukuku",
         shortDescription: "Tapu iptal tescil, kira tespiti ve tahliye davaları süreçlerinde hukuki yardım.",
-        seoTitle: "Kartal Gayrimenkul ve Kira Avukatı",
-        seoDescription: "Kartal gayrimenkul avukatı: tapu iptal ve tescil, kira tespiti ve kiracı tahliye, ortaklığın giderilmesi ve kat karşılığı inşaat uyuşmazlıklarında dava takibi.",
+        seoTitle: "Kartal Gayrimenkul ve Taşınmaz Avukatı",
+        seoDescription: "Kartal gayrimenkul ve taşınmaz avukatı Av. Emre Durmuş: tapu iptal ve tescil, kira tespiti ve tahliye, ortaklığın giderilmesi, önalım ve kat karşılığı inşaat davaları.",
         blogCategories: ["Gayrimenkul Hukuku"],
         faqCategories: ["Gayrimenkul ve Kira Hukuku", "Kentsel Dönüşüm"],
         icon: Globe,
@@ -109,7 +111,33 @@ export const services: Service[] = [
                 "Kat Karşılığı İnşaat Sözleşmeleri",
                 "Yabancıların Mülk Edinimi"
             ],
-            process: "Uyuşmazlığın kaynağını tespit ederek, gerek dava yoluyla gerekse sulh görüşmeleriyle müvekkilimizin mülkiyet haklarını en hızlı şekilde güvence altına almayı hedefliyoruz."
+            process: "Uyuşmazlığın kaynağını tespit ederek, gerek dava yoluyla gerekse sulh görüşmeleriyle müvekkilimizin mülkiyet haklarını en hızlı şekilde güvence altına almayı hedefliyoruz.",
+            guide: [
+                {
+                    heading: "Kartal'da taşınmaz uyuşmazlıkları nerede görülür?",
+                    body: "Taşınmazın aynına ilişkin davalarda yetkili mahkeme, taşınmazın bulunduğu yer mahkemesidir ve bu yetki kesindir. Kartal, Pendik, Maltepe ve çevresindeki taşınmazlara ilişkin davalar İstanbul Anadolu Adliyesi'nde görülür. Kira ve ortaklığın giderilmesi davalarına sulh hukuk mahkemeleri, tapu iptal ve tescil gibi mülkiyet davalarına ise kural olarak asliye hukuk mahkemeleri bakar. Davanın doğru mahkemede açılması, zaman ve masraf kaybını önlemenin ilk adımıdır.",
+                },
+                {
+                    heading: "Dava açmadan önce arabuluculuk zorunlu mu?",
+                    body: "1 Eylül 2023'ten bu yana kira ilişkisinden doğan uyuşmazlıklar, ortaklığın giderilmesi (paylaştırma) davaları, Kat Mülkiyeti Kanunu'ndan ve komşu hakkından kaynaklanan uyuşmazlıklarda dava açmadan önce arabulucuya başvurmak dava şartıdır. Arabuluculuk aşamasında imzalanan anlaşma belgesi ilam niteliğindedir; bu nedenle bu aşamanın bir avukatla planlı şekilde yürütülmesi, çoğu zaman davaya gerek kalmadan sonuç almayı sağlar. Av. Emre Durmuş aynı zamanda Adalet Bakanlığı'na kayıtlı arabulucudur.",
+                },
+                {
+                    heading: "Kira tespiti ve kiracının tahliyesi",
+                    body: "Kira bedelinin güncel koşullara uyarlanması için kira tespit davası, kiracının tahliyesi için ise yasal tahliye sebeplerinden birine dayanılması gerekir: kiraya verenin veya yakınlarının konut ya da işyeri ihtiyacı, esaslı onarım ve yeniden inşa, yazılı tahliye taahhüdü, bir kira yılı içinde iki haklı ihtar ve on yıllık uzama süresinin dolması bunların başlıcalarıdır. Her birinin kendine özgü süreleri ve ispat kuralları vardır; sürenin kaçırılması hakkın o dönem için kullanılamamasına yol açabilir.",
+                },
+                {
+                    heading: "Tapu iptal ve tescil davaları",
+                    body: "Muris muvazaası (mirasçılardan mal kaçırma), vekâlet görevinin kötüye kullanılması, hile veya hata ile yapılan devirler ve yolsuz tescil gibi durumlarda, tapu kaydının düzeltilmesi için tapu iptal ve tescil davası açılabilir. Bu davalarda delillerin erken toplanması ve dava süresince taşınmazın üçüncü kişilere devrini önlemek için tapuya ihtiyati tedbir şerhi konulması büyük önem taşır.",
+                },
+                {
+                    heading: "Ortaklığın giderilmesi ve önalım (şufa) hakkı",
+                    body: "Paylı veya elbirliği mülkiyetindeki bir taşınmazda ortaklar anlaşamazsa, ortaklığın giderilmesi (izale-i şuyu) davasıyla taşınmaz aynen bölünür ya da satılarak bedeli paylaştırılır. Paydaşlardan biri payını üçüncü bir kişiye sattığında ise diğer paydaşlar önalım hakkını kullanabilir; bu dava satışın öğrenilmesinden itibaren üç ay ve her hâlde satıştan itibaren iki yıl içinde açılmalıdır.",
+                },
+                {
+                    heading: "Kat karşılığı inşaat ve kentsel dönüşüm",
+                    body: "Kartal ve çevresinde yoğun olarak yaşanan kentsel dönüşüm sürecinde, kat karşılığı inşaat sözleşmesinin kurulması, müteahhidin temerrüdü, eksik veya ayıplı iş ve bağımsız bölümlerin devri en sık karşılaşılan uyuşmazlıklardır. Sözleşme imzalanmadan önce yapılacak hukuki inceleme, ileride doğabilecek uzun ve masraflı davaların önüne geçer. Ayrıntılar için Kentsel Dönüşüm Rehberimize göz atabilirsiniz.",
+                },
+            ],
         }
     },
     {

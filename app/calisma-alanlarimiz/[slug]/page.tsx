@@ -168,6 +168,29 @@ export default function ServiceDetailPage({ params }: Props) {
                             </p>
                         </div>
 
+                        {service.detailContent.guide && (
+                            <div className="mt-16 space-y-10">
+                                {service.detailContent.guide.map((section) => (
+                                    <section key={section.heading}>
+                                        <h2 className="font-serif text-2xl text-slate-900 dark:text-slate-100 md:text-3xl">
+                                            {section.heading}
+                                        </h2>
+                                        <p className="mt-4 text-[17px] leading-relaxed text-slate-700 dark:text-slate-300">
+                                            {section.body}
+                                        </p>
+                                    </section>
+                                ))}
+                                {service.id === "gayrimenkul-hukuku" && (
+                                    <Link
+                                        href="/kentsel-donusum-rehberi"
+                                        className="inline-flex items-center gap-2 border-b border-gold-500 pb-0.5 font-semibold text-primary-900 dark:text-slate-100"
+                                    >
+                                        Kentsel Dönüşüm Rehberi <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                )}
+                            </div>
+                        )}
+
                         {relatedFaqs.length > 0 && (
                             <div className="mt-16">
                                 <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">

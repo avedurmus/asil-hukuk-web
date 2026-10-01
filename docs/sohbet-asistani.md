@@ -65,14 +65,13 @@ ve Emre's iPhone).
 2. `Code.gs` içeriğini silip `docs/google-apps-script/Code.gs` dosyasını
    yapıştırın. `__APPS_SCRIPT_SECRET__` yerine Vercel'deki
    `APPS_SCRIPT_SECRET` değerini yazın (doldurulmuş kodu depoya eklemeyin).
-3. Soldaki **Hizmetler (+)** → **Google Calendar API** → **Ekle**.
-4. Üstteki işlev listesinden `test`'i seçip **Çalıştır**'a basın; Google'ın
+3. Üstteki işlev listesinden `test`'i seçip **Çalıştır**'a basın; Google'ın
    istediği izinleri onaylayın (*Gelişmiş → Güvenli olmayan sayfaya git* çıkarsa
    kendi kodunuz olduğu için devam edebilirsiniz). Yürütme günlüğünde dolu
    saatler listelenmelidir.
-5. **Dağıt → Yeni dağıtım** → tür: **Web uygulaması**; *Şu kullanıcı olarak
+4. **Dağıt → Yeni dağıtım** → tür: **Web uygulaması**; *Şu kullanıcı olarak
    yürüt*: **Ben**, *Erişimi olanlar*: **Herkes** → **Dağıt**.
-6. Verilen **Web uygulaması URL**'sini (`https://script.google.com/macros/s/…/exec`)
+5. Verilen **Web uygulaması URL**'sini (`https://script.google.com/macros/s/…/exec`)
    Vercel'de `APPS_SCRIPT_URL` olarak tanımlayın ve yeniden yayınlayın.
 
 Kodda değişiklik yaparsanız **Dağıt → Dağıtımları yönet → düzenle → Sürüm:
@@ -81,9 +80,10 @@ Yeni sürüm** ile aynı URL'yi güncelleyin.
 Takvimdeki her dolu etkinlik (duruşma, toplantı vb.) ilgili saati otomatik
 olarak kapatır. Dikkat edilecekler:
 
-- Google Takvim'de **tüm gün** etkinlikler varsayılan olarak "Boş" işaretlenir.
-  İzin veya adliye günü gibi tüm günü kapatması gereken etkinliklerde
-  "Meşgul" seçin (ya da tarihi `blockedDates` listesine ekleyin).
+- **Tüm gün** etkinlikler (doğum günü, hatırlatma vb.) ve reddettiğiniz
+  davetler dolu sayılmaz. İzin veya adliye günü gibi bütün günü kapatmak için
+  saatli bir etkinlik (ör. 09:00–18:00) oluşturun ya da tarihi `blockedDates`
+  listesine ekleyin.
 - Takvimlerden biri okunamazsa asistan çift randevu riskine girmemek için saat
   önermez ve kullanıcıyı telefona yönlendirir; ayrıntı Vercel kayıtlarında
   görünür.
@@ -115,9 +115,10 @@ Script tanımlıysa o önceliklidir).
 Takvimdeki her dolu etkinlik (duruşma, toplantı vb.) ilgili saati otomatik
 olarak kapatır; ayrıca bir şey yapmanız gerekmez. İki noktaya dikkat:
 
-- Google Takvim'de **tüm gün** etkinlikler varsayılan olarak "Boş" işaretlenir.
-  İzin veya adliye günü gibi tüm günü kapatması gereken etkinliklerde
-  "Meşgul" seçin (ya da tarihi `blockedDates` listesine ekleyin).
+- **Tüm gün** etkinlikler (doğum günü, hatırlatma vb.) ve reddettiğiniz
+  davetler dolu sayılmaz. İzin veya adliye günü gibi bütün günü kapatmak için
+  saatli bir etkinlik (ör. 09:00–18:00) oluşturun ya da tarihi `blockedDates`
+  listesine ekleyin.
 - Takvimlerden biri okunamazsa asistan çift randevu riskine girmemek için saat
   önermez ve kullanıcıyı telefona yönlendirir; Vercel kayıtlarında
   `Takvim doluluk bilgisi okunamadı` hatası görünür.

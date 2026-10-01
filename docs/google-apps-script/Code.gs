@@ -34,18 +34,23 @@ function doPost(e) {
   }
 }
 
-/** Takvimlerdeki dolu aralıkları döner; okunamayan takvim olursa hata verir. */
+/**
+ * Takvimlerdeki dolu aralıkları döner; erişilemeyen takvim olursa hata verir.
+ * Google Takvim'deki varsayılana uygun olarak tüm gün etkinlikler ve
+ * reddettiğiniz davetler dolu sayılmaz.
+ */
 function busy_(timeMin, timeMax) {
-  const res = Calendar.Freebusy.query({
-    timeMin: timeMin,
-    timeMax: timeMax,
-    items: BUSY_CALENDAR_IDS.map(function (id) { return { id: id }; }),
-  });
+  const start = new Date(timeMin);
+  const end = new Date(timeMax);
   const out = [];
   BUSY_CALENDAR_IDS.forEach(function (id) {
-    const cal = res.calendars[id];
-    if (!cal || (cal.errors && cal.errors.length)) throw new Error('Takvim okunamadı: ' + id);
-    (cal.busy || []).forEach(function (b) { out.push({ start: b.start, end: b.end }); });
+    const cal = CalendarApp.getCalendarById(id);
+    if (!cal) throw new Error('Takvim okunamadı: ' + id);
+    cal.getEvents(start, end).forEach(function (ev) {
+      if (ev.isAllDayEvent()) return;
+      if (ev.getMyStatus() === CalendarApp.GuestStatus.NO) return;
+      out.push({ start: ev.getStartTime().toISOString(), end: ev.getEndTime().toISOString() });
+    });
   });
   return out;
 }

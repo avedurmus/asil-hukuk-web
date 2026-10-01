@@ -7,9 +7,12 @@ import type { BusyInterval } from "./slots";
  * Gerekli ortam değişkenleri:
  *   GOOGLE_SERVICE_ACCOUNT_EMAIL  hizmet hesabının e-postası
  *   GOOGLE_PRIVATE_KEY            hizmet hesabının özel anahtarı (\n kaçışlı olabilir)
- *   GOOGLE_CALENDAR_ID            randevuların yazılacağı takvim (örn. emre@asilhukuk.net)
+ *   GOOGLE_CALENDAR_ID            randevuların yazılacağı takvim (örn. av.edurmus@gmail.com)
+ *   GOOGLE_BUSY_CALENDAR_IDS      isteğe bağlı; doluluğu ayrıca dikkate alınacak
+ *                                 diğer takvimler (virgülle ayrılmış)
  *
- * Takvim, hizmet hesabıyla "Etkinliklerde değişiklik yapma" yetkisiyle
+ * Ana takvim, hizmet hesabıyla "Etkinliklerde değişiklik yapma" yetkisiyle;
+ * diğer takvimler en az "Yalnızca boş/meşgul bilgisini görme" yetkisiyle
  * paylaşılmalıdır. Ek kütüphane gerektirmemek için JWT burada imzalanır.
  */
 
@@ -20,8 +23,12 @@ const SCOPE = "https://www.googleapis.com/auth/calendar";
 function config() {
     const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
     const key = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
-    const calendarId = process.env.GOOGLE_CALENDAR_ID;
-    return email && key && calendarId ? { email, key, calendarId } : null;
+    const calendarId = process.env.GOOGLE_CALENDAR_ID?.trim();
+    const extraIds = (process.env.GOOGLE_BUSY_CALENDAR_IDS ?? "")
+        .split(",")
+        .map((id) => id.trim())
+        .filter((id) => id && id !== calendarId);
+    return email && key && calendarId ? { email, key, calendarId, busyCalendarIds: [calendarId, ...extraIds] } : null;
 }
 
 export function isCalendarConfigured(): boolean {
@@ -66,19 +73,29 @@ async function calendarFetch<T>(path: string, body: unknown): Promise<T> {
     return (await res.json()) as T;
 }
 
-/** Verilen aralıkta takvimdeki dolu zaman dilimlerini döner. */
+/**
+ * Verilen aralıkta ana takvim ve ek takvimlerdeki dolu zaman dilimlerini döner.
+ * Takvimlerden biri okunamazsa çift randevu riskine girmemek için hata verir.
+ */
 export async function fetchBusy(fromMs: number, toMs: number): Promise<BusyInterval[]> {
     const cfg = config()!;
     const data = await calendarFetch<{
-        calendars: Record<string, { busy?: { start: string; end: string }[]; errors?: unknown[] }>;
+        calendars: Record<string, { busy?: { start: string; end: string }[]; errors?: { reason?: string }[] }>;
     }>("/freeBusy", {
         timeMin: new Date(fromMs).toISOString(),
         timeMax: new Date(toMs).toISOString(),
-        items: [{ id: cfg.calendarId }],
+        items: cfg.busyCalendarIds.map((id) => ({ id })),
     });
-    const entry = data.calendars?.[cfg.calendarId];
-    if (!entry || entry.errors?.length) throw new Error("Takvim doluluk bilgisi okunamadı.");
-    return (entry.busy ?? []).map((b) => ({ startMs: Date.parse(b.start), endMs: Date.parse(b.end) }));
+
+    const busy: BusyInterval[] = [];
+    for (const id of cfg.busyCalendarIds) {
+        const entry = data.calendars?.[id];
+        if (!entry || entry.errors?.length) {
+            throw new Error(`Takvim doluluk bilgisi okunamadı (${id}: ${entry?.errors?.[0]?.reason ?? "yanıt yok"}). Takvim hizmet hesabıyla paylaşılmış mı?`);
+        }
+        for (const b of entry.busy ?? []) busy.push({ startMs: Date.parse(b.start), endMs: Date.parse(b.end) });
+    }
+    return busy;
 }
 
 export async function createEvent(event: {

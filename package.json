@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@anthropic-ai/sdk": "^0.131.0",
         "@next/third-parties": "^14.2.35",
         "framer-motion": "^12.42.2",
         "jszip": "^3.10.1",

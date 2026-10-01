@@ -2,11 +2,12 @@ import Header from "@/components/Header";
 import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
-import { Mail, MapPin, Phone, Clock, MessageCircle, ArrowUpRight, FileText, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, MessageCircle, ArrowUpRight, FileText, ShieldCheck, CalendarCheck } from "lucide-react";
 import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
 
 import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import OpenChatButton from "@/components/OpenChatButton";
 import { OFFICE_MAP_URL, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -83,6 +84,14 @@ export default function ContactPage() {
                             Formu doldurun, arayın ya da WhatsApp&apos;tan yazın. Talebinizi dinleyip size en kısa
                             sürede dönüş yapalım.
                         </p>
+                        <OpenChatButton
+                            label="Iletisim Hero - Asistanla Randevu"
+                            message="Randevu almak istiyorum"
+                            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-gold-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+                        >
+                            <CalendarCheck className="h-4 w-4" />
+                            Asil Asistan ile hemen randevu alın
+                        </OpenChatButton>
                     </div>
                 </section>
 

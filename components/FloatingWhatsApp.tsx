@@ -6,7 +6,7 @@ import { MessageCircle } from "lucide-react";
 import { trackEvent, whatsappHref } from "@/lib/contact";
 
 /**
- * Masaüstünde sağ altta beliren WhatsApp düğmesi. Mobilde alt gezinme çubuğu
+ * Masaüstünde sağ altta, sohbet asistanı düğmesinin üzerinde beliren WhatsApp düğmesi. Mobilde alt gezinme çubuğu
  * aynı işlevi gördüğü için gizlidir; asistan uygulamasında da gösterilmez.
  */
 export default function FloatingWhatsApp() {
@@ -29,7 +29,7 @@ export default function FloatingWhatsApp() {
             rel="noopener noreferrer"
             onClick={() => trackEvent("click_whatsapp", "Floating Button - WhatsApp")}
             aria-label="WhatsApp üzerinden yazın"
-            className={`group fixed bottom-6 right-6 z-40 hidden items-center gap-3 rounded-full bg-[#1f9d55] py-3 pl-3 pr-5 text-white shadow-elegant transition-all duration-500 hover:bg-[#198048] md:flex ${
+            className={`group fixed bottom-28 right-6 z-40 hidden items-center gap-3 rounded-full bg-[#1f9d55] py-3 pl-3 pr-5 text-white shadow-elegant transition-all duration-500 hover:bg-[#198048] md:flex ${
                 visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
             }`}
         >

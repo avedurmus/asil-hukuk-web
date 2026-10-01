@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Phone, MessageCircle, CalendarCheck } from "lucide-react";
-import { PHONE_HREF, trackEvent, whatsappHref } from "@/lib/contact";
+import { PHONE_HREF, openChatAssistant, trackEvent, whatsappHref } from "@/lib/contact";
 
 export default function MobileBottomNav() {
     return (
@@ -26,14 +25,17 @@ export default function MobileBottomNav() {
                     <MessageCircle className="h-5 w-5" />
                     <span className="text-[11px] font-bold">WhatsApp</span>
                 </a>
-                <Link
-                    href="/iletisim#randevu"
-                    onClick={() => trackEvent("click_appointment_button", "Mobile Bottom Nav - Randevu")}
+                <button
+                    type="button"
+                    onClick={() => {
+                        trackEvent("click_appointment_button", "Mobile Bottom Nav - Randevu");
+                        openChatAssistant("Randevu almak istiyorum");
+                    }}
                     className="flex flex-col items-center justify-center gap-1 rounded-xl bg-gold-500 py-2.5 text-slate-950 transition-colors active:bg-gold-400"
                 >
                     <CalendarCheck className="h-5 w-5" />
                     <span className="text-[11px] font-bold">Randevu</span>
-                </Link>
+                </button>
             </div>
         </div>
     );

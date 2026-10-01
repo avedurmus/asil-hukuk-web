@@ -12,6 +12,14 @@ export function whatsappHref(text = "Merhaba, hukuki destek almak istiyorum.") {
 
 export const OFFICE_HOURS = "Hafta içi 09:00 – 18:00";
 
+export const CHAT_OPEN_EVENT = "asil-chat:open";
+
+/** Sohbet asistanını açar; isteğe bağlı mesaj, kullanıcı adına hemen gönderilir. */
+export function openChatAssistant(message?: string) {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new CustomEvent(CHAT_OPEN_EVENT, { detail: { message } }));
+}
+
 /** Google Analytics olayı; gtag yüklenmemişse sessizce yok sayılır. */
 export function trackEvent(action: string, label: string, category = "Contact") {
     if (typeof window === "undefined") return;

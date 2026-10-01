@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, Award, Scale, ShieldCheck, MessageCircle, Phone } from "lucide-react";
 import { siteContent } from "@/data/siteContent";
 import { PHONE_HREF, whatsappHref } from "@/lib/contact";
+import OpenChatButton from "@/components/OpenChatButton";
 
 const trustPoints = [
     { icon: Scale, label: "İstanbul Barosu Üyesi" },
@@ -88,6 +89,16 @@ export default function Hero() {
                             {siteContent.contact.phone}
                         </span>
                     </a>
+                    <OpenChatButton
+                        label="Hero - Asistan"
+                        className="mt-3 flex w-full items-center justify-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary-900 dark:text-slate-400 dark:hover:text-white lg:justify-start"
+                    >
+                        <Scale className="h-4 w-4 text-gold-600" />
+                        ya da
+                        <span className="font-semibold text-primary-900 underline decoration-gold-500/50 underline-offset-4 dark:text-white">
+                            Asil Asistan&apos;la randevu alın
+                        </span>
+                    </OpenChatButton>
 
                     {/* Hızlı konu seçimi */}
                     <div className="mt-12 border-t border-primary-900/10 pt-8 dark:border-white/10">

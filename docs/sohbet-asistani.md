@@ -63,10 +63,22 @@ Vercel → Proje → Settings → Environment Variables bölümüne ekleyin
 4. Vercel'e şunları ekleyin:
    - `GOOGLE_SERVICE_ACCOUNT_EMAIL` — JSON'daki `client_email`
    - `GOOGLE_PRIVATE_KEY` — JSON'daki `private_key` (tırnak içinde, `\n`'ler korunarak)
-   - `GOOGLE_CALENDAR_ID` — takvim kimliği (genellikle e-posta adresi)
+   - `GOOGLE_CALENDAR_ID` — randevuların yazılacağı takvim (Asil Hukuk Takvimi: `av.edurmus@gmail.com`)
+   - `GOOGLE_BUSY_CALENDAR_IDS` — isteğe bağlı; doluluğu ayrıca dikkate
+     alınacak diğer takvimlerin kimlikleri, virgülle ayrılmış. Bu takvimleri de
+     hizmet hesabıyla en az "Yalnızca boş/meşgul bilgisini görme" yetkisiyle
+     paylaşın.
+5. Vercel'de yeniden yayınlayın (Deployments → ⋯ → Redeploy).
 
 Takvimdeki her dolu etkinlik (duruşma, toplantı vb.) ilgili saati otomatik
-olarak kapatır; ayrıca bir şey yapmanız gerekmez.
+olarak kapatır; ayrıca bir şey yapmanız gerekmez. İki noktaya dikkat:
+
+- Google Takvim'de **tüm gün** etkinlikler varsayılan olarak "Boş" işaretlenir.
+  İzin veya adliye günü gibi tüm günü kapatması gereken etkinliklerde
+  "Meşgul" seçin (ya da tarihi `blockedDates` listesine ekleyin).
+- Takvimlerden biri okunamazsa asistan çift randevu riskine girmemek için saat
+  önermez ve kullanıcıyı telefona yönlendirir; Vercel kayıtlarında
+  `Takvim doluluk bilgisi okunamadı` hatası görünür.
 
 ## Programı değiştirmek
 

@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import { appointmentSettings as cfg, meetingTypeLabels, type MeetingType } from "@/data/appointmentSettings";
 import { siteContent } from "@/data/siteContent";
-import { createEvent, fetchBusy, isCalendarConfigured } from "./googleCalendar";
+import { createEvent, fetchBusy, isCalendarConfigured, SlotTakenError } from "./calendar";
 import { formatLocal, generateSlots, parseDateKey, resolveSlotId, type BusyInterval, type Slot } from "./slots";
 
 /** Asistanın tek seferde sunacağı en fazla saat sayısı. */
@@ -139,13 +139,22 @@ export async function bookAppointment(input: BookingInput): Promise<Booking> {
     ].join("\n");
 
     if (calendarMode) {
-        await createEvent({
-            summary: `Ön görüşme: ${data.name} (${meetingTypeLabel})`,
-            description: details,
-            startMs: slot.startMs,
-            endMs: slot.endMs,
-            location: data.meetingType === "buro" ? siteContent.contact.address : undefined,
-        });
+        try {
+            await createEvent({
+                summary: `Ön görüşme: ${data.name} (${meetingTypeLabel})`,
+                description: details,
+                startMs: slot.startMs,
+                endMs: slot.endMs,
+                location: data.meetingType === "buro" ? siteContent.contact.address : undefined,
+            });
+        } catch (error) {
+            // Takvim tarafı kayıttan hemen önce saati yeniden kontrol eder; aynı
+            // anda gelen iki talepten yalnızca biri kaydedilir.
+            if (error instanceof SlotTakenError) {
+                throw new BookingError("Seçilen saat az önce doldu. list_available_slots ile güncel saatleri alıp kullanıcıya yeniden sunun.");
+            }
+            throw error;
+        }
     }
 
     const notified = await notifyOffice({

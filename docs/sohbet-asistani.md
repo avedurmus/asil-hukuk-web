@@ -15,7 +15,9 @@ programına göre ön görüşme randevusu oluşturur.
 | Çalışma programı, tatiller, görüşme süresi | `data/appointmentSettings.ts` |
 | Boş saat hesabı | `lib/booking/slots.ts` |
 | Randevu kaydı ve bildirim | `lib/booking/index.ts` |
-| Google Takvim bağlantısı (isteğe bağlı) | `lib/booking/googleCalendar.ts` |
+| Takvim bağlantısı seçimi | `lib/booking/calendar.ts` |
+| Google Takvim – Apps Script köprüsü (önerilen) | `lib/booking/appsScriptCalendar.ts`, `docs/google-apps-script/Code.gs` |
+| Google Takvim – hizmet hesabı (alternatif) | `lib/booking/googleCalendar.ts` |
 
 - **Bilgi tabanı** sitenin kendi içeriğinden üretilir: `data/services.ts`
   (çalışma alanları ve rehber notları) ile `data/faq.ts` (SSS). Bu dosyalar
@@ -51,7 +53,47 @@ Vercel → Proje → Settings → Environment Variables bölümüne ekleyin
   (hızlı yanıt). Yanıt kalitesi yetersiz kalırsa `medium` deneyin.
 - `FORMSPREE_FORM_ID` — isteğe bağlı, varsayılan sitedeki iletişim formu.
 
-### Google Takvim'i bağlamak
+### Google Takvim'i bağlamak (Apps Script, önerilen)
+
+Google Cloud projesi ve takvim paylaşımı gerektirmez; kod avukatın kendi
+Google hesabında çalışır. Doluluğa bakılacak takvimler ve randevunun yazılacağı
+takvim `docs/google-apps-script/Code.gs` içinde tanımlıdır (Asil Hukuk Takvimi
+ve Emre's iPhone).
+
+1. av.edurmus@gmail.com ile https://script.google.com adresine girin,
+   **Yeni proje** oluşturun ve adını "Asil Asistan Takvim" yapın.
+2. `Code.gs` içeriğini silip `docs/google-apps-script/Code.gs` dosyasını
+   yapıştırın. `__APPS_SCRIPT_SECRET__` yerine Vercel'deki
+   `APPS_SCRIPT_SECRET` değerini yazın (doldurulmuş kodu depoya eklemeyin).
+3. Soldaki **Hizmetler (+)** → **Google Calendar API** → **Ekle**.
+4. Üstteki işlev listesinden `test`'i seçip **Çalıştır**'a basın; Google'ın
+   istediği izinleri onaylayın (*Gelişmiş → Güvenli olmayan sayfaya git* çıkarsa
+   kendi kodunuz olduğu için devam edebilirsiniz). Yürütme günlüğünde dolu
+   saatler listelenmelidir.
+5. **Dağıt → Yeni dağıtım** → tür: **Web uygulaması**; *Şu kullanıcı olarak
+   yürüt*: **Ben**, *Erişimi olanlar*: **Herkes** → **Dağıt**.
+6. Verilen **Web uygulaması URL**'sini (`https://script.google.com/macros/s/…/exec`)
+   Vercel'de `APPS_SCRIPT_URL` olarak tanımlayın ve yeniden yayınlayın.
+
+Kodda değişiklik yaparsanız **Dağıt → Dağıtımları yönet → düzenle → Sürüm:
+Yeni sürüm** ile aynı URL'yi güncelleyin.
+
+Takvimdeki her dolu etkinlik (duruşma, toplantı vb.) ilgili saati otomatik
+olarak kapatır. Dikkat edilecekler:
+
+- Google Takvim'de **tüm gün** etkinlikler varsayılan olarak "Boş" işaretlenir.
+  İzin veya adliye günü gibi tüm günü kapatması gereken etkinliklerde
+  "Meşgul" seçin (ya da tarihi `blockedDates` listesine ekleyin).
+- Takvimlerden biri okunamazsa asistan çift randevu riskine girmemek için saat
+  önermez ve kullanıcıyı telefona yönlendirir; ayrıntı Vercel kayıtlarında
+  görünür.
+- Randevu yazılmadan hemen önce saat takvimde yeniden kontrol edilir; aynı anda
+  gelen iki talepten yalnızca biri kaydedilir.
+
+### Alternatif: Google hizmet hesabı
+
+Apps Script yerine bir Google Cloud hizmet hesabı da kullanılabilir (Apps
+Script tanımlıysa o önceliklidir).
 
 1. [Google Cloud Console](https://console.cloud.google.com/)'da bir proje açın,
    **Google Calendar API**'yi etkinleştirin.

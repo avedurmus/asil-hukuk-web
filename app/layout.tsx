@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import ChatWidget from "@/components/ChatWidget";
 import { DEFAULT_OG_IMAGE, OFFICE_GEO, OFFICE_MAP_URL, ORGANIZATION_ID, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { services } from "@/data/services";
 
@@ -197,6 +198,7 @@ export default function RootLayout({
                 />
                 {children}
                 <FloatingWhatsApp />
+                <ChatWidget />
                 <MobileBottomNav />
                 {/* Google tag (gtag.js) */}
                 <Script

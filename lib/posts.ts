@@ -64,11 +64,6 @@ export function getPost(id: string): BlogPost | undefined {
     return getAllPosts().find((p) => p.id === id);
 }
 
-/** Ana sayfada tanıtılan en yeni günlük makaleler. */
-export function getLatestDailyPosts(limit = 2): BlogPost[] {
-    return getAllPosts().filter((p) => p.daily).slice(0, limit);
-}
-
 /** İstemci bileşenlerine gönderilecek, gövdesi çıkarılmış yazı özeti. */
 export type PostSummary = Omit<BlogPost, "content">;
 export function toSummary({ content: _content, ...rest }: BlogPost): PostSummary {

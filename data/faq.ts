@@ -2,6 +2,11 @@ export interface FAQItem {
     /** SEO ve derin bağlantı (deep link) için kalıcı kimlik. */
     id: string;
     question: string;
+    /**
+     * Hukuk bilgisi olmayan bir okurun ilk bakışta anlayacağı bir-iki cümlelik
+     * sade cevap. Ayrıntı ve kanun maddeleri `answer` içinde kalır.
+     */
+    shortAnswer?: string;
     /** Düz metin. Paragraflar çift satır sonu ile ayrılır. */
     answer: string;
     category: FAQCategoryId;
@@ -77,6 +82,8 @@ export const faqs: FAQItem[] = [
         id: "anlasmali-bosanma-suresi",
         category: "Aile Hukuku",
         question: "Anlaşmalı boşanma davası ne kadar sürer?",
+        shortAnswer:
+            "Eşler her konuda (nafaka, velayet, mal paylaşımı) anlaşmışsa dava genellikle tek duruşmada biter. Dava açıldıktan sonra kararın kesinleşip nüfusa işlenmesi çoğunlukla 1-3 ay sürer.",
         answer:
             "Anlaşmalı boşanma davaları, tarafların boşanma ve fer'îleri (nafaka, tazminat, velayet, mal paylaşımı) konusunda tam mutabakata varması ve hâkimin protokolü uygun bulması hâlinde kural olarak tek celsede sonuçlanır.\n\nDava açıldıktan sonra duruşma gününün verilmesi mahkemenin iş yoğunluğuna göre 1 hafta ile 1 ay arasında değişir. Duruşmada verilen kararın gerekçeli hâle getirilmesi, taraflara tebliği ve iki haftalık istinaf süresinin geçmesiyle karar kesinleşir; nüfusa işlenmesi bu kesinleşmeden sonra yapılır. Uygulamada dava açılışından nüfusa tescile kadar geçen toplam süre çoğunlukla 1-3 aydır.",
         keywords: ["tek celse", "protokol", "hızlı boşanma"],
@@ -86,6 +93,8 @@ export const faqs: FAQItem[] = [
         id: "anlasmali-bosanma-sartlari",
         category: "Aile Hukuku",
         question: "Anlaşmalı boşanmanın şartları nelerdir?",
+        shortAnswer:
+            "Evliliğin en az bir yıl sürmüş olması, iki eşin de boşanmak istemesi ve nafaka, velayet ve mal paylaşımını gösteren bir protokol üzerinde anlaşmış olmanız gerekir. Hâkim eşleri bizzat dinler.",
         answer:
             "Türk Medeni Kanunu'nun 166/3. maddesi dört şart arar:\n\n1) Evliliğin en az bir yıl sürmüş olması. 2) Eşlerin mahkemeye birlikte başvurması veya bir eşin açtığı davayı diğerinin kabul etmesi. 3) Hâkimin tarafları bizzat dinleyerek iradelerinin serbestçe açıklandığına kanaat getirmesi. 4) Boşanmanın malî sonuçları ile çocukların durumu hakkında taraflarca hazırlanan düzenlemenin (protokolün) hâkimce uygun bulunması.\n\nHâkim, tarafların ve çocukların menfaatlerini gözeterek protokolde değişiklik yapılmasını isteyebilir; bu değişiklik taraflarca kabul edilmedikçe boşanmaya karar verilemez. Evlilik bir yılı doldurmamışsa anlaşmalı boşanma yolu kapalıdır, çekişmeli dava açılması gerekir.",
         keywords: ["tmk 166", "bir yıl", "protokol şartı"],
@@ -94,6 +103,8 @@ export const faqs: FAQItem[] = [
         id: "cekismeli-bosanma-suresi",
         category: "Aile Hukuku",
         question: "Çekişmeli boşanma davası ne kadar sürer?",
+        shortAnswer:
+            "İlk mahkeme aşaması ortalama 1,5-2 yıl sürer; itiraz edilirse toplam 3-4 yılı bulabilir. Bu sürede nafaka ve çocukla ilgili geçici kararlar çok daha kısa sürede alınabilir.",
         answer:
             "Çekişmeli boşanma davalarının süresi; toplanacak delillere, dinlenecek tanık sayısına, velayet konusunda uzman (pedagog) raporu alınıp alınmayacağına ve mahkemenin iş yoğunluğuna göre değişir.\n\nİlk derece mahkemesi aşaması ortalama 1,5-2 yıl sürmektedir. Karara karşı istinaf ve ardından temyiz yoluna gidilmesi hâlinde sürecin toplam 3-4 yıla ulaştığı görülmektedir. Yargılama sürerken tedbir nafakası, velayetin geçici düzenlenmesi ve 6284 sayılı Kanun kapsamındaki koruma tedbirleri talep edilebilir; bunlar hakkında genellikle çok kısa sürede karar verilir.",
         keywords: ["dava süresi", "istinaf", "temyiz"],
@@ -102,6 +113,8 @@ export const faqs: FAQItem[] = [
         id: "velayet-kime-verilir",
         category: "Aile Hukuku",
         question: "Boşanmada velayet kime verilir?",
+        shortAnswer:
+            "Belirleyici olan, çocuğun yararıdır; kimin haklı olduğu değil. Küçük çocukların velayeti çoğunlukla anneye verilir; yaklaşık 8 yaşından büyük çocukların görüşü de mahkemece dinlenir.",
         answer:
             "Velayet düzenlemesinde tek ölçüt \"çocuğun üstün yararı\"dır; ebeveynlerin kusuru kural olarak belirleyici değildir.\n\nHâkim; çocuğun yaşını, bedensel ve ruhsal gelişimini, alıştığı çevreyi, ebeveynlerin yaşam koşullarını ve çocukla kurdukları bağı değerlendirir. Anne bakım ve şefkatine muhtaç yaştaki küçük çocukların velayeti uygulamada çoğunlukla anneye bırakılır. İdrak çağındaki (genellikle 8 yaş üstü) çocukların görüşü, BM Çocuk Haklarına Dair Sözleşme uyarınca mahkemece dinlenir ve dikkate alınır; ancak çocuğun beyanı tek başına bağlayıcı değildir.\n\nVelayet kesin hüküm oluşturmaz: koşullar değişirse velayetin değiştirilmesi davası her zaman açılabilir.",
         keywords: ["çocuğun üstün yararı", "ortak velayet", "pedagog"],
@@ -136,6 +149,8 @@ export const faqs: FAQItem[] = [
         id: "nafaka-turleri",
         category: "Aile Hukuku",
         question: "Kaç çeşit nafaka vardır?",
+        shortAnswer:
+            "Dört tür nafaka vardır: dava sürerken ödenen tedbir nafakası, çocuk için ödenen iştirak nafakası, boşanınca yoksulluğa düşecek eşe ödenen yoksulluk nafakası ve akrabalar arasındaki yardım nafakası.",
         answer:
             "Türk hukukunda dört tür nafaka bulunur:\n\nTedbir nafakası (TMK m. 169): Dava süresince eşin ve çocukların geçimi için hükmedilir, talep olmasa bile hâkim resen karar verebilir.\n\nİştirak nafakası (TMK m. 182): Boşanmadan sonra velayeti kendisine verilmeyen eşin, çocuğun bakım ve eğitim giderlerine katılmasıdır. Çocuk ergin olunca kural olarak sona erer; eğitim devam ediyorsa yardım nafakasına dönüşebilir.\n\nYoksulluk nafakası (TMK m. 175): Boşanma yüzünden yoksulluğa düşecek tarafa, kusuru daha ağır olmamak koşuluyla ödenir.\n\nYardım nafakası (TMK m. 364): Altsoy, üstsoy ve kardeşlerin birbirine karşı yükümlülüğüdür; boşanmayla ilgisi yoktur.",
         keywords: ["tedbir", "iştirak", "yoksulluk", "yardım nafakası"],
@@ -152,6 +167,8 @@ export const faqs: FAQItem[] = [
         id: "ziynet-esyalari",
         category: "Aile Hukuku",
         question: "Düğünde takılan altınlar (ziynet eşyası) kime aittir?",
+        shortAnswer:
+            "Düğünde takılan kadına özgü takılar (bilezik, kolye vb.) kime takılırsa takılsın kadının sayılır; damada takılan para ve altınlar erkeğin kabul edilir. Takıların varlığını fotoğraf, video ve tanıkla ispat etmek gerekir.",
         answer:
             "Yargıtay'ın yerleşik uygulamasına göre, kime takıldığına bakılmaksızın kadına özgü ziynet eşyaları kadının kişisel malı sayılır. Damada takılan para ve altınlar ise erkeğe ait kabul edilir; aksi yöndeki yerel âdet iddiası ispat edilmedikçe sonuca etkili olmaz.\n\nZiynet alacağı davasında ispat yükü, eşyaları talep eden taraftadır. Düğün görüntüleri, fotoğraflar, takı listesi, tanık beyanları ve bozdurma işlemine ilişkin banka/kuyumcu kayıtları delil olarak kullanılır. Karşı taraf eşyaların rızayla ve karşılıksız verildiğini (bağışlandığını) veya iade edildiğini ispatlarsa sorumluluktan kurtulur.\n\nTalep, eşyanın aynen iadesi; mümkün değilse dava tarihindeki rayiç bedelinin ödenmesi şeklinde ileri sürülür.",
         keywords: ["altın", "takı", "ziynet alacağı", "ispat"],
@@ -186,6 +203,8 @@ export const faqs: FAQItem[] = [
         id: "ise-iade-suresi",
         category: "İş Hukuku",
         question: "İşe iade davası açma süresi nedir?",
+        shortAnswer:
+            "İşten çıkarıldığınız size bildirildiği günden itibaren 1 ay içinde arabulucuya başvurmanız gerekir. Anlaşma olmazsa 2 hafta içinde dava açılmalıdır. Bu süreler kaçırılırsa işe dönme hakkı tamamen kaybedilir.",
         answer:
             "İş sözleşmesi feshedilen işçi, fesih bildiriminin tebliğinden itibaren bir ay içinde arabulucuya başvurmak zorundadır; arabuluculuk, işe iade davasında dava şartıdır.\n\nArabuluculuk görüşmelerinde anlaşma sağlanamazsa, son tutanağın düzenlendiği tarihten itibaren iki hafta içinde İş Mahkemesinde işe iade davası açılmalıdır. Bu süreler hak düşürücü niteliktedir; kaçırılması hâlinde işe iade hakkı tümüyle sona erer, yalnızca kıdem ve ihbar tazminatı gibi alacaklar talep edilebilir.",
         keywords: ["arabuluculuk", "1 ay", "2 hafta", "hak düşürücü süre"],
@@ -204,6 +223,8 @@ export const faqs: FAQItem[] = [
         id: "kidem-tazminati-sartlari",
         category: "İş Hukuku",
         question: "Kıdem tazminatı hangi hâllerde alınır?",
+        shortAnswer:
+            "Aynı işyerinde en az 1 yıl çalıştıysanız ve işveren sizi haklı bir sebep olmadan çıkardıysa (ya da maaş ödenmemesi gibi haklı bir sebeple siz ayrıldıysanız) kıdem tazminatı alırsınız. Kendi isteğinizle istifa ederseniz kural olarak alamazsınız.",
         answer:
             "Kıdem tazminatına hak kazanmak için işçinin aynı işverene bağlı olarak en az bir yıl çalışmış olması ve iş sözleşmesinin kanunda sayılan sebeplerden biriyle sona ermesi gerekir.\n\nHak kazandıran başlıca hâller: işverenin haklı sebep dışında yaptığı fesih; işçinin 4857 m. 24 uyarınca haklı sebeple feshi (ücretin ödenmemesi, sigorta priminin eksik yatırılması, mobbing, ağır çalışma koşulları vb.); askerlik görevi; emeklilik veya yaşlılık aylığına hak kazanma; kadın işçinin evlendiği tarihten itibaren bir yıl içinde feshi; işçinin ölümü hâlinde mirasçıların talebi.\n\nTazminat, her tam yıl için 30 günlük giydirilmiş brüt ücret üzerinden hesaplanır; yıldan artan süreler oransal olarak eklenir. Her yıl için ödenecek tutar, yasal kıdem tazminatı tavanını aşamaz. İşçinin istifası ve işverence 4857 m. 25/II uyarınca yapılan haklı fesih kıdem tazminatı hakkı doğurmaz.",
         keywords: ["1 yıl", "istifa", "tavan", "giydirilmiş ücret", "emeklilik"],
@@ -246,6 +267,8 @@ export const faqs: FAQItem[] = [
         id: "is-davasinda-arabuluculuk",
         category: "İş Hukuku",
         question: "İş davası açmadan önce arabulucuya gitmek zorunlu mu?",
+        shortAnswer:
+            "Evet. İşçi alacakları, tazminat ve işe iade için dava açmadan önce arabulucuya gitmek zorunludur; gidilmezse dava reddedilir. İş kazası ve meslek hastalığı tazminatları bunun dışındadır.",
         answer:
             "Evet. 7036 sayılı Kanun m. 3 uyarınca, bireysel veya toplu iş sözleşmesine dayanan işçi ve işveren alacağı ile tazminatı ve işe iade talebiyle açılacak davalarda arabulucuya başvurulmuş olması dava şartıdır.\n\nArabulucuya başvurulmadan doğrudan açılan dava, herhangi bir işlem yapılmaksızın usulden reddedilir. Arabuluculuk süreci kural olarak üç hafta içinde sonuçlandırılır; zorunlu hâllerde bu süre en fazla bir hafta uzatılabilir.\n\nİstisna: İş kazası veya meslek hastalığından kaynaklanan maddi-manevi tazminat davaları ile bunlara ilişkin rücu davalarında arabuluculuk zorunlu değildir.",
         keywords: ["dava şartı", "3 hafta", "iş kazası istisnası"],
@@ -290,6 +313,8 @@ export const faqs: FAQItem[] = [
         id: "ifadede-avukat",
         category: "Ceza Hukuku",
         question: "İfade verirken avukat bulundurmak zorunlu mudur?",
+        shortAnswer:
+            "Çoğu durumda zorunlu değildir ama kesinlikle önerilir. 18 yaşından küçükler ve ağır suçlarda avukat ücretsiz olarak baro tarafından atanır. Avukatsız alınan karakol ifadesi, sonradan hâkim önünde kabul etmezseniz tek başına delil sayılmaz.",
         answer:
             "Kural olarak şüphelinin müdafi yardımından yararlanması bir haktır, zorunluluk değildir. Ancak CMK m. 150 uyarınca bazı hâllerde müdafi görevlendirilmesi zorunludur:\n\nŞüpheli veya sanığın on sekiz yaşını doldurmamış olması, sağır veya dilsiz olması ya da kendisini savunamayacak derecede malul olması hâllerinde; ayrıca alt sınırı beş yıldan fazla hapis cezasını gerektiren suçlarda istem aranmaksızın barodan müdafi görevlendirilir.\n\nZorunlu olmadığı hâllerde dahi, ifade ve sorgunun hukuka uygun yürütülmesi, susma hakkının doğru kullanılması ve tutanakların denetlenmesi bakımından avukat huzurunda ifade verilmesi güçlü biçimde önerilir. Müdafi hazır bulunmaksızın kollukça alınan ifade, hâkim veya mahkeme huzurunda şüpheli veya sanık tarafından doğrulanmadıkça hükme esas alınamaz (CMK m. 148/4).",
         keywords: ["müdafi", "zorunlu müdafi", "susma hakkı", "cmk 150"],
@@ -298,6 +323,8 @@ export const faqs: FAQItem[] = [
         id: "gozalti-suresi",
         category: "Ceza Hukuku",
         question: "Gözaltı süresi en fazla ne kadardır?",
+        shortAnswer:
+            "Kural olarak en fazla 24 saattir. Toplu suçlarda savcı bu süreyi her seferinde 1 günü geçmeyecek şekilde en fazla 3 gün uzatabilir. Gözaltındaki kişi avukatıyla görüşme ve yakınlarına haber verilmesi hakkına sahiptir.",
         answer:
             "CMK m. 91 uyarınca gözaltı süresi, yakalama yerine en yakın hâkim veya mahkemeye gönderilmesi için zorunlu süre hariç, yakalama anından itibaren yirmi dört saati geçemez. Yakalama yerine en yakın hâkim veya mahkemeye gönderilme için zorunlu süre on iki saatten fazla olamaz.\n\nToplu olarak işlenen suçlarda, delillerin toplanmasındaki güçlük veya şüpheli sayısının çokluğu sebebiyle Cumhuriyet savcısı gözaltı süresinin her defasında bir günü geçmemek üzere üç gün süreyle uzatılmasına yazılı olarak emir verebilir.\n\nGözaltına alınan kişinin yakınlarına derhal haber verilmesi, sağlık kontrolünden geçirilmesi ve müdafi ile görüşebilmesi zorunludur. Gözaltına alma ve sürenin uzatılması kararlarına karşı sulh ceza hâkimliğine itiraz edilebilir.",
         keywords: ["24 saat", "4 gün", "yakalama", "itiraz"],
@@ -314,6 +341,8 @@ export const faqs: FAQItem[] = [
         id: "adli-sicil-silinmesi",
         category: "Ceza Hukuku",
         question: "Adli sicil kaydı nasıl silinir?",
+        shortAnswer:
+            "Ceza infaz edilince sabıka kaydı silinip arşive alınır; arşiv kaydı da çoğu durumda 5 yıl sonra tamamen silinir. Bunun için Cumhuriyet başsavcılığına dilekçeyle başvurabilirsiniz.",
         answer:
             "5352 sayılı Adlî Sicil Kanunu uyarınca adlî sicildeki bilgiler, cezanın veya güvenlik tedbirinin infazının tamamlandığı tarihten itibaren silinerek arşiv kaydına alınır. Ayrıca ceza mahkûmiyetini bütün sonuçlarıyla ortadan kaldıran şikâyetten vazgeçme, etkin pişmanlık, ceza zamanaşımının dolması veya genel af hâllerinde de kayıt arşive aktarılır.\n\nArşiv kaydı ise kural olarak, ilgilinin ölümü üzerine ya da fiilin kanunla suç olmaktan çıkarılması hâlinde tamamen silinir. Bunun dışında; mahkûmiyete ilişkin karar bir hak yoksunluğuna sebep olmuşsa yasaklanmış hakların geri verilmesi kararı alınmasıyla, hak yoksunluğu doğurmayan hâllerde ise arşive alınma tarihinden itibaren beş yıl geçmesiyle silinir.\n\nSilme işlemi için Adlî Sicil ve İstatistik Genel Müdürlüğüne veya Cumhuriyet başsavcılığına dilekçeyle başvurulur.",
         keywords: ["arşiv kaydı", "yasaklanmış hakların geri verilmesi", "5352"],
@@ -332,6 +361,8 @@ export const faqs: FAQItem[] = [
         id: "kiraci-tahliyesi-suresi",
         category: "Gayrimenkul ve Kira Hukuku",
         question: "Kiracı tahliyesi ne kadar sürer?",
+        shortAnswer:
+            "Yazılı tahliye taahhüdü varsa ve kiracı itiraz etmezse birkaç hafta sürebilir. Kira ödenmemesinde süreç birkaç ay, ev sahibinin ihtiyacı sebebiyle açılan davalarda ise 1-1,5 yılı bulabilir.",
         answer:
             "Süre, tahliye sebebine göre belirgin biçimde değişir.\n\nEn hızlı yol, geçerli bir yazılı tahliye taahhüdüne dayanan icra takibidir; itiraz edilmezse birkaç hafta içinde sonuç alınabilir. İtiraz hâlinde İcra Hukuk Mahkemesinde açılacak itirazın kaldırılması ve tahliye davası genellikle 4-8 ay sürer.\n\nKira bedelinin ödenmemesi sebebiyle otuz günlük ihtarlı ödeme emri gönderilip süresinde ödeme yapılmazsa tahliye istenebilir. İhtiyaç sebebiyle tahliye davaları ise kira süresinin bitiminden itibaren bir ay içinde açılmalıdır ve yargılaması 1-1,5 yılı bulabilir.\n\n1 Eylül 2023'ten itibaren kiralanan taşınmazların ilamsız icra yoluyla tahliyesine ilişkin hükümler hariç olmak üzere, kira ilişkisinden kaynaklanan uyuşmazlıklarda dava açmadan önce arabulucuya başvurulması dava şartıdır; bu da sürece üç hafta kadar ekler.",
         keywords: ["tahliye taahhüdü", "icra", "ihtiyaç", "arabuluculuk"],
@@ -350,6 +381,8 @@ export const faqs: FAQItem[] = [
         id: "kira-artis-orani",
         category: "Gayrimenkul ve Kira Hukuku",
         question: "Kira bedeline yıllık en fazla ne kadar zam yapılabilir?",
+        shortAnswer:
+            "Yıllık kira artışı, son 12 aylık TÜFE ortalamasını geçemez. Sözleşmede daha yüksek bir oran yazsa bile yalnızca bu sınıra kadar olan kısmı geçerlidir. Eskiden konutlarda uygulanan %25 sınırı artık geçerli değildir.",
         answer:
             "TBK m. 344 uyarınca tarafların yenilenen kira dönemlerinde uygulanacak kira bedeline ilişkin anlaşmaları, bir önceki kira yılında tüketici fiyat endeksindeki (TÜFE) on iki aylık ortalamalara göre değişim oranını geçmemek koşuluyla geçerlidir. Bu kural bir yıldan uzun süreli sözleşmelerde de uygulanır.\n\nTaraflar artış konusunda hiç anlaşmamışsa, kira bedeli yine aynı oranı geçmemek üzere hâkim tarafından belirlenir.\n\nSözleşmede TÜFE oranının üzerinde bir artış kararlaştırılmışsa, bu anlaşma tamamen geçersiz olmaz; yalnızca yasal üst sınırı aşan kısmı hüküm ifade etmez. Konut kiralarında bir dönem uygulanan yüzde 25'lik geçici tavan sona ermiş olup, geçerli üst sınır TÜFE on iki aylık ortalamasıdır.",
         keywords: ["TÜFE", "zam oranı", "tbk 344", "yüzde 25"],
@@ -367,6 +400,8 @@ export const faqs: FAQItem[] = [
         id: "ihtiyac-nedeniyle-tahliye",
         category: "Gayrimenkul ve Kira Hukuku",
         question: "Ev sahibi ihtiyaç sebebiyle kiracıyı çıkarabilir mi?",
+        shortAnswer:
+            "Evet; ev sahibi, kendisi veya yakın ailesi için evde gerçekten ve zorunlu olarak oturması gerekiyorsa dava açabilir. Bu ihtiyacı ispat etmek zorundadır ve tahliyeden sonra 3 yıl boyunca evi başkasına kiralayamaz.",
         answer:
             "Evet, ancak sıkı koşullara bağlıdır. TBK m. 350 uyarınca kiraya veren; kiralananı kendisi, eşi, altsoyu, üstsoyu veya kanun gereği bakmakla yükümlü olduğu diğer kişiler için konut ya da işyeri gereksinimi sebebiyle kullanma zorunluluğu varsa dava açabilir.\n\nİhtiyacın gerçek, samimi ve zorunlu olması gerekir; bu üç unsur birlikte aranır ve ispat yükü kiraya verendedir. Belirli süreli sözleşmelerde dava, sürenin sonunda; belirsiz süreli sözleşmelerde fesih dönemine ve bildirim süresine uyularak belirlenecek tarihten başlayarak bir ay içinde açılmalıdır.\n\nTBK m. 355'teki yeniden kiralama yasağı önemli bir güvencedir: ihtiyaç sebebiyle tahliye edilen taşınmaz, haklı sebep olmaksızın üç yıl geçmedikçe eski kiracısından başkasına kiralanamaz. Aykırı davranan kiraya veren, son kira yılında ödenen bir yıllık kira bedelinden az olmamak üzere tazminat öder.",
         keywords: ["gerçek samimi zorunlu", "tbk 350", "3 yıl yasağı"],
@@ -375,6 +410,8 @@ export const faqs: FAQItem[] = [
         id: "yeni-malik-ihtiyaci",
         category: "Gayrimenkul ve Kira Hukuku",
         question: "Kiracılı ev satın aldım, kiracıyı ne zaman çıkarabilirim?",
+        shortAnswer:
+            "Evi almanız kira sözleşmesini sona erdirmez. Kendiniz veya yakınınız için ihtiyacınız varsa, aldıktan sonraki 1 ay içinde kiracıya yazılı bildirim yapıp, satın alma tarihinden 6 ay sonra tahliye davası açabilirsiniz.",
         answer:
             "TBK m. 351 uyarınca kiralananı sonradan edinen kişi, onu kendisi, eşi, altsoyu, üstsoyu veya kanun gereği bakmakla yükümlü olduğu diğer kişiler için konut veya işyeri gereksinimi sebebiyle kullanma zorunluluğu varsa, edinme tarihinden başlayarak bir ay içinde durumu kiracıya yazılı olarak bildirmek koşuluyla, edinme tarihinden itibaren altı ay sonra dava açabilir.\n\nYeni malik bu bildirimi yapmazsa bu hakkını kaybetmez; bu kez sözleşme süresinin bitiminden başlayarak bir ay içinde dava açabilir.\n\nSatış, kira sözleşmesini kendiliğinden sona erdirmez: TBK m. 310 uyarınca yeni malik kira sözleşmesinin tarafı hâline gelir ve önceki sözleşme koşullarıyla bağlıdır. Bu nedenle \"evi aldım, kiracı hemen çıksın\" talebi hukuken sonuç doğurmaz.",
         keywords: ["tbk 351", "6 ay", "1 ay bildirim", "tbk 310"],
@@ -459,6 +496,8 @@ export const faqs: FAQItem[] = [
         id: "mirasin-reddi",
         category: "Miras Hukuku",
         question: "Miras nasıl reddedilir, süresi nedir?",
+        shortAnswer:
+            "Ölümü ve mirasçı olduğunuzu öğrendiğiniz tarihten itibaren 3 ay içinde Sulh Hukuk Mahkemesine başvurarak mirası reddedebilirsiniz. Bu süre geçerse veya mirasa ait mallarla ilgili işlem yaparsanız reddetme hakkınızı kaybedebilirsiniz.",
         answer:
             "TMK m. 605 vd. uyarınca yasal ve atanmış mirasçılar mirası reddedebilir. Ret beyanı, mirasın açıldığı yerdeki Sulh Hukuk Mahkemesine yazılı veya sözlü olarak yapılır ve kayıtsız şartsız olmalıdır.\n\nSüre üç aydır (TMK m. 606). Bu süre yasal mirasçılar için mirasbırakanın ölümünü ve mirasçı olduklarını öğrendikleri tarihten; vasiyetname ile atanmış mirasçılar için tasarrufun kendilerine resmen bildirildiği tarihten işlemeye başlar. Süre hak düşürücüdür.\n\nÖlümü anında mirasbırakanın ödemeden aczi açıkça belli veya resmen tespit edilmiş ise, miras reddedilmiş sayılır (TMK m. 605/2); bu hâlde ayrıca ret beyanında bulunmaya gerek yoktur, ancak alacaklıların takibi hâlinde mirasın hükmen reddi davası açılması gerekebilir.\n\nMirasçı, terekeyi sahiplenir veya tereke işlerine karışırsa ret hakkını kaybeder.",
         keywords: ["3 ay", "hükmen ret", "sulh hukuk", "tmk 606"],
@@ -467,6 +506,8 @@ export const faqs: FAQItem[] = [
         id: "mirascilik-belgesi",
         category: "Miras Hukuku",
         question: "Veraset ilamı (mirasçılık belgesi) nereden alınır?",
+        shortAnswer:
+            "Çoğu durumda herhangi bir noterden kısa sürede alınabilir. Yabancı uyruklu mirasçı varsa veya nüfus kayıtlarında sorun varsa Sulh Hukuk Mahkemesine başvurmak gerekir.",
         answer:
             "Mirasçılık belgesi, mirasçıların kimler olduğunu ve paylarını gösteren belgedir. İki yoldan alınabilir:\n\nNoterden: Nüfus kayıtları üzerinden mirasçılığın tereddütsüz biçimde belirlenebildiği hâllerde herhangi bir noter mirasçılık belgesi düzenleyebilir. Hızlı ve pratik yoldur.\n\nSulh Hukuk Mahkemesinden: Yabancı uyruklu mirasçı bulunması, nüfus kayıtlarının çelişkili veya eksik olması, evlat edinme ya da soybağı uyuşmazlığı gibi hâllerde mahkemeye başvurulması gerekir.\n\nMirasçılık belgesi kesin hüküm oluşturmaz; aksi her zaman ispatlanabilir ve belgenin iptali istenebilir. Tapu, banka ve SGK işlemlerinde bu belge aranır.",
         keywords: ["veraset ilamı", "noter", "sulh hukuk", "yabancı mirasçı"],
@@ -477,6 +518,8 @@ export const faqs: FAQItem[] = [
         id: "icra-takibine-itiraz",
         category: "İcra ve Ticaret Hukuku",
         question: "İcra takibine nasıl ve ne kadar sürede itiraz edilir?",
+        shortAnswer:
+            "Ödeme emrini aldığınız günden itibaren 7 gün içinde icra dairesine itiraz edebilirsiniz; itiraz takibi durdurur. Çek ve senede dayalı takiplerde süre 5 gündür ve itiraz mahkemeye yapılır.",
         answer:
             "İlamsız (genel haciz yoluyla) takipte borçluya ödeme emri tebliğ edilir. Borçlu, tebliğ tarihinden itibaren yedi gün içinde icra dairesine itiraz edebilir (İİK m. 62). Süresinde yapılan itiraz takibi kendiliğinden durdurur.\n\nBorca, faize, yetkiye veya imzaya ayrı ayrı itiraz edilebilir. İmzaya itirazın ayrıca ve açıkça yapılması zorunludur; aksi hâlde imza kabul edilmiş sayılır. Borcun yalnızca bir kısmına itiraz ediliyorsa, kabul edilen miktarın açıkça gösterilmesi gerekir.\n\nKambiyo senetlerine (çek, bono, poliçe) özgü takipte ise itiraz süresi beş gündür ve itiraz, icra dairesine değil İcra Hukuk Mahkemesine yapılır; kural olarak takibi kendiliğinden durdurmaz, tedbir kararı alınması gerekir.\n\nİtiraz süresi kaçırılırsa takip kesinleşir ve haciz aşamasına geçilir; bu durumda yalnızca gecikmiş itiraz veya menfi tespit davası gibi istisnaî yollar kalır.",
         keywords: ["7 gün", "5 gün", "ödeme emri", "imzaya itiraz", "iik 62"],
@@ -521,6 +564,8 @@ export const faqs: FAQItem[] = [
         id: "avukatlik-ucreti",
         category: "Genel",
         question: "Avukatlık ücreti neye göre belirlenir?",
+        shortAnswer:
+            "Ücret; işin türüne, ne kadar emek ve zaman gerektireceğine göre avukatla yapılan sözleşmeyle belirlenir ve barolar birliğinin asgari tarifesinin altında olamaz. İlk görüşmede ücret ve masraflar açıkça konuşulmalıdır.",
         answer:
             "Avukatlık ücreti, Türkiye Barolar Birliği tarafından her yıl yayımlanan Avukatlık Asgarî Ücret Tarifesi ve bağlı bulunulan baronun tavsiye niteliğindeki tarifesi esas alınarak belirlenir. Tarifede öngörülen tutarın altında ücret kararlaştırılması Avukatlık Kanunu uyarınca mümkün değildir.\n\nÜcret; işin niteliği, tahmini süresi, dosyanın kapsamı, uyuşmazlığın değeri ve gerektirdiği emek dikkate alınarak avukatlık sözleşmesiyle serbestçe belirlenebilir. Konusu para olan işlerde dava değerinin yüzde yirmi beşini aşmamak üzere nispi ücret de kararlaştırılabilir.\n\nKarşı taraf vekâlet ücreti, tarifeye göre hesaplanır ve davayı kaybeden tarafa yüklenir; bu ücret müvekkilin avukatına ödediği ücretten ayrıdır ve Avukatlık Kanunu m. 164/son uyarınca avukata aittir.\n\nİlk görüşmede işin kapsamı ve öngörülen tüm masraflar yazılı olarak paylaşılmalıdır.",
         keywords: ["asgari ücret tarifesi", "vekalet ücreti", "nispi ücret"],
@@ -529,6 +574,8 @@ export const faqs: FAQItem[] = [
         id: "vekaletname-nasil-verilir",
         category: "Genel",
         question: "Avukata vekaletname nasıl verilir?",
+        shortAnswer:
+            "Herhangi bir notere gidip avukatınız adına vekaletname çıkarırsınız; noter avukatın bilgilerini ister. Boşanma gibi bazı işler için vekaletnamede özel yetki ve fotoğraf gerekir. Yurt dışındaysanız konsolosluktan da verebilirsiniz.",
         answer:
             "Vekaletname herhangi bir noterden düzenlenir; avukatın adı, soyadı, baro sicil numarası ve vergi kimlik numarası ile TC kimlik numarası noter tarafından istenir.\n\nGenel dava vekaletnamesi çoğu iş için yeterlidir. Ancak bazı işler için özel yetki şarttır: boşanma davası açmak, sulh olmak, davadan feragat etmek, davayı kabul etmek, kambiyo taahhüdünde bulunmak, tahkim ve hakem sözleşmesi yapmak, alternatif uyuşmazlık çözüm yollarına başvurmak, ahzukabz (para tahsil etme) yetkisi.\n\nBoşanma davalarında ayrıca vekaletnameye fotoğraf yapıştırılması zorunludur. Yurt dışında bulunanlar, Türk konsolosluklarından vekaletname düzenletebilir.\n\nVekâlet ilişkisi her zaman tek taraflı olarak sona erdirilebilir; azil veya istifa hâlinde bunun karşı tarafa ve dosyanın görüldüğü mercie bildirilmesi gerekir.",
         keywords: ["noter", "özel yetki", "ahzukabz", "boşanma fotoğraf"],
@@ -537,6 +584,8 @@ export const faqs: FAQItem[] = [
         id: "yargilama-giderleri",
         category: "Genel",
         question: "Dava açarken hangi masraflar ödenir?",
+        shortAnswer:
+            "Dava açarken harç ve tebligat, bilirkişi gibi giderler için avans ödenir. Bu masraflar sonunda kural olarak davayı kaybeden tarafa yüklenir; kullanılmayan avans size geri ödenir.",
         answer:
             "Dava açılırken ödenen başlıca kalemler şunlardır: başvurma harcı, peşin harç (konusu para olan davalarda dava değerinin binde 68,31'inin dörtte biri), vekâlet harcı ve gider avansı.\n\nGider avansı; tebligat, bilirkişi, keşif, tanık ve müzekkere giderlerini karşılamak üzere alınır ve her yıl Adalet Bakanlığınca belirlenen tarifeye göre hesaplanır. Yargılama sırasında yetmezse tamamlanması için süre verilir; tamamlanmazsa dava usulden reddedilebilir.\n\nYargılama giderleri kural olarak haksız çıkan tarafa yüklenir (HMK m. 326). Davanın kısmen kabulü hâlinde giderler kabul ve ret oranına göre paylaştırılır. Kullanılmayan avans, karar kesinleştikten sonra yatıran tarafa iade edilir.",
         keywords: ["harç", "gider avansı", "bilirkişi", "hmk 326"],
@@ -545,6 +594,8 @@ export const faqs: FAQItem[] = [
         id: "adli-yardim",
         category: "Genel",
         question: "Avukat tutacak maddi imkânım yok, ne yapabilirim?",
+        shortAnswer:
+            "Gelirinizin yetmediğini belgelerseniz barodan ücretsiz avukat isteyebilir, mahkemeden de harç ve masraflardan geçici muafiyet talep edebilirsiniz. Ceza davalarında bazı durumlarda avukat zaten ücretsiz atanır.",
         answer:
             "İki ayrı mekanizma bulunur.\n\nBaro adli yardımı: Avukatlık Kanunu m. 176 vd. uyarınca, adli yardım bürosuna başvurularak ücretsiz avukat görevlendirilmesi istenebilir. Başvuruya gelir durumunu gösteren belgeler (muhtarlıktan fakirlik belgesi, tapu ve araç kaydı sorgusu, SGK kaydı) eklenir. Büro, talebin haklılığını ve ihtiyacı değerlendirerek karar verir.\n\nMahkemeden adli yardım: HMK m. 334 vd. uyarınca, yargılama giderlerini kısmen veya tamamen ödeme gücünden yoksun olan taraf, mahkemeden adli yardım talep edebilir. Kabul edilirse harç ve gider avansından geçici olarak muaf tutulur.\n\nCeza yargılamasında ise CMK m. 150 kapsamındaki zorunlu müdafilik hâllerinde, ekonomik durumdan bağımsız olarak barodan ücretsiz müdafi görevlendirilir.",
         keywords: ["adli yardım", "ücretsiz avukat", "hmk 334", "baro"],

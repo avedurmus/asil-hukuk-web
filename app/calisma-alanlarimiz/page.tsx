@@ -49,7 +49,6 @@ export default function ServicesPage() {
                             <Reveal key={service.id} delay={(i % 3) * 110} className="h-full">
                                 <ServiceCard
                                     id={service.id}
-                                    index={i + 1}
                                     title={service.title}
                                     description={service.shortDescription}
                                     icon={service.icon}

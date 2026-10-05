@@ -74,12 +74,12 @@ const values = [
     {
         icon: Scale,
         title: "Meslek Etiği",
-        description: "Hukukun üstünlüğü ve meslek kurallarına bağlılık, çalışmamızın temelidir.",
+        description: "Size gerçekçi olmayan sözler vermeyiz; meslek kurallarına bağlı, dürüst bir hizmet sunarız.",
     },
     {
         icon: HeartHandshake,
         title: "Çözüm Ortaklığı",
-        description: "Vekâlet ilişkisini, karşılıklı güvene dayalı uzun soluklu bir iş birliği olarak görürüz.",
+        description: "Kararları sizinle birlikte alır, süreç boyunca güvene dayalı bir iş birliği kurarız.",
     },
 ];
 
@@ -105,48 +105,43 @@ export default function AboutPage() {
                 />
 
                 {/* Başlık + kurucu */}
-                <section className="relative isolate overflow-hidden bg-primary-950 pb-24 pt-36 text-white lg:pb-32 lg:pt-44">
+                <section className="relative isolate overflow-hidden bg-primary-950 pb-20 pt-32 text-white lg:pb-24 lg:pt-40">
                     <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
                     <div
                         aria-hidden="true"
                         className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
                     />
 
-                    <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-                        <div className="relative mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-none">
-                            <div
-                                aria-hidden="true"
-                                className="absolute -left-4 -top-4 bottom-8 right-8 rounded-t-[12rem] rounded-b-3xl border border-gold-500/40"
-                            />
-                            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[12rem] rounded-b-3xl shadow-elegant">
+                    <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
+                        <div className="mx-auto w-full max-w-[240px] sm:max-w-[280px] lg:col-span-4 lg:max-w-[320px]">
+                            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[10rem] rounded-b-3xl shadow-elegant">
                                 <Image
                                     src="/images/emre-durmus-800.webp"
                                     alt="Av. Emre Durmuş"
                                     fill
                                     priority
-                                    sizes="(max-width: 1024px) 90vw, 40vw"
+                                    sizes="(max-width: 640px) 240px, 320px"
                                     className="object-cover object-[60%_20%]"
                                 />
                             </div>
                         </div>
 
-                        <div className="lg:col-span-7">
+                        <div className="lg:col-span-8">
                             <span className="eyebrow !text-gold-400">Hakkımızda · Kurucumuz</span>
-                            <h1 className="mt-6 font-serif text-5xl font-medium md:text-6xl">Av. Emre Durmuş</h1>
+                            <h1 className="mt-5 font-serif text-4xl font-medium md:text-5xl">Av. Emre Durmuş</h1>
                             <p className="mt-3 font-serif text-xl italic text-gold-300">
-                                2004&apos;ten bugüne, hukukun üstünlüğüne olan inancımızla yanınızdayız.
+                                2004&apos;ten beri Kartal&apos;da avukat ve arabulucu.
                             </p>
-                            <p className="mt-8 text-lg font-light leading-relaxed text-slate-300">
-                                Asil Hukuk Bürosu&apos;nun kurucusu olan Av. Emre Durmuş, 20 yılı aşkın mesleki
-                                birikimiyle müvekkillerine ceza hukuku, aile hukuku, gayrimenkul hukuku ve iş hukuku
-                                başta olmak üzere hukukun birçok dalında danışmanlık ve avukatlık hizmeti vermektedir.
+                            <p className="mt-7 text-lg leading-relaxed text-slate-300">
+                                Asil Hukuk Bürosu&apos;nun kurucusu Av. Emre Durmuş, 20 yılı aşkın süredir boşanma ve
+                                aile, ceza, kira ve tapu, iş ve ticaret konularında insanlara avukatlık ve danışmanlık
+                                hizmeti veriyor.
                             </p>
                             <p className="mt-5 leading-relaxed text-slate-400">
-                                İstanbul Barosu bünyesinde çalışmalarını sürdüren Av. Emre Durmuş, hukukun üstünlüğü ve
-                                adaletin tecellisi ilkelerinden taviz vermeksizin, müvekkillerinin haklarını korumak
-                                amacıyla dürüst, şeffaf ve sonuç odaklı çözümler üretmektedir. Aynı zamanda Adalet
-                                Bakanlığı bünyesinde kayıtlı arabulucu olarak uyuşmazlıkların barışçıl yollarla
-                                çözüme kavuşturulmasında aktif rol oynamaktadır.
+                                İstanbul Barosu&apos;na kayıtlıdır. Aynı zamanda Adalet Bakanlığı&apos;na kayıtlı bir
+                                arabulucudur; yani anlaşmazlıkların mahkemeye gitmeden, daha kısa sürede ve daha az
+                                masrafla çözülmesine de yardımcı olur. Çalışma anlayışı basittir: durumu dürüstçe
+                                anlatmak, süreci açıkça yürütmek ve haklarınızı korumak.
                             </p>
 
                             <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -183,48 +178,37 @@ export default function AboutPage() {
                 </section>
 
                 {/* Büro */}
-                <section className="bg-white py-24 dark:bg-slate-900 lg:py-32">
-                    <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-                        <Reveal>
-                            <span className="eyebrow">{siteContent.brand.name} Hakkında</span>
-                            <h2 className="mt-5 font-serif text-4xl font-medium leading-tight text-slate-900 dark:text-slate-100 lg:text-5xl">
-                                Kartal&apos;da köklü, <em className="italic text-gold-700 dark:text-gold-400">güncel</em> bir hukuk bürosu
-                            </h2>
-                            <p className="mt-6 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-                                {siteContent.about.description}
-                            </p>
-                            <p className="mt-5 leading-relaxed text-slate-600 dark:text-slate-400">
-                                Müvekkillerimizle kurduğumuz ilişki, sadece bir vekâlet ilişkisi değil, karşılıklı
-                                güvene dayalı bir çözüm ortaklığıdır. Hukuki süreçlerin her aşamasında şeffaf
-                                bilgilendirme yaparak, müvekkillerimizin haklarını en etkin şekilde savunuyoruz.
-                            </p>
-                            <dl className="mt-10 grid grid-cols-3 divide-x divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
-                                {siteContent.about.stats.map((stat) => (
-                                    <div key={stat.label} className="flex flex-col px-3 py-6 first:pl-0">
-                                        <dd className="order-1 font-serif text-3xl font-medium text-primary-900 dark:text-white">
-                                            {stat.value}
-                                        </dd>
-                                        <dt className="order-2 mt-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                                            {stat.label}
-                                        </dt>
-                                    </div>
-                                ))}
-                            </dl>
-                        </Reveal>
-                        <Reveal delay={150} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant sm:aspect-[5/4] lg:aspect-[4/5]">
-                            <Image
-                                src="/images/about-office.png"
-                                alt="Asil Hukuk Bürosu"
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover"
-                            />
-                        </Reveal>
-                    </div>
+                <section className="bg-white py-20 dark:bg-slate-900 lg:py-24">
+                    <Reveal className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+                        <span className="eyebrow">{siteContent.brand.name} Hakkında</span>
+                        <h2 className="mt-4 font-serif text-3xl font-medium leading-tight text-slate-900 dark:text-slate-100 lg:text-4xl">
+                            Kartal&apos;da köklü, <em className="italic text-gold-700 dark:text-gold-400">güncel</em> bir hukuk bürosu
+                        </h2>
+                        <p className="mt-5 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                            {siteContent.about.description}
+                        </p>
+                        <p className="mt-4 leading-relaxed text-slate-600 dark:text-slate-400">
+                            Hukuki bir sorunla karşılaşmak çoğu zaman yorucu ve kafa karıştırıcıdır. Bu yüzden önce sizi
+                            dinliyor, haklarınızı ve seçeneklerinizi anlaşılır bir dille anlatıyor, kararı birlikte
+                            veriyoruz.
+                        </p>
+                        <dl className="mt-10 grid grid-cols-3 divide-x divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+                            {siteContent.about.stats.map((stat) => (
+                                <div key={stat.label} className="flex flex-col px-3 py-6 first:pl-0">
+                                    <dd className="order-1 font-serif text-2xl font-medium text-primary-900 dark:text-white sm:text-3xl">
+                                        {stat.value}
+                                    </dd>
+                                    <dt className="order-2 mt-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                                        {stat.label}
+                                    </dt>
+                                </div>
+                            ))}
+                        </dl>
+                    </Reveal>
                 </section>
 
                 {/* Değerler */}
-                <section className="bg-ivory-100 py-24 dark:bg-slate-950 lg:py-32">
+                <section className="bg-ivory-100 py-20 dark:bg-slate-950 lg:py-24">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <Reveal className="mx-auto mb-16 max-w-3xl text-center">
                             <span className="eyebrow justify-center">Değerlerimiz</span>

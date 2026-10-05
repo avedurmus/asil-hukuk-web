@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Search, X, ArrowRight } from "lucide-react";
 import { faqCategories, faqs, type FAQCategoryId } from "@/data/faq";
@@ -26,13 +26,22 @@ const postTitles = new Map(blogPosts.map((post) => [post.id, post.title]));
 export default function FAQClient() {
     const [query, setQuery] = useState("");
     const [activeCategory, setActiveCategory] = useState<FAQCategoryId | "all">("all");
+    // Başka sayfalardan /sss#soru-kimligi ile gelen ziyaretçi, sorunun cevabını açık bulsun.
+    const [linkedId, setLinkedId] = useState("");
+
+    useEffect(() => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        if (!id || !faqs.some((faq) => faq.id === id)) return;
+        setLinkedId(id);
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+    }, []);
 
     const searchIndex = useMemo(
         () =>
             faqs.map((faq) => ({
                 id: faq.id,
                 haystack: normalize(
-                    [faq.question, faq.answer, faq.category, ...(faq.keywords ?? [])].join(" ")
+                    [faq.question, faq.shortAnswer ?? "", faq.answer, faq.category, ...(faq.keywords ?? [])].join(" ")
                 ),
             })),
         []
@@ -174,7 +183,7 @@ export default function FAQClient() {
                                             id={faq.id}
                                             className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden scroll-mt-28 transition-colors"
                                         >
-                                            <details className="group" open={query.trim().length > 0}>
+                                            <details className="group" open={query.trim().length > 0 || linkedId === faq.id}>
                                                 <summary className="flex justify-between items-start gap-4 cursor-pointer list-none p-6 text-slate-900 dark:text-slate-100 hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
                                                     <span className="text-lg font-semibold leading-snug">
                                                         {faq.question}
@@ -182,6 +191,12 @@ export default function FAQClient() {
                                                     <ChevronDown className="w-5 h-5 shrink-0 mt-1 transition-transform group-open:rotate-180 text-slate-400" />
                                                 </summary>
                                                 <div className="px-6 pb-6 border-t border-slate-100 dark:border-slate-800/60">
+                                                    {faq.shortAnswer && (
+                                                        <p className="mt-4 rounded-lg border-l-4 border-gold-500 bg-ivory-100 px-4 py-3 text-slate-800 dark:bg-slate-800/60 dark:text-slate-200 leading-relaxed">
+                                                            <span className="font-semibold">Kısaca: </span>
+                                                            {faq.shortAnswer}
+                                                        </p>
+                                                    )}
                                                     <div className="pt-4 space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
                                                         {faq.answer.split("\n\n").map((paragraph, index) => (
                                                             <p key={index}>{paragraph}</p>

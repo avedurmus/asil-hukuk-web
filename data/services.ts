@@ -29,7 +29,7 @@ export const services: Service[] = [
     {
         id: "bosanma-ve-aile-hukuku",
         title: "Boşanma ve Aile Hukuku",
-        shortDescription: "Anlaşmalı ve çekişmeli boşanma, velayet, nafaka ve mal paylaşımı davalarında hukuki destek.",
+        shortDescription: "Boşanma, velayet, nafaka, mal paylaşımı ve düğün takıları. Haklarınızı anlatır, davanızı baştan sona takip ederiz.",
         seoTitle: "Kartal Boşanma Avukatı - Aile Hukuku",
         seoDescription: "Kartal ve Anadolu Yakası'nda anlaşmalı ve çekişmeli boşanma, velayet, nafaka ve mal paylaşımı davalarında Av. Emre Durmuş ile hukuki destek ve dava takibi.",
         blogCategories: ["Aile Hukuku"],
@@ -77,7 +77,7 @@ export const services: Service[] = [
     {
         id: "ceza-hukuku",
         title: "Ceza Hukuku",
-        shortDescription: "Soruşturma ve kovuşturma evrelerinde müdafi ve vekil olarak hukuki temsil.",
+        shortDescription: "İfadeye mi çağrıldınız, hakkınızda dava mı açıldı ya da bir suçun mağduru musunuz? Karakoldan duruşmaya kadar yanınızdayız.",
         seoTitle: "Kartal Ceza Avukatı - Ceza Hukuku",
         seoDescription: "Kartal ceza avukatı: soruşturma ve kovuşturma evrelerinde ifade, tutuklamaya itiraz ve savunma; ağır ceza ve asliye ceza davalarında müdafilik hizmeti.",
         blogCategories: ["Ceza Hukuku"],
@@ -121,7 +121,7 @@ export const services: Service[] = [
     {
         id: "ticaret-ve-sirketler-hukuku",
         title: "Ticaret ve Şirketler Hukuku",
-        shortDescription: "Şirket kuruluşu, esas sözleşme değişiklikleri ve ticari uyuşmazlıklarda danışmanlık.",
+        shortDescription: "Şirket kurarken, sözleşme imzalarken ya da alacağınızı tahsil edemediğinizde işletmenizi hukuki risklere karşı koruruz.",
         seoTitle: "Kartal Ticaret ve Şirketler Hukuku Avukatı",
         seoDescription: "Kartal'da şirket kuruluşu, genel kurul ve esas sözleşme işlemleri, ticari sözleşmeler, haksız rekabet, konkordato ve iflas süreçlerinde avukatlık hizmeti.",
         blogCategories: ["Ticaret Hukuku"],
@@ -165,7 +165,7 @@ export const services: Service[] = [
     {
         id: "gayrimenkul-hukuku",
         title: "Gayrimenkul Hukuku",
-        shortDescription: "Tapu iptal tescil, kira tespiti ve tahliye davaları süreçlerinde hukuki yardım.",
+        shortDescription: "Kiracı çıkarma, kira artışı, tapu ve ortak mülk sorunları. Ev sahibi ya da kiracı olarak haklarınızı koruruz.",
         seoTitle: "Kartal Gayrimenkul ve Taşınmaz Avukatı",
         seoDescription: "Kartal gayrimenkul avukatı Av. Emre Durmuş: tapu iptal ve tescil, kira tespiti ve tahliye, ortaklığın giderilmesi, önalım ve kat karşılığı inşaat davaları.",
         blogCategories: ["Gayrimenkul Hukuku"],
@@ -213,7 +213,7 @@ export const services: Service[] = [
     {
         id: "is-ve-sosyal-guvenlik-hukuku",
         title: "İş ve Sosyal Güvenlik Hukuku",
-        shortDescription: "İşe iade, işçilik alacakları ve hizmet tespiti davalarında hukuki süreç takibi.",
+        shortDescription: "İşten mi çıkarıldınız, maaşınız, fazla mesainiz veya tazminatınız mı ödenmedi? İşe iade ve alacak davalarında yanınızdayız.",
         seoTitle: "Kartal İş Avukatı - İşe İade ve Tazminat",
         seoDescription: "Kartal iş avukatı: işe iade, kıdem ve ihbar tazminatı, fazla mesai alacağı, iş kazası ve hizmet tespiti davalarında işçi ve işverenlere hukuki destek.",
         blogCategories: ["İş Hukuku"],
@@ -257,7 +257,7 @@ export const services: Service[] = [
     {
         id: "arabuluculuk",
         title: "Arabuluculuk",
-        shortDescription: "Hukuki uyuşmazlıkların dava dışı yollarla çözümü için arabuluculuk hizmeti.",
+        shortDescription: "Mahkemeye gitmeden, daha kısa sürede ve daha az masrafla anlaşmanın yolu. İş, kira ve ticari anlaşmazlıklarda kayıtlı arabulucu olarak görev yapıyoruz.",
         seoTitle: "Kartal Arabulucu - Arabuluculuk Hizmeti",
         seoDescription: "Kartal'da arabulucu Av. Emre Durmuş ile iş, ticaret, kira ve tüketici uyuşmazlıklarında zorunlu ve ihtiyari arabuluculuk; dava açmadan hızlı ve ekonomik çözüm.",
         blogCategories: ["Arabuluculuk"],

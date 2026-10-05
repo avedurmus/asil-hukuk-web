@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import { services } from '@/data/services'
-import { blogPosts } from '@/data/blogPosts'
+import { getAllPosts } from '@/lib/posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://asilhukuk.net'
@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
 
     // Dynamic blog pages
-    const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    const blogPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
         url: `${baseUrl}/blog/${post.id}`,
         lastModified: new Date(post.updatedISO ?? post.dateISO),
         changeFrequency: 'monthly',

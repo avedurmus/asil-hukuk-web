@@ -205,13 +205,16 @@ export default function ServiceDetailPage({ params }: Props) {
                                                 </span>
                                                 <Plus className="h-5 w-5 shrink-0 text-gold-600 transition-transform duration-300 group-open:rotate-45" />
                                             </summary>
-                                            <div className="pb-6 leading-relaxed text-slate-600 dark:text-slate-400">
-                                                {faq.answer}
+                                            <div className="space-y-3 pb-6 leading-relaxed text-slate-600 dark:text-slate-400">
+                                                {/* Sade özet varsa onu gösterir; kanun maddeleriyle ayrıntı SSS sayfasında kalır. */}
+                                                {(faq.shortAnswer ? [faq.shortAnswer] : faq.answer.split("\n\n")).map((paragraph, index) => (
+                                                    <p key={index}>{paragraph}</p>
+                                                ))}
                                                 <Link
                                                     href={`/sss#${faq.id}`}
-                                                    className="mt-3 block text-sm font-semibold text-primary-800 hover:underline dark:text-gold-400"
+                                                    className="block text-sm font-semibold text-primary-800 hover:underline dark:text-gold-400"
                                                 >
-                                                    Tüm SSS sayfasında görüntüle →
+                                                    {faq.shortAnswer ? "Ayrıntılı cevabı okuyun →" : "Tüm SSS sayfasında görüntüle →"}
                                                 </Link>
                                             </div>
                                         </details>

@@ -105,7 +105,7 @@ export default function FAQClient() {
                             : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 dark:hover:border-primary-600"
                     }`}
                 >
-                    Tümü <span className="opacity-70">({faqs.length})</span>
+                    Tümü <span className="opacity-80">({faqs.length})</span>
                 </button>
                 {faqCategories.map((category) => (
                     <button
@@ -120,7 +120,7 @@ export default function FAQClient() {
                                 : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 dark:hover:border-primary-600"
                         }`}
                     >
-                        {category.label} <span className="opacity-70">({countFor(category.id)})</span>
+                        {category.label} <span className="opacity-80">({countFor(category.id)})</span>
                     </button>
                 ))}
             </div>

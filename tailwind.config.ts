@@ -64,6 +64,8 @@ const config: Config = {
                     250: '#d6dee8',
                     350: '#b0bccc',
                     450: '#7c8ca2',
+                    // Varsayılan #64748b açık zeminde (ivory) WCAG AA eşiğinin (4.5:1) altında kalıyordu.
+                    500: '#5b6a80',
                     550: '#56647a',
                     650: '#3d4b5f',
                     750: '#283548',

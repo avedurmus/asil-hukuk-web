@@ -167,7 +167,7 @@ export const services: Service[] = [
         title: "Gayrimenkul Hukuku",
         shortDescription: "Tapu iptal tescil, kira tespiti ve tahliye davaları süreçlerinde hukuki yardım.",
         seoTitle: "Kartal Gayrimenkul ve Taşınmaz Avukatı",
-        seoDescription: "Kartal gayrimenkul ve taşınmaz avukatı Av. Emre Durmuş: tapu iptal ve tescil, kira tespiti ve tahliye, ortaklığın giderilmesi, önalım ve kat karşılığı inşaat davaları.",
+        seoDescription: "Kartal gayrimenkul avukatı Av. Emre Durmuş: tapu iptal ve tescil, kira tespiti ve tahliye, ortaklığın giderilmesi, önalım ve kat karşılığı inşaat davaları.",
         blogCategories: ["Gayrimenkul Hukuku"],
         faqCategories: ["Gayrimenkul ve Kira Hukuku", "Kentsel Dönüşüm"],
         icon: Globe,

@@ -11,6 +11,7 @@ import { siteContent } from "@/data/siteContent";
 import { faqs } from "@/data/faq";
 import DailyArticles from "@/components/DailyArticles";
 import { getAllPosts, getLatestDailyPosts } from "@/lib/posts";
+import { RSS_FEED } from "@/lib/seo";
 import {
     ArrowRight,
     ArrowUpRight,
@@ -28,7 +29,7 @@ import type { Metadata } from "next";
 
 // Başlık, açıklama ve paylaşım bilgileri kök düzenden gelir.
 export const metadata: Metadata = {
-    alternates: { canonical: "/" },
+    alternates: { canonical: "/", types: { "application/rss+xml": [RSS_FEED] } },
 };
 
 const processSteps = [

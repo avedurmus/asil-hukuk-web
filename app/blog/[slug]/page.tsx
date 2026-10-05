@@ -21,7 +21,7 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Image from "next/image";
-import { breadcrumbJsonLd, DEFAULT_OG_IMAGE, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, clipText, DEFAULT_OG_IMAGE, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
 
 interface Props {
     params: {
@@ -65,8 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!post) return { title: "Yazı Bulunamadı" };
 
     return pageMetadata({
-        title: post.title,
-        description: post.excerpt,
+        title: post.seoTitle ?? post.title,
+        description: post.seoDescription ?? clipText(post.excerpt),
         path: `/blog/${post.id}`,
         socialTitle: post.title,
         keywords: post.tags,
@@ -371,7 +371,7 @@ export default function BlogPostPage({ params }: Props) {
                                     <div className="flex-shrink-0">
                                         <div className="w-16 h-16 rounded-full overflow-hidden relative border border-slate-200 dark:border-slate-800">
                                             <Image
-                                                src="/images/emre-durmus.jpg"
+                                                src="/images/emre-durmus-160.webp"
                                                 alt="Av. Emre Durmuş"
                                                 fill
                                                 sizes="64px"

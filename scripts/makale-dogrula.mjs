@@ -22,6 +22,8 @@ const ALLOWED_TAGS = new Set(["p", "h2", "h3", "ul", "ol", "li", "strong", "em",
 const VOID_TAGS = new Set(["br"]);
 const FORBIDDEN_PHRASES = [/yarg[ıi] ?pro/i, /en iyi avukat/i, /kesin(likle)? kazan/i, /garanti(li|siyle)? (kazan|sonuç)/i, /%\s?100 başarı/i];
 const MIN_WORDS = 1200;
+const SEO_TITLE_MAX = 52;
+const SEO_DESC_MAX = 158;
 
 const args = process.argv.slice(2);
 const files = (args.length ? args.map((f) => path.resolve(f)) : fs.existsSync(DIR) ? fs.readdirSync(DIR).filter((f) => f.endsWith(".json")).map((f) => path.join(DIR, f)) : []).sort();
@@ -54,6 +56,11 @@ function check(file) {
 
     if (post.title.length < 20 || post.title.length > 110) errors.push(`başlık 20–110 karakter olmalı (${post.title.length})`);
     if (post.excerpt.length < 80 || post.excerpt.length > 320) errors.push(`özet 80–320 karakter olmalı (${post.excerpt.length})`);
+    // Arama sonucu görünümü: "<başlık> | Asil Hukuk" ~65, açıklama ~158 karakteri aşınca Google keser.
+    if (post.title.length > SEO_TITLE_MAX && !post.seoTitle) errors.push(`başlık ${SEO_TITLE_MAX} karakteri aştığı için kısa "seoTitle" gerekli`);
+    if (post.seoTitle !== undefined && (typeof post.seoTitle !== "string" || post.seoTitle.length < 15 || post.seoTitle.length > SEO_TITLE_MAX)) errors.push(`seoTitle 15–${SEO_TITLE_MAX} karakter olmalı`);
+    if (post.excerpt.length > SEO_DESC_MAX && !post.seoDescription) errors.push(`özet ${SEO_DESC_MAX} karakteri aştığı için "seoDescription" gerekli`);
+    if (post.seoDescription !== undefined && (typeof post.seoDescription !== "string" || post.seoDescription.length < 110 || post.seoDescription.length > SEO_DESC_MAX)) errors.push(`seoDescription 110–${SEO_DESC_MAX} karakter olmalı`);
     if (!CATEGORIES.includes(post.category)) errors.push(`kategori şunlardan biri olmalı: ${CATEGORIES.join(", ")}`);
     if (post.kind && !["makale", "ictihat"].includes(post.kind)) errors.push(`kind "makale" veya "ictihat" olmalı`);
     if (!Array.isArray(post.tags) || post.tags.length < 3 || post.tags.length > 8) errors.push("3–8 etiket (tags) olmalı");

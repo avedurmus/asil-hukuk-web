@@ -404,7 +404,7 @@ export default function ChatWidget() {
                                     href={whatsappHref()}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 rounded-full bg-[#1f9d55] px-3.5 py-2 text-xs font-semibold text-white"
+                                    className="inline-flex items-center gap-1.5 rounded-full bg-[#167c43] px-3.5 py-2 text-xs font-semibold text-white"
                                 >
                                     <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
                                 </a>

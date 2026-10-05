@@ -32,7 +32,7 @@ export default function Footer() {
                     <div className="space-y-6 lg:col-span-4">
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/logo.png"
+                                src="/logo-128.webp"
                                 alt={`${siteContent.brand.name} Logo`}
                                 width={48}
                                 height={48}
@@ -134,18 +134,18 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-14 rounded-2xl border border-white/5 bg-white/[0.02] p-5">
-                    <p className="text-xs leading-relaxed text-slate-500">
+                    <p className="text-xs leading-relaxed text-slate-400">
                         <span className="font-semibold text-slate-400">Yasal Uyarı:</span> Bu internet sitesinde yer alan
                         bilgiler yalnızca genel bilgilendirme amaçlıdır ve hukuki tavsiye niteliği taşımaz. Somut
                         durumunuza ilişkin hukuki değerlendirme için bir avukata danışmanız önerilir.
                     </p>
                 </div>
 
-                <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-center text-sm text-slate-500 md:flex-row">
+                <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-center text-sm text-slate-400 md:flex-row">
                     <p>
                         &copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.
                     </p>
-                    <p className="font-serif italic text-slate-500">Av. Emre Durmuş · İstanbul Barosu</p>
+                    <p className="font-serif italic text-slate-400">Av. Emre Durmuş · İstanbul Barosu</p>
                 </div>
             </div>
         </footer>

@@ -21,6 +21,20 @@ export const DEFAULT_OG_IMAGE = {
     alt: "Asil Hukuk Bürosu - Av. Emre Durmuş, Kartal / İstanbul",
 };
 
+/** Google'ın sonuçlarda kesmeden gösterdiği yaklaşık açıklama uzunluğu. */
+export const META_DESCRIPTION_MAX = 158;
+
+/** Metni sözcük sınırında kısaltır; kısaltma olduysa sonuna "…" ekler. */
+export function clipText(text: string, max = META_DESCRIPTION_MAX): string {
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max - 1);
+    const space = cut.lastIndexOf(" ");
+    return `${(space > max * 0.6 ? cut.slice(0, space) : cut).replace(/[\s,;:.–-]+$/, "")}…`;
+}
+
+/** Blog RSS akışı; her sayfanın <head> bölümünde duyurulur. */
+export const RSS_FEED = { url: "/blog/rss.xml", title: "Asil Hukuk – Hukuk Yazıları" };
+
 type OgImage = { url: string; width?: number; height?: number; alt?: string };
 
 interface PageSeo {
@@ -59,7 +73,7 @@ export function pageMetadata({
         title,
         description,
         ...(keywords ? { keywords } : {}),
-        alternates: { canonical: path },
+        alternates: { canonical: path, types: { "application/rss+xml": [RSS_FEED] } },
         openGraph: {
             title: ogTitle,
             description,

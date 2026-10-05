@@ -1,269 +1,244 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowRight, Clock, ShieldCheck, Zap, Globe, MessageSquare, Briefcase, FileText } from 'lucide-react';
+import ContactCTA from "@/components/ContactCTA";
+import { PRIVACY_NOTICE_PATH } from "@/lib/legal";
+import { Briefcase, FileText, Globe, Lock, Scale, SearchCheck, ShieldCheck, UserCheck, Users } from "lucide-react";
 
+// Avukatlık meslek kuralları gereği bu sayfada uzmanlık iddiası, sonuç veya
+// yanıt süresi taahhüdü ve başka bürolarla kıyaslama yer almaz.
 const content = {
-  tr: {
-    badge: "GELECEĞİN HUKUK BÜROSU",
-    title: "Hızlı Büyüyen Şirketler İçin Yapay Zeka Destekli Hukuk Çözümleri",
-    subtitle: "Yapay zeka hızıyla çalışır, Av. Emre Durmuş güvencesiyle karara varırız. Start-up ve scale-up'lar için teknoloji odaklı, şeffaf ve çevik hukuk hizmeti.",
-    ctaPrimary: "Randevu Al (1 Saat İçinde Dönüş)",
-    ctaSecondary: "Nasıl Çalışıyoruz?",
-    whyTitle: "Neden Bizi Seçmelisiniz?",
-    whyDesc: "Geleneksel hukuk büroları hantal ve öngörülemez maliyetlere sahiptir. Biz, yapay zekayı iş süreçlerimizin merkezine koyarak size zaman kazandırıyoruz.",
-    features: [
-      {
-        icon: <Clock className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "1 Saat İçinde Yanıt",
-        desc: "İş dünyası hızlı hareket eder. Sizin hukuk ekibiniz de öyle olmalı. Her talebe 1 saat içinde dönüş yapıyoruz."
-      },
-      {
-        icon: <ShieldCheck className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "Öngörülebilir Fiyatlandırma",
-        desc: "Abonelik ve sabit ücretli çalışma modelleriyle, hukuki maliyetlerinizi açık uçlu bir masraf değil, planlanabilir büyüme gideri haline getirin."
-      },
-      {
-        icon: <MessageSquare className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "Sürekli İletişim",
-        desc: "Şirketinizin iletişim araçlarına entegre oluyoruz. Bilet sistemi veya portal yok, sadece doğrudan ve şeffaf diyalog."
-      },
-      {
-        icon: <Zap className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "YZ Destekli, Avukat Onaylı",
-        desc: "Araştırma ve taslaklarda yapay zeka hızını, son karar ve stratejide Av. Emre Durmuş'un tecrübesini alırsınız."
-      }
-    ],
-    expertiseTitle: "Uzmanlık Alanlarımız",
-    expertise: [
-      { icon: <FileText className="w-5 h-5" />, title: "Ticari Sözleşmeler", desc: "Gizlilik Sözleşmeleri (NDA), Tedarikçi Sözleşmeleri, Bayilik Anlaşmaları." },
-      { icon: <Briefcase className="w-5 h-5" />, title: "Şirketler Hukuku", desc: "Şirket kuruluşları, genel kurul işlemleri, hisse devirleri ve ortaklık zafiyetleri." },
-      { icon: <Globe className="w-5 h-5" />, title: "KVKK & Uyumluluk", desc: "Kişisel Verilerin Korunması ve Yapay Zeka uyumluluk süreçleri yönetimi." },
-      { icon: <ShieldCheck className="w-5 h-5" />, title: "İş Hukuku", desc: "İşçi-işveren uyuşmazlıkları, sözleşmeler ve fesih süreçlerinin güvenli yönetimi." }
-    ],
-    faqTitle: "Sıkça Sorulan Sorular",
-    faq: [
-      { q: "Neden yapay zeka destekli çalışıyorsunuz?", a: "Rutini ve içtihat taramalarını hızlandırmak, böylece size daha kısa sürede, daha uygun maliyetle ama en az bir o kadar da kusursuz hizmet sunabilmek için YZ sistemlerini araç olarak kullanıyoruz." },
-      { q: "Hangi dillerde sözleşme hazırlıyorsunuz?", a: "Sözleşmelerinizi başta Türkçe ve İngilizce olmak üzere uluslararası standartlarda hazırlıyor, inceliyor ve revize ediyoruz." },
-      { q: "Gizlilik ve verilerimizin güvenliği nasıl sağlanıyor?", a: "Yapay zeka araçlarımızı kapalı devre şirket ağlarında ve anonimleştirilmiş verilerle kullanıyoruz. Müşteri gizliliği bizim için en üst düzey kırmızı çizgidir." }
-    ],
-    bottomTitle: "İşletmenizi güvenceye alın",
-    bottomSubtitle: "Modern, hızlı ve güvenilir hukuk danışmanlığı ile tanışın.",
-    langBtn: "English"
-  },
-  en: {
-    badge: "THE LAW FIRM OF THE FUTURE",
-    title: "AI-Powered Legal Solutions for Fast-Moving Companies",
-    subtitle: "We operate with the speed of AI and conclude with the certainty of Att. Emre Durmuş. Technology-focused, transparent, and agile legal services for start-ups and scale-ups.",
-    ctaPrimary: "Book a Call (1 Hour Response)",
-    ctaSecondary: "How we work",
-    whyTitle: "Why Choose Us?",
-    whyDesc: "Traditional law firms are slow and have unpredictable costs. By putting AI at the core of our operations, we save you time and money.",
-    features: [
-      {
-        icon: <Clock className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "1 Hour Response Time",
-        desc: "Business moves fast. Your legal team should too. We respond to every request within exactly one hour."
-      },
-      {
-        icon: <ShieldCheck className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "Predictable Pricing",
-        desc: "Turn your legal costs into predictable growth expenses through our subscription and fixed-fee billing models."
-      },
-      {
-        icon: <MessageSquare className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "Seamless Communication",
-        desc: "We integrate directly with your company's communication tools. No ticket systems or portals, just direct dialogue."
-      },
-      {
-        icon: <Zap className="w-6 h-6 text-blue-500 dark:text-blue-400" />,
-        title: "AI-Powered, Lawyer Validated",
-        desc: "You get the speed of AI in research, and the vast experience of Att. Emre Durmuş in strategy and final execution."
-      }
-    ],
-    expertiseTitle: "Our Expertise",
-    expertise: [
-      { icon: <FileText className="w-5 h-5" />, title: "Commercial Contracts", desc: "Non-Disclosure Agreements (NDA), Supplier Agreements, Franchise Agreements." },
-      { icon: <Briefcase className="w-5 h-5" />, title: "Corporate Law", desc: "Company formations, general assembly procedures, share transfers, and partnership agreements." },
-      { icon: <Globe className="w-5 h-5" />, title: "Data Privacy & Compliance", desc: "GDPR, KVKK compliance, and managing AI regulatory processes within your organization." },
-      { icon: <ShieldCheck className="w-5 h-5" />, title: "Employment Law", desc: "Safe management of employee-employer disputes, employment contracts, and termination processes." }
-    ],
-    faqTitle: "Frequently Asked Questions",
-    faq: [
-      { q: "Why use AI for legal services?", a: "We use AI to accelerate routine work and case law screening. This allows us to provide faster, more cost-effective, and flawless service." },
-      { q: "What languages do you draft contracts in?", a: "We draft, review, and revise your contracts at international standards, primarily in Turkish and English." },
-      { q: "How do you ensure data security and privacy?", a: "We use AI tools within closed-loop corporate networks and with completely anonymized data. Client confidentiality is our red line." }
-    ],
-    bottomTitle: "Secure your business operations",
-    bottomSubtitle: "Meet modern, fast, and reliable legal consulting.",
-    langBtn: "Türkçe"
-  }
+    tr: {
+        eyebrow: "Şirketler için hukuki destek",
+        title: "Şirketinizin sözleşme ve uyum işlerinde, teknolojiyi bilen bir avukat",
+        subtitle:
+            "Av. Emre Durmuş; büyüyen şirketlere ve girişimlere sözleşme, şirketler hukuku, KVKK ve iş hukuku konularında danışmanlık veriyor. İçtihat taraması ve taslak hazırlığı gibi rutin işlerde yapay zekâ araçlarından yararlanıyor; her belgeyi ve tavsiyeyi bizzat inceleyip sorumluluğunu kendisi üstleniyor.",
+        cta: "Ön görüşme talep edin",
+        langBtn: "English",
+        howTitle: "Nasıl çalışıyoruz?",
+        how: [
+            {
+                icon: SearchCheck,
+                title: "Yapay zekâ bir araçtır",
+                desc: "Mevzuat ve içtihat taraması, ilk taslakların hazırlanması ve belge karşılaştırması gibi işlerde yapay zekâ araçlarını yardımcı olarak kullanırız.",
+            },
+            {
+                icon: UserCheck,
+                title: "Karar ve sorumluluk avukatındır",
+                desc: "Yapay zekânın ürettiği hiçbir metin incelenmeden size iletilmez. Hukuki değerlendirme, strateji ve son metin Av. Emre Durmuş'a aittir.",
+            },
+            {
+                icon: Scale,
+                title: "Ücret baştan bellidir",
+                desc: "Ücret, işin kapsamına göre sabit ya da dönemsel danışmanlık modeliyle önceden yazılı olarak belirlenir ve Avukatlık Asgari Ücret Tarifesi'nin altında olamaz.",
+            },
+            {
+                icon: Users,
+                title: "Doğrudan iletişim",
+                desc: "Dosyanızla doğrudan avukatınız ilgilenir; ekibinizin kullandığı iletişim kanalları üzerinden çalışabiliriz.",
+            },
+        ],
+        areasTitle: "Faaliyet alanları",
+        areasNote: "Bu alanlar bir uzmanlık iddiası değil, büronun şirketlere hizmet verdiği konuları gösterir.",
+        areas: [
+            { icon: FileText, title: "Ticari sözleşmeler", desc: "Gizlilik (NDA), tedarik, hizmet, bayilik ve lisans sözleşmelerinin hazırlanması ve incelenmesi." },
+            { icon: Briefcase, title: "Şirketler hukuku", desc: "Şirket kuruluşu, esas sözleşme değişiklikleri, genel kurul işlemleri ve pay devirleri." },
+            { icon: ShieldCheck, title: "KVKK uyumu", desc: "Aydınlatma metinleri, veri işleme envanteri, yurt dışı aktarım ve yapay zekâ kullanımına ilişkin uyum süreçleri." },
+            { icon: Users, title: "İş hukuku", desc: "İş sözleşmeleri, işyeri yönetmelikleri, fesih süreçleri ve işçi-işveren uyuşmazlıkları." },
+        ],
+        faqTitle: "Sık sorulan sorular",
+        faq: [
+            {
+                q: "Yapay zekâyı hangi işlerde kullanıyorsunuz?",
+                a: "Araştırma, ilk taslak ve belge karşılaştırması gibi zaman alan rutin işlerde. Yapay zekâ çıktıları her zaman avukat tarafından kontrol edilir ve tek başına hukuki tavsiye olarak kullanılmaz.",
+            },
+            {
+                q: "Hangi dillerde çalışıyorsunuz?",
+                a: "Sözleşmeleri Türkçe ve İngilizce olarak hazırlıyor ve inceliyoruz.",
+            },
+            {
+                q: "Şirket bilgilerimiz yapay zekâ araçlarıyla paylaşılıyor mu?",
+                a: "Avukatın sır saklama yükümlülüğü gereği, şirketinize ve çalışanlarınıza ait bilgileri yapay zekâ araçlarına yalnızca iş için gerekli olduğu ölçüde ve mümkün olduğunda kimlik bilgilerini çıkararak aktarırız. Hangi araçların kullanılacağını iş başlangıcında sizinle paylaşır, talep etmeniz hâlinde yapay zekâ kullanmadan çalışırız.",
+            },
+        ],
+        privacyNote: "Bu sitedeki iletişim kanallarında kişisel verilerinizin nasıl işlendiğini",
+        privacyLink: "KVKK Aydınlatma Metni",
+        privacyNoteEnd: "'nde bulabilirsiniz.",
+        ctaTitle: "Şirketinizin ihtiyacını konuşalım",
+        ctaDesc: "Kısaca ihtiyacınızı anlatın; kapsamı ve çalışma modelini ön görüşmede birlikte belirleyelim.",
+    },
+    en: {
+        eyebrow: "Legal support for companies",
+        title: "A tech-literate lawyer for your contracts and compliance work",
+        subtitle:
+            "Att. Emre Durmuş advises growing companies and start-ups on contracts, corporate law, Turkish data protection (KVKK) and employment law. AI tools assist with routine tasks such as case-law research and first drafts; every document and piece of advice is personally reviewed by him, and he remains fully responsible for it.",
+        cta: "Request an initial meeting",
+        langBtn: "Türkçe",
+        howTitle: "How we work",
+        how: [
+            {
+                icon: SearchCheck,
+                title: "AI is a tool",
+                desc: "We use AI tools as assistants for legislation and case-law research, first drafts and document comparison.",
+            },
+            {
+                icon: UserCheck,
+                title: "The lawyer decides",
+                desc: "No AI-generated text reaches you without review. Legal analysis, strategy and the final text are Att. Emre Durmuş's own work.",
+            },
+            {
+                icon: Scale,
+                title: "Fees agreed in advance",
+                desc: "Fees are agreed in writing in advance, as a fixed fee or a periodic retainer depending on scope, and cannot be lower than the Turkish Bar's minimum fee tariff.",
+            },
+            {
+                icon: Users,
+                title: "Direct communication",
+                desc: "Your lawyer handles your matter personally, and we can work through the communication channels your team already uses.",
+            },
+        ],
+        areasTitle: "Practice areas",
+        areasNote: "These are the areas in which the firm serves companies; they are not a claim of specialisation.",
+        areas: [
+            { icon: FileText, title: "Commercial contracts", desc: "Drafting and reviewing NDAs, supply, service, distribution and licence agreements." },
+            { icon: Briefcase, title: "Corporate law", desc: "Company formation, amendments to articles of association, general meetings and share transfers." },
+            { icon: ShieldCheck, title: "KVKK compliance", desc: "Privacy notices, data inventories, cross-border transfers and compliance for the use of AI." },
+            { icon: Users, title: "Employment law", desc: "Employment contracts, workplace policies, terminations and employer-employee disputes." },
+        ],
+        faqTitle: "Frequently asked questions",
+        faq: [
+            {
+                q: "What do you use AI for?",
+                a: "For time-consuming routine work such as research, first drafts and document comparison. AI output is always checked by the lawyer and is never used as legal advice on its own.",
+            },
+            {
+                q: "Which languages do you work in?",
+                a: "We draft and review contracts in Turkish and English.",
+            },
+            {
+                q: "Is our company information shared with AI tools?",
+                a: "In line with a lawyer's duty of confidentiality, we share information about your company and employees with AI tools only to the extent needed for the work and, where possible, with identifying details removed. We tell you which tools will be used at the start of the engagement, and we work without AI if you ask us to.",
+            },
+        ],
+        privacyNote: "For how personal data is processed through the contact channels on this site, see the",
+        privacyLink: "KVKK Privacy Notice",
+        privacyNoteEnd: " (in Turkish).",
+        ctaTitle: "Let's talk about your company's needs",
+        ctaDesc: "Briefly describe what you need; we will agree on the scope and working model in an initial meeting.",
+    },
 };
 
 export default function AIHukukClient() {
-  const [lang, setLang] = useState<'tr' | 'en'>('tr');
-  const t = content[lang];
+    const [lang, setLang] = useState<"tr" | "en">("tr");
+    const t = content[lang];
 
-  const toggleLanguage = () => {
-    setLang(prev => prev === 'tr' ? 'en' : 'tr');
-  };
+    return (
+        <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
+            <Header />
 
-  return (
-    <div className="bg-slate-50 dark:bg-[#0f1115] text-slate-900 dark:text-white min-h-screen font-sans selection:bg-blue-500/30 flex flex-col transition-colors duration-300">
-      <Header />
-      
-      {/* Navbar overlay for language toggle */}
-      <div className="fixed top-24 right-4 md:right-8 z-50">
-        <button 
-          onClick={toggleLanguage}
-          className="bg-slate-200 hover:bg-slate-350 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white backdrop-blur-md border border-slate-300 dark:border-white/10 px-4 py-2 rounded-full text-sm font-medium transition-all shadow-xl flex items-center gap-2"
-        >
-          <Globe className="w-4 h-4" />
-          {t.langBtn}
-        </button>
-      </div>
+            <main className="flex-grow" lang={lang}>
+                <section className="relative isolate overflow-hidden bg-primary-950 pb-20 pt-32 text-white lg:pb-24 lg:pt-40">
+                    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
+                    <div
+                        aria-hidden="true"
+                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
+                    />
+                    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <span className="eyebrow !text-gold-400">{t.eyebrow}</span>
+                            <button
+                                type="button"
+                                onClick={() => setLang((prev) => (prev === "tr" ? "en" : "tr"))}
+                                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-gold-400 hover:bg-white/5"
+                            >
+                                <Globe className="h-4 w-4" />
+                                {t.langBtn}
+                            </button>
+                        </div>
+                        <h1 className="mt-6 font-serif text-4xl font-medium leading-tight md:text-5xl">{t.title}</h1>
+                        <p className="mt-6 text-lg leading-relaxed text-slate-300">{t.subtitle}</p>
+                        <Link
+                            href="/iletisim?konu=Ticaret%20ve%20%C5%9Eirketler%20Hukuku#randevu"
+                            className="mt-9 inline-flex items-center justify-center rounded-full bg-gold-500 px-8 py-4 font-semibold text-slate-950 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+                        >
+                            {t.cta}
+                        </Link>
+                    </div>
+                </section>
 
-      <main className="flex-grow pt-20">
-        {/* Hero Section */}
-        <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden">
-          {/* Background Gradients */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/10 dark:bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/5 dark:bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-block px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 text-xs font-semibold tracking-wider mb-6">
-              {t.badge}
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-tight text-slate-900 dark:text-white">
-              {lang === 'tr' ? (
-                <>Hızlı Büyüyen Şirketler İçin <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Yapay Zeka Destekli</span> Hukuk</>
-              ) : (
-                <><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">AI-Powered</span> Legal Solutions <br/>for Fast-Moving Companies</>
-              )}
-            </h1>
-            <p className="text-slate-600 dark:text-slate-300 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-              {t.subtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/iletisim" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all flex items-center justify-center shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)]">
-                {t.ctaPrimary}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a href="#nasil-calisiyoruz" className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-lg font-medium transition-all text-center">
-                {t.ctaSecondary}
-              </a>
-            </div>
-          </div>
+                <section className="py-20 lg:py-24">
+                    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-center font-serif text-3xl text-slate-900 dark:text-slate-100 md:text-4xl">{t.howTitle}</h2>
+                        <div className="mt-12 grid gap-6 md:grid-cols-2">
+                            {t.how.map(({ icon: Icon, title, desc }) => (
+                                <div
+                                    key={title}
+                                    className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-card dark:border-slate-800 dark:bg-slate-900"
+                                >
+                                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold-500/15 text-gold-700 dark:text-gold-400">
+                                        <Icon className="h-5 w-5" />
+                                    </span>
+                                    <h3 className="mt-5 font-serif text-xl text-slate-900 dark:text-slate-100">{title}</h3>
+                                    <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-400">{desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-          {/* Hero Image */}
-          <div className="mt-20 max-w-6xl mx-auto px-4 sm:px-6 relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-50 dark:from-[#0f1115] to-transparent z-10 h-full" />
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl">
-              <Image 
-                src="/ai_justice_scales.png" 
-                alt="AI Justice Scales" 
-                width={1200} 
-                height={600} 
-                className="w-full object-cover max-h-[500px]"
-                priority
-              />
-            </div>
-          </div>
-        </section>
+                <section className="border-t border-slate-200/70 bg-white py-20 dark:border-slate-800 dark:bg-slate-900 lg:py-24">
+                    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-center font-serif text-3xl text-slate-900 dark:text-slate-100 md:text-4xl">{t.areasTitle}</h2>
+                        <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400">{t.areasNote}</p>
+                        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            {t.areas.map(({ icon: Icon, title, desc }) => (
+                                <div
+                                    key={title}
+                                    className="rounded-2xl border border-slate-200/80 bg-ivory-50 p-6 dark:border-slate-800 dark:bg-slate-950"
+                                >
+                                    <Icon className="h-5 w-5 text-gold-700 dark:text-gold-400" />
+                                    <h3 className="mt-4 font-serif text-lg text-slate-900 dark:text-slate-100">{title}</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-        {/* Why Us / Features Section */}
-        <section id="nasil-calisiyoruz" className="py-24 relative border-t border-slate-200 dark:border-white/5">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white">{t.whyTitle}</h2>
-              <p className="text-slate-600 dark:text-slate-400 text-lg">{t.whyDesc}</p>
-            </div>
+                <section className="py-20 lg:py-24">
+                    <div className="mx-auto max-w-3xl px-4 sm:px-6">
+                        <h2 className="text-center font-serif text-3xl text-slate-900 dark:text-slate-100 md:text-4xl">{t.faqTitle}</h2>
+                        <div className="mt-12 space-y-4">
+                            {t.faq.map((item) => (
+                                <div
+                                    key={item.q}
+                                    className="rounded-2xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
+                                >
+                                    <h3 className="font-serif text-lg text-slate-900 dark:text-slate-100">{item.q}</h3>
+                                    <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-400">{item.a}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <p className="mt-8 flex items-start justify-center gap-2 text-center text-sm text-slate-500 dark:text-slate-400">
+                            <Lock className="mt-0.5 h-4 w-4 shrink-0" />
+                            <span>
+                                {t.privacyNote}{" "}
+                                <Link href={PRIVACY_NOTICE_PATH} className="font-medium text-primary-800 underline underline-offset-2 dark:text-gold-400">
+                                    {t.privacyLink}
+                                </Link>
+                                {t.privacyNoteEnd}
+                            </span>
+                        </p>
+                    </div>
+                </section>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {t.features.map((feature, idx) => (
-                <div key={idx} className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-8 hover:bg-slate-100/50 dark:hover:bg-white/10 transition-colors duration-300">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">{feature.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{feature.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                <ContactCTA title={t.ctaTitle} description={t.ctaDesc} topic="Ticaret ve Şirketler Hukuku" />
+            </main>
 
-        {/* Mid Image Break */}
-        <section className="py-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl overflow-hidden relative h-[400px] border border-slate-200 dark:border-white/10">
-              <Image 
-                src="/ai_legal_network.png"
-                alt="Legal Tech Network"
-                fill
-                className="object-cover opacity-60 hover:opacity-80 transition-opacity duration-700"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                <h2 className="text-3xl md:text-5xl font-bold text-center px-4 leading-tight shadow-black drop-shadow-2xl text-white">
-                  {lang === 'tr' ? 'Hukuku Teknolojinin Hızıyla Buluşturuyoruz' : 'Uniting Law with the Speed of Technology'}
-                </h2>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Expertise Section */}
-        <section className="py-24 border-t border-slate-200 dark:border-white/5 bg-gradient-to-b from-transparent to-blue-50/30 dark:to-blue-900/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">{t.expertiseTitle}</h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {t.expertise.map((item, idx) => (
-                <div key={idx} className="bg-white dark:bg-[#15181e] p-6 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/50 dark:hover:border-blue-500/30 transition-all group">
-                  <div className="text-blue-600 dark:text-blue-400 mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
-                  <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white/90">{item.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-24 border-t border-slate-200 dark:border-white/5">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-slate-900 dark:text-white">{t.faqTitle}</h2>
-            <div className="space-y-6">
-              {t.faq.map((item, idx) => (
-                <div key={idx} className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg p-6">
-                  <h3 className="text-xl font-medium mb-3 text-slate-900 dark:text-white">{item.q}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Bottom */}
-        <section className="py-24 relative overflow-hidden border-t border-slate-200 dark:border-white/5 bg-slate-100 dark:bg-blue-600/10">
-          <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">{t.bottomTitle}</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-10">{t.bottomSubtitle}</p>
-            <Link href="/iletisim" className="inline-flex px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-[#0f1115] hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg font-bold text-lg transition-all items-center shadow-xl">
-              {t.ctaPrimary}
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
-  );
+            <Footer />
+        </div>
+    );
 }

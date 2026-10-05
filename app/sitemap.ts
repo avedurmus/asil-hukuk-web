@@ -23,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${SITE_URL}/sss`, changeFrequency: 'monthly', priority: 0.7 },
         { url: `${SITE_URL}/kentsel-donusum-rehberi`, changeFrequency: 'monthly', priority: 0.7 },
         { url: `${SITE_URL}/ai-hukuk`, changeFrequency: 'monthly', priority: 0.5 },
+        { url: `${SITE_URL}/kvkk-aydinlatma-metni`, changeFrequency: 'yearly', priority: 0.3 },
+        { url: `${SITE_URL}/cerez-politikasi`, changeFrequency: 'yearly', priority: 0.3 },
     ]
 
     // Hizmet sayfaları kendi alanlarındaki son yazıları listeler.

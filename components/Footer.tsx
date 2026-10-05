@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteContent } from "@/data/siteContent";
 import { OFFICE_HOURS, PHONE_HREF } from "@/lib/contact";
+import { COOKIE_POLICY_PATH, PRIVACY_NOTICE_PATH } from "@/lib/legal";
 import { OFFICE_MAP_URL } from "@/lib/seo";
 import { MapPin, Phone, Mail, Clock, Instagram, Linkedin, Facebook, Twitter, ArrowUpRight } from "lucide-react";
 
@@ -145,6 +146,14 @@ export default function Footer() {
                     <p>
                         &copy; {currentYear} {siteContent.brand.name}. Tüm hakları saklıdır.
                     </p>
+                    <nav aria-label="Yasal metinler" className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+                        <Link href={PRIVACY_NOTICE_PATH} className="transition-colors hover:text-gold-300">
+                            KVKK Aydınlatma Metni
+                        </Link>
+                        <Link href={COOKIE_POLICY_PATH} className="transition-colors hover:text-gold-300">
+                            Çerez Politikası
+                        </Link>
+                    </nav>
                     <p className="font-serif italic text-slate-400">Av. Emre Durmuş · İstanbul Barosu</p>
                 </div>
             </div>

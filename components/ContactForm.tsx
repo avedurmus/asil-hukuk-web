@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Lock, Loader2 } from "lucide-react";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/contact";
+import { PRIVACY_NOTICE_PATH } from "@/lib/legal";
 
 // Formspree Form ID
 const FORMSPREE_ID = "mblnkeke";
@@ -55,14 +56,7 @@ export default function ContactForm() {
                 setStatus("success");
                 setMessage("Talebiniz bize ulaştı. Mesai saatleri içinde en kısa sürede sizinle iletişime geçeceğiz.");
 
-                // Google Analytics 4 (GA4) Conversion Event
-                const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-                gtag?.("event", "generate_lead", {
-                    event_category: "Contact",
-                    event_label: "Contact Form Submission Success",
-                    value: 1.0,
-                    currency: "TRY",
-                });
+                trackEvent("generate_lead", "Contact Form Submission Success");
 
                 form.reset();
                 setTopic("");
@@ -181,7 +175,12 @@ export default function ContactForm() {
                     rows={5}
                     className={inputClass}
                     placeholder="Yaşadığınız hukuki sorunu birkaç cümleyle anlatabilirsiniz..."
+                    aria-describedby="cf-message-hint"
                 ></textarea>
+                <p id="cf-message-hint" className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                    Lütfen sağlık bilgisi, sabıka kaydı veya T.C. kimlik numarası gibi hassas bilgileri burada
+                    paylaşmayın; bunları görüşmede konuşabiliriz.
+                </p>
             </div>
 
             <fieldset>
@@ -208,14 +207,21 @@ export default function ContactForm() {
             <label className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                 <input
                     type="checkbox"
-                    name="kvkk_onay"
-                    value="Onaylandı"
+                    name="aydinlatma_metni"
+                    value="Okundu"
                     required
                     className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 accent-primary-900"
                 />
                 <span>
-                    Paylaştığım bilgilerin, talebime dönüş yapılması amacıyla 6698 sayılı KVKK kapsamında işlenmesine
-                    onay veriyorum.
+                    Kişisel verilerimin talebime dönüş yapılması amacıyla işlenmesine ilişkin{" "}
+                    <Link
+                        href={PRIVACY_NOTICE_PATH}
+                        target="_blank"
+                        className="font-medium text-primary-800 underline underline-offset-2 dark:text-gold-400"
+                    >
+                        KVKK Aydınlatma Metni
+                    </Link>
+                    &apos;ni okudum.
                 </span>
             </label>
 
@@ -245,7 +251,7 @@ export default function ContactForm() {
 
             <p className="flex items-center justify-center gap-1.5 text-center text-xs text-slate-500">
                 <Lock className="h-3.5 w-3.5" />
-                Bilgileriniz avukat–müvekkil gizliliği ve KVKK kapsamında korunur.
+                Bilgileriniz gizli tutulur ve yalnızca talebinize dönüş için kullanılır.
             </p>
         </form>
     );

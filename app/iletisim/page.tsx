@@ -7,6 +7,7 @@ import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
 
 import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import MapEmbed from "@/components/MapEmbed";
 import OpenChatButton from "@/components/OpenChatButton";
 import { OFFICE_MAP_URL, pageMetadata } from "@/lib/seo";
 
@@ -187,16 +188,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className="relative min-h-[380px] overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-200 shadow-card dark:border-slate-800 dark:bg-slate-850 lg:col-span-7">
-                            <iframe
-                                src={siteContent.contact.mapUrl}
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                allowFullScreen
-                                loading="lazy"
-                                title="Asil Hukuk Bürosu konumu"
-                                className="absolute inset-0 grayscale-[35%] dark:opacity-85"
-                            ></iframe>
+                            <MapEmbed />
                         </div>
                     </div>
                 </div>

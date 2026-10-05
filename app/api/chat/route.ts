@@ -50,7 +50,7 @@ const tools: Anthropic.Beta.BetaTool[] = [
     {
         name: "book_appointment",
         description:
-            "Seçilen saate ön görüşme randevusu oluşturur. Yalnızca kullanıcı özetlenen bilgileri ve KVKK açık rızasını sohbette açıkça onayladıktan sonra çağır.",
+            "Seçilen saate ön görüşme randevusu oluşturur. Yalnızca kullanıcı özetlenen bilgileri sohbette açıkça onayladıktan ve aydınlatma metni bağlantısı kendisine verildikten sonra çağır.",
         input_schema: {
             type: "object",
             properties: {
@@ -68,9 +68,12 @@ const tools: Anthropic.Beta.BetaTool[] = [
                     description: "Avukat için 1-3 cümlelik tarafsız konu özeti. Hassas kişisel veri (kimlik no, sağlık bilgisi vb.) içermemeli.",
                 },
                 meeting_type: { type: "string", enum: appointmentSettings.meetingTypes, description: "buro, online veya telefon." },
-                kvkk_consent: { type: "boolean", description: "Kullanıcı KVKK onayını açıkça verdiyse true." },
+                privacy_notice_ack: {
+                    type: "boolean",
+                    description: "Onay mesajında aydınlatma metni bağlantısı verildiyse ve kullanıcı bilgileri onayladıysa true.",
+                },
             },
-            required: ["slot_id", "full_name", "phone", "practice_area", "case_summary", "meeting_type", "kvkk_consent"],
+            required: ["slot_id", "full_name", "phone", "practice_area", "case_summary", "meeting_type", "privacy_notice_ack"],
             additionalProperties: false,
         },
     },

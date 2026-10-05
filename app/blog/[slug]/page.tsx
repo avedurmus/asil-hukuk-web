@@ -69,7 +69,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: post.seoDescription ?? clipText(post.excerpt),
         path: `/blog/${post.id}`,
         socialTitle: post.title,
-        keywords: post.tags,
         images: [socialImage(post)],
         openGraph: {
             type: "article",

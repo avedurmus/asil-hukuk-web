@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUp, CalendarCheck, CalendarPlus, MessageCircle, Phone, RotateCcw, Scale, ShieldCheck, X } from "lucide-react";
 import { appointmentSettings } from "@/data/appointmentSettings";
 import { CHAT_OPEN_EVENT, PHONE_HREF, trackEvent, whatsappHref } from "@/lib/contact";
+import { PRIVACY_NOTICE_PATH } from "@/lib/legal";
 
 interface ChatMessage {
     role: "user" | "assistant";
@@ -239,13 +240,11 @@ export default function ChatWidget() {
                     "Bağlantıda bir sorun oluştu. Lütfen tekrar deneyin ya da 0530 432 20 25 numarasından bize ulaşın.";
                 setMessages((prev) => [...prev, { role: "assistant", content: reply, booking: data.booking ?? undefined }]);
                 if (data.booking) {
-                    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-                    gtag?.("event", "generate_lead", {
-                        event_category: "Chat",
-                        event_label: data.booking.status === "confirmed" ? "Chat Booking Confirmed" : "Chat Booking Requested",
-                        value: 1.0,
-                        currency: "TRY",
-                    });
+                    trackEvent(
+                        "generate_lead",
+                        data.booking.status === "confirmed" ? "Chat Booking Confirmed" : "Chat Booking Requested",
+                        "Chat",
+                    );
                 }
             } catch {
                 setMessages((prev) => [
@@ -349,8 +348,18 @@ export default function ChatWidget() {
                     <div ref={scrollRef} className="flex-grow space-y-3 overflow-y-auto px-4 py-5" aria-live="polite">
                         <p className="flex items-start gap-2 rounded-xl bg-slate-100 px-3 py-2 text-[11px] leading-relaxed text-slate-500 dark:bg-slate-900 dark:text-slate-400">
                             <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-600" />
-                            Yapay zekâ destekli bir asistandır; genel bilgi verir, hukuki danışmanlık yerine geçmez. Lütfen T.C. kimlik
-                            numarası gibi hassas bilgilerinizi paylaşmayın.
+                            <span>
+                                Yapay zekâ destekli bir asistandır; genel bilgi verir, hukuki danışmanlık yerine geçmez.
+                                Mesajlarınız yanıt üretilmesi için yurt dışındaki yapay zekâ sağlayıcısına iletilir. Lütfen
+                                sağlık bilgisi, sabıka kaydı veya T.C. kimlik numarası gibi hassas bilgileri paylaşmayın.{" "}
+                                <Link
+                                    href={PRIVACY_NOTICE_PATH}
+                                    target="_blank"
+                                    className="font-medium text-primary-800 underline underline-offset-2 dark:text-gold-400"
+                                >
+                                    Aydınlatma Metni
+                                </Link>
+                            </span>
                         </p>
 
                         <div className="max-w-[88%] rounded-2xl rounded-tl-md bg-white px-4 py-3 text-sm leading-relaxed text-slate-800 shadow-card dark:bg-slate-900 dark:text-slate-200">

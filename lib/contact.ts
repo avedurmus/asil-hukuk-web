@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics";
 import { siteContent } from "@/data/siteContent";
 
 /** tel: bağlantısı için boşluksuz numara, örn. "tel:05304322025". */
@@ -20,9 +21,11 @@ export function openChatAssistant(message?: string) {
     window.dispatchEvent(new CustomEvent(CHAT_OPEN_EVENT, { detail: { message } }));
 }
 
-/** Google Analytics olayı; gtag yüklenmemişse sessizce yok sayılır. */
+/**
+ * Vercel Web Analytics özel olayı. Araç çerez kullanmadığı için onay
+ * gerektirmez; özel olaylar desteklenmeyen planlarda sessizce yok sayılır.
+ */
 export function trackEvent(action: string, label: string, category = "Contact") {
     if (typeof window === "undefined") return;
-    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-    gtag?.("event", action, { event_category: category, event_label: label });
+    track(action, { category, label });
 }

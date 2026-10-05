@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -21,13 +20,6 @@ export const metadata: Metadata = {
         template: "%s | Asil Hukuk"
     },
     description: "Kartal avukat ve hukuk bürosu: Av. Emre Durmuş ile 2004'ten bu yana boşanma, ceza, kira-tahliye, iş ve ticaret hukukunda danışmanlık ve dava takibi.",
-    keywords: [
-        'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
-        'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Kartal Taşınmaz Avukatı', 'Kartal Avukat', 'Soğanlık Avukat', 'Yakacık Avukat',
-        'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı',
-        'Kartal kira avukatı', 'tahliye davası avukatı', 'Pendik avukat', 'Maltepe avukat',
-        'Kartal arabulucu avukat', 'İstanbul tahliye avukatı'
-    ],
     authors: [{ name: 'Av. Emre Durmuş', url: 'https://asilhukuk.net/hakkimizda' }],
     creator: 'Av. Emre Durmuş',
     publisher: 'Asil Hukuk Bürosu',
@@ -63,12 +55,6 @@ export const metadata: Metadata = {
             'max-image-preview': 'large',
             'max-snippet': -1,
         },
-    },
-    other: {
-        'geo.region': 'TR-34',
-        'geo.placename': 'Kartal',
-        'geo.position': `${OFFICE_GEO.latitude};${OFFICE_GEO.longitude}`,
-        'ICBM': `${OFFICE_GEO.latitude}, ${OFFICE_GEO.longitude}`
     },
     verification: {
         google: 'ikCUHrQbKy3f8efZEj7Bp1Az5uQ7F3svuLfCtYPZt3I',
@@ -201,19 +187,7 @@ export default function RootLayout({
                 <FloatingWhatsApp />
                 <ChatWidget />
                 <MobileBottomNav />
-                {/* Google tag (gtag.js) */}
-                <Script
-                    src="https://www.googletagmanager.com/gtag/js?id=G-J7F4RKQLG1"
-                    strategy="afterInteractive"
-                />
-                <Script id="google-analytics" strategy="afterInteractive">
-                    {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'G-J7F4RKQLG1');
-                    `}
-                </Script>
+                {/* Çerez kullanmayan ziyaret istatistikleri; ayrıntı: /cerez-politikasi */}
                 <Analytics />
             </body>
         </html>

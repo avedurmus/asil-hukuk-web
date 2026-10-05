@@ -66,7 +66,7 @@ export interface BookingInput {
     practice_area: string;
     case_summary: string;
     meeting_type: MeetingType;
-    kvkk_consent: boolean;
+    privacy_notice_ack: boolean;
 }
 
 function normalizePhone(raw: string): string | null {
@@ -77,8 +77,8 @@ function normalizePhone(raw: string): string | null {
 }
 
 function validate(input: BookingInput) {
-    if (input.kvkk_consent !== true) {
-        throw new BookingError("Kullanıcının KVKK onayı alınmadan randevu oluşturulamaz.");
+    if (input.privacy_notice_ack !== true) {
+        throw new BookingError("Kullanıcıya aydınlatma metni bağlantısı verilip bilgilerin doğruluğu teyit edilmeden randevu oluşturulamaz.");
     }
     const name = input.full_name?.trim() ?? "";
     if (name.length < 3 || name.length > 80) throw new BookingError("Ad soyad eksik ya da geçersiz.");
@@ -135,7 +135,7 @@ export async function bookAppointment(input: BookingInput): Promise<Booking> {
         `Görüşme şekli: ${meetingTypeLabel}`,
         `Özet: ${data.summary}`,
         "",
-        "Web sitesindeki sohbet asistanı üzerinden oluşturuldu. KVKK onayı alındı.",
+        "Web sitesindeki sohbet asistanı üzerinden oluşturuldu. KVKK aydınlatma metni bağlantısı kullanıcıya iletildi.",
     ].join("\n");
 
     if (calendarMode) {
@@ -168,7 +168,7 @@ export async function bookAppointment(input: BookingInput): Promise<Booking> {
         preferred_contact: meetingTypeLabel,
         reference,
         source: "Sohbet asistanı",
-        kvkk_onay: "Onaylandı",
+        aydinlatma_metni: "Bağlantı sohbette iletildi",
     });
 
     // Takvim bağlı değilken bildirim de gitmediyse talep hiçbir yere ulaşmamıştır.

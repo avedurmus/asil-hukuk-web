@@ -47,7 +47,6 @@ interface PageSeo {
     socialTitle?: string;
     images?: OgImage[];
     openGraph?: Partial<NonNullable<Metadata["openGraph"]>>;
-    keywords?: string[];
 }
 
 /**
@@ -64,7 +63,6 @@ export function pageMetadata({
     socialTitle,
     images,
     openGraph,
-    keywords,
 }: PageSeo): Metadata {
     const ogTitle = socialTitle ?? `${title} | Asil Hukuk`;
     const ogImages = images ?? [DEFAULT_OG_IMAGE];
@@ -72,7 +70,6 @@ export function pageMetadata({
     return {
         title,
         description,
-        ...(keywords ? { keywords } : {}),
         alternates: { canonical: path, types: { "application/rss+xml": [RSS_FEED] } },
         openGraph: {
             title: ogTitle,

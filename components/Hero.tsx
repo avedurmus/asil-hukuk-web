@@ -43,8 +43,8 @@ export default function Hero() {
             <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.10] dark:opacity-[0.06]" />
 
             <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
-                {/* --- Metin --- */}
-                <div className="animate-fade-up text-center lg:col-span-7 lg:text-left">
+                {/* --- Metin --- (animasyonsuz: sayfanın en büyük öğesi, gecikmeden görünmeli) */}
+                <div className="text-center lg:col-span-7 lg:text-left">
                     <h1 className="font-serif text-[2.6rem] font-medium leading-[1.08] tracking-tight text-primary-950 dark:text-white sm:text-6xl lg:text-[4.25rem]">
                         {/* Arama motorları için sayfanın konusunu ve konumunu başlığa taşır. */}
                         <span className="eyebrow mb-7 !flex justify-center font-sans text-[11px] sm:text-xs lg:justify-start">
@@ -129,7 +129,7 @@ export default function Hero() {
                     />
                     <div className="relative aspect-[4/5] overflow-hidden rounded-t-[12rem] rounded-b-3xl bg-primary-900 shadow-elegant">
                         <Image
-                            src="/images/emre-durmus.jpg"
+                            src="/images/emre-durmus-800.webp"
                             alt="Av. Emre Durmuş, Asil Hukuk Bürosu kurucu avukatı"
                             fill
                             priority

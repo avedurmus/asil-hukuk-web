@@ -142,7 +142,7 @@ export default function ContactForm() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div>
                     <label htmlFor="cf-email" className={labelClass}>
-                        E-posta <span className="font-normal text-slate-400">(isteğe bağlı)</span>
+                        E-posta <span className="font-normal text-slate-500 dark:text-slate-400">(isteğe bağlı)</span>
                     </label>
                     <input id="cf-email" type="email" name="email" autoComplete="email" className={inputClass} placeholder="ornek@email.com" />
                 </div>

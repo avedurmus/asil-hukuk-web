@@ -52,7 +52,7 @@ export default function KentselDonusumRehberi() {
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl font-bold font-serif">Sürecinizi Birlikte Güvenle Yönetelim</h2>
               <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-                Kentsel dönüşüm süreci her aşamada hak düşürücü süreler ve ağır şekil şartları içerir. Hak kaybına uğramamak, müteahhit karşısında mülkünüzü korumak ve süreci hızlandırmak için gayrimenkul hukuku uzmanı avukatlarımızdan profesyonel destek alın.
+                Kentsel dönüşüm süreci her aşamada hak düşürücü süreler ve ağır şekil şartları içerir. Hak kaybına uğramamak ve müteahhit karşısında mülkünüzü korumak için sürecin başından itibaren hukuki destek almanız önemlidir.
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <Link href="/iletisim" className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-slate-950 px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all">

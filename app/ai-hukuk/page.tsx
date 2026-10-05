@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import AIHukukClient from "./AIHukukClient";
-import { pageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
     title: "Start-up'lar için Yapay Zeka Destekli Hukuk",
@@ -9,6 +9,13 @@ export const metadata: Metadata = pageMetadata({
     images: [{ url: "/ai_justice_scales.png", width: 1024, height: 1024, alt: "Yapay zeka destekli hukuk" }],
 });
 
+const breadcrumbLd = breadcrumbJsonLd([{ name: "Yapay Zeka Destekli Hukuk", path: "/ai-hukuk" }]);
+
 export default function AIHukukPage() {
-    return <AIHukukClient />;
+    return (
+        <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <AIHukukClient />
+        </>
+    );
 }

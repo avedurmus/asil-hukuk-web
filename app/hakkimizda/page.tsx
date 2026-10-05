@@ -21,7 +21,7 @@ const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     'name': 'Hakkımızda',
-    'description': 'Asil Hukuk Bürosu tarihçesi, vizyonu ve uzman kadrosu hakkında bilgiler.',
+    'description': 'Asil Hukuk Bürosu ve Av. Emre Durmuş hakkında: tecrübe, değerler ve çalışma anlayışı.',
     'url': 'https://asilhukuk.net/hakkimizda',
     'about': { '@id': ORGANIZATION_ID },
     'publisher': { '@id': ORGANIZATION_ID }
@@ -120,7 +120,7 @@ export default function AboutPage() {
                             />
                             <div className="relative aspect-[4/5] overflow-hidden rounded-t-[12rem] rounded-b-3xl shadow-elegant">
                                 <Image
-                                    src="/images/emre-durmus.jpg"
+                                    src="/images/emre-durmus-800.webp"
                                     alt="Av. Emre Durmuş"
                                     fill
                                     priority

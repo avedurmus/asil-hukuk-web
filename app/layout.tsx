@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Kartal Avukat | Asil Hukuk Bürosu - Av. Emre Durmuş',
-        description: 'Güvenilir, şeffaf ve modern hukuki çözümler. Boşanma, Ceza ve Gayrimenkul hukuku uzmanı.',
+        description: 'Kartal\'da 2004\'ten bu yana boşanma, ceza, gayrimenkul, iş ve ticaret hukukunda danışmanlık ve dava takibi.',
         url: SITE_URL,
         siteName: SITE_NAME,
         locale: 'tr_TR',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Asil Hukuk | Av. Emre Durmuş',
-        description: 'İstanbul Kartal Hukuk Bürosu. Boşanma ve Ceza davalarında uzman.',
+        description: 'İstanbul Kartal hukuk bürosu: boşanma, ceza, gayrimenkul, iş ve ticaret hukukunda danışmanlık ve dava takibi.',
         site: '@AsilHukuk',
         creator: '@AsilHukuk',
         images: [DEFAULT_OG_IMAGE.url],
@@ -83,7 +83,7 @@ const jsonLd = {
     'alternateName': 'Asil Hukuk ve Danışmanlık Bürosu',
     'image': 'https://asilhukuk.net/logo.png',
     'logo': 'https://asilhukuk.net/logo.png',
-    'description': 'İstanbul Kartal bölgesinde boşanma, ceza ve gayrimenkul hukuku alanlarında uzman avukatlık hizmeti.',
+    'description': 'İstanbul Kartal\'da boşanma ve aile, ceza, gayrimenkul, iş ve ticaret hukuku ile arabuluculuk alanlarında avukatlık hizmeti.',
     'url': SITE_URL,
     'telephone': '+90 530 432 20 25',
     'email': 'emre@asilhukuk.net',

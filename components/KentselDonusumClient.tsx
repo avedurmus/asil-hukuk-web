@@ -125,7 +125,7 @@ const STEPS = [
           desc: "Malikler payları satın almazsa, Bakanlık, TOKİ veya Hazine bu payları rayiç bedel üzerinden satın alarak dönüşüm sürecine dahil edebilir."
         }
       ],
-      legalWarning: "Açık artırma ve pay satışı süreci en fazla davanın açıldığı ve usulsüzlük iddialarının yapıldığı aşamadır. Satış kararının iptali davaları, kıymet takdirine itirazlar ve yürütmeyi durdurma talepleri gibi teknik süreçlerin yönetimi uzman bir gayrimenkul hukuku avukatı olmadan yapılamaz."
+      legalWarning: "Açık artırma ve pay satışı süreci en fazla davanın açıldığı ve usulsüzlük iddialarının yapıldığı aşamadır. Satış kararının iptali davaları, kıymet takdirine itirazlar ve yürütmeyi durdurma talepleri gibi teknik süreçler avukat desteğiyle yürütülmelidir."
     }
   }
 ];
@@ -247,7 +247,7 @@ export default function KentselDonusumClient() {
       badge: "Genel Değerlendirme",
       color: "from-primary-700 to-primary-900",
       advice: "Kentsel dönüşüm süreçlerinde atılacak adımlar her aşamada sıkı yasal şekil şartlarına bağlıdır. Küçük bir usul hatası büyük gecikmelere sebep olabilir.",
-      criticalRisk: "Kat malikleri, müteahhitler ve kamu kurumları arasındaki dengenin korunması ancak uzman bir gayrimenkul hukuku kadrosuyla mümkündür.",
+      criticalRisk: "Kat malikleri, müteahhitler ve kamu kurumları arasındaki dengenin korunması ancak sürecin hukuki açıdan dikkatle yürütülmesiyle mümkündür.",
       actionText: "Avukatımıza Detayları Danışın",
       nextStepLink: "/iletisim"
     };

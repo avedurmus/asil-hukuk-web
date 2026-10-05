@@ -37,7 +37,11 @@ export interface ExternalSource {
 export interface BlogPost {
     id: string;
     title: string;
+    /** Arama sonuçlarında gösterilecek kısa başlık (≤52 karakter); uzun başlıklarda verilir. */
+    seoTitle?: string;
     excerpt: string;
+    /** Arama sonuçlarındaki açıklama (≤158 karakter); verilmezse özet kısaltılarak kullanılır. */
+    seoDescription?: string;
     date: string;
     dateISO: string;
     /** İçerik veya başlık sonradan güncellendiyse "26 Eylül 2026" biçiminde tarih. */
@@ -76,6 +80,7 @@ export const blogPosts: BlogPost[] = [
         id: "bir-avukat-ile-neden-calismaliyiz",
         title: "Bir Avukat ile Neden Çalışmalıyız?",
         excerpt: "Hak düşürücü süreler, zorunlu arabuluculuk, delil ve usul kuralları: Hukuki bir sorunla karşılaştığınızda avukattan destek almanın önemi ve avukatla çalışırken dikkat edilmesi gerekenler.",
+        seoDescription: "Hak düşürücü süreler, zorunlu arabuluculuk ve usul kuralları: Hukuki bir sorunda avukattan destek almanın önemi ve dikkat edilmesi gerekenler.",
         date: "26 Eylül 2026",
         dateISO: "2026-09-26",
         readTime: "6 dk okuma",
@@ -139,6 +144,7 @@ export const blogPosts: BlogPost[] = [
         id: "tasinmaz-hukukunda-son-gelismeler-kira-hukuku",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Kira Hukuku",
         excerpt: "TÜFE sınırı, sona eren %25 tavanı, kira uyuşmazlıklarında zorunlu arabuluculuk, kısa süreli turizm kiralamaları ve Yargıtay'ın tahliye davalarındaki güncel ilkeleri.",
+        seoDescription: "TÜFE sınırı, sona eren %25 tavanı, kirada zorunlu arabuluculuk, kısa süreli turizm kiralamaları ve Yargıtay'ın tahliye davalarındaki güncel ilkeleri.",
         date: "26 Eylül 2026",
         dateISO: "2026-09-26",
         readTime: "8 dk okuma",
@@ -238,6 +244,7 @@ export const blogPosts: BlogPost[] = [
         id: "tasinmaz-hukukunda-son-gelismeler-kat-mulkiyeti",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Kat Mülkiyeti",
         excerpt: "7579 sayılı Kanun'la aidat ve işletme projesinde yeni dönem, toplu yapılarda yönetim planı değişikliği, cam balkon ve ortak yerler, kat malikleri kurulu kararlarının iptali.",
+        seoDescription: "7579 sayılı Kanun'la aidat ve işletme projesinde yeni dönem, yönetim planı değişikliği, cam balkon, ortak yerler ve kat malikleri kurulu kararlarının iptali.",
         date: "26 Eylül 2026",
         dateISO: "2026-09-26",
         readTime: "8 dk okuma",
@@ -335,7 +342,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "tasinmaz-hukukunda-son-gelismeler-tapu-ve-satis",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Tapu, Satış ve Mülkiyet Edinimi",
+        seoTitle: "Tapu, Satış ve Mülkiyet Edinimi: Son Gelişmeler",
         excerpt: "Konut, arsa ve işyeri satışlarında güvenli ödeme sistemi, noterde taşınmaz satışı, Türkiye Azil Sistemi, tapudaki hataların düzeltilmesi ve yabancıların taşınmaz edinimi.",
+        seoDescription: "Güvenli ödeme sistemi, noterde taşınmaz satışı, Türkiye Azil Sistemi, tapudaki hataların düzeltilmesi ve yabancıların taşınmaz edinimi.",
         date: "26 Eylül 2026",
         dateISO: "2026-09-26",
         readTime: "7 dk okuma",
@@ -399,7 +408,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "tasinmaz-hukukunda-son-gelismeler-kentsel-donusum",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Kentsel Dönüşüm",
+        seoTitle: "Kentsel Dönüşüm Hukukunda Son Gelişmeler",
         excerpt: "Salt çoğunlukla dönüşüm kararı, yeni tebligat usulü, 2026 yönetmelik değişikliğiyle zorunlu toplantı ve e-tebligat, pay satışında SPK değerlemesi, %1 KDV ve Kentsel Dönüşüm Başkanlığı.",
+        seoDescription: "Salt çoğunlukla dönüşüm kararı, yeni tebligat usulü, 2026 yönetmeliğiyle zorunlu toplantı ve e-tebligat, pay satışında SPK değerlemesi ve %1 KDV.",
         date: "26 Eylül 2026",
         dateISO: "2026-09-26",
         readTime: "7 dk okuma",
@@ -462,7 +473,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "anlasmali-bosanma-davasi-ne-kadar-surer",
         title: "Anlaşmalı Boşanma Davası Ne Kadar Sürer? 2026 Güncel Süreç",
+        seoTitle: "Anlaşmalı Boşanma Ne Kadar Sürer? (2026)",
         excerpt: "Anlaşmalı boşanma davası şartları, süreci ve gerekli belgeler hakkında detaylı rehber. Tek celsede boşanmak mümkün mü?",
+        seoDescription: "Anlaşmalı boşanma davası şartları, süreci ve gerekli belgeler: protokol nasıl hazırlanır, tek celsede boşanmak mümkün mü, dava ne kadar sürer?",
         date: "27 Aralık 2024",
         dateISO: "2024-12-27",
         updated: "26 Eylül 2026",
@@ -494,6 +507,7 @@ export const blogPosts: BlogPost[] = [
         id: "ise-iade-davasi-sartlari",
         title: "İşe İade Davası Şartları ve Süreci",
         excerpt: "Haksız yere işten çıkarılan işçilerin hakları nelerdir? İşe iade davası açma süresi ve arabuluculuk şartı.",
+        seoDescription: "Haksız yere işten çıkarılan işçinin hakları nelerdir? İşe iade davasının şartları, zorunlu arabuluculuk, bir aylık başvuru süresi ve sonuçları.",
         date: "20 Aralık 2024",
         dateISO: "2024-12-20",
         readTime: "5 dk okuma",
@@ -521,6 +535,7 @@ export const blogPosts: BlogPost[] = [
         id: "bosanma-surecinde-mal-kacirma",
         title: "Boşanma Sürecinde Mal Kaçırma ve Hukuki Çareler",
         excerpt: "Boşanma sürecinde mal kaçırma, Edinilmiş Mallara Katılma Rejimi kapsamında en sık karşılaşılan sorunlardan biridir. Hukuki zemin, önleyici tedbirler ve alacak haklarını inceliyoruz.",
+        seoDescription: "Boşanma sürecinde mal kaçırma, edinilmiş mallara katılma rejiminde en sık görülen sorunlardan biridir. Hukuki zemin, tedbirler ve alacak hakları.",
         date: "7 Ocak 2026",
         dateISO: "2026-01-07",
         readTime: "6 dk okuma",
@@ -628,7 +643,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "kiraci-tahliye-davasi-sartlari-suresi",
         title: "Kiracı Tahliye Davası Nasıl Açılır? Şartları ve Süresi 2026",
+        seoTitle: "Kiracı Tahliye Davası: Şartlar ve Süreler (2026)",
         excerpt: "Kiracı tahliye davası şartları, tahliye taahhütnamesi ile tahliye, kiranın ödenmemesi nedeniyle tahliye ve zorunlu arabuluculuk süreci hakkında güncel hukuki rehber.",
+        seoDescription: "Tahliye davası şartları, tahliye taahhütnamesiyle tahliye, kira ödenmediğinde tahliye ve zorunlu arabuluculuk süreci hakkında güncel rehber.",
         date: "13 Haziran 2026",
         dateISO: "2026-06-13",
         readTime: "7 dk okuma",
@@ -710,6 +727,7 @@ export const blogPosts: BlogPost[] = [
         id: "sirketlerde-alacak-tahsili-ve-icra-takibi",
         title: "Şirketlerde Alacak Tahsili ve İcra Takibi Rehberi",
         excerpt: "Şirketlerin fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz kararı, ticari arabuluculuk ve icra takibi süreçleri hakkında şirket yöneticileri için yasal rehber.",
+        seoDescription: "Fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz, ticari arabuluculuk ve icra takibi süreçleri: şirket yöneticileri için hukuki rehber.",
         date: "13 Haziran 2026",
         dateISO: "2026-06-13",
         readTime: "8 dk okuma",
@@ -808,7 +826,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "hagb-2026-degisikligi-cmk-231",
         title: "HAGB Yeniden Yazıldı: CMK m. 231'de 2026 Değişikliği Ne Getirdi?",
+        seoTitle: "HAGB 2026 Değişikliği: CMK m. 231'de Neler Değişti?",
         excerpt: "16 Temmuz 2026 tarihli 7589 sayılı Kanun, hükmün açıklanmasının geri bırakılması kurumunu baştan düzenledi. Sanığın kabulü şartından denetim süresi ihlalinin sonuçlarına kadar değişen her şey.",
+        seoDescription: "7589 sayılı Kanun hükmün açıklanmasının geri bırakılmasını baştan düzenledi: sanığın kabulü şartından denetim süresi ihlaline kadar tüm değişiklikler.",
         date: "12 Eylül 2026",
         dateISO: "2026-09-12",
         readTime: "7 dk okuma",
@@ -909,7 +929,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "tahliye-taahhudu-gecerlilik-ictihat",
         title: "İçtihat Notu: Tahliye Taahhütnamesi Ne Zaman Geçerlidir?",
+        seoTitle: "Tahliye Taahhütnamesi Ne Zaman Geçerlidir?",
         excerpt: "Boş kâğıda atılan imza, sözleşmeyle aynı gün alınan taahhüt, sonradan yazılan tarih... Yargıtay'ın tahliye taahhüdünde geçerlilik ölçütünü kararlar üzerinden inceliyoruz.",
+        seoDescription: "Boş kâğıda atılan imza, sözleşmeyle aynı gün alınan taahhüt, sonradan yazılan tarih: Yargıtay'ın tahliye taahhüdünde geçerlilik ölçütleri.",
         date: "5 Eylül 2026",
         dateISO: "2026-09-05",
         readTime: "6 dk okuma",
@@ -1019,6 +1041,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "katilma-alacagi-mal-kacirma-ictihat",
         title: "İçtihat Notu: Mal Kaçırma Hâlinde Katılma Alacağı Nasıl Korunur?",
+        seoTitle: "Mal Kaçırmada Katılma Alacağı Nasıl Korunur?",
         excerpt: "Eşin malı üçüncü kişiye devretmesi tapu iptaline yol açar mı? TMK m. 229 kapsamında eklenecek değerler, üçüncü kişinin sorumluluğu ve ihbarın işlevi.",
         date: "29 Ağustos 2026",
         dateISO: "2026-08-29",
@@ -1126,6 +1149,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "fazla-mesai-ispati-hakkaniyet-indirimi-ictihat",
         title: "İçtihat Notu: Fazla Mesainin Tanıkla İspatı ve Hakkaniyet İndirimi",
+        seoTitle: "Fazla Mesainin Tanıkla İspatı ve Hakkaniyet İndirimi",
         excerpt: "Tanık hangi dönem için dinlenir, hakkaniyet indirimi ne zaman yapılır, 'elden ödedik' savunması dinlenir mi? Yargıtay'ın fazla çalışma ispatındaki ölçütleri.",
         date: "22 Ağustos 2026",
         dateISO: "2026-08-22",
@@ -1245,7 +1269,9 @@ export const blogPosts: BlogPost[] = [
     {
         id: "alti-isgunluk-hak-dusurucu-sure-ictihat",
         title: "İçtihat Notu: Haklı Fesihte Altı İş Günlük Süre Ne Zaman Başlar?",
+        seoTitle: "Haklı Fesihte 6 İş Günlük Süre Ne Zaman Başlar?",
         excerpt: "Disiplin kurulu süreyi başlatır mı, devamsızlıkta süre hangi günden işler, ücreti ödenmeyen işçi ne zamana kadar fesih yapabilir? 4857 m. 26'nın içtihattaki karşılığı.",
+        seoDescription: "Disiplin kurulu süreyi başlatır mı, devamsızlıkta süre ne zaman işler, ücreti ödenmeyen işçi ne zamana kadar fesih yapabilir? 4857 m. 26 içtihadı.",
         date: "15 Ağustos 2026",
         dateISO: "2026-08-15",
         readTime: "6 dk okuma",
@@ -1357,6 +1383,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "kira-tespiti-hak-ve-nesafet-ictihat",
         title: "İçtihat Notu: Beş Yıl Sonrası Kira Tespitinde Hak ve Nesafet İlkesi",
+        seoTitle: "5 Yıl Sonra Kira Tespiti: Hak ve Nesafet İlkesi",
         excerpt: "Beş yılın sonunda kira nasıl belirlenir? Emsal kira incelemesi, boş olarak getireceği bedel ve eski kiracı indirimi üzerine Yargıtay'ın yöntemi.",
         date: "8 Ağustos 2026",
         dateISO: "2026-08-08",
@@ -1473,6 +1500,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "makul-surede-yargilanma-aym-pilot-karar",
         title: "İçtihat Notu: Makul Sürede Yargılanma ve AYM'nin Pilot Kararı",
+        seoTitle: "Makul Sürede Yargılanma ve AYM Pilot Kararı",
         excerpt: "Uzayan yargılama karşısında başvurulabilecek etkili bir yol var mı? Anayasa Mahkemesi'nin Nevriye Kuruç pilot kararı ve yapısal sorun tespiti.",
         date: "1 Ağustos 2026",
         dateISO: "2026-08-01",

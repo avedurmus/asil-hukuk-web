@@ -20,7 +20,7 @@ export default function MobileBottomNav() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent("click_whatsapp", "Mobile Bottom Nav - WhatsApp Click")}
-                    className="flex flex-col items-center justify-center gap-1 rounded-xl bg-[#1f9d55] py-2.5 text-white transition-colors active:bg-[#198048]"
+                    className="flex flex-col items-center justify-center gap-1 rounded-xl bg-[#167c43] py-2.5 text-white transition-colors active:bg-[#12683a]"
                 >
                     <MessageCircle className="h-5 w-5" />
                     <span className="text-[11px] font-bold">WhatsApp</span>

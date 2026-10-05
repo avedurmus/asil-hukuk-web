@@ -88,7 +88,7 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex shrink-0 items-center gap-3" aria-label={`${siteContent.brand.name} ana sayfa`}>
                         <Image
-                            src="/logo.png"
+                            src="/logo-128.webp"
                             alt=""
                             width={44}
                             height={44}

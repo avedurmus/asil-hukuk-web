@@ -254,7 +254,7 @@ export default function ServiceDetailPage({ params }: Props) {
                                 <div className="flex items-center gap-4 bg-primary-900 p-6 text-white">
                                     <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-gold-400/60">
                                         <Image
-                                            src="/images/emre-durmus.jpg"
+                                            src="/images/emre-durmus-160.webp"
                                             alt="Av. Emre Durmuş"
                                             fill
                                             sizes="64px"

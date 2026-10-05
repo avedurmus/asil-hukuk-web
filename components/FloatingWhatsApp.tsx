@@ -25,7 +25,7 @@ export default function FloatingWhatsApp() {
             rel="noopener noreferrer"
             onClick={() => trackEvent("click_whatsapp", "Floating Button - WhatsApp")}
             aria-label="WhatsApp üzerinden yazın"
-            className={`group fixed bottom-28 right-6 z-40 hidden items-center gap-3 rounded-full bg-[#1f9d55] py-3 pl-3 pr-5 text-white shadow-elegant transition-all duration-500 hover:bg-[#198048] md:flex ${
+            className={`group fixed bottom-28 right-6 z-40 hidden items-center gap-3 rounded-full bg-[#167c43] py-3 pl-3 pr-5 text-white shadow-elegant transition-all duration-500 hover:bg-[#12683a] md:flex ${
                 visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
             }`}
         >

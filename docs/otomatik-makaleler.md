@@ -122,7 +122,9 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
 {
   "id": "konut-kiralarinda-yuzde-25-siniri-bitti-mi",
   "title": "Konut Kiralarında Yüzde 25 Sınırı Bitti mi? Kira Artışında Güncel Durum",
-  "excerpt": "80–320 karakterlik, aramalarda görünecek özet.",
+  "seoTitle": "Kira Artışında Yüzde 25 Sınırı Bitti mi?",
+  "excerpt": "80–320 karakterlik, blog listesinde görünecek özet.",
+  "seoDescription": "110–158 karakterlik, Google sonuçlarında görünecek açıklama.",
   "dateISO": "2026-10-05",
   "category": "Gayrimenkul Hukuku",
   "kind": "makale",
@@ -146,6 +148,15 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
 
 - `id`: başlıktan türetilmiş, Türkçe karaktersiz, küçük harf ve tireli
   (en fazla 90 karakter); dosya adındaki id ile aynı.
+- `seoTitle` ve `seoDescription`: Google sonuç sayfasında görünen başlık ve
+  açıklamadır. Başlığın sonuna otomatik olarak " | Asil Hukuk" eklenir;
+  Google ~60 karakterden sonrasını keser. Bu yüzden:
+  - `seoTitle` en fazla **52** karakter; başlık 52 karakteri aşıyorsa
+    zorunludur. Okurun arayacağı ana ifadeyle başlasın ("Ziynet Eşyaları
+    Boşanmada Kime Kalır?").
+  - `seoDescription` **110–158** karakter; özet 158 karakteri aşıyorsa
+    zorunludur. Sorunun cevabını vaat eden, aranan ifadeyi içeren tek-iki
+    cümle olsun. İkisinde de reklam niteliğinde ifade kullanma.
 - `category`: `Aile Hukuku`, `İş Hukuku`, `Ceza Hukuku`, `Gayrimenkul Hukuku`,
   `Ticaret Hukuku`, `Arabuluculuk` (gerekirse `Anayasa Hukuku`, `Genel`).
 - `kind`: yazı ağırlıkla kararların incelemesiyse `"ictihat"` (en az 2 karar

@@ -91,7 +91,7 @@ export default function BlogListClient({ posts }: { posts: BlogPost[] }) {
                     : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 dark:hover:border-primary-600"
             }`}
         >
-            {label} <span className="opacity-70">({count})</span>
+            {label} <span className="opacity-80">({count})</span>
         </button>
     );
 

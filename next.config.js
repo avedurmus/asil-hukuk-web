@@ -21,6 +21,9 @@ const legacyWixRedirects = [
     { source: "/post/:path*", destination: "/blog" },
     { source: "/blog-1", destination: "/blog" },
     { source: "/faq", destination: "/sss" },
+    // Kaldırılan YargıAsistan uygulaması
+    { source: "/asistan", destination: "/ai-hukuk" },
+    { source: "/asistan/:path*", destination: "/ai-hukuk" },
 ];
 
 /** @type {import('next').NextConfig} */

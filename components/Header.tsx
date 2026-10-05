@@ -17,7 +17,6 @@ const digitalLinks = [
     { href: "/blog", label: "Hukuk Blogu", note: "Güncel yazılar ve içtihat notları" },
     { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi", note: "Adım adım süreç ve haklarınız" },
     { href: "/ai-hukuk", label: "AI Hukuk", note: "Yapay zekâ ve hukuk" },
-    { href: "/asistan", label: "YargıAsistan", note: "İçtihat arama asistanı" },
 ];
 
 const endLinks = [

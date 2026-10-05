@@ -17,7 +17,6 @@ const corporateLinks = [
     { href: "/blog", label: "Hukuk Blogu" },
     { href: "/sss", label: "Sıkça Sorulan Sorular" },
     { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi" },
-    { href: "/asistan", label: "YargıAsistan (AI)" },
     { href: "/iletisim", label: "İletişim & Randevu" },
 ];
 

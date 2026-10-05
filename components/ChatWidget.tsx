@@ -2,7 +2,6 @@
 
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArrowUp, CalendarCheck, CalendarPlus, MessageCircle, Phone, RotateCcw, Scale, ShieldCheck, X } from "lucide-react";
 import { appointmentSettings } from "@/data/appointmentSettings";
 import { CHAT_OPEN_EVENT, PHONE_HREF, trackEvent, whatsappHref } from "@/lib/contact";
@@ -178,7 +177,6 @@ function BookingCard({ booking }: { booking: Booking }) {
 }
 
 export default function ChatWidget() {
-    const pathname = usePathname() ?? "/";
     const [open, setOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState("");
@@ -277,8 +275,6 @@ export default function ChatWidget() {
         setMessages([]);
         setInput("");
     };
-
-    if (pathname.startsWith("/asistan")) return null;
 
     const showQuickReplies = messages.length === 0 && !pending;
 

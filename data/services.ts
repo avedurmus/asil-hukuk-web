@@ -289,7 +289,7 @@ export const services: Service[] = [
                 },
                 {
                     heading: "İlk toplantıya katılmamanın sonucu",
-                    body: "Zorunlu arabuluculukta geçerli bir mazereti olmaksızın ilk toplantıya katılmayan taraf, sonradan açılan davada haklı çıksa bile yargılama giderlerinin tamamından sorumlu tutulur ve lehine vekâlet ücretine hükmedilmez. Bu nedenle davetin ciddiye alınması ve toplantıya hazırlıklı katılınması önemlidir.",
+                    body: "Zorunlu arabuluculukta geçerli bir mazereti olmaksızın ilk toplantıya katılmayan taraf, son tutanakta belirtilir ve sonradan açılan davada kısmen veya tamamen haklı çıksa bile karşı tarafın ödemekle yükümlü olduğu yargılama giderlerinin yarısından sorumlu tutulur; ayrıca bu taraf lehine Avukatlık Asgari Ücret Tarifesine göre belirlenen vekâlet ücretinin yalnızca yarısına hükmedilir. Her iki taraf da ilk toplantıya katılmazsa, açılacak davada tarafların yaptıkları yargılama giderleri kendi üzerlerinde bırakılır. Vekâlet ücretine ilişkin bu kural 7 Kasım 2024 tarihli 7531 sayılı Kanun'la getirilmiştir; düzenleme iş uyuşmazlıkları (7036 sayılı Kanun m. 3) ile kira, ticari ve diğer zorunlu arabuluculuk alanları (6325 sayılı Kanun m. 18/A) için aynıdır. Bu nedenle davetin ciddiye alınması ve toplantıya hazırlıklı katılınması önemlidir.",
                 },
                 {
                     heading: "İhtiyari arabuluculuk: dava açmadan önce veya dava sırasında",

@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import { trackEvent, whatsappHref } from "@/lib/contact";
 
 /**
  * Masaüstünde sağ altta, sohbet asistanı düğmesinin üzerinde beliren WhatsApp düğmesi. Mobilde alt gezinme çubuğu
- * aynı işlevi gördüğü için gizlidir; asistan uygulamasında da gösterilmez.
+ * aynı işlevi gördüğü için gizlidir.
  */
 export default function FloatingWhatsApp() {
-    const pathname = usePathname() ?? "/";
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -19,8 +17,6 @@ export default function FloatingWhatsApp() {
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
-
-    if (pathname.startsWith("/asistan")) return null;
 
     return (
         <a

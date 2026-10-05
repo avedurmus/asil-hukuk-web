@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Calendar, Clock, ArrowRight, Scale, Linkedin, Search, X } from "lucide-react";
-import type { BlogPost } from "@/data/blogPosts";
+import type { PostSummary as BlogPost } from "@/lib/posts";
 
 type Filter = "all" | "ictihat" | "makale" | string;
 

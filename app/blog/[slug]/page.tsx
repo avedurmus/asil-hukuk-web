@@ -2,7 +2,8 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactCTA from "@/components/ContactCTA";
-import { blogPosts, type BlogPost } from "@/data/blogPosts";
+import type { BlogPost } from "@/data/blogPosts";
+import { getAllPosts, getPost } from "@/lib/posts";
 import { faqs } from "@/data/faq";
 import {
     Calendar,
@@ -28,8 +29,11 @@ interface Props {
     };
 }
 
+/** Yazılar derlemede üretilir; listede olmayan adresler 404 döner. */
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-    return blogPosts.map((post) => ({
+    return getAllPosts().map((post) => ({
         slug: post.id,
     }));
 }
@@ -57,7 +61,7 @@ function decisionLabel(decision: NonNullable<BlogPost["decisions"]>[number]): st
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const post = blogPosts.find((p) => p.id === params.slug);
+    const post = getPost(params.slug);
     if (!post) return { title: "Yazı Bulunamadı" };
 
     return pageMetadata({
@@ -79,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function BlogPostPage({ params }: Props) {
-    const post = blogPosts.find((p) => p.id === params.slug);
+    const post = getPost(params.slug);
 
     if (!post) {
         notFound();
@@ -87,8 +91,8 @@ export default function BlogPostPage({ params }: Props) {
 
     // Aynı kategorideki diğer yazılar; yetmezse en yeni yazılarla tamamlanır.
     const related = [
-        ...blogPosts.filter((p) => p.id !== post.id && p.category === post.category),
-        ...blogPosts.filter((p) => p.id !== post.id && p.category !== post.category),
+        ...getAllPosts().filter((p) => p.id !== post.id && p.category === post.category),
+        ...getAllPosts().filter((p) => p.id !== post.id && p.category !== post.category),
     ]
         .sort((a, b) => b.dateISO.localeCompare(a.dateISO))
         .slice(0, 3);

@@ -260,7 +260,7 @@ export const services: Service[] = [
         shortDescription: "Hukuki uyuşmazlıkların dava dışı yollarla çözümü için arabuluculuk hizmeti.",
         seoTitle: "Kartal Arabulucu - Arabuluculuk Hizmeti",
         seoDescription: "Kartal'da arabulucu Av. Emre Durmuş ile iş, ticaret, kira ve tüketici uyuşmazlıklarında zorunlu ve ihtiyari arabuluculuk; dava açmadan hızlı ve ekonomik çözüm.",
-        blogCategories: [],
+        blogCategories: ["Arabuluculuk"],
         faqCategories: [],
         faqIds: ["is-davasinda-arabuluculuk", "ticari-davalarda-arabuluculuk"],
         icon: Scale,

@@ -9,7 +9,8 @@ import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import { siteContent } from "@/data/siteContent";
 import { faqs } from "@/data/faq";
-import { blogPosts } from "@/data/blogPosts";
+import DailyArticles from "@/components/DailyArticles";
+import { getAllPosts, getLatestDailyPosts } from "@/lib/posts";
 import {
     ArrowRight,
     ArrowUpRight,
@@ -83,8 +84,13 @@ const pillars = [
 // Ana sayfada gösterilecek öne çıkan sorular
 const featuredFaqs = faqs.slice(0, 5);
 
-// En yeni üç yazı — ziyaretçiyi sitede tutan içerik vitrini
-const latestPosts = [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO)).slice(0, 3);
+// Hero altındaki şeritte tanıtılan günün makaleleri
+const dailyPosts = getLatestDailyPosts(2);
+
+// Şeritte gösterilenler dışındaki en yeni üç yazı — ziyaretçiyi sitede tutan içerik vitrini
+const latestPosts = getAllPosts()
+    .filter((post) => !dailyPosts.some((daily) => daily.id === post.id))
+    .slice(0, 3);
 
 function SectionHeading({
     eyebrow,
@@ -118,6 +124,8 @@ export default function Home() {
 
             <main className="flex-grow">
                 <Hero />
+
+                <DailyArticles posts={dailyPosts} />
 
                 {/* --- BÜROMUZ --- */}
                 <section className="relative bg-white py-24 dark:bg-slate-900 lg:py-32">

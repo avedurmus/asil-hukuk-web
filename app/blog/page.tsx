@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogListClient from "./BlogListClient";
-import { blogPosts } from "@/data/blogPosts";
+import { getAllPosts, toSummary } from "@/lib/posts";
 import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function BlogIndexPage() {
-    const sortedPosts = [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
+    const sortedPosts = getAllPosts();
     const ictihatCount = sortedPosts.filter((post) => post.kind === "ictihat").length;
 
     const itemListLd = {
@@ -55,7 +55,7 @@ export default function BlogIndexPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-                    <BlogListClient posts={sortedPosts} />
+                    <BlogListClient posts={sortedPosts.map(toSummary)} />
                 </div>
             </main>
             <Footer />

@@ -55,6 +55,8 @@ export interface BlogPost {
     decisions?: DecisionRef[];
     sources?: SourceRef[];
     source?: ExternalSource;
+    /** content/makaleler/ altından okunan günlük makale (lib/posts.ts doldurur). */
+    daily?: boolean;
 }
 
 /** Blog listesinde kullanılan kategori sırası ve etiketleri. */
@@ -65,6 +67,7 @@ export const blogCategories = [
     "Gayrimenkul Hukuku",
     "Ticaret Hukuku",
     "Anayasa Hukuku",
+    "Arabuluculuk",
     "Genel",
 ] as const;
 

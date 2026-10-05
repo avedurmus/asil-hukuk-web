@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { services } from "@/data/services";
-import { blogPosts } from "@/data/blogPosts";
+import { getAllPosts } from "@/lib/posts";
 import { faqs } from "@/data/faq";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock, MessageCircle, Phone, CalendarCheck, Plus } from "lucide-react";
 import Image from "next/image";
@@ -66,7 +66,7 @@ export default function ServiceDetailPage({ params }: Props) {
     ]);
 
     // İç bağlantılar: aynı alandaki yazılar ve sorular hizmet sayfasını besler.
-    const relatedPosts = blogPosts
+    const relatedPosts = getAllPosts()
         .filter((post) => service.blogCategories.includes(post.category))
         .sort((a, b) => b.dateISO.localeCompare(a.dateISO))
         .slice(0, 4);

@@ -2,7 +2,7 @@
 
 Her sabah büronun çalışma alanlarında **iki** kapsamlı makale yayımlanır.
 Makaleler YargıMCP (Yargı PRO) araçlarıyla bulunan güncel içtihat ve mevzuata
-dayanır; ana sayfadaki "Hukuk Blogu" bölümünde (en yeni üç yazı arasında) ve
+dayanır; ana sayfada, giriş bölümünün hemen altındaki "son eklenenler" şeridinde ve
 `/blog` sayfasında görünür.
 
 Bu belge hem büro için açıklama hem de her sabah çalışan otomatik görevin
@@ -15,7 +15,7 @@ dosyayı düzenlemek yeterlidir.
 |---|---|
 | Makale dosyaları (her biri ayrı) | `content/makaleler/YYYY-MM-DD-<id>.json` |
 | Makaleleri blogla birleştiren yükleyici | `lib/posts.ts` |
-| Ana sayfadaki en yeni yazılar | `app/page.tsx` |
+| Ana sayfadaki son eklenenler şeridi | `components/LatestPostsStrip.tsx` |
 | Yayın öncesi denetim | `scripts/makale-dogrula.mjs` (`npm run makale:dogrula`) |
 
 Elle yazılan yazılar `data/blogPosts.ts` içinde kalır. Bir günlük makaleyi

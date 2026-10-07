@@ -5,9 +5,10 @@ import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
+import LatestPostsStrip from "@/components/LatestPostsStrip";
 import { siteContent } from "@/data/siteContent";
 import { faqs } from "@/data/faq";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, toSummary } from "@/lib/posts";
 import { RSS_FEED } from "@/lib/seo";
 import { ArrowRight, ArrowUpRight, UserCheck, Eye, Lock, PhoneCall, Plus } from "lucide-react";
 import type { Metadata } from "next";
@@ -56,8 +57,11 @@ const featuredFaqs = featuredFaqIds
     .map((id) => faqs.find((faq) => faq.id === id))
     .filter((faq): faq is (typeof faqs)[number] => Boolean(faq));
 
-// En yeni üç yazı (günlük makaleler dahil)
-const latestPosts = getAllPosts().slice(0, 3);
+// Hero'nun altındaki şeritte blogun son eklenen dört yazısı (günlük makaleler dahil);
+// sayfa sonundaki blog bölümü tekrara düşmemek için ardından gelen üç yazıyı gösterir.
+const allPosts = getAllPosts();
+const newestPosts = allPosts.slice(0, 4).map(toSummary);
+const latestPosts = allPosts.slice(4, 7);
 
 function SectionHeading({
     eyebrow,
@@ -88,6 +92,7 @@ export default function Home() {
 
             <main className="flex-grow">
                 <Hero />
+                <LatestPostsStrip posts={newestPosts} />
 
                 {/* --- ÇALIŞMA ALANLARI --- */}
                 <section id="uzmanliklar" className="border-t border-slate-200/70 bg-white py-20 dark:border-slate-800 dark:bg-slate-900 lg:py-24">

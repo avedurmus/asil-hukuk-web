@@ -96,7 +96,7 @@ export default function Home() {
 
                 {/* --- ÇALIŞMA ALANLARI --- */}
                 <section id="uzmanliklar" className="border-t border-slate-200/70 bg-white py-20 dark:border-slate-800 dark:bg-slate-900 lg:py-24">
-                    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <SectionHeading
                             eyebrow="Çalışma Alanlarımız"
                             title="Hangi konuda yardıma ihtiyacınız var?"
@@ -187,7 +187,7 @@ export default function Home() {
 
                 {/* --- NASIL ÇALIŞIYORUZ --- */}
                 <section className="bg-white py-20 dark:bg-slate-900 lg:py-24">
-                    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <SectionHeading
                             eyebrow="Nasıl Çalışıyoruz"
                             title="Bize ulaştığınızda ne olur?"
@@ -195,8 +195,18 @@ export default function Home() {
 
                         <ol className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                             {processSteps.map((step, i) => (
-                                <Reveal as="li" key={step.title} delay={i * 90} className="flex gap-4 lg:flex-col lg:gap-0">
-                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-500/50 bg-ivory-50 font-serif text-lg text-primary-900 dark:bg-slate-950 dark:text-gold-400">
+                                <Reveal
+                                    as="li"
+                                    key={step.title}
+                                    delay={i * 90}
+                                    className={`relative flex gap-4 lg:flex-col lg:gap-0 ${
+                                        // Masaüstünde adımları birbirine bağlayan ince altın çizgi
+                                        i < processSteps.length - 1
+                                            ? "lg:after:absolute lg:after:-right-5 lg:after:left-[3.5rem] lg:after:top-[22px] lg:after:h-px lg:after:bg-gradient-to-r lg:after:from-gold-500/60 lg:after:to-gold-500/10 lg:after:content-['']"
+                                            : ""
+                                    }`}
+                                >
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-500/50 bg-ivory-50 font-serif text-lg text-primary-900 shadow-sm dark:bg-slate-950 dark:text-gold-400">
                                         {i + 1}
                                     </span>
                                     <div>
@@ -213,7 +223,7 @@ export default function Home() {
 
                 {/* --- BÜROMUZ --- */}
                 <section className="bg-ivory-100 py-20 dark:bg-slate-950 lg:py-24">
-                    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+                    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
                         <Reveal className="lg:col-span-5">
                             <span className="eyebrow">Büromuz</span>
                             <h2 className="mt-4 font-serif text-3xl font-medium leading-tight text-slate-900 dark:text-slate-100 lg:text-4xl">
@@ -248,7 +258,7 @@ export default function Home() {
                 {/* --- GÜNCEL YAZILAR --- */}
                 {latestPosts.length > 0 && (
                     <section className="bg-white py-20 dark:bg-slate-900 lg:py-24">
-                        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
                                 <Reveal>
                                     <span className="eyebrow">Hukuk Blogu</span>

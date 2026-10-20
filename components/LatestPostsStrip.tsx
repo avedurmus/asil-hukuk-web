@@ -13,7 +13,7 @@ export default function LatestPostsStrip({ posts }: { posts: PostSummary[] }) {
 
     return (
         <section aria-labelledby="son-eklenenler" className="border-t border-slate-200/70 bg-ivory-100 py-10 dark:border-slate-800 dark:bg-slate-950">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="mb-6 flex items-center justify-between gap-4">
                     <h2 id="son-eklenenler" className="eyebrow">
                         Hukuk Blogu&apos;nda son eklenenler

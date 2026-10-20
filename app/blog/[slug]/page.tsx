@@ -149,7 +149,7 @@ export default function BlogPostPage({ params }: Props) {
     return (
         <div className="min-h-screen bg-ivory-100 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
-            <main className="flex-grow pt-20">
+            <main className="flex-grow">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -160,34 +160,36 @@ export default function BlogPostPage({ params }: Props) {
                 />
                 <article>
                     {/* Başlık alanı */}
-                    <div className="bg-primary-950 dark:bg-slate-900/60 text-white py-16 px-4 transition-colors duration-300">
+                    <div className="relative isolate overflow-hidden bg-primary-950 px-4 pb-28 pt-32 text-white lg:pt-40">
+                        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
+                        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-hero-glow" />
                         <div className="max-w-3xl mx-auto">
                             <Link
                                 href="/blog"
-                                className="inline-flex items-center text-slate-300 hover:text-white mb-8 transition-colors font-medium text-sm"
+                                className="group inline-flex items-center text-slate-300 hover:text-gold-300 mb-8 transition-colors font-medium text-sm"
                             >
-                                <ArrowLeft className="w-4 h-4 mr-2" />
+                                <ArrowLeft className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
                                 Bloga Dön
                             </Link>
 
                             <div className="flex flex-wrap items-center gap-2 mb-6">
-                                <span className="px-3 py-1 bg-primary-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                                <span className="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-300 ring-1 ring-gold-400/40">
                                     {post.category}
                                 </span>
                                 {post.kind === "ictihat" && (
-                                    <span className="px-3 py-1 bg-gold-500 text-slate-900 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-gold-500 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-950">
                                         <Scale className="w-3 h-3" /> İçtihat Notu
                                     </span>
                                 )}
                             </div>
 
-                            <h1 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
+                            <h1 className="mb-7 font-serif text-3xl font-medium leading-[1.15] md:text-5xl">
                                 {post.title}
                             </h1>
 
-                            <div className="flex flex-wrap items-center text-slate-300 text-sm gap-x-6 gap-y-2">
+                            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
                                 <span className="flex items-center">
-                                    <Calendar className="w-4 h-4 mr-2" />
+                                    <Calendar className="w-4 h-4 mr-2 text-gold-400" />
                                     <time dateTime={post.dateISO}>{post.date}</time>
                                     {post.updated && post.updatedISO && (
                                         <span className="ml-2 text-slate-400">
@@ -196,17 +198,17 @@ export default function BlogPostPage({ params }: Props) {
                                     )}
                                 </span>
                                 <span className="flex items-center">
-                                    <Clock className="w-4 h-4 mr-2" />
+                                    <Clock className="w-4 h-4 mr-2 text-gold-400" />
                                     {post.readTime}
                                 </span>
-                                <span>Av. Emre Durmuş</span>
+                                <span className="font-serif italic text-white">Av. Emre Durmuş</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Gövde */}
-                    <div className="max-w-3xl mx-auto px-4 py-12 -mt-10 relative z-10">
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-6 sm:p-8 md:p-12 transition-colors duration-300">
+                    <div className="max-w-3xl mx-auto px-4 pb-16 -mt-16 relative z-10">
+                        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-elegant border border-slate-200/70 dark:border-slate-800 p-6 sm:p-8 md:p-12 transition-colors duration-300">
                             {post.imageUrl && (
                                 <div className="mb-10 rounded-xl overflow-hidden shadow-sm bg-slate-100 dark:bg-slate-800">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -228,7 +230,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={post.source.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1"
+                                            className="text-primary-800 dark:text-gold-400 hover:underline inline-flex items-center gap-1"
                                         >
                                             özgün paylaşım
                                             <ExternalLink className="w-3 h-3" />
@@ -241,11 +243,11 @@ export default function BlogPostPage({ params }: Props) {
                             {post.decisions && post.decisions.length > 0 && (
                                 <section
                                     aria-labelledby="incelenen-kararlar"
-                                    className="mb-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 p-6"
+                                    className="mb-10 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-ivory-50 dark:bg-slate-950/50 p-6"
                                 >
                                     <h2
                                         id="incelenen-kararlar"
-                                        className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2"
+                                        className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-700 dark:text-gold-400 mb-4 flex items-center gap-2"
                                     >
                                         <Scale className="w-4 h-4" /> İncelenen Kararlar
                                     </h2>
@@ -273,7 +275,7 @@ export default function BlogPostPage({ params }: Props) {
                                                         href={decision.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-1 mt-2 text-primary-600 dark:text-primary-400 hover:underline font-medium"
+                                                        className="inline-flex items-center gap-1 mt-2 text-primary-800 dark:text-gold-400 hover:underline font-medium"
                                                     >
                                                         Karar metni
                                                         <ExternalLink className="w-3 h-3" />
@@ -298,7 +300,7 @@ export default function BlogPostPage({ params }: Props) {
                                 >
                                     <h2
                                         id="kaynaklar"
-                                        className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2"
+                                        className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-700 dark:text-gold-400 mb-4 flex items-center gap-2"
                                     >
                                         <BookOpen className="w-4 h-4" /> Mevzuat ve Kaynaklar
                                     </h2>
@@ -310,7 +312,7 @@ export default function BlogPostPage({ params }: Props) {
                                                         href={source.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-primary-600 dark:text-primary-400 hover:underline"
+                                                        className="text-primary-800 dark:text-gold-400 hover:underline"
                                                     >
                                                         {source.label}
                                                     </a>
@@ -345,7 +347,7 @@ export default function BlogPostPage({ params }: Props) {
                                 >
                                     <h2
                                         id="ilgili-sorular"
-                                        className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4"
+                                        className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-700 dark:text-gold-400 mb-4"
                                     >
                                         Bu Konudaki Sık Sorulan Sorular
                                     </h2>
@@ -354,7 +356,7 @@ export default function BlogPostPage({ params }: Props) {
                                             <li key={faq.id}>
                                                 <Link
                                                     href={`/sss#${faq.id}`}
-                                                    className="text-primary-700 dark:text-primary-400 hover:underline text-sm inline-flex items-center gap-1.5"
+                                                    className="text-primary-800 dark:text-gold-400 hover:underline text-sm inline-flex items-center gap-1.5"
                                                 >
                                                     <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                                                     {faq.question}
@@ -380,7 +382,7 @@ export default function BlogPostPage({ params }: Props) {
                                         </div>
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
+                                        <h2 className="font-serif text-xl font-medium text-slate-900 dark:text-slate-100 mb-2">
                                             Av. Emre Durmuş
                                         </h2>
                                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
@@ -390,15 +392,15 @@ export default function BlogPostPage({ params }: Props) {
                                         </p>
                                         <Link
                                             href="/hakkimizda"
-                                            className="text-primary-600 dark:text-primary-400 font-medium text-sm hover:underline"
+                                            className="text-primary-800 dark:text-gold-400 font-medium text-sm hover:underline"
                                         >
                                             Detaylı Profil →
                                         </Link>
                                     </div>
                                 </div>
 
-                                <div className="md:col-span-1 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-100 dark:border-slate-800 transition-colors duration-300">
-                                    <h2 className="font-bold text-sm text-slate-900 dark:text-slate-100 mb-4 flex items-center uppercase tracking-wider">
+                                <div className="md:col-span-1 bg-ivory-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 transition-colors duration-300">
+                                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-700 dark:text-gold-400 mb-4 flex items-center">
                                         <Share2 className="w-4 h-4 mr-2" /> Paylaş
                                     </h2>
                                     <div className="flex gap-3 mb-6">
@@ -406,7 +408,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-gold-500 hover:text-primary-900 dark:hover:text-gold-300 transition-colors"
                                             aria-label="LinkedIn'de Paylaş"
                                         >
                                             <Linkedin className="w-5 h-5" />
@@ -415,7 +417,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-gold-500 hover:text-primary-900 dark:hover:text-gold-300 transition-colors"
                                             aria-label="X'te Paylaş"
                                         >
                                             <Twitter className="w-5 h-5" />
@@ -424,7 +426,7 @@ export default function BlogPostPage({ params }: Props) {
                                             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
+                                            className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center hover:border-gold-500 hover:text-primary-900 dark:hover:text-gold-300 transition-colors"
                                             aria-label="Facebook'ta Paylaş"
                                         >
                                             <Facebook className="w-5 h-5" />
@@ -445,7 +447,7 @@ export default function BlogPostPage({ params }: Props) {
                             <section aria-labelledby="ilgili-yazilar" className="mt-16">
                                 <h2
                                     id="ilgili-yazilar"
-                                    className="text-2xl font-serif font-bold text-slate-900 dark:text-slate-100 mb-6"
+                                    className="text-2xl font-serif font-medium text-slate-900 dark:text-slate-100 mb-6 md:text-3xl"
                                 >
                                     İlgili Yazılar
                                 </h2>
@@ -454,12 +456,12 @@ export default function BlogPostPage({ params }: Props) {
                                         <Link
                                             key={item.id}
                                             href={`/blog/${item.id}`}
-                                            className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-card-hover transition-all"
+                                            className="group flex flex-col bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-500/60 hover:shadow-card-hover"
                                         >
-                                            <span className="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400">
+                                            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-700 dark:text-gold-400">
                                                 {item.category}
                                             </span>
-                                            <h3 className="mt-2 font-bold text-slate-900 dark:text-slate-100 leading-snug line-clamp-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                                            <h3 className="mt-2 flex-grow font-serif text-lg text-slate-900 dark:text-slate-100 leading-snug line-clamp-3 group-hover:text-primary-800 dark:group-hover:text-gold-300 transition-colors">
                                                 {item.title}
                                             </h3>
                                             <span className="mt-3 block text-xs text-slate-500 dark:text-slate-400">

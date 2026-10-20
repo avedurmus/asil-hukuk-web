@@ -88,7 +88,7 @@ export default function FAQClient() {
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="Soru veya anahtar kelime arayın (ör. kıdem tazminatı, tahliye, velayet)"
                     aria-label="Sıkça sorulan sorular içinde ara"
-                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 pl-12 pr-12 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 pl-12 pr-12 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-gold-500/60 focus:border-transparent transition-colors"
                 />
                 {query.length > 0 && (
                     <button
@@ -110,8 +110,8 @@ export default function FAQClient() {
                     aria-pressed={activeCategory === "all"}
                     className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
                         activeCategory === "all"
-                            ? "bg-primary-600 border-primary-600 text-white shadow-sm"
-                            : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 dark:hover:border-primary-600"
+                            ? "bg-primary-900 border-primary-900 text-white shadow-sm dark:bg-gold-500 dark:border-gold-500 dark:text-slate-950"
+                            : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-gold-500 dark:hover:border-gold-500"
                     }`}
                 >
                     Tümü <span className="opacity-80">({faqs.length})</span>
@@ -125,8 +125,8 @@ export default function FAQClient() {
                         title={category.description}
                         className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
                             activeCategory === category.id
-                                ? "bg-primary-600 border-primary-600 text-white shadow-sm"
-                                : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 dark:hover:border-primary-600"
+                                ? "bg-primary-900 border-primary-900 text-white shadow-sm dark:bg-gold-500 dark:border-gold-500 dark:text-slate-950"
+                                : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-gold-500 dark:hover:border-gold-500"
                         }`}
                     >
                         {category.label} <span className="opacity-80">({countFor(category.id)})</span>
@@ -142,7 +142,7 @@ export default function FAQClient() {
 
             {grouped.length === 0 ? (
                 <div className="text-center bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-12">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
+                    <h3 className="font-serif text-xl font-medium text-slate-900 dark:text-slate-100 mb-2">
                         Aramanıza uygun bir soru bulunamadı
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400 mb-6">
@@ -150,7 +150,7 @@ export default function FAQClient() {
                     </p>
                     <Link
                         href="/iletisim"
-                        className="inline-flex items-center justify-center px-6 py-3 rounded-md text-white bg-primary-600 hover:bg-primary-700 font-medium transition-colors"
+                        className="inline-flex items-center justify-center rounded-full bg-primary-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                     >
                         Avukata Sor
                     </Link>
@@ -162,7 +162,7 @@ export default function FAQClient() {
                             <div className="mb-4">
                                 <h2
                                     id={`kategori-${normalize(category.id).replace(/\s/g, "-")}`}
-                                    className="text-2xl font-serif font-bold text-slate-900 dark:text-slate-100"
+                                    className="font-serif text-2xl font-medium text-slate-900 dark:text-slate-100 md:text-3xl"
                                 >
                                     {category.label}
                                 </h2>
@@ -181,14 +181,16 @@ export default function FAQClient() {
                                         <div
                                             key={faq.id}
                                             id={faq.id}
-                                            className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden scroll-mt-28 transition-colors"
+                                            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden scroll-mt-28 transition-colors duration-300 hover:border-gold-500/60"
                                         >
                                             <details className="group" open={query.trim().length > 0 || linkedId === faq.id}>
-                                                <summary className="flex justify-between items-start gap-4 cursor-pointer list-none p-6 text-slate-900 dark:text-slate-100 hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
-                                                    <span className="text-lg font-semibold leading-snug">
+                                                <summary className="flex justify-between items-start gap-4 cursor-pointer list-none p-6 text-slate-900 dark:text-slate-100 hover:text-primary-800 dark:hover:text-gold-300 transition-colors">
+                                                    <span className="font-serif text-lg leading-snug sm:text-xl">
                                                         {faq.question}
                                                     </span>
-                                                    <ChevronDown className="w-5 h-5 shrink-0 mt-1 transition-transform group-open:rotate-180 text-slate-400" />
+                                                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-300 text-primary-900 transition-all duration-300 group-open:rotate-180 group-open:border-gold-500 group-open:bg-gold-500 group-open:text-white dark:border-slate-700 dark:text-slate-100">
+                                                        <ChevronDown className="h-4 w-4" />
+                                                    </span>
                                                 </summary>
                                                 <div className="px-6 pb-6 border-t border-slate-100 dark:border-slate-800/60">
                                                     {faq.shortAnswer && (
@@ -206,7 +208,7 @@ export default function FAQClient() {
                                                     {relatedTitle && faq.relatedPostId && (
                                                         <Link
                                                             href={`/blog/${faq.relatedPostId}`}
-                                                            className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
+                                                            className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-primary-800 dark:text-gold-400 hover:underline underline-offset-4"
                                                         >
                                                             Ayrıntılı yazı: {relatedTitle}
                                                             <ArrowRight className="w-4 h-4" />

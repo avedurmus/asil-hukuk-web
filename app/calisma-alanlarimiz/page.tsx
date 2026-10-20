@@ -31,7 +31,7 @@ export default function ServicesPage() {
                     <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
                     <div
                         aria-hidden="true"
-                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
+                        className="absolute inset-0 -z-10 bg-hero-glow"
                     />
                     <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
                         <span className="eyebrow justify-center !text-gold-400">Faaliyet Alanlarımız</span>

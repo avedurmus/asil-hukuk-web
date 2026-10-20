@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import FAQClient from "./FAQClient";
 import { faqCategories, faqs } from "@/data/faq";
 import { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
     title: "Sıkça Sorulan Hukuki Sorular",
@@ -41,7 +43,7 @@ export default function FAQPage() {
     return (
         <div className="min-h-screen bg-ivory-100 dark:bg-slate-950 flex flex-col transition-colors duration-300">
             <Header />
-            <main className="flex-grow pt-20">
+            <main className="flex-grow">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -51,42 +53,42 @@ export default function FAQPage() {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
                 />
 
-                {/* Hero */}
-                <div className="bg-primary-950 dark:bg-slate-900/60 text-white py-20 px-4 transition-colors duration-300">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-                            Sıkça Sorulan Sorular
-                        </h1>
-                        <p className="text-xl text-slate-300 dark:text-slate-400 max-w-2xl mx-auto">
-                            {faqs.length} soruda, {faqCategories.length} hukuk alanı. Cevaplar güncel mevzuat
-                            ve Yargıtay uygulaması esas alınarak hazırlanmıştır.
-                        </p>
-                    </div>
-                </div>
+                <PageHero
+                    eyebrow="Merak Edilenler"
+                    title="Sıkça Sorulan Sorular"
+                    description={
+                        <>
+                            {faqs.length} soruda, {faqCategories.length} hukuk alanı. Cevaplar güncel mevzuat ve
+                            Yargıtay uygulaması esas alınarak hazırlanmıştır.
+                        </>
+                    }
+                />
 
                 <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
                     <FAQClient />
 
-                    <div className="mt-16 text-center bg-white dark:bg-slate-900 rounded-3xl p-8 border border-gold-500/30 dark:border-slate-800 transition-colors duration-300">
-                        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                    <div className="mt-16 rounded-3xl border border-gold-500/30 bg-white p-8 text-center transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900 sm:p-10">
+                        <span className="eyebrow justify-center">Size özel cevap</span>
+                        <h2 className="mt-4 font-serif text-2xl font-medium text-slate-900 dark:text-slate-100 md:text-3xl">
                             Aradığınız cevabı bulamadınız mı?
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
+                        <p className="mx-auto mb-7 mt-3 max-w-xl leading-relaxed text-slate-600 dark:text-slate-400">
                             Buradaki cevaplar genel bilgilendirme amaçlıdır ve somut olayın özelliklerine göre
                             sonuç değişebilir. Durumunuz için doğrudan iletişime geçebilirsiniz.
                         </p>
-                        <div className="flex flex-wrap gap-3 justify-center">
+                        <div className="flex flex-col justify-center gap-3 sm:flex-row">
                             <Link
-                                href="/iletisim"
-                                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors shadow-lg hover:shadow-xl"
+                                href="/iletisim#randevu"
+                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary-900 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                             >
-                                Avukata Sor
+                                Avukata Sorun
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                             </Link>
                             <Link
                                 href="/blog"
-                                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-primary-500 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                                className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-900 transition-colors duration-300 hover:border-gold-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                             >
-                                Hukuk Blogunu İncele
+                                Hukuk Blogunu İnceleyin
                             </Link>
                         </div>
                     </div>

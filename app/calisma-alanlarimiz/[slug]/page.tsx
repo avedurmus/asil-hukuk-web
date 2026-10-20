@@ -96,7 +96,7 @@ export default function ServiceDetailPage({ params }: Props) {
                     <div aria-hidden="true" className="absolute inset-0 -z-10 bg-noise opacity-[0.08]" />
                     <div
                         aria-hidden="true"
-                        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgb(192_150_82/0.18),transparent_60%),radial-gradient(ellipse_50%_70%_at_0%_100%,rgb(79_111_158/0.35),transparent_60%)]"
+                        className="absolute inset-0 -z-10 bg-hero-glow"
                     />
                     <Icon
                         aria-hidden="true"

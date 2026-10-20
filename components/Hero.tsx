@@ -28,7 +28,7 @@ export default function Hero() {
                 className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_60%_at_85%_20%,rgb(26_41_66/0.07),transparent_60%)] dark:bg-[radial-gradient(ellipse_70%_60%_at_85%_20%,rgb(79_111_158/0.16),transparent_60%)]"
             />
 
-            <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
+            <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
                 {/* --- Metin --- (animasyonsuz: sayfanın en büyük öğesi, gecikmeden görünmeli) */}
                 <div className="text-center lg:col-span-8 lg:text-left">
                     <h1 className="font-serif text-[2.4rem] font-medium leading-[1.1] tracking-tight text-primary-950 dark:text-white sm:text-5xl lg:text-6xl">

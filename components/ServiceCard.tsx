@@ -12,11 +12,11 @@ export default function ServiceCard({ title, description, icon: Icon, id }: Serv
     return (
         <Link
             href={`/calisma-alanlarimiz/${id}`}
-            className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-6 transition-colors duration-300 hover:border-gold-500/70 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-gold-500/50"
+            className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-500/70 hover:shadow-card-hover dark:border-slate-800 dark:bg-slate-900 dark:hover:border-gold-500/50"
         >
             <div className="flex items-center gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ivory-100 dark:bg-slate-950">
-                    <Icon className="h-5 w-5 text-primary-800 dark:text-gold-400" strokeWidth={1.5} />
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ivory-100 transition-colors duration-300 group-hover:bg-primary-900 dark:bg-slate-950 dark:group-hover:bg-gold-500">
+                    <Icon className="h-5 w-5 text-primary-800 transition-colors duration-300 group-hover:text-gold-300 dark:text-gold-400 dark:group-hover:text-slate-950" strokeWidth={1.5} />
                 </span>
                 <h3 className="font-serif text-xl font-medium leading-snug text-slate-900 dark:text-slate-100">{title}</h3>
             </div>

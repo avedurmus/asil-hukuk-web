@@ -11,7 +11,7 @@ import OpenChatButton from "@/components/OpenChatButton";
 import { OFFICE_MAP_URL, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "İletişim ve Randevu - Kartal Hukuk Bürosu",
+    title: "Kartal Avukat Randevu ve İletişim - Hukuk Bürosu",
     description: "Kartal'da avukat randevusu için Asil Hukuk: Yalı Mah. Topselvi Cad. No:100 Mai Residence, Kartal/İstanbul. Telefon 0530 432 20 25, hafta içi 09:00-18:00.",
     path: "/iletisim",
 });

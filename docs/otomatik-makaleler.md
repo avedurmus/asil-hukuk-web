@@ -65,6 +65,23 @@ alacak tahsili).
   önemli bir karar ya da kanun değişikliği varsa farklı açıdan yazabilirsin.
 - Yeni kanun değişiklikleri, Yargıtay Hukuk/Ceza Genel Kurulu ve İçtihadı
   Birleştirme kararları, Anayasa Mahkemesi kararları önceliklidir.
+- Tıklanma için arama talebi yüksek soru kalıplarını öncele; başlık ve
+  `seoTitle` bu kalıplardan biriyle başlasın:
+  - Aile: boşanma davası ne kadar sürer, anlaşmalı boşanma protokolü,
+    nafaka ne kadar / ne zaman biter, velayet kime verilir, mal paylaşımı.
+  - İş: kıdem tazminatı kimlere ödenir / nasıl hesaplanır, ihbar süresi,
+    işe iade, istifa edince tazminat, fazla mesai, yıllık izin ücreti.
+  - Gayrimenkul: kira artış oranı, kiracı nasıl çıkarılır, tahliye
+    taahhütnamesi, ev sahibi ihtiyaç nedeniyle tahliye, tapu iptali,
+    hisseli tapu satışı, miras kalan evin paylaşımı, aidat.
+  - Ceza: ifadeye çağrıldım ne yapmalıyım, HAGB, şikâyetten vazgeçme,
+    hakaret, tehdit, dolandırıcılık, adli sicil kaydı silinir mi.
+  - Ticaret: icra takibine itiraz, senet / çek zamanaşımı, alacak tahsili.
+  - Arabuluculuk: arabuluculuk zorunlu mu, ücreti kim öder, anlaşma
+    olmazsa ne olur.
+  Rakam ve yıl içeren güncel konularda (tavan, oran, süre) başlığa yılı
+  ekle ("Kıdem Tazminatı Tavanı 2026"). Süperlatif ve sonuç vaadi ("en iyi",
+  "kesin kazanırsınız") kullanma; avukatlık reklam yasağına aykırıdır.
 
 ### 3. Araştırma (YargıMCP)
 

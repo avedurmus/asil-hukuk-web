@@ -143,6 +143,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "tasinmaz-hukukunda-son-gelismeler-kira-hukuku",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Kira Hukuku",
+        seoTitle: "Kira Artış Oranı (TÜFE) ve Tahliyede Son Durum",
         excerpt: "TÜFE sınırı, sona eren %25 tavanı, kira uyuşmazlıklarında zorunlu arabuluculuk, kısa süreli turizm kiralamaları ve Yargıtay'ın tahliye davalarındaki güncel ilkeleri.",
         seoDescription: "TÜFE sınırı, sona eren %25 tavanı, kirada zorunlu arabuluculuk, kısa süreli turizm kiralamaları ve Yargıtay'ın tahliye davalarındaki güncel ilkeleri.",
         date: "26 Eylül 2026",
@@ -243,6 +244,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "tasinmaz-hukukunda-son-gelismeler-kat-mulkiyeti",
         title: "Taşınmaz Hukukunda Son Gelişmeler: Kat Mülkiyeti",
+        seoTitle: "Aidat ve Kat Mülkiyetinde Yeni Dönem (7579 s. K.)",
         excerpt: "7579 sayılı Kanun'la aidat ve işletme projesinde yeni dönem, toplu yapılarda yönetim planı değişikliği, cam balkon ve ortak yerler, kat malikleri kurulu kararlarının iptali.",
         seoDescription: "7579 sayılı Kanun'la aidat ve işletme projesinde yeni dönem, yönetim planı değişikliği, cam balkon, ortak yerler ve kat malikleri kurulu kararlarının iptali.",
         date: "26 Eylül 2026",
@@ -506,6 +508,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "ise-iade-davasi-sartlari",
         title: "İşe İade Davası Şartları ve Süreci",
+        seoTitle: "İşe İade Davası: Şartlar, Süre ve Arabuluculuk",
         excerpt: "Haksız yere işten çıkarılan işçilerin hakları nelerdir? İşe iade davası açma süresi ve arabuluculuk şartı.",
         seoDescription: "Haksız yere işten çıkarılan işçinin hakları nelerdir? İşe iade davasının şartları, zorunlu arabuluculuk, bir aylık başvuru süresi ve sonuçları.",
         date: "20 Aralık 2024",
@@ -534,6 +537,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "bosanma-surecinde-mal-kacirma",
         title: "Boşanma Sürecinde Mal Kaçırma ve Hukuki Çareler",
+        seoTitle: "Boşanmada Mal Kaçırma: Tedbirler ve Haklarınız",
         excerpt: "Boşanma sürecinde mal kaçırma, Edinilmiş Mallara Katılma Rejimi kapsamında en sık karşılaşılan sorunlardan biridir. Hukuki zemin, önleyici tedbirler ve alacak haklarını inceliyoruz.",
         seoDescription: "Boşanma sürecinde mal kaçırma, edinilmiş mallara katılma rejiminde en sık görülen sorunlardan biridir. Hukuki zemin, tedbirler ve alacak hakları.",
         date: "7 Ocak 2026",
@@ -726,6 +730,7 @@ export const blogPosts: BlogPost[] = [
     {
         id: "sirketlerde-alacak-tahsili-ve-icra-takibi",
         title: "Şirketlerde Alacak Tahsili ve İcra Takibi Rehberi",
+        seoTitle: "Ticari Alacak Tahsili: İhtiyati Haciz ve İcra Takibi",
         excerpt: "Şirketlerin fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz kararı, ticari arabuluculuk ve icra takibi süreçleri hakkında şirket yöneticileri için yasal rehber.",
         seoDescription: "Fatura ve cari hesap alacaklarının tahsili, ihtiyati haciz, ticari arabuluculuk ve icra takibi süreçleri: şirket yöneticileri için hukuki rehber.",
         date: "13 Haziran 2026",

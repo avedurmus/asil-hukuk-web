@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Sıkça Sorulan Hukuki Sorular",
+    title: "Hukuki Sorular: Boşanma, Kira, İş, Miras, İcra",
     description:
         "Boşanma, iş, ceza, kira, kentsel dönüşüm, miras ve icra hukuku hakkında en çok sorulan sorular ve avukatımızın güncel mevzuata dayalı cevapları.",
     path: "/sss",

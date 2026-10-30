@@ -8,8 +8,8 @@ import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Çalışma Alanlarımız - Kartal Avukat",
-    description: "Kartal'da boşanma ve aile, ceza, gayrimenkul ve kira, iş ve sosyal güvenlik, ticaret ve şirketler hukuku ile arabuluculuk alanlarında avukatlık hizmetleri.",
+    title: "Kartal Avukat: Boşanma, Ceza, İş, Kira ve Ticaret",
+    description: "Kartal'da boşanma ve aile, ceza, kira ve gayrimenkul, iş ve işçi alacakları, ticaret ve icra hukuku ile arabuluculuk alanlarında avukatlık ve dava takibi.",
     path: "/calisma-alanlarimiz",
 });
 

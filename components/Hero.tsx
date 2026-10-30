@@ -18,6 +18,7 @@ const quickTopics = [
     { label: "Miras paylaşımı", href: "/calisma-alanlarimiz/miras-hukuku" },
     { label: "İfadeye çağrıldım", href: "/calisma-alanlarimiz/ceza-hukuku" },
     { label: "Şirketim için destek", href: "/calisma-alanlarimiz/ticaret-ve-sirketler-hukuku" },
+    { label: "Maaşıma haciz geldi", href: "/calisma-alanlarimiz/icra-hukuku" },
     { label: "Arabulucu arıyorum", href: "/calisma-alanlarimiz/arabuluculuk" },
 ];
 

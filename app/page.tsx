@@ -122,7 +122,7 @@ export default function Home() {
                         </div>
 
                         <p className="mt-10 text-center text-slate-600 dark:text-slate-400">
-                            Konunuz listede yok mu? İcra, tüketici ve diğer konular için de{" "}
+                            Konunuz listede yok mu? Tüketici ve diğer konular için de{" "}
                             <Link
                                 href="/iletisim#randevu"
                                 className="font-semibold text-primary-900 underline decoration-gold-500/60 underline-offset-4 hover:text-gold-700 dark:text-slate-100 dark:hover:text-gold-400"

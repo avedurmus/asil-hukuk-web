@@ -37,6 +37,12 @@ export const siteContent = {
             icon: Building
         },
         {
+            id: "icra-hukuku",
+            title: "İcra Hukuku",
+            description: "Ödeme emrine itiraz, maaş, emekli maaşı veya evin haczi, borcu olmayan takibe karşı dava ve alacak tahsili. Borçlu ya da alacaklı olarak yanınızdayız.",
+            icon: Gavel
+        },
+        {
             id: "gayrimenkul-hukuku",
             title: "Gayrimenkul Hukuku",
             description: "Kiracı çıkarma, kira artışı, tapu ve ortak mülk sorunları. Ev sahibi ya da kiracı olarak haklarınızı koruruz.",

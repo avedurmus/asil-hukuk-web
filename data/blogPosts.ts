@@ -71,6 +71,7 @@ export const blogCategories = [
     "Gayrimenkul Hukuku",
     "Miras Hukuku",
     "Ticaret Hukuku",
+    "İcra Hukuku",
     "Anayasa Hukuku",
     "Arabuluculuk",
     "Genel",

@@ -125,8 +125,8 @@ export const services: Service[] = [
         id: "ticaret-ve-sirketler-hukuku",
         title: "Ticaret ve Şirketler Hukuku",
         shortDescription: "Şirket kurarken, sözleşme imzalarken ya da alacağınızı tahsil edemediğinizde işletmenizi hukuki risklere karşı koruruz.",
-        seoTitle: "Kartal Ticaret Avukatı: Şirket, Alacak ve İcra",
-        seoDescription: "Kartal ticaret avukatı: şirket kuruluşu, genel kurul, ticari sözleşmeler, çek-senet, alacak tahsili ve icra takibi, konkordato. Randevu: 0530 432 20 25",
+        seoTitle: "Kartal Ticaret Avukatı: Şirket, Sözleşme ve Alacak",
+        seoDescription: "Kartal ticaret avukatı: şirket kuruluşu, genel kurul, ticari sözleşmeler, çek-senet, alacak tahsili, haksız rekabet ve konkordato. Randevu: 0530 432 20 25",
         blogCategories: ["Ticaret Hukuku"],
         faqCategories: ["İcra ve Ticaret Hukuku"],
         icon: Building,
@@ -161,6 +161,113 @@ export const services: Service[] = [
                 {
                     heading: "Haksız rekabet, konkordato ve iflas",
                     body: "Ticari itibarın zedelenmesi, müşteri ayartma veya ticari sırların ifşası gibi haksız rekabet hâllerinde tespit, men ve tazminat davaları açılabilir. Mali sıkıntıya düşen şirketler için konkordato, borçları yeniden yapılandırarak faaliyete devam etme imkânı sunar; alacaklı şirketlerin ise bu süreçte haklarını zamanında ileri sürmesi gerekir. Kartal ve çevresindeki ticari davalar İstanbul Anadolu Asliye Ticaret Mahkemelerinde görülür.",
+                },
+            ],
+        }
+    },
+    {
+        id: "icra-hukuku",
+        title: "İcra Hukuku",
+        shortDescription: "Ödeme emri mi geldi, maaşınıza ya da evinize haciz mi konuldu, alacağınızı mı tahsil edemiyorsunuz? Borçlu veya alacaklı olarak icra sürecinde yanınızdayız.",
+        seoTitle: "Kartal İcra Avukatı: Takip, İtiraz ve Haciz",
+        seoDescription: "Kartal icra avukatı: icra takibi, ödeme emrine itiraz, maaş ve emekli maaşı haczi, evin haczi (meskeniyet) ve menfi tespit davası. Randevu: 0530 432 20 25",
+        blogCategories: ["İcra Hukuku"],
+        faqCategories: [],
+        faqIds: ["icra-takibine-itiraz", "itirazin-iptali-davasi", "ihtiyati-haciz"],
+        icon: Gavel,
+        detailContent: {
+            intro: "İcra takibinde süreler çoğu zaman yedi gün, hatta beş gün gibi çok kısadır ve bu süreler kaçırıldığında borçlu borcu olmasa bile ödemek zorunda kalabilir; alacaklı ise yanlış yola başvurduğunda aylarca zaman kaybeder. Asil Hukuk olarak hem alacaklılar hem borçlular adına icra takibini, itiraz ve şikâyet süreçlerini, haciz ve satış işlemlerini ve bunlara bağlı davaları takip ediyoruz.",
+            features: [
+                "İlamlı ve İlamsız İcra Takibi Başlatılması",
+                "Ödeme Emrine İtiraz ve Kambiyo Senetlerinde İmzaya İtiraz",
+                "İtirazın İptali ve İtirazın Kaldırılması",
+                "Maaş, Emekli Maaşı ve Evin Haczine Karşı Şikâyet",
+                "Menfi Tespit ve İstirdat Davaları",
+                "İhtiyati Haciz ve İcra Mahkemesine Şikâyet"
+            ],
+            process: "Önce icra dosyasını UYAP üzerinden inceleyip ödeme emrinin ve diğer işlemlerin tebliğ tarihlerini, işlemeye başlamış süreleri ve konulan hacizleri çıkarıyoruz. Borçlu tarafta itiraz, şikâyet ve dava yollarından hangisinin uygun olduğunu; alacaklı tarafta ise takibin türünü, haciz stratejisini ve itiraz hâlinde izlenecek yolu belirliyoruz. Mümkünse ödeme planı veya uzlaşma seçeneklerini de değerlendiriyoruz.",
+            guide: [
+                {
+                    heading: "Ödeme emri geldi, ne yapmalıyım?",
+                    body: "Genel haciz yoluyla ilamsız takipte borçlu, ödeme emrinin tebliğinden itibaren yedi gün içinde icra dairesine dilekçeyle veya sözlü olarak itiraz edebilir (İİK m. 62); süresinde yapılan itiraz takibi durdurur. Çek, senet gibi kambiyo senetlerine dayalı takiplerde ise süre beş gündür ve borca veya imzaya itiraz icra mahkemesine yapılır (İİK m. 168). İtiraz edilmeyen takip kesinleşir ve alacaklı haciz isteyebilir. Ödeme emrinde borcun kalemlerini, faiz oranını ve dayanak belgeyi mutlaka kontrol edin; borcun bir kısmına itiraz etmek de mümkündür.",
+                },
+                {
+                    heading: "Borçlu itiraz etti, alacaklı ne yapabilir?",
+                    body: "İtirazla duran takibe devam etmek isteyen alacaklı, itirazın tebliğinden itibaren bir yıl içinde genel mahkemede itirazın iptali davası açabilir (İİK m. 67). Bu davada borçlunun itirazı haksız bulunursa, talep üzerine hükmolunan miktarın yüzde yirmisinden az olmamak üzere icra inkâr tazminatına hükmedilir. Alacak resmî veya borçlunun imzasını ikrar ettiği bir belgeye dayanıyorsa, itirazın tebliğinden itibaren altı ay içinde icra mahkemesinden itirazın kaldırılması da istenebilir (İİK m. 68).",
+                },
+                {
+                    heading: "Maaşa ne kadar haciz konulabilir?",
+                    body: "Maaş ve ücretler, borçlu ve ailesinin geçimi için gerekli miktar düşüldükten sonra haczedilebilir; ancak haczedilecek miktar dörtte birden az olamaz (İİK m. 83). İşçilerin aylık ücretlerinin ise dörtte birinden fazlası haczedilemez; nafaka alacakları bu sınırın dışındadır (İş Kanunu m. 35). Birden fazla haciz varsa sıraya konur ve öndeki haczin kesintisi bitmeden sonrakine geçilmez. Maaşın haczedilebileceğine dair önceden, örneğin kredi sözleşmesinde yapılan anlaşmalar geçersizdir (İİK m. 83/a).",
+                },
+                {
+                    heading: "Emekli maaşına haciz konulabilir mi?",
+                    body: "SGK'dan alınan emekli aylıkları kural olarak haczedilemez; nafaka borçları ile SGK'nın prim ve benzeri alacakları bu yasağın dışındadır. Bunun dışındaki alacaklar için haciz talebi, borçlunun muvafakati yoksa icra müdürünce reddedilir (5510 sayılı Kanun m. 93). Yargıtay 12. Hukuk Dairesi'nin 27.02.2024 tarihli, 2023/4990 E., 2024/1857 K. sayılı kararına göre muvafakatin geçerli olması için takibin kesinleşmiş olması gerekir; borcun kabul edildiği dilekçede aynı anda verilen muvafakat takibin kesinleşmesinden sonra verilmiş sayılmaz ve geçersizdir.",
+                },
+                {
+                    heading: "Evime haciz geldi: haline münasip ev şikâyeti",
+                    body: "Borçlunun haline münasip evi haczedilemez (İİK m. 82/1-12); ancak borç bu evin bedelinden doğmuşsa bu koruma uygulanmaz. Ev borçlunun ihtiyacından değerliyse satılır ve satış bedelinden haline münasip bir ev alabileceği miktar borçluya bırakılır. Yargıtay 12. Hukuk Dairesi'nin 10.10.2024 tarihli, 2024/2893 E., 2024/8391 K. sayılı kararına göre hem hacizli evin hem de haline münasip evin değeri haciz tarihine göre belirlenir ve borçlunun aynı semtte oturma zorunluluğu yoktur. Bu şikâyet, haczin öğrenilmesinden itibaren yedi gün içinde yapılmalıdır (Yargıtay 12. HD, 02.05.2024, 2023/7042 E., 2024/4280 K.).",
+                },
+                {
+                    heading: "Borcum yok ama hakkımda takip başlatıldı",
+                    body: "Borçlu, takipten önce veya takip sırasında borçlu olmadığının tespiti için menfi tespit davası açabilir (İİK m. 72). Takipten önce açılan davada alacağın en az yüzde on beşi oranında teminatla takibin durdurulması istenebilir; takipten sonra ise yalnızca icra veznesindeki paranın alacaklıya ödenmemesi sağlanabilir. Yargıtay 1. Hukuk Dairesi'nin 25.11.2024 tarihli, 2023/5725 E., 2024/6322 K. sayılı kararında belirtildiği gibi bu davada alacağın varlığını ispat yükü takip alacaklısındadır. Takip haksız ve kötüniyetliyse borçlu lehine alacağın yüzde yirmisinden az olmamak üzere tazminata hükmedilir. Borç ödenmişse, ödemeden itibaren bir yıl içinde istirdat davası açılabilir.",
+                },
+                {
+                    heading: "İcra dairesinin işlemine şikâyet: yedi gün",
+                    body: "İcra dairesinin kanuna veya olaya aykırı işlemlerine karşı, işlemin öğrenildiği tarihten itibaren yedi gün içinde icra mahkemesine şikâyet edilebilir; bir hakkın yerine getirilmemesi veya sebepsiz sürüncemede bırakılması ise her zaman şikâyet konusu yapılabilir (İİK m. 16). Ödeme emrinin usulsüz tebliği de bu yolla ileri sürülür. Yargıtay 12. Hukuk Dairesi'nin 04.05.2026 tarihli, 2026/355 E., 2026/3015 K. sayılı kararına göre, borçlu takipten daha önce haberdar olmuş olsa bile, henüz yapılmamış bir tebligata ilişkin şikâyet süresi işlemeye başlamaz.",
+                },
+                {
+                    heading: "Kartal'da icra işlemleri nerede yürütülür?",
+                    body: "Kartal, Pendik ve Maltepe'de oturan borçlular hakkındaki takipler genellikle İstanbul Anadolu icra dairelerinde yürütülür. İcra dairesi işlemlerine şikâyetler, kambiyo takiplerindeki itirazlar ve itirazın kaldırılması talepleri İstanbul Anadolu Adliyesi'ndeki icra hukuk mahkemelerinde; itirazın iptali ve menfi tespit davaları ise genel mahkemelerde görülür. Takip dosyaları UYAP üzerinden elektronik ortamda izlenebildiğinden, tebligat ve haciz işlemlerinin düzenli olarak kontrol edilmesi süre kaybını önler.",
+                },
+            ],
+            decisions: [
+                {
+                    court: "Yargıtay 12. Hukuk Dairesi",
+                    esas: "2023/4990",
+                    karar: "2024/1857",
+                    date: "27.02.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1019776000",
+                    principle: "Emekli maaşının haczine muvafakatin geçerli olması için takibin kesinleşmiş olması gerekir; borç kabulüyle aynı dilekçede verilen muvafakat geçersizdir.",
+                },
+                {
+                    court: "Yargıtay 12. Hukuk Dairesi",
+                    esas: "2024/2893",
+                    karar: "2024/8391",
+                    date: "10.10.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1094128200",
+                    principle: "Meskeniyet şikâyetinde hacizli taşınmazın ve haline münasip evin değeri haciz tarihine göre belirlenir; borçlunun aynı semtte oturma zorunluluğu yoktur.",
+                },
+                {
+                    court: "Yargıtay 12. Hukuk Dairesi",
+                    esas: "2023/7042",
+                    karar: "2024/4280",
+                    date: "02.05.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1063930000",
+                    principle: "Meskeniyet şikâyeti haczin öğrenilmesinden itibaren yedi gün içinde yapılmalıdır; sonradan gönderilen 103 davetiyesi yeni bir şikâyet hakkı doğurmaz.",
+                },
+                {
+                    court: "Yargıtay 1. Hukuk Dairesi",
+                    esas: "2023/5725",
+                    karar: "2024/6322",
+                    date: "25.11.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1114682200",
+                    principle: "Menfi tespit davasında alacağın varlığını ispat yükü takip alacaklısındadır; kötüniyet tazminatı için takibin haksız olması yetmez, kötüniyetli olduğu da ispatlanmalıdır.",
+                },
+                {
+                    court: "Yargıtay 11. Hukuk Dairesi",
+                    esas: "2024/4787",
+                    karar: "2025/4320",
+                    date: "19.06.2025",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1164674700",
+                    principle: "Taraf olmadığı sözleşmeye dayanılarak, alacaklı olmadığını bilen kişi tarafından başlatılan takipte alacaklı kötüniyetli sayılır ve kötüniyet tazminatına hükmedilir.",
+                },
+                {
+                    court: "Yargıtay 12. Hukuk Dairesi",
+                    esas: "2026/355",
+                    karar: "2026/3015",
+                    date: "04.05.2026",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1229319300",
+                    principle: "Usulsüz tebligat şikâyetinde yedi günlük süre öğrenmeyle başlar; ancak henüz yapılmamış bir tebligat için şikâyet süresi işlemeye başlamaz.",
                 },
             ],
         }

@@ -49,13 +49,15 @@ Haftanın gününe göre iki farklı alandan birer konu seç:
 | Perşembe | İş Hukuku | Ceza Hukuku |
 | Cuma | Gayrimenkul Hukuku | Arabuluculuk |
 | Cumartesi | Ticaret Hukuku | Miras Hukuku |
-| Pazar | Aile Hukuku | Gayrimenkul Hukuku |
+| Pazar | Aile Hukuku | İcra Hukuku |
 
 Alanların kapsamı `data/services.ts` içindeki hizmet açıklamalarıdır (ör.
 Gayrimenkul: kira, tahliye, tapu iptal-tescil, kat mülkiyeti, kentsel
 dönüşüm, ortaklığın giderilmesi; Miras: mirasçılık belgesi, mirasın reddi,
 muris muvazaası, saklı pay ve tenkis, vasiyetname, miras paylaşımı; Ticaret:
-şirketler, icra takibi, çek-senet, alacak tahsili).
+şirketler, ticari sözleşmeler, çek-senet, alacak tahsili; İcra: ödeme emrine
+itiraz, itirazın iptali, maaş ve emekli maaşı haczi, meskeniyet, menfi tespit,
+ihtiyati haciz, ihalenin feshi).
 
 - Müvekkil adaylarının gerçekten aradığı, somut bir soruya cevap veren dar bir
   konu seç ("Kira artışında yüzde 25 sınırı bitti mi?" gibi). Genel
@@ -80,7 +82,9 @@ muris muvazaası, saklı pay ve tenkis, vasiyetname, miras paylaşımı; Ticaret
   - Miras: mirası reddetme süresi, veraset ilamı nasıl alınır, miras
     paylaşımı nasıl yapılır, babadan kalan ev, mirastan mal kaçırma,
     vasiyetname iptali, eşin miras payı.
-  - Ticaret: icra takibine itiraz, senet / çek zamanaşımı, alacak tahsili.
+  - Ticaret: senet / çek zamanaşımı, alacak tahsili, şirketten ayrılma.
+  - İcra: ödeme emrine itiraz, maaş haczi ne kadar, emekli maaşına haciz,
+    evime haciz geldi, borcum yok ama icra geldi, icra dosyası sorgulama.
   - Arabuluculuk: arabuluculuk zorunlu mu, ücreti kim öder, anlaşma
     olmazsa ne olur.
   Rakam ve yıl içeren güncel konularda (tavan, oran, süre) başlığa yılı
@@ -179,8 +183,8 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
     zorunludur. Sorunun cevabını vaat eden, aranan ifadeyi içeren tek-iki
     cümle olsun. İkisinde de reklam niteliğinde ifade kullanma.
 - `category`: `Aile Hukuku`, `İş Hukuku`, `Ceza Hukuku`, `Gayrimenkul Hukuku`,
-  `Miras Hukuku`, `Ticaret Hukuku`, `Arabuluculuk` (gerekirse `Anayasa Hukuku`,
-  `Genel`).
+  `Miras Hukuku`, `Ticaret Hukuku`, `İcra Hukuku`, `Arabuluculuk` (gerekirse
+  `Anayasa Hukuku`, `Genel`).
 - `kind`: yazı ağırlıkla kararların incelemesiyse `"ictihat"` (en az 2 karar
   gerekir), değilse `"makale"`.
 - `date`, `readTime`, `daily` yazma; otomatik hesaplanır. `imageUrl` koyma;

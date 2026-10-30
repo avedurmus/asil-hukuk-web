@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { services } from "@/data/services";
 import { getAllPosts } from "@/lib/posts";
 import { faqs } from "@/data/faq";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock, MessageCircle, Phone, CalendarCheck, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Clock, ExternalLink, MessageCircle, Phone, CalendarCheck, Plus, Scale } from "lucide-react";
 import Image from "next/image";
 import ContactCTA from "@/components/ContactCTA";
 import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
@@ -189,6 +189,46 @@ export default function ServiceDetailPage({ params }: Props) {
                                     </Link>
                                 )}
                             </div>
+                        )}
+
+                        {service.detailContent.decisions && service.detailContent.decisions.length > 0 && (
+                            <section
+                                aria-labelledby="emsal-kararlar"
+                                className="mt-16 rounded-3xl border border-slate-200/80 bg-white p-8 dark:border-slate-800 dark:bg-slate-900"
+                            >
+                                <h2
+                                    id="emsal-kararlar"
+                                    className="flex items-center gap-3 font-serif text-2xl text-slate-900 dark:text-slate-100 md:text-3xl"
+                                >
+                                    <Scale className="h-6 w-6 text-gold-600" strokeWidth={1.5} />
+                                    Yargıtay kararlarından ilkeler
+                                </h2>
+                                <ul className="mt-6 space-y-5">
+                                    {service.detailContent.decisions.map((decision) => (
+                                        <li key={`${decision.esas}-${decision.karar}`} className="border-l-2 border-gold-500 pl-4">
+                                            <p className="font-semibold text-slate-900 dark:text-slate-100">{decision.court}</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                {[decision.esas && `E. ${decision.esas}`, decision.karar && `K. ${decision.karar}`, decision.date]
+                                                    .filter(Boolean)
+                                                    .join(" · ")}
+                                            </p>
+                                            {decision.principle && (
+                                                <p className="mt-1.5 leading-relaxed text-slate-700 dark:text-slate-300">{decision.principle}</p>
+                                            )}
+                                            {decision.url && (
+                                                <a
+                                                    href={decision.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary-800 hover:underline dark:text-gold-400"
+                                                >
+                                                    Karar metni <ExternalLink className="h-3 w-3" />
+                                                </a>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
                         )}
 
                         {relatedFaqs.length > 0 && (

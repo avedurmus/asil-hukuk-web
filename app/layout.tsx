@@ -20,13 +20,13 @@ export const metadata: Metadata = {
         default: "Kartal Avukat | Boşanma, Ceza, İş, Kira Davası - Asil Hukuk",
         template: "%s | Asil Hukuk"
     },
-    description: "Kartal avukat Av. Emre Durmuş: 2004'ten bu yana boşanma, ceza, kira ve tahliye, iş ve ticaret davaları. Anadolu Adliyesi'ne yakın büro. Tel: 0530 432 20 25",
+    description: "Kartal avukat Av. Emre Durmuş: 2004'ten beri boşanma, ceza, kira-tahliye, miras, iş ve ticaret davaları. Anadolu Adliyesi'ne yakın büro. Tel: 0530 432 20 25",
     // Arama talebi en yüksek ifadeler: "<ilçe> + <alan> avukatı" kalıbı ve
     // adliyeye yakın avukat arayanların kullandığı "Kartal/Anadolu Adliyesi".
     keywords: [
         'Kartal Avukat', 'Kartal Hukuk Bürosu', 'Kartal Boşanma Avukatı', 'Kartal Ceza Avukatı',
         'Kartal İş Avukatı', 'Kartal Kira Avukatı', 'Kartal Gayrimenkul Avukatı', 'Kartal İcra Avukatı',
-        'Kartal Arabulucu', 'Anadolu Adliyesi Avukat', 'Kartal Adliyesi Avukat',
+        'Kartal Arabulucu', 'Kartal Miras Avukatı', 'Anadolu Adliyesi Avukat', 'Kartal Adliyesi Avukat',
         'Pendik Avukat', 'Pendik Boşanma Avukatı', 'Maltepe Avukat', 'Maltepe Boşanma Avukatı',
         'Soğanlık Avukat', 'Yakacık Avukat', 'Cevizli Avukat', 'İstanbul Anadolu Yakası Avukat',
         'işe iade avukatı', 'tahliye davası avukatı', 'Emre Durmuş', 'Asil Hukuk'
@@ -86,7 +86,7 @@ const jsonLd = {
     'alternateName': 'Asil Hukuk ve Danışmanlık Bürosu',
     'image': 'https://asilhukuk.net/logo.png',
     'logo': 'https://asilhukuk.net/logo.png',
-    'description': 'İstanbul Kartal\'da boşanma ve aile, ceza, gayrimenkul, iş ve ticaret hukuku ile arabuluculuk alanlarında avukatlık hizmeti.',
+    'description': 'İstanbul Kartal\'da boşanma ve aile, ceza, gayrimenkul, miras, iş ve ticaret hukuku ile arabuluculuk alanlarında avukatlık hizmeti.',
     'url': SITE_URL,
     'telephone': '+90 530 432 20 25',
     'email': 'emre@asilhukuk.net',

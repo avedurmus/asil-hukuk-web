@@ -1,4 +1,5 @@
-import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe, Briefcase } from "lucide-react";
+import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe, Briefcase, ScrollText } from "lucide-react";
+import type { DecisionRef } from "./blogPosts";
 import type { FAQCategoryId } from "./faq";
 
 export interface Service {
@@ -22,6 +23,8 @@ export interface Service {
         process: string;
         /** Hizmet sayfasında ayrıntılı rehber olarak gösterilen başlıklı bölümler. */
         guide?: { heading: string; body: string }[];
+        /** Rehberde dayanılan, tam metni okunmuş Yargıtay kararları. */
+        decisions?: DecisionRef[];
     };
 }
 
@@ -206,6 +209,112 @@ export const services: Service[] = [
                 {
                     heading: "Kat karşılığı inşaat ve kentsel dönüşüm",
                     body: "Kartal ve çevresinde yoğun olarak yaşanan kentsel dönüşüm sürecinde, kat karşılığı inşaat sözleşmesinin kurulması, müteahhidin temerrüdü, eksik veya ayıplı iş ve bağımsız bölümlerin devri en sık karşılaşılan uyuşmazlıklardır. Sözleşme imzalanmadan önce yapılacak hukuki inceleme, ileride doğabilecek uzun ve masraflı davaların önüne geçer. Ayrıntılar için Kentsel Dönüşüm Rehberimize göz atabilirsiniz.",
+                },
+            ],
+        }
+    },
+    {
+        id: "miras-hukuku",
+        title: "Miras Hukuku",
+        shortDescription: "Veraset ilamı, mirasın reddi, miras paylaşımı, vasiyetname ve mirastan mal kaçırma davaları. Mirasçı olarak haklarınızı anlatır, süreci baştan sona takip ederiz.",
+        seoTitle: "Kartal Miras Avukatı: Miras Paylaşımı ve Davaları",
+        seoDescription: "Kartal miras avukatı: veraset ilamı, mirasın reddi, miras paylaşımı, tenkis, muris muvazaası ve vasiyetname iptali davaları. Randevu: 0530 432 20 25",
+        blogCategories: ["Miras Hukuku"],
+        faqCategories: ["Miras Hukuku"],
+        icon: ScrollText,
+        detailContent: {
+            intro: "Bir yakının ölümünün ardından mirasçılar, çoğu zaman yas sürecindeyken kısa sürelere bağlı önemli kararlar vermek zorunda kalır: Miras kabul mü edilecek, reddedilecek mi? Mallar nasıl paylaşılacak? Mirasbırakan sağlığında bir mirasçıya mal kaçırdıysa ne yapılabilir? Asil Hukuk olarak miras uyuşmazlıklarında hem mirasçıların haklarını koruyor hem de aile içi ilişkileri gözeterek mümkün olduğunca anlaşmayla çözüm arıyoruz.",
+            features: [
+                "Mirasçılık Belgesi (Veraset İlamı) ve İptali",
+                "Mirasın Reddi ve Borca Batık Terekede Hükmen Ret",
+                "Muris Muvazaası (Mirastan Mal Kaçırma) Davaları",
+                "Saklı Pay ve Tenkis Davaları",
+                "Vasiyetnamenin Hazırlanması ve İptali",
+                "Miras Paylaşımı ve Ortaklığın Giderilmesi"
+            ],
+            process: "İlk görüşmede mirasbırakanın ölüm tarihini, mirasçıları ve terekeyi (tapu, banka, araç ve borç kayıtları) birlikte çıkarıyoruz. Miras hukukunda bazı süreler üç ay gibi çok kısa olduğundan, işlemeye başlamış hak düşürücü süreleri baştan belirliyoruz. Ardından uyuşmazlığın paylaşım sözleşmesi veya arabuluculukla çözülüp çözülemeyeceğini değerlendiriyor, gerekirse dava sürecini sonuna kadar takip ediyoruz.",
+            guide: [
+                {
+                    heading: "Kimler mirasçı olur, paylar nasıl belirlenir?",
+                    body: "Yasal mirasçılar mirasbırakanın altsoyu (çocukları, onlar ölmüşse torunları), ana-babası ve onların altsoyu, büyükanne ve büyükbabaları ile sağ kalan eşidir. Eşin payı, birlikte mirasçı olduğu zümreye göre değişir: Çocuklarla birlikte mirasın dörtte biri, ana-baba zümresiyle birlikte yarısı, büyükanne-büyükbaba zümresiyle birlikte dörtte üçü eşe kalır; bunlar da yoksa mirasın tamamı eşindir (TMK m. 499). Mirasçılık ve paylar, mirasbırakanın ölüm tarihinde yürürlükte olan kanuna göre belirlenir.",
+                },
+                {
+                    heading: "Veraset ilamı (mirasçılık belgesi) nasıl alınır?",
+                    body: "Mirasçılık belgesi noterden veya sulh hukuk mahkemesinden alınabilir (TMK m. 598). Nüfus kayıtlarında sorun yoksa noter yolu çok daha hızlıdır. Belgede bir mirasçı eksik gösterilmiş ya da paylar yanlış yazılmışsa, belgenin geçersizliği her zaman ileri sürülebilir. Yargıtay 7. Hukuk Dairesi'nin 18.05.2023 tarihli, 2022/1702 E., 2023/2672 K. sayılı kararında belirtildiği gibi mirasçılık belgesi çekişmesiz yargı kararıdır, kesin hüküm oluşturmaz ve açılacak iptal davasıyla değiştirilebilir; yeni belgede mahkeme tüm mirasçıları ve paylarını eksiksiz göstermek zorundadır.",
+                },
+                {
+                    heading: "Mirası reddetmek: üç aylık süre ve hükmen ret",
+                    body: "Miras, ölümü ve mirasçı olduğunuzu öğrendiğiniz tarihten başlayarak üç ay içinde, mirasın açıldığı yerin sulh hukuk mahkemesine yapılacak kayıtsız şartsız bir beyanla reddedilebilir (TMK m. 606, 609). Bu süre içinde terekeyi olağan yönetimin dışında kullanan, mal gizleyen veya kendine mal eden mirasçı artık mirası reddedemez (TMK m. 610). Süre kaçırılmış olsa bile, mirasbırakanın ölüm tarihinde ödemeden aczi açıkça belliyse miras reddedilmiş sayılır. Yargıtay 7. Hukuk Dairesi'nin 15.01.2024 tarihli, 2023/388 E., 2024/181 K. sayılı kararına göre bu hükmen ret davası süreye bağlı değildir; terekenin borca batık olup olmadığı ise ölüm tarihine göre, tüm mal ve borçlar araştırılarak belirlenir.",
+                },
+                {
+                    heading: "Mirastan mal kaçırma: muris muvazaası",
+                    body: "Mirasbırakan, gerçekte bağışlamak istediği tapulu taşınmazını mirasçılarından mal kaçırmak amacıyla tapuda satış gibi gösterdiyse, saklı payı olsun olmasın miras hakkı zedelenen her mirasçı tapu iptali ve tescil davası açabilir (01.04.1974 tarihli, 1974/1 E., 1974/2 K. sayılı İçtihadı Birleştirme Kararı). Yargıtay Hukuk Genel Kurulu'nun 22.10.2025 tarihli, 2024/562 E., 2025/644 K. sayılı kararına göre mal kaçırma amacını ispat yükü davacı mirasçıdadır; mirasçılar sözleşmenin dışında kaldığından tanık dahil her türlü delile dayanabilir. Mahkeme; mirasbırakanın satış için makul bir nedeni olup olmadığına, alıcının alım gücüne, satış bedeli ile gerçek değer arasındaki farka ve aile içi ilişkilere bakar.",
+                },
+                {
+                    heading: "Saklı pay ve tenkis davası",
+                    body: "Mirasbırakan, malvarlığının saklı paylar dışında kalan kısmında serbestçe tasarruf edebilir. Saklı pay, çocuklar için yasal miras payının yarısı, ana ve babadan her biri için dörtte biri, sağ kalan eş için çocuklarla veya ana-baba zümresiyle birlikte mirasçıysa yasal payının tamamı, diğer hâllerde dörtte üçüdür (TMK m. 506); kardeşlerin saklı payı 2007'de kaldırılmıştır. Saklı payı zedelenen mirasçı, bunu öğrendiği tarihten itibaren bir yıl ve her hâlde on yıl içinde tenkis davası açabilir (TMK m. 571). Ölümden önceki bir yıl içinde yapılan bağışlar, âdet üzere verilen hediyeler dışında koşulsuz tenkise tabidir; daha eski bağışlarda ise mirasbırakanın saklı payları etkisiz kılma amacı aranır (TMK m. 565). Yargıtay Hukuk Genel Kurulu'nun 13.12.2023 tarihli, 2022/1177 E., 2023/1237 K. sayılı kararına göre burada yalnızca mirasbırakanın amacı önemlidir; bağış yapılanın bunu bilmesi gerekmez ve bu amaç tanık ve yemin dahil her delille ispatlanabilir.",
+                },
+                {
+                    heading: "Vasiyetname: hazırlanması ve iptali",
+                    body: "Vasiyet, noterde resmî şekilde, baştan sona el yazısıyla ya da yalnızca olağanüstü durumlarda sözlü olarak yapılabilir (TMK m. 531, 538, 539). Vasiyetname; ehliyetsizlik, yanılma, aldatma veya korkutma, hukuka ya da ahlaka aykırı içerik veya şekil eksikliği sebebiyle iptal ettirilebilir (TMK m. 557). Dava, iptal sebebini öğrenmeden itibaren bir yıl ve her hâlde vasiyetnamenin açılmasından itibaren iyiniyetli davalılara karşı on yıl içinde açılmalıdır (TMK m. 559). Yargıtay Hukuk Genel Kurulu'nun 06.05.2026 tarihli, 2025/218 E., 2026/290 K. sayılı kararı, okuma yazma bilmeyenin resmî vasiyetnamesindeki tanık beyanı eksikliğinin, işlemin bütününden anlaşılıyorsa vasiyetname lehine yorumla giderilebileceğini kabul etmiştir. Buna karşılık Yargıtay 7. Hukuk Dairesi'nin 24.05.2023 tarihli, 2022/1481 E., 2023/2792 K. sayılı kararında, noterin hastaneye gelebileceği bir durumda yapılan sözlü vasiyet olağanüstü hâl şartı gerçekleşmediği için geçersiz sayılmıştır.",
+                },
+                {
+                    heading: "Miras paylaşımı ve ortaklığın giderilmesi",
+                    body: "Miras kalan mallar, kesin paylaşıma kadar tüm mirasçılara elbirliğiyle aittir; mirasçılardan biri tek başına satış yapamaz. Mirasçılar yazılı bir paylaşma sözleşmesiyle anlaşabilir. Anlaşma olmazsa ortaklığın giderilmesi davası açılır; bu davadan önce arabulucuya başvurmak dava şartıdır (6325 sayılı Kanun m. 18/B). Yargıtay 7. Hukuk Dairesi'nin 14.05.2024 tarihli, 2023/2262 E., 2024/2585 K. sayılı kararında vurgulandığı gibi davada bütün paydaşların, ölen paydaşların da mirasçılık belgesine göre tüm mirasçılarının yer alması zorunludur; taşınmaz üzerindeki bina ve ağaç gibi eklentiler bir mirasçıya aitse satış bedeli bu oranda paylaştırılır.",
+                },
+                {
+                    heading: "Kartal'da miras davaları nerede açılır?",
+                    body: "Mirasın reddi ve mirasçılık belgesi işlemleri ile ortaklığın giderilmesi davaları sulh hukuk mahkemesinde; tenkis, muris muvazaası ve vasiyetnamenin iptali davaları asliye hukuk mahkemesinde görülür. Mirasın paylaşılması, tenkis ve ölüme bağlı tasarrufların iptali gibi davalar mirasbırakanın son yerleşim yeri mahkemesinde açılır (HMK m. 11); tapu iptali gibi taşınmazın aynına ilişkin davalar ise taşınmazın bulunduğu yerde görülür. Mirasbırakanın son yerleşim yeri Kartal, Pendik veya Maltepe ise bu davalar İstanbul Anadolu Adliyesi'nde açılır.",
+                },
+            ],
+            decisions: [
+                {
+                    court: "Yargıtay Hukuk Genel Kurulu",
+                    esas: "2024/562",
+                    karar: "2025/644",
+                    date: "22.10.2025",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1196569800",
+                    principle: "Muris muvazaasında mal kaçırma amacını ispat yükü davacı mirasçıdadır; ekonomik durumu iyi mirasbırakanın tüm malvarlığını, ilişkisi olmayan çocuğunu dışarıda bırakacak biçimde satış göstererek devretmesi mal kaçırma amacını gösterir.",
+                },
+                {
+                    court: "Yargıtay Hukuk Genel Kurulu",
+                    esas: "2022/1177",
+                    karar: "2023/1237",
+                    date: "13.12.2023",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/985743800",
+                    principle: "TMK m. 565/4 uyarınca tenkiste yalnızca kazandırmayı yapan mirasbırakanın saklı payları etkisiz kılma amacı aranır; bu amaç tanık ve yemin dahil her türlü delille ispatlanabilir.",
+                },
+                {
+                    court: "Yargıtay Hukuk Genel Kurulu",
+                    esas: "2025/218",
+                    karar: "2026/290",
+                    date: "06.05.2026",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1212520100",
+                    principle: "İşlemde birlik ilkesine uygun düzenlenen resmî vasiyetnamede, beyanın tanıklar önünde yapıldığı vasiyetnamenin bütününden anlaşılıyorsa, tanık beyanındaki eksiklik vasiyetname lehine yorumla giderilir.",
+                },
+                {
+                    court: "Yargıtay 7. Hukuk Dairesi",
+                    esas: "2023/388",
+                    karar: "2024/181",
+                    date: "15.01.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1001019800",
+                    principle: "TMK m. 605/2'ye dayanan hükmen ret istemi süreye tabi değildir; mirasbırakanın ödemeden aczi ölüm tarihindeki aktif ve pasife göre belirlenir.",
+                },
+                {
+                    court: "Yargıtay 7. Hukuk Dairesi",
+                    esas: "2023/2262",
+                    karar: "2024/2585",
+                    date: "14.05.2024",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/1052789600",
+                    principle: "Ortaklığın giderilmesi davasında bütün paydaşların, ölen paydaşın ise tüm mirasçılarının davada yer alması zorunludur; muhdesat varsa satış bedeli arz ve muhdesat oranına göre paylaştırılır.",
+                },
+                {
+                    court: "Yargıtay 7. Hukuk Dairesi",
+                    esas: "2022/1702",
+                    karar: "2023/2672",
+                    date: "18.05.2023",
+                    url: "https://mevzuat.adalet.gov.tr/ictihat/915894600",
+                    principle: "Mirasçılık belgesi kesin hüküm oluşturmaz, iptal davasıyla değiştirilebilir; yeni belgede tüm mirasçılar ve payları eksiksiz gösterilmelidir.",
                 },
             ],
         }

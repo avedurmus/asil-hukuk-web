@@ -1,5 +1,5 @@
 
-import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe } from "lucide-react";
+import { Scale, Shield, Users, FileText, Gavel, Building, Heart, Globe, ScrollText } from "lucide-react";
 
 export const siteContent = {
     hero: {
@@ -41,6 +41,12 @@ export const siteContent = {
             title: "Gayrimenkul Hukuku",
             description: "Kiracı çıkarma, kira artışı, tapu ve ortak mülk sorunları. Ev sahibi ya da kiracı olarak haklarınızı koruruz.",
             icon: Globe
+        },
+        {
+            id: "miras-hukuku",
+            title: "Miras Hukuku",
+            description: "Veraset ilamı, mirası reddetme, miras paylaşımı, vasiyetname ve mirastan mal kaçırma. Mirasçı olarak haklarınızı korur, süreci takip ederiz.",
+            icon: ScrollText
         },
         {
             id: "is-ve-sosyal-guvenlik-hukuku",

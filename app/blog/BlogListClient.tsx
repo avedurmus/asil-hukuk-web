@@ -16,6 +16,7 @@ import {
     Globe,
     FileText,
     Landmark,
+    ScrollText,
     BookOpen,
     type LucideIcon,
 } from "lucide-react";
@@ -43,6 +44,7 @@ const categoryIcons: Record<string, LucideIcon> = {
     "Ceza Hukuku": Shield,
     "Ticaret Hukuku": Building,
     "Gayrimenkul Hukuku": Globe,
+    "Miras Hukuku": ScrollText,
     "İş Hukuku": FileText,
     Arabuluculuk: Scale,
     "Anayasa Hukuku": Landmark,

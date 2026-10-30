@@ -69,6 +69,7 @@ export const blogCategories = [
     "İş Hukuku",
     "Ceza Hukuku",
     "Gayrimenkul Hukuku",
+    "Miras Hukuku",
     "Ticaret Hukuku",
     "Anayasa Hukuku",
     "Arabuluculuk",

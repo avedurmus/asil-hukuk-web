@@ -15,6 +15,7 @@ const quickTopics = [
     { label: "Boşanmak istiyorum", href: "/calisma-alanlarimiz/bosanma-ve-aile-hukuku" },
     { label: "İşten çıkarıldım", href: "/calisma-alanlarimiz/is-ve-sosyal-guvenlik-hukuku" },
     { label: "Kira / tahliye sorunu", href: "/calisma-alanlarimiz/gayrimenkul-hukuku" },
+    { label: "Miras paylaşımı", href: "/calisma-alanlarimiz/miras-hukuku" },
     { label: "İfadeye çağrıldım", href: "/calisma-alanlarimiz/ceza-hukuku" },
     { label: "Şirketim için destek", href: "/calisma-alanlarimiz/ticaret-ve-sirketler-hukuku" },
     { label: "Arabulucu arıyorum", href: "/calisma-alanlarimiz/arabuluculuk" },

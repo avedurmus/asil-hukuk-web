@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Kentsel Dönüşüm Rehberi (2026)",
+    title: "Kentsel Dönüşüm Rehberi 2026: %50+1 ve Pay Satışı",
     description: "6306 Sayılı Kanun kapsamındaki salt çoğunluk (%50+1) ile kentsel dönüşüm kararı, yeni tebligat usulleri ve pay satışı süreçlerine dair pratik hukuki rehber.",
     path: "/kentsel-donusum-rehberi",
     openGraph: { type: "article" },

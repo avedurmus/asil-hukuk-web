@@ -105,7 +105,12 @@ export default function Home() {
 
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                             {siteContent.services.map((service, i) => (
-                                <Reveal key={service.id} delay={(i % 3) * 90} className="h-full">
+                                <Reveal
+                                    key={service.id}
+                                    delay={(i % 3) * 90}
+                                    // Son satırda tek kart kalırsa geniş ekranda ortalanır.
+                                    className={`h-full ${i === siteContent.services.length - 1 && siteContent.services.length % 3 === 1 ? "lg:col-start-2" : ""}`}
+                                >
                                     <ServiceCard
                                         id={service.id}
                                         title={service.title}
@@ -117,7 +122,7 @@ export default function Home() {
                         </div>
 
                         <p className="mt-10 text-center text-slate-600 dark:text-slate-400">
-                            Konunuz listede yok mu? Miras, icra ve diğer konular için de{" "}
+                            Konunuz listede yok mu? İcra, tüketici ve diğer konular için de{" "}
                             <Link
                                 href="/iletisim#randevu"
                                 className="font-semibold text-primary-900 underline decoration-gold-500/60 underline-offset-4 hover:text-gold-700 dark:text-slate-100 dark:hover:text-gold-400"

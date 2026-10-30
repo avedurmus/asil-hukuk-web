@@ -17,16 +17,19 @@ const playfair = Playfair_Display({ subsets: ["latin", "latin-ext"], variable: "
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: "Kartal Avukat | Asil Hukuk Bürosu - Av. Emre Durmuş",
+        default: "Kartal Avukat | Boşanma, Ceza, İş, Kira Davası - Asil Hukuk",
         template: "%s | Asil Hukuk"
     },
-    description: "Kartal avukat ve hukuk bürosu: Av. Emre Durmuş ile 2004'ten bu yana boşanma, ceza, kira-tahliye, iş ve ticaret hukukunda danışmanlık ve dava takibi.",
+    description: "Kartal avukat Av. Emre Durmuş: 2004'ten beri boşanma, ceza, kira-tahliye, miras, iş ve ticaret davaları. Anadolu Adliyesi'ne yakın büro. Tel: 0530 432 20 25",
+    // Arama talebi en yüksek ifadeler: "<ilçe> + <alan> avukatı" kalıbı ve
+    // adliyeye yakın avukat arayanların kullandığı "Kartal/Anadolu Adliyesi".
     keywords: [
-        'Kartal Hukuk Bürosu', 'İstanbul Anadolu Yakası Avukat', 'Kartal Boşanma Avukatı',
-        'Kartal Ceza Avukatı', 'Kartal Gayrimenkul Avukatı', 'Kartal Taşınmaz Avukatı', 'Kartal Avukat', 'Soğanlık Avukat', 'Yakacık Avukat',
-        'Cevizli Avukat', 'Emre Durmuş', 'Asil Hukuk', 'İstanbul İş Avukatı',
-        'Kartal kira avukatı', 'tahliye davası avukatı', 'Pendik avukat', 'Maltepe avukat',
-        'Kartal arabulucu avukat', 'İstanbul tahliye avukatı'
+        'Kartal Avukat', 'Kartal Hukuk Bürosu', 'Kartal Boşanma Avukatı', 'Kartal Ceza Avukatı',
+        'Kartal İş Avukatı', 'Kartal Kira Avukatı', 'Kartal Gayrimenkul Avukatı', 'Kartal İcra Avukatı',
+        'Kartal Arabulucu', 'Kartal Miras Avukatı', 'Anadolu Adliyesi Avukat', 'Kartal Adliyesi Avukat',
+        'Pendik Avukat', 'Pendik Boşanma Avukatı', 'Maltepe Avukat', 'Maltepe Boşanma Avukatı',
+        'Soğanlık Avukat', 'Yakacık Avukat', 'Cevizli Avukat', 'İstanbul Anadolu Yakası Avukat',
+        'işe iade avukatı', 'tahliye davası avukatı', 'Emre Durmuş', 'Asil Hukuk'
     ],
     authors: [{ name: 'Av. Emre Durmuş', url: 'https://asilhukuk.net/hakkimizda' }],
     creator: 'Av. Emre Durmuş',
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Kartal Avukat | Asil Hukuk Bürosu - Av. Emre Durmuş',
-        description: 'Kartal\'da 2004\'ten bu yana boşanma, ceza, gayrimenkul, iş ve ticaret hukukunda danışmanlık ve dava takibi.',
+        description: 'Kartal\'da 2004\'ten bu yana boşanma, ceza, kira ve tahliye, iş ve ticaret davalarında danışmanlık ve dava takibi.',
         url: SITE_URL,
         siteName: SITE_NAME,
         locale: 'tr_TR',
@@ -83,7 +86,7 @@ const jsonLd = {
     'alternateName': 'Asil Hukuk ve Danışmanlık Bürosu',
     'image': 'https://asilhukuk.net/logo.png',
     'logo': 'https://asilhukuk.net/logo.png',
-    'description': 'İstanbul Kartal\'da boşanma ve aile, ceza, gayrimenkul, iş ve ticaret hukuku ile arabuluculuk alanlarında avukatlık hizmeti.',
+    'description': 'İstanbul Kartal\'da boşanma ve aile, ceza, gayrimenkul, miras, iş ve ticaret hukuku ile arabuluculuk alanlarında avukatlık hizmeti.',
     'url': SITE_URL,
     'telephone': '+90 530 432 20 25',
     'email': 'emre@asilhukuk.net',

@@ -8,8 +8,8 @@ import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Çalışma Alanlarımız - Kartal Avukat",
-    description: "Kartal'da boşanma ve aile, ceza, gayrimenkul ve kira, iş ve sosyal güvenlik, ticaret ve şirketler hukuku ile arabuluculuk alanlarında avukatlık hizmetleri.",
+    title: "Kartal Avukat: Boşanma, Ceza, İş, Kira ve Ticaret",
+    description: "Kartal'da boşanma ve aile, ceza, kira ve gayrimenkul, miras, iş, ticaret ve icra hukuku ile arabuluculuk alanlarında avukatlık hizmeti ve dava takibi.",
     path: "/calisma-alanlarimiz",
 });
 
@@ -46,7 +46,12 @@ export default function ServicesPage() {
                 <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {services.map((service, i) => (
-                            <Reveal key={service.id} delay={(i % 3) * 110} className="h-full">
+                            <Reveal
+                                key={service.id}
+                                delay={(i % 3) * 110}
+                                // Son satırda tek kart kalırsa geniş ekranda ortalanır.
+                                className={`h-full ${i === services.length - 1 && services.length % 3 === 1 ? "lg:col-start-2" : ""}`}
+                            >
                                 <ServiceCard
                                     id={service.id}
                                     title={service.title}

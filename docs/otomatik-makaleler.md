@@ -48,13 +48,14 @@ Haftanın gününe göre iki farklı alandan birer konu seç:
 | Çarşamba | Ticaret Hukuku | Aile Hukuku |
 | Perşembe | İş Hukuku | Ceza Hukuku |
 | Cuma | Gayrimenkul Hukuku | Arabuluculuk |
-| Cumartesi | Ticaret Hukuku | Ceza Hukuku |
+| Cumartesi | Ticaret Hukuku | Miras Hukuku |
 | Pazar | Aile Hukuku | Gayrimenkul Hukuku |
 
 Alanların kapsamı `data/services.ts` içindeki hizmet açıklamalarıdır (ör.
 Gayrimenkul: kira, tahliye, tapu iptal-tescil, kat mülkiyeti, kentsel
-dönüşüm, ortaklığın giderilmesi; Ticaret: şirketler, icra takibi, çek-senet,
-alacak tahsili).
+dönüşüm, ortaklığın giderilmesi; Miras: mirasçılık belgesi, mirasın reddi,
+muris muvazaası, saklı pay ve tenkis, vasiyetname, miras paylaşımı; Ticaret:
+şirketler, icra takibi, çek-senet, alacak tahsili).
 
 - Müvekkil adaylarının gerçekten aradığı, somut bir soruya cevap veren dar bir
   konu seç ("Kira artışında yüzde 25 sınırı bitti mi?" gibi). Genel
@@ -65,6 +66,26 @@ alacak tahsili).
   önemli bir karar ya da kanun değişikliği varsa farklı açıdan yazabilirsin.
 - Yeni kanun değişiklikleri, Yargıtay Hukuk/Ceza Genel Kurulu ve İçtihadı
   Birleştirme kararları, Anayasa Mahkemesi kararları önceliklidir.
+- Tıklanma için arama talebi yüksek soru kalıplarını öncele; başlık ve
+  `seoTitle` bu kalıplardan biriyle başlasın:
+  - Aile: boşanma davası ne kadar sürer, anlaşmalı boşanma protokolü,
+    nafaka ne kadar / ne zaman biter, velayet kime verilir, mal paylaşımı.
+  - İş: kıdem tazminatı kimlere ödenir / nasıl hesaplanır, ihbar süresi,
+    işe iade, istifa edince tazminat, fazla mesai, yıllık izin ücreti.
+  - Gayrimenkul: kira artış oranı, kiracı nasıl çıkarılır, tahliye
+    taahhütnamesi, ev sahibi ihtiyaç nedeniyle tahliye, tapu iptali,
+    hisseli tapu satışı, miras kalan evin paylaşımı, aidat.
+  - Ceza: ifadeye çağrıldım ne yapmalıyım, HAGB, şikâyetten vazgeçme,
+    hakaret, tehdit, dolandırıcılık, adli sicil kaydı silinir mi.
+  - Miras: mirası reddetme süresi, veraset ilamı nasıl alınır, miras
+    paylaşımı nasıl yapılır, babadan kalan ev, mirastan mal kaçırma,
+    vasiyetname iptali, eşin miras payı.
+  - Ticaret: icra takibine itiraz, senet / çek zamanaşımı, alacak tahsili.
+  - Arabuluculuk: arabuluculuk zorunlu mu, ücreti kim öder, anlaşma
+    olmazsa ne olur.
+  Rakam ve yıl içeren güncel konularda (tavan, oran, süre) başlığa yılı
+  ekle ("Kıdem Tazminatı Tavanı 2026"). Süperlatif ve sonuç vaadi ("en iyi",
+  "kesin kazanırsınız") kullanma; avukatlık reklam yasağına aykırıdır.
 
 ### 3. Araştırma (YargıMCP)
 
@@ -158,7 +179,8 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
     zorunludur. Sorunun cevabını vaat eden, aranan ifadeyi içeren tek-iki
     cümle olsun. İkisinde de reklam niteliğinde ifade kullanma.
 - `category`: `Aile Hukuku`, `İş Hukuku`, `Ceza Hukuku`, `Gayrimenkul Hukuku`,
-  `Ticaret Hukuku`, `Arabuluculuk` (gerekirse `Anayasa Hukuku`, `Genel`).
+  `Miras Hukuku`, `Ticaret Hukuku`, `Arabuluculuk` (gerekirse `Anayasa Hukuku`,
+  `Genel`).
 - `kind`: yazı ağırlıkla kararların incelemesiyse `"ictihat"` (en az 2 karar
   gerekir), değilse `"makale"`.
 - `date`, `readTime`, `daily` yazma; otomatik hesaplanır. `imageUrl` koyma;

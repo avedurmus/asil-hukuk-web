@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Hukuk Blogu - İçtihat Notları ve Güncel Makaleler",
+    title: "Hukuk Blogu: Güncel Yargıtay Kararları ve Rehberler",
     description:
         "Yargıtay ve Anayasa Mahkemesi kararları üzerine içtihat notları; boşanma, iş, ceza, kira ve ticaret hukuku alanında güncel rehber yazılar.",
     path: "/blog",

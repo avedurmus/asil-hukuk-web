@@ -6,9 +6,11 @@ import ServiceCard from "@/components/ServiceCard";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import LatestPostsStrip from "@/components/LatestPostsStrip";
+import PodcastStrip from "@/components/PodcastStrip";
 import { siteContent } from "@/data/siteContent";
 import { faqs } from "@/data/faq";
 import { getAllPosts, toSummary } from "@/lib/posts";
+import { getEpisodes } from "@/lib/podcast";
 import { RSS_FEED } from "@/lib/seo";
 import { ArrowRight, ArrowUpRight, UserCheck, Eye, Lock, PhoneCall, Plus } from "lucide-react";
 import type { Metadata } from "next";
@@ -62,6 +64,8 @@ const featuredFaqs = featuredFaqIds
 const allPosts = getAllPosts();
 const newestPosts = allPosts.slice(0, 4).map(toSummary);
 const latestPosts = allPosts.slice(4, 7);
+// Son eklenenler şeridinin altında en son podcast bölümü
+const latestEpisode = getEpisodes()[0];
 
 function SectionHeading({
     eyebrow,
@@ -93,6 +97,7 @@ export default function Home() {
             <main className="flex-grow">
                 <Hero />
                 <LatestPostsStrip posts={newestPosts} />
+                <PodcastStrip episode={latestEpisode} />
 
                 {/* --- ÇALIŞMA ALANLARI --- */}
                 <section id="uzmanliklar" className="border-t border-slate-200/70 bg-white py-20 dark:border-slate-800 dark:bg-slate-900 lg:py-24">

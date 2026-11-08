@@ -61,6 +61,15 @@ export interface BlogPost {
     source?: ExternalSource;
     /** content/makaleler/ altından okunan günlük makale (lib/posts.ts doldurur). */
     daily?: boolean;
+    /** Sosyal medya paylaşım metinleri (bkz. docs/sosyal-medya.md). */
+    social?: SocialPosts;
+}
+
+/** Her platform için yazının bağlantısını da içeren, olduğu gibi paylaşılacak düz metin. */
+export interface SocialPosts {
+    linkedin: string;
+    x: string;
+    facebook: string;
 }
 
 /** Blog listesinde kullanılan kategori sırası ve etiketleri. */

@@ -196,8 +196,8 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
   gerekir), değilse `"makale"`.
 - `social`: Sosyal medya paylaşım metinleri; zorunludur. Yazım kuralları
   `docs/sosyal-medya.md` dosyasındaki "Otomatik görev için talimat" bölümündedir.
-  LinkedIn ve X metinleri Make tarafından otomatik paylaşılır. Bu yüzden meslek
-  kurallarına makale metni kadar dikkat et.
+  Metinler doğrudan sosyal medyada yayımlanacağı için meslek kurallarına makale
+  metni kadar dikkat et.
 - `date`, `readTime`, `daily` yazma; otomatik hesaplanır. `imageUrl` koyma;
   tipografik kapak kullanılır.
 
@@ -231,7 +231,7 @@ Gmail ile **av.edurmus@gmail.com** adresine, kendi hesabından şu konuyla gönd
 Gövdede her makale için başlık, kategori, `https://asilhukuk.net/blog/<id>`
 bağlantısı ve dayanılan karar künyeleri yer alsın. Ardından `docs/podcast.md`
 P4'te tarif edilen "Podcast bölümü" kısmını ekle: MP3 bağlantısı, başlık ve
-Spotify'a yapıştırılacak açıklama. Her makale için `social.facebook` metnini
-"Facebook'ta paylaşmak için" başlığıyla ekle (bkz. `docs/sosyal-medya.md`). En alta şu notu ekle:
+Spotify'a yapıştırılacak açıklama. Ardından her makalenin LinkedIn, X ve
+Facebook metinlerini "Paylaşım metinleri" başlığıyla ekle (bkz. `docs/sosyal-medya.md`). En alta şu notu ekle:
 "Uygun bulmadığınız bir makaleyi kaldırmak için Claude'a 'şu makaleyi
 kaldır' demeniz yeterlidir."

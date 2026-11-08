@@ -231,7 +231,7 @@ Gmail ile **av.edurmus@gmail.com** adresine, kendi hesabından şu konuyla gönd
 Gövdede her makale için başlık, kategori, `https://asilhukuk.net/blog/<id>`
 bağlantısı ve dayanılan karar künyeleri yer alsın. Ardından `docs/podcast.md`
 P4'te tarif edilen "Podcast bölümü" kısmını ekle: MP3 bağlantısı, başlık ve
-Spotify'a yapıştırılacak açıklama. Ardından her makalenin LinkedIn, X ve
+RSS.com'a yapıştırılacak açıklama. Ardından her makalenin LinkedIn, X ve
 Facebook metinlerini "Paylaşım metinleri" başlığıyla ekle (bkz. `docs/sosyal-medya.md`). En alta şu notu ekle:
 "Uygun bulmadığınız bir makaleyi kaldırmak için Claude'a 'şu makaleyi
 kaldır' demeniz yeterlidir."

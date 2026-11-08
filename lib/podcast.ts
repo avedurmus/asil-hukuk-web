@@ -49,6 +49,17 @@ export function getEpisodeForPost(postId: string): PodcastEpisode | undefined {
     return getEpisodes().find((ep) => ep.articles.includes(postId));
 }
 
+/**
+ * Programın dış bağlantıları: RSS.com'daki program sayfası (eski bölümler dahil
+ * tüm bölümler ve dinleme platformları) ve tanımlıysa Spotify program sayfası.
+ */
+export function podcastLinks(): { label: string; href: string }[] {
+    return [
+        podcastConfig.showUrl && { label: "Tüm bölümler", href: podcastConfig.showUrl },
+        podcastConfig.spotifyShowUrl && { label: "Spotify'da dinleyin", href: podcastConfig.spotifyShowUrl },
+    ].filter((link): link is { label: string; href: string } => Boolean(link));
+}
+
 /** 412 → "6 dk 52 sn" */
 export function formatDuration(sec?: number): string | undefined {
     if (!sec) return undefined;

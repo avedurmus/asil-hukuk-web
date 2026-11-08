@@ -5,9 +5,15 @@ dakika) özetlenir ve Av. Emre Durmuş'un ElevenLabs'ta klonlanmış sesiyle
 seslendirilir. Bölüm:
 
 - sitede, o günün iki makalesinin başında "Bu yazıyı dinleyin" oynatıcısıyla yayımlanır;
-- Spotify'a yüklenmek üzere sabah özet e-postasında bağlantısı, başlığı ve
-  açıklamasıyla birlikte gönderilir. Spotify for Creators'ın otomatik yükleme
-  arayüzü olmadığı için yükleme elle yapılır (aşağıda).
+- sabah özet e-postasında bağlantısı, başlığı ve açıklamasıyla birlikte gönderilir;
+  podcast'in barındırıldığı **RSS.com**'a elle yüklenir (aşağıda). RSS.com bölümü
+  Spotify'a ve diğer platformlara kendisi dağıtır.
+
+Program sayfası (eski bölümler dahil): <https://rss.com/podcasts/anlatan-avukat/>.
+Sitedeki oynatıcılarda "Tüm bölümler" bağlantısı bu sayfaya gider
+(`data/podcast.json` → `showUrl`). `spotifyShowUrl` doldurulursa "Spotify'da
+dinleyin" bağlantısı da görünür; buraya bir bölümün değil, programın Spotify
+adresi (`https://open.spotify.com/show/…`) yazılmalıdır.
 
 Bu belge hem büro için açıklama hem de otomatik görevin podcast adımı için
 **çalışma talimatıdır**.
@@ -52,12 +58,16 @@ yeterlidir. Oynatıcıyı tamamen kapatmak için `data/podcast.json` içinde
 
    İlk bölümleri dinledikten sonra birlikte ayarlarız.
 
-## Spotify'a yükleme (her gün, ~1 dakika)
+## RSS.com'a yükleme (her gün, ~1 dakika)
 
 1. Sabah e-postasındaki **MP3 bağlantısından** dosyayı indirin.
-2. Spotify for Creators (uygulama veya creators.spotify.com) → Yeni bölüm →
+2. RSS.com'a giriş yapın → **Anlatan Avukat** programı → **New Episode** →
    dosyayı yükleyin.
-3. E-postadaki **başlığı** ve **açıklamayı** olduğu gibi yapıştırıp yayımlayın.
+3. E-postadaki **başlığı** ve **açıklamayı** olduğu gibi yapıştırıp **Publish** deyin.
+
+RSS.com bölümü Spotify'a ve diğer platformlara kendisi gönderir; Spotify'da
+görünmesi birkaç saat sürebilir. Bölümü ayrıca Spotify for Creators'a
+**yüklemeyin**, aksi hâlde aynı bölüm iki kez görünebilir.
 
 Bölüm sizin sesinizle yayımlandığı için bu adım aynı zamanda son kontroldür:
 beğenmediğiniz bölümü yüklemeyin ve Claude'a "şu günün podcast'ini kaldır"
@@ -165,17 +175,17 @@ npm run podcast:seslendir -- <YYYY-MM-DD>
   - MP3 bağlantısı `https://asilhukuk.net/podcast/<tarih>.mp3`. Bu bağlantı
     canlı yayın tamamlandıktan sonra çalışır; e-postayı bu yüzden yayın
     `READY` olduktan sonra gönder;
-  - Spotify'a yapıştırılacak açıklama metni (olduğu gibi);
-  - "Spotify for Creators → Yeni bölüm → dosyayı yükle → başlık ve açıklamayı yapıştır" hatırlatması.
+  - RSS.com'a yapıştırılacak açıklama metni (olduğu gibi);
+  - "RSS.com → Anlatan Avukat → New Episode → dosyayı yükle → başlık ve açıklamayı yapıştır → Publish" hatırlatması.
 - Seslendirme yapılamadıysa nedenini yaz.
 
 ## Notlar
 
 - **Depo boyutu:** 64 kbps tek kanallı MP3 ile bölüm başına ~3 MB, yılda ~1 GB
   eder. Depo büyüdüğünde eski ses dosyaları Vercel Blob'a taşınabilir ya da
-  yalnızca Spotify'da bırakılabilir.
-- **Spotify'ı da otomatikleştirmek:** Spotify for Creators yükleme API'si
-  sunmuyor. Tam otomasyon için podcast'in yayın akışını (RSS) sitenin ya da
-  API'si olan bir barındırma servisinin üretmesi ve Spotify'daki programın bu
-  akışa taşınması gerekir. Bu, mevcut bölümlerin de taşınmasını gerektiren
-  ayrı bir iştir.
+  yalnızca RSS.com'da bırakılabilir.
+- **Yüklemeyi de otomatikleştirmek:** RSS.com'un bölüm yükleme API'si var
+  (<https://api.rss.com/v4/docs>, `X-API-Key` başlığıyla). Ancak API şimdilik
+  yalnızca RSS.com'un **Network** paketlerinde açık ve beta aşamasında. Paket bu
+  seviyeye yükseltilirse görev MP3'ü RSS.com'a kendisi yükleyebilir ve günlük elle
+  yükleme adımı kalkar.

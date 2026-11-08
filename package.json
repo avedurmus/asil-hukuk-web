@@ -7,7 +7,9 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "makale:dogrula": "node scripts/makale-dogrula.mjs"
+        "makale:dogrula": "node scripts/makale-dogrula.mjs",
+        "podcast:dogrula": "node scripts/podcast-dogrula.mjs",
+        "podcast:seslendir": "node scripts/podcast-seslendir.mjs"
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.131.0",

@@ -18,6 +18,7 @@ dosyayı düzenlemek yeterlidir.
 | Ana sayfadaki son eklenenler şeridi | `components/LatestPostsStrip.tsx` |
 | Yayın öncesi denetim | `scripts/makale-dogrula.mjs` (`npm run makale:dogrula`) |
 | Günün makalelerini anlatan podcast bölümü | `docs/podcast.md` |
+| LinkedIn, X ve Facebook paylaşım metinleri | `docs/sosyal-medya.md` |
 
 Elle yazılan yazılar `data/blogPosts.ts` içinde kalır. Bir günlük makaleyi
 yayından kaldırmak için ilgili JSON dosyasını silmek yeterlidir.
@@ -168,6 +169,11 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
   "sources": [
     { "label": "6098 sayılı Türk Borçlar Kanunu m. 344", "url": "https://www.mevzuat.gov.tr/…" }
   ],
+  "social": {
+    "linkedin": "LinkedIn paylaşım metni … https://asilhukuk.net/blog/<id> …",
+    "x": "X paylaşım metni … https://asilhukuk.net/blog/<id>",
+    "facebook": "Facebook paylaşım metni … https://asilhukuk.net/blog/<id>"
+  },
   "content": "<p>…</p>"
 }
 ```
@@ -188,6 +194,10 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
   `Anayasa Hukuku`, `Genel`).
 - `kind`: yazı ağırlıkla kararların incelemesiyse `"ictihat"` (en az 2 karar
   gerekir), değilse `"makale"`.
+- `social`: Sosyal medya paylaşım metinleri; zorunludur. Yazım kuralları
+  `docs/sosyal-medya.md` dosyasındaki "Otomatik görev için talimat" bölümündedir.
+  LinkedIn ve X metinleri Make tarafından otomatik paylaşılır. Bu yüzden meslek
+  kurallarına makale metni kadar dikkat et.
 - `date`, `readTime`, `daily` yazma; otomatik hesaplanır. `imageUrl` koyma;
   tipografik kapak kullanılır.
 
@@ -221,6 +231,7 @@ Gmail ile **av.edurmus@gmail.com** adresine, kendi hesabından şu konuyla gönd
 Gövdede her makale için başlık, kategori, `https://asilhukuk.net/blog/<id>`
 bağlantısı ve dayanılan karar künyeleri yer alsın. Ardından `docs/podcast.md`
 P4'te tarif edilen "Podcast bölümü" kısmını ekle: MP3 bağlantısı, başlık ve
-Spotify'a yapıştırılacak açıklama. En alta şu notu ekle:
+Spotify'a yapıştırılacak açıklama. Her makale için `social.facebook` metnini
+"Facebook'ta paylaşmak için" başlığıyla ekle (bkz. `docs/sosyal-medya.md`). En alta şu notu ekle:
 "Uygun bulmadığınız bir makaleyi kaldırmak için Claude'a 'şu makaleyi
 kaldır' demeniz yeterlidir."

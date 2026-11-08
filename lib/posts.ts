@@ -65,7 +65,7 @@ export function getPost(id: string): BlogPost | undefined {
 }
 
 /** İstemci bileşenlerine gönderilecek, gövdesi çıkarılmış yazı özeti. */
-export type PostSummary = Omit<BlogPost, "content">;
-export function toSummary({ content: _content, ...rest }: BlogPost): PostSummary {
+export type PostSummary = Omit<BlogPost, "content" | "social">;
+export function toSummary({ content: _content, social: _social, ...rest }: BlogPost): PostSummary {
     return rest;
 }

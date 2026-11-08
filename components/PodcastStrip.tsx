@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Headphones, ExternalLink } from "lucide-react";
-import { formatDuration, podcastConfig, type PodcastEpisode } from "@/lib/podcast";
+import { formatDuration, podcastConfig, podcastLinks, type PodcastEpisode } from "@/lib/podcast";
 import { formatTrDate } from "@/lib/posts";
 
 /**
@@ -36,20 +36,20 @@ export default function PodcastStrip({ episode }: { episode?: PodcastEpisode }) 
                                 >
                                     {episode.articles.length === 1 ? "Yazıyı okuyun" : "Yazıları okuyun"}
                                 </Link>
-                                {podcastConfig.spotifyShowUrl && (
-                                    <>
+                                {podcastLinks().map((link) => (
+                                    <span key={link.href}>
                                         {" · "}
                                         <a
-                                            href={podcastConfig.spotifyShowUrl}
+                                            href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center gap-1 font-semibold text-primary-800 hover:underline dark:text-gold-400"
                                         >
-                                            Spotify&apos;da dinleyin
+                                            {link.label}
                                             <ExternalLink className="h-3 w-3" />
                                         </a>
-                                    </>
-                                )}
+                                    </span>
+                                ))}
                             </p>
                         </div>
                     </div>

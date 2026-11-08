@@ -1,5 +1,5 @@
 import { Headphones, ExternalLink } from "lucide-react";
-import { formatDuration, podcastConfig, type PodcastEpisode } from "@/lib/podcast";
+import { formatDuration, podcastConfig, podcastLinks, type PodcastEpisode } from "@/lib/podcast";
 
 /** Makale sayfasında, yazının anlatıldığı günlük podcast bölümünü çalar. */
 export default function PodcastPlayer({ episode }: { episode: PodcastEpisode }) {
@@ -24,20 +24,20 @@ export default function PodcastPlayer({ episode }: { episode: PodcastEpisode }) 
             </audio>
             <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
                 {podcastConfig.aiDisclosure}
-                {podcastConfig.spotifyShowUrl && (
-                    <>
+                {podcastLinks().map((link) => (
+                    <span key={link.href}>
                         {" "}
                         <a
-                            href={podcastConfig.spotifyShowUrl}
+                            href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-primary-800 dark:text-gold-400 hover:underline font-medium"
                         >
-                            Spotify&apos;da dinleyin
+                            {link.label}
                             <ExternalLink className="w-3 h-3" />
                         </a>
-                    </>
-                )}
+                    </span>
+                ))}
             </p>
         </section>
     );

@@ -2,8 +2,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactCTA from "@/components/ContactCTA";
+import PodcastPlayer from "@/components/PodcastPlayer";
 import type { BlogPost } from "@/data/blogPosts";
 import { getAllPosts, getPost } from "@/lib/posts";
+import { getEpisodeForPost } from "@/lib/podcast";
 import { faqs } from "@/data/faq";
 import {
     Calendar,
@@ -97,6 +99,7 @@ export default function BlogPostPage({ params }: Props) {
         .sort((a, b) => b.dateISO.localeCompare(a.dateISO))
         .slice(0, 3);
 
+    const episode = getEpisodeForPost(post.id);
     const relatedFaqs = faqs.filter((faq) => faq.relatedPostId === post.id).slice(0, 4);
 
     const jsonLd = {
@@ -128,6 +131,17 @@ export default function BlogPostPage({ params }: Props) {
             "@type": "WebPage",
             "@id": `https://asilhukuk.net/blog/${post.id}`,
         },
+        ...(episode
+            ? {
+                  audio: {
+                      "@type": "AudioObject",
+                      name: episode.title,
+                      contentUrl: `${SITE_URL}${episode.audio}`,
+                      encodingFormat: "audio/mpeg",
+                      ...(episode.durationSec ? { duration: `PT${episode.durationSec}S` } : {}),
+                  },
+              }
+            : {}),
         ...(post.decisions && post.decisions.length > 0
             ? {
                   citation: post.decisions.map((decision) =>
@@ -238,6 +252,8 @@ export default function BlogPostPage({ params }: Props) {
                                     )}
                                 </p>
                             )}
+
+                            {episode && <PodcastPlayer episode={episode} />}
 
                             {/* İncelenen kararlar */}
                             {post.decisions && post.decisions.length > 0 && (

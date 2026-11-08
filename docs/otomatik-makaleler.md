@@ -17,6 +17,7 @@ dosyayı düzenlemek yeterlidir.
 | Makaleleri blogla birleştiren yükleyici | `lib/posts.ts` |
 | Ana sayfadaki son eklenenler şeridi | `components/LatestPostsStrip.tsx` |
 | Yayın öncesi denetim | `scripts/makale-dogrula.mjs` (`npm run makale:dogrula`) |
+| Günün makalelerini anlatan podcast bölümü | `docs/podcast.md` |
 
 Elle yazılan yazılar `data/blogPosts.ts` içinde kalır. Bir günlük makaleyi
 yayından kaldırmak için ilgili JSON dosyasını silmek yeterlidir.
@@ -193,12 +194,16 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
 ### 6. Denetim ve yayın
 
 1. `npm run makale:dogrula` hatasız geçmeli; hata varsa düzelt.
-2. `npm run build` başarılı olmalı.
-3. Commit mesajı: `feat(blog): günlük makaleler (<YYYY-MM-DD>)`, gövdede iki
-   başlık. Dalı push et, `main`'e PR aç (başlık aynı; gövdede başlıklar,
+2. **Podcast:** `docs/podcast.md` dosyasındaki "Otomatik görev için talimat"
+   bölümünü (P1–P4) uygula. Günün makalelerinin hepsi tek bir bölümde
+   özetlenir. Podcast adımındaki bir hata makalelerin yayımlanmasını engellemez.
+3. `npm run build` başarılı olmalı.
+4. Commit mesajı: `feat(blog): günlük makaleler (<YYYY-MM-DD>)`, gövdede iki
+   başlık. Podcast dosyaları (`content/podcast/`, `public/podcast/`) aynı
+   commit'e girer. Dalı push et, `main`'e PR aç (başlık aynı; gövdede başlıklar,
    kategoriler ve dayanılan karar künyeleri) ve Vercel önizlemesi başarılı
    olunca **squash** ile birleştir. Birleştirme canlı yayını başlatır.
-4. Birleştirmeden sonra Vercel'de (`asil-hukuk-web` projesi) üretim yayınının
+5. Birleştirmeden sonra Vercel'de (`asil-hukuk-web` projesi) üretim yayınının
    `READY` olduğunu doğrula.
 
 ### 7. Hata durumları
@@ -214,6 +219,8 @@ Her makale `content/makaleler/<YYYY-MM-DD>-<id>.json` dosyasıdır:
 Gmail ile **av.edurmus@gmail.com** adresine, kendi hesabından şu konuyla gönder:
 `Günün makaleleri yayında – <5 Ekim 2026>` (hata varsa `… – yayımlanamadı`).
 Gövdede her makale için başlık, kategori, `https://asilhukuk.net/blog/<id>`
-bağlantısı ve dayanılan karar künyeleri yer alsın. En alta şu notu ekle:
+bağlantısı ve dayanılan karar künyeleri yer alsın. Ardından `docs/podcast.md`
+P4'te tarif edilen "Podcast bölümü" kısmını ekle: MP3 bağlantısı, başlık ve
+Spotify'a yapıştırılacak açıklama. En alta şu notu ekle:
 "Uygun bulmadığınız bir makaleyi kaldırmak için Claude'a 'şu makaleyi
 kaldır' demeniz yeterlidir."

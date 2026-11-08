@@ -17,9 +17,9 @@ Bu belge hem büro için açıklama hem de otomatik görevin paylaşım metinler
 
 ## Make kurulumu (bir kez)
 
-Make'in ücretsiz paketi aylık sınırlı sayıda işlem (operation/credit) içerir. Kurulum günde
-iki çalıştırmayla ayda yaklaşık 250 işlem harcar. Güncel ücretsiz sınırı
-make.com'da kontrol edin.
+Make'in ücretsiz paketi aylık sınırlı sayıda işlem (operation/credit) içerir. Her
+senaryo günde bir kez çalışır; iki senaryo birlikte ayda yaklaşık 200 işlem harcar.
+Güncel ücretsiz sınırı make.com'da kontrol edin.
 
 ### 1. Hesap ve bağlantılar
 
@@ -35,8 +35,8 @@ make.com'da kontrol edin.
 1. **Create a new scenario** deyin.
 2. İlk modül olarak **RSS → Watch RSS feed items** ekleyin:
    - URL: `https://asilhukuk.net/sosyal/linkedin.xml`
-   - Maximum number of returned items: **1**. Her çalıştırmada bir yazı paylaşılır,
-     böylece günün iki yazısı aynı anda düşmez.
+   - Maximum number of returned items: **2**. Günde iki makale yayımlandığı için
+     tek çalıştırmada ikisi de paylaşılır. 1 yazılırsa paylaşılmayan yazılar birikir.
    - "Choose where to start" sorusuna **From now on** deyin. Bu, eski yazıların
      paylaşılmasını önler.
 3. İkinci modül olarak **LinkedIn → Create a Post**'u (kullanıcı/üye gönderisi) ekleyin:
@@ -45,8 +45,8 @@ make.com'da kontrol edin.
    - Modülde bağlantı/makale (URL) alanı varsa oraya **URL / Link** alanını eşleyin.
      Böylece yazının önizleme kartı da görünür.
    - Görünürlük: **Public** (herkese açık).
-4. Zamanlamayı (saat simgesi) **Every day**, belirli saatler olarak **10:00** ve
-   **16:00** yapın. Saat dilimi Europe/Istanbul olmalı.
+4. Zamanlamayı (saat simgesi) **Every day**, saat **10:00** yapın. Makaleler
+   genellikle 08:00 civarında yayında olur. Saat dilimi Europe/Istanbul olmalı.
 5. Senaryoyu **ON** konumuna getirin.
 
 ### 3. X senaryosu
@@ -56,7 +56,7 @@ LinkedIn senaryosunu kopyalayın (Clone) ve iki değişiklik yapın:
 - RSS adresini `https://asilhukuk.net/sosyal/x.xml` yapın.
 - İkinci modülü **X → Create a Post** ile değiştirin. Metin alanına **Description**'ı eşleyin.
 
-İsterseniz saatleri LinkedIn'den farklı seçin (ör. 11:00 ve 17:00).
+İsterseniz saati LinkedIn'den farklı seçin (ör. 11:00).
 
 ### 4. Deneme
 
@@ -128,4 +128,4 @@ bulunmalıdır. Metinler düz metindir: HTML ve Markdown kullanma, satır sonlar
 
 Sabah özet e-postasına her makale için **"Facebook'ta paylaşmak için"** başlığı
 altında `social.facebook` metnini olduğu gibi ekle. LinkedIn ve X'in Make
-tarafından 10:00 ve 16:00'da otomatik paylaşılacağını bir cümleyle belirt.
+tarafından saat 10:00'da otomatik paylaşılacağını bir cümleyle belirt.

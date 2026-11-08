@@ -6,7 +6,7 @@
     "aiDisclosure": "Bu bölüm, asilhukuk.net'te yayımlanan makalelerin özetidir ve Av. Emre Durmuş'un sesi kullanılarak yapay zekâ ile seslendirilmiştir.",
     "elevenlabs": {
         "voiceId": "vl5ht88Ar42t3MMT0oee",
-        "modelId": "eleven_multilingual_v2",
+        "modelId": "eleven_v4",
         "outputFormat": "mp3_44100_64",
         "voiceSettings": {
             "stability": 0.5,

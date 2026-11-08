@@ -112,7 +112,8 @@ for (const [i, text] of chunks.entries()) {
         previous_request_ids: requestIds.slice(-3),
         ...(EL.languageCode ? { language_code: EL.languageCode } : {}),
     };
-    const url = `${API}/text-to-speech/${encodeURIComponent(EL.voiceId)}?output_format=${encodeURIComponent(EL.outputFormat || "mp3_44100_64")}`;
+    // Akışlı uç nokta: ses üretildikçe gönderildiği için uzun parçalarda zaman aşımı yaşanmaz.
+    const url = `${API}/text-to-speech/${encodeURIComponent(EL.voiceId)}/stream?output_format=${encodeURIComponent(EL.outputFormat || "mp3_44100_64")}`;
 
     let res;
     for (let attempt = 1; ; attempt++) {

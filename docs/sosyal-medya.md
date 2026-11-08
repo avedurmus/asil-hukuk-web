@@ -5,9 +5,14 @@ hazırlanır ve makale dosyasındaki `social` alanına yazılır.
 
 | Platform | Nasıl paylaşılır? |
 |---|---|
-| LinkedIn (kişisel profil) | **Otomatik.** Make, `https://asilhukuk.net/sosyal/linkedin.xml` akışını izleyip paylaşır. |
-| X | **Otomatik.** Make, `https://asilhukuk.net/sosyal/x.xml` akışını izleyip paylaşır. |
+| LinkedIn (kişisel profil) | **Şimdilik elle.** Metin sabah e-postasında hazır gelir. Otomatik paylaşım kurulursa Make `https://asilhukuk.net/sosyal/linkedin.xml` akışını izler. |
+| X | **Şimdilik elle.** Metin sabah e-postasında hazır gelir. Otomatik paylaşım kurulursa Make `https://asilhukuk.net/sosyal/x.xml` akışını izler. |
 | Facebook (kişisel profil) | **Elle.** Facebook kişisel profile otomatik paylaşıma hiçbir araçla izin vermiyor. Metin sabah e-postasında hazır gelir; kopyalayıp yapıştırmanız yeterlidir. |
+
+> **Durum (8 Kasım 2026):** Make kurulumu X geliştirici anahtarı adımında
+> tamamlanamadı. Otomatik paylaşım kurulana kadar üç metin de sabah e-postasıyla
+> gönderilir. Otomasyon kurulduğunda bu tablo ve aşağıdaki "E-posta" bölümü
+> güncellenmelidir; aksi hâlde aynı yazı iki kez paylaşılabilir.
 
 Akışlarda yalnızca `social` alanı olan yazılar yer alır. Her öğenin açıklaması
 (`description`), bağlantı dahil olduğu gibi paylaşılacak metindir.
@@ -126,6 +131,8 @@ bulunmalıdır. Metinler düz metindir: HTML ve Markdown kullanma, satır sonlar
 
 ### E-posta
 
-Sabah özet e-postasına her makale için **"Facebook'ta paylaşmak için"** başlığı
-altında `social.facebook` metnini olduğu gibi ekle. LinkedIn ve X'in Make
-tarafından saat 10:00'da otomatik paylaşılacağını bir cümleyle belirt.
+Sabah özet e-postasına **"Paylaşım metinleri"** başlıklı bir bölüm ekle. Bu bölümde
+her makale için sırasıyla **LinkedIn**, **X** ve **Facebook** alt başlıklarıyla
+`social.linkedin`, `social.x` ve `social.facebook` metinlerini **olduğu gibi**
+koy. Metinleri değiştirme, kısaltma ve biçimlendirme; okur kopyalayıp doğrudan
+yapıştıracak. Her metnin arasında boş satır bırak, satır sonlarını koru.

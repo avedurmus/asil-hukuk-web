@@ -1,73 +1,150 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import KentselDonusumClient from '@/components/KentselDonusumClient';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { Metadata } from "next";
-import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import PageHero from "@/components/PageHero";
+import ContactCTA from "@/components/ContactCTA";
+import KentselDonusumClient from "@/components/KentselDonusumClient";
+import { DONUSUM_ADIMLARI, ICTIHATLAR, REHBER_SSS } from "@/data/kentselDonusum";
+import { breadcrumbJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "Kentsel Dönüşüm Rehberi 2026: %50+1 ve Pay Satışı",
-    description: "6306 Sayılı Kanun kapsamındaki salt çoğunluk (%50+1) ile kentsel dönüşüm kararı, yeni tebligat usulleri ve pay satışı süreçlerine dair pratik hukuki rehber.",
+    title: "Kentsel Dönüşüm Rehberi: %50+1, Pay Satışı ve İçtihat",
+    description:
+        "6306 sayılı Kanunda hisse ağırlıklı salt çoğunluk, tebligat usulleri, kira yardımı ve pay satışı. Süre hesaplayıcı, arsa payı hesaplayıcı, sözleşme kontrol listesi ve güncel Yargıtay-Danıştay kararları.",
     path: "/kentsel-donusum-rehberi",
+    keywords: [
+        "kentsel dönüşüm",
+        "6306 sayılı kanun",
+        "salt çoğunluk",
+        "arsa payı satışı",
+        "riskli yapı tespiti",
+        "kat karşılığı inşaat sözleşmesi",
+        "kira yardımı",
+        "kentsel dönüşüm avukatı",
+    ],
     openGraph: { type: "article" },
 });
 
+const PAGE_URL = `${SITE_URL}/kentsel-donusum-rehberi`;
+
+/** Rehberi altı aşamalı bir süreç olarak işaretler. */
+const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Kentsel Dönüşüm Süreci: Aşama Aşama Yol Haritası",
+    description:
+        "6306 sayılı Kanun kapsamında riskli yapı tespitinden teslime kadar kentsel dönüşüm sürecinin hukuki aşamaları, süreleri ve kritik adımları.",
+    inLanguage: "tr-TR",
+    url: PAGE_URL,
+    step: DONUSUM_ADIMLARI.map((adim, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: `${adim.title} (${adim.dayanak})`,
+        text: adim.ozet,
+        url: `${PAGE_URL}#adim-${adim.slug}`,
+    })),
+};
+
+const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "tr-TR",
+    mainEntity: REHBER_SSS.map((item) => ({
+        "@type": "Question",
+        name: item.soru,
+        acceptedAnswer: { "@type": "Answer", text: item.cevap.join(" ") },
+    })),
+};
+
+/** Rehberde değerlendirilen kararların listesi. */
+const ictihatJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Kentsel dönüşümde uygulamayı belirleyen yargı kararları",
+    inLanguage: "tr-TR",
+    itemListElement: ICTIHATLAR.map((karar, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: `${karar.mahkeme} ${karar.daire}, E. ${karar.esas}, K. ${karar.karar}, ${karar.tarih} — ${karar.konu}`,
+        ...(karar.url ? { url: karar.url } : {}),
+    })),
+};
+
 export default function KentselDonusumRehberi() {
-  return (
-    <div className="bg-ivory-100 dark:bg-slate-950 min-h-screen flex flex-col transition-colors duration-300">
-      <Header />
-      <main className="flex-grow pt-24 pb-20">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(
-              breadcrumbJsonLd([{ name: "Kentsel Dönüşüm Rehberi", path: "/kentsel-donusum-rehberi" }])
-            ),
-          }}
-        />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header Section with Richer Design */}
-          <div className="text-center mb-16 pt-8 relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-400 text-sm font-semibold tracking-wide mb-6 border border-blue-200/50 dark:border-blue-900/40 shadow-sm">
-              <Sparkles className="w-4 h-4 text-gold-500 animate-pulse" /> GÜNCEL MEVZUAT REHBERİ (2026)
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-6 leading-tight font-serif">
-              Yeni Kentsel Dönüşüm Süreci Rehberi
-            </h1>
-            <p className="text-lg md:text-xl text-slate-650 dark:text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              6306 Sayılı Kanun ve Uygulama Yönetmeliğindeki son değişikliklerle kentsel dönüşüm süreçleri hızlandırıldı. Artık 2/3 çoğunluk yerine <strong className="text-primary-900 dark:text-gold-500">%50+1 (Salt Çoğunluk)</strong> ile karar alınabiliyor ve tebligat süreçleri kolaylaştırıldı.
-            </p>
-          </div>
+    return (
+        <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
+            <Header />
+            <main className="flex-grow">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(
+                            breadcrumbJsonLd([
+                                { name: "Kentsel Dönüşüm Rehberi", path: "/kentsel-donusum-rehberi" },
+                            ])
+                        ),
+                    }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(ictihatJsonLd) }}
+                />
 
-          {/* Interactive client component containing stepper and calculator */}
-          <KentselDonusumClient />
+                <PageHero
+                    eyebrow="Güncel Mevzuat Rehberi"
+                    title={
+                        <>
+                            Kentsel Dönüşüm <span className="text-gold-400">Rehberi</span>
+                        </>
+                    }
+                    description={
+                        <>
+                            7471 sayılı Kanunla karar yeter sayısı 2/3 çoğunluktan salt çoğunluğa indirildi. Ancak
+                            ölçüt kişi sayısı değil, <strong className="font-semibold text-gold-300">arsa payı</strong>{" "}
+                            ağırlığıdır. Sürecin altı aşamasını, hak düşürücü süreleri ve güncel yargı kararlarını
+                            bir arada bulacağınız interaktif rehber.
+                        </>
+                    }
+                >
+                    <dl className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
+                        {[
+                            { value: "%50+1", label: "Hisse ağırlıklı salt çoğunluk" },
+                            { value: "15 gün", label: "Tespite itiraz süresi" },
+                            { value: "18 ay", label: "Riskli yapıda kira yardımı" },
+                            { value: `${ICTIHATLAR.length}`, label: "İncelenen yargı kararı" },
+                        ].map((stat) => (
+                            <div key={stat.label} className="text-center">
+                                <dt className="font-serif text-3xl font-medium text-gold-400 md:text-4xl">
+                                    {stat.value}
+                                </dt>
+                                <dd className="mt-2 text-xs font-light leading-relaxed text-slate-300 sm:text-sm">
+                                    {stat.label}
+                                </dd>
+                            </div>
+                        ))}
+                    </dl>
+                </PageHero>
 
-          {/* Enhanced CTA Section */}
-          <div className="mt-16 bg-gradient-to-br from-primary-900 to-slate-900 dark:from-slate-900/80 dark:to-slate-950/80 rounded-3xl p-8 md:p-12 text-center shadow-xl text-white relative overflow-hidden border border-slate-800">
-            <div className="absolute inset-0 bg-[radial-gradient(#c09652_1px,transparent_1px)] [background-size:24px_24px] opacity-5" />
-            <div className="relative z-10 space-y-6">
-              <h2 className="text-3xl font-bold font-serif">Sürecinizi Birlikte Güvenle Yönetelim</h2>
-              <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-                Kentsel dönüşüm süreci her aşamada hak düşürücü süreler ve ağır şekil şartları içerir. Hak kaybına uğramamak ve müteahhit karşısında mülkünüzü korumak için sürecin başından itibaren hukuki destek almanız önemlidir.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <Link href="/iletisim" className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-slate-950 px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all">
-                  Randevu Oluşturun <ArrowRight className="w-5 h-5" />
-                </Link>
-                <a href="tel:+902120000000" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-bold text-lg border border-slate-700 transition-all">
-                  Bizi Arayın
-                </a>
-              </div>
-            </div>
-          </div>
+                <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+                    <KentselDonusumClient />
+                </div>
 
+                <ContactCTA
+                    title="Kentsel dönüşüm sürecinizi birlikte güvenle yönetelim"
+                    description="Toplantı çağrısı ve karar tutanağından müteahhit sözleşmesine, pay satışına itirazdan fesih davasına kadar sürecin her aşamasında yanınızdayız. Dosyanızı inceleyip hangi adımın öncelikli olduğunu açıkça anlatalım."
+                    topic="Kentsel Dönüşüm"
+                />
+            </main>
+            <Footer />
         </div>
-      </main>
-      <Footer />
-    </div>
-  );
+    );
 }

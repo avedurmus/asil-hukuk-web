@@ -10,7 +10,8 @@ programına göre ön görüşme randevusu oluşturur.
 | Parça | Dosya |
 |---|---|
 | Sohbet penceresi (arayüz) | `components/ChatWidget.tsx` |
-| Sunucu uç noktası (Claude API, araç döngüsü) | `app/api/chat/route.ts` |
+| Sunucu uç noktası | `app/api/chat/route.ts` |
+| Ortak asistan çekirdeği (Claude API, araç döngüsü; WhatsApp ile ortak) | `lib/chatbot/agent.ts` |
 | Asistanın talimatı ve bilgi tabanı | `lib/chatbot/systemPrompt.ts` |
 | Çalışma programı, tatiller, görüşme süresi | `data/appointmentSettings.ts` |
 | Boş saat hesabı | `lib/booking/slots.ts` |
@@ -30,6 +31,8 @@ programına göre ön görüşme randevusu oluşturur.
   açıkça onayladıktan sonra yapılır. Talep, iletişim formunun kullandığı
   Formspree adresine e-posta olarak gönderilir; kullanıcıya referans kodu,
   takvime ekleme (.ics) ve WhatsApp düğmesi gösterilir.
+
+Aynı asistan WhatsApp hattında da çalışabilir: bkz. `docs/whatsapp-asistani.md`.
 
 ## İki çalışma modu
 

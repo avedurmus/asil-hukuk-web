@@ -2,23 +2,31 @@ import { siteContent } from "@/data/siteContent";
 import { notifyOffice } from "@/lib/booking";
 import { isAssistantConfigured, runAssistant, sanitizeHistory, type ExtraTool } from "@/lib/chatbot/agent";
 import { OFFICE_HOURS } from "@/lib/contact";
+import { SITE_URL } from "@/lib/seo";
 import { formatLocalPhone, markReadWithTyping, normalizeWaId, sendText } from "./api";
 import * as store from "./store";
 
 /**
- * WhatsApp asistanının karar mantığı.
+ * WhatsApp asistanının karar mantığı. İki çalışma modu vardır:
  *
- * Numara aynı zamanda kişisel olarak kullanıldığı için varsayılan davranış
- * "şüphede sus"tur. Asistan şu numaralara HİÇ yanıt vermez:
- *  - telefon rehberindeki kişiler (birlikte kullanım rehber eşitlemesi),
- *  - kurulumdan önce yazışılmış herkes (sohbet geçmişi eşitlemesi),
- *  - WHATSAPP_PERSONAL_NUMBERS listesindekiler,
- *  - avukatın telefondan yazdığı sohbetler (WHATSAPP_HUMAN_HOURS süresince),
- *  - asistanın avukata devrettiği sohbetler (aynı süre).
- * Depo (Redis) okunamazsa yine yanıt verilmez.
+ * - Ayrı numara (varsayılan): Bot yalnızca kendisine ayrılmış bir numarada
+ *   (ör. büronun sabit hattı) çalışır ve o numaraya yazan herkese yanıt verir.
+ *   Sohbet avukata devredildiğinde avukata e-posta gider, avukat müvekkile
+ *   kendi numarasından döner; bot sohbette yardımcı olmayı sürdürür.
+ *
+ * - Birlikte kullanım (WHATSAPP_COEXISTENCE=true): Numara aynı zamanda
+ *   telefondaki WhatsApp Business uygulamasında kişisel olarak kullanılır.
+ *   "Şüphede sus" ilkesiyle şu numaralara HİÇ yanıt verilmez: telefon
+ *   rehberindeki kişiler, kurulumdan önce yazışılmış herkes, avukatın
+ *   telefondan yazdığı ve asistanın avukata devrettiği sohbetler
+ *   (WHATSAPP_HUMAN_HOURS süresince).
+ *
+ * Her iki modda da WHATSAPP_PERSONAL_NUMBERS listesine yanıt verilmez ve depo
+ * (Redis) okunamazsa asistan susar.
  */
 
 const PHONE = siteContent.contact.phone;
+const COEXISTENCE = process.env.WHATSAPP_COEXISTENCE === "true";
 const HUMAN_HOURS = Number(process.env.WHATSAPP_HUMAN_HOURS) || 72;
 /** Art arda gönderilen mesajları tek yanıtta toplamak için bekleme süresi. */
 const BURST_WAIT_MS = 2500;
@@ -27,14 +35,23 @@ const INTRO_MESSAGE = [
     "Merhaba, Asil Hukuk Bürosu'na hoş geldiniz.",
     "Ben büronun yapay zekâ destekli dijital asistanıyım. Size genel bilgi verebilir, Av. Emre Durmuş ile ön görüşme randevusu oluşturabilirim. Verdiğim bilgiler hukuki danışmanlık yerine geçmez.",
     "Avukatımızla doğrudan görüşmek isterseniz *avukat* yazmanız yeterli.",
-    "Lütfen kimlik numarası, sağlık bilgisi gibi hassas bilgiler paylaşmayın. Mesajlarınız yanıt üretmek amacıyla yapay zekâ hizmet sağlayıcımız tarafından işlenir.",
+    `Lütfen kimlik numarası, sağlık bilgisi gibi hassas bilgiler paylaşmayın. Mesajlarınız yanıt üretmek amacıyla yapay zekâ hizmet sağlayıcımız tarafından işlenir: ${SITE_URL}/kvkk`,
 ].join("\n\n");
 
-const UNREADABLE_MESSAGE = `Sesli mesaj, fotoğraf ve belgeleri okuyamıyorum; gönderdikleriniz avukatımıza ulaşır. Konunuzu birkaç cümleyle yazarsanız size yardımcı olabilirim. Acil durumlarda ${PHONE} numarasını arayabilirsiniz.`;
+const UNREADABLE_MESSAGE = COEXISTENCE
+    ? `Sesli mesaj, fotoğraf ve belgeleri okuyamıyorum; gönderdikleriniz avukatımıza ulaşır. Konunuzu birkaç cümleyle yazarsanız size yardımcı olabilirim. Acil durumlarda ${PHONE} numarasını arayabilirsiniz.`
+    : `Sesli mesaj, fotoğraf ve belgeleri okuyamıyorum. Konunuzu birkaç cümleyle yazarsanız size yardımcı olabilirim; belgelerinizi ön görüşmede avukatımız inceleyecektir. Acil durumlarda ${PHONE} numarasını arayabilirsiniz.`;
 
 const WA_FALLBACK = `Şu anda yanıt veremiyorum. Mesajınız büromuza ulaştı; mesai saatlerinde (${OFFICE_HOURS}) dönüş yapılacaktır. Acil durumlarda ${PHONE} numarasını arayabilirsiniz.`;
 
-const HANDOVER_REPLY = `Mesajınızı Av. Emre Durmuş'a ilettim. Mesai saatlerinde (${OFFICE_HOURS}) bu sohbetten size dönüş yapılacaktır. Acil bir durum varsa lütfen ${PHONE} numarasını arayın.`;
+/** Devirden sonra kullanıcıya nasıl dönüş yapılacağı. */
+const HANDOVER_NEXT_STEP = COEXISTENCE
+    ? `Mesai saatlerinde (${OFFICE_HOURS}) bu sohbetten dönüş yapılacak.`
+    : `Mesai saatlerinde (${OFFICE_HOURS}) Av. Emre Durmuş ${PHONE} numarasından kullanıcıyla iletişime geçecek.`;
+
+const HANDOVER_REPLY = COEXISTENCE
+    ? `Mesajınızı Av. Emre Durmuş'a ilettim. Mesai saatlerinde (${OFFICE_HOURS}) bu sohbetten size dönüş yapılacaktır. Acil bir durum varsa lütfen ${PHONE} numarasını arayın.`
+    : `Mesajınızı Av. Emre Durmuş'a ilettim. Mesai saatlerinde (${OFFICE_HOURS}) sizinle ${PHONE} numarasından iletişime geçilecektir. Acil bir durum varsa bu numarayı hemen arayabilirsiniz.`;
 
 function numberList(name: string): Set<string> {
     return new Set(
@@ -137,7 +154,7 @@ export async function handleWebhook(payload: WaWebhookPayload): Promise<void> {
 }
 
 async function handleOwnerMessage(echo: WaMessage): Promise<void> {
-    if (!echo.to || !store.isStoreConfigured()) return;
+    if (!COEXISTENCE || !echo.to || !store.isStoreConfigured()) return;
     if (await store.wasSentByBot(echo.id)) return;
     const waId = normalizeWaId(echo.to);
     await store.setHumanMode(waId, HUMAN_HOURS);
@@ -230,7 +247,7 @@ async function drainPending(waId: string, profileName: string): Promise<void> {
             definition: {
                 name: "transfer_to_lawyer",
                 description:
-                    "Sohbeti Av. Emre Durmuş'a devreder: avukata e-posta bildirimi gider ve asistan bu sohbette bir süre yanıt vermez. Kullanıcı avukatla görüşmek istediğinde, mevcut müvekkil kendi dosyası hakkında yazdığında, acil durumlarda veya yardımcı olamadığında çağır.",
+                    "Sohbeti Av. Emre Durmuş'a devreder: avukata konu özetiyle e-posta bildirimi gider. Kullanıcı avukatla görüşmek istediğinde, mevcut müvekkil kendi dosyası hakkında yazdığında, acil durumlarda veya yardımcı olamadığında çağır. Sonuçtaki next_step bilgisini kullanıcıya aktar; already_transferred=true ise talebin zaten iletildiğini söyle.",
                 input_schema: {
                     type: "object",
                     properties: {
@@ -250,9 +267,9 @@ async function drainPending(waId: string, profileName: string): Promise<void> {
             },
             run: async (input) => {
                 const { reason, summary } = (input ?? {}) as { reason?: string; summary?: string };
-                const notified = await transferToLawyer(waId, profileName, reason ?? "belirtilmedi", summary ?? "");
-                transferred = true;
-                return JSON.stringify({ success: true, lawyer_notified: notified });
+                const result = await transferToLawyer(waId, profileName, reason ?? "belirtilmedi", summary ?? "");
+                transferred = COEXISTENCE;
+                return JSON.stringify({ success: true, ...result, next_step: HANDOVER_NEXT_STEP });
             },
         };
 
@@ -283,10 +300,21 @@ async function drainPending(waId: string, profileName: string): Promise<void> {
     }
 }
 
-async function transferToLawyer(waId: string, profileName: string, reason: string, summary: string): Promise<boolean> {
-    await store.setHumanMode(waId, HUMAN_HOURS);
+async function transferToLawyer(
+    waId: string,
+    profileName: string,
+    reason: string,
+    summary: string,
+): Promise<{ lawyer_notified: boolean; already_transferred: boolean }> {
+    if (COEXISTENCE) {
+        await store.setHumanMode(waId, HUMAN_HOURS);
+    } else if (!(await store.claimOnce("transfer", waId, HUMAN_HOURS * 3600))) {
+        // Ayrı numara modunda bot sohbete devam eder; aynı kişi için avukata
+        // tekrar tekrar e-posta gönderilmez.
+        return { lawyer_notified: true, already_transferred: true };
+    }
     const phone = formatLocalPhone(waId);
-    return notifyOffice({
+    const notified = await notifyOffice({
         _subject: `WhatsApp: avukat dönüşü bekleniyor – ${profileName || phone}`,
         name: profileName || "-",
         phone,
@@ -295,6 +323,9 @@ async function transferToLawyer(waId: string, profileName: string, reason: strin
         reason,
         whatsapp: `https://wa.me/${waId}`,
         source: "WhatsApp asistanı",
-        note: `Asistan bu sohbette ${HUMAN_HOURS} saat yanıt vermeyecek. Telefonunuzdaki WhatsApp Business uygulamasından yanıtlayabilirsiniz.`,
+        note: COEXISTENCE
+            ? `Asistan bu sohbette ${HUMAN_HOURS} saat yanıt vermeyecek. Telefonunuzdaki WhatsApp Business uygulamasından yanıtlayabilirsiniz.`
+            : `Kullanıcıya ${PHONE} numarasından dönüş yapılacağı söylendi. Bu kişiyle ilgili ${HUMAN_HOURS} saat içinde tekrar bildirim gönderilmez.`,
     });
+    return { lawyer_notified: notified, already_transferred: false };
 }

@@ -18,6 +18,7 @@ const corporateLinks = [
     { href: "/sss", label: "Sıkça Sorulan Sorular" },
     { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi" },
     { href: "/iletisim", label: "İletişim & Randevu" },
+    { href: "/kvkk", label: "KVKK ve Gizlilik" },
 ];
 
 export default function Footer() {

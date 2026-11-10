@@ -94,7 +94,7 @@ function validate(input: BookingInput) {
 }
 
 /** Avukata e-posta bildirimi (Formspree). Başarılıysa true döner. */
-async function notifyOffice(fields: Record<string, string>): Promise<boolean> {
+export async function notifyOffice(fields: Record<string, string>): Promise<boolean> {
     const formId = process.env.FORMSPREE_FORM_ID || "mblnkeke";
     try {
         const res = await fetch(`https://formspree.io/f/${formId}`, {
@@ -109,7 +109,15 @@ async function notifyOffice(fields: Record<string, string>): Promise<boolean> {
     }
 }
 
-export async function bookAppointment(input: BookingInput): Promise<Booking> {
+/** Randevunun hangi kanaldan geldiği; bildirim e-postasında belirtilir. */
+export type BookingChannel = "web" | "whatsapp";
+
+const channelLabels: Record<BookingChannel, string> = {
+    web: "Web sitesindeki sohbet asistanı",
+    whatsapp: "WhatsApp asistanı",
+};
+
+export async function bookAppointment(input: BookingInput, channel: BookingChannel = "web"): Promise<Booking> {
     const data = validate(input);
     const nowMs = Date.now();
 
@@ -135,7 +143,7 @@ export async function bookAppointment(input: BookingInput): Promise<Booking> {
         `Görüşme şekli: ${meetingTypeLabel}`,
         `Özet: ${data.summary}`,
         "",
-        "Web sitesindeki sohbet asistanı üzerinden oluşturuldu. KVKK onayı alındı.",
+        `${channelLabels[channel]} üzerinden oluşturuldu. KVKK onayı alındı.`,
     ].join("\n");
 
     if (calendarMode) {
@@ -167,7 +175,7 @@ export async function bookAppointment(input: BookingInput): Promise<Booking> {
         appointment: `${formatLocal(slot.startMs)} (${cfg.durationMinutes} dk)`,
         preferred_contact: meetingTypeLabel,
         reference,
-        source: "Sohbet asistanı",
+        source: channelLabels[channel],
         kvkk_onay: "Onaylandı",
     });
 

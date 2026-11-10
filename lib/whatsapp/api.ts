@@ -95,6 +95,41 @@ export async function requestAppSync(type: "contacts" | "history"): Promise<unkn
     });
 }
 
+// ———————————————————————————————————————— Kurulum yardımcıları (yalnızca Meta)
+async function graph(method: "GET" | "POST", path: string, body?: unknown): Promise<unknown> {
+    if (PROVIDER !== "meta") throw new Error("Bu işlem yalnızca Meta'ya doğrudan bağlantıda kullanılabilir.");
+    const res = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${path}`, {
+        method,
+        headers: { ...authHeaders(), "Content-Type": "application/json" },
+        body: body === undefined ? undefined : JSON.stringify(body),
+        cache: "no-store",
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+        const message = (data as { error?: { message?: string } } | null)?.error?.message ?? `HTTP ${res.status}`;
+        throw new Error(`Meta API hatası: ${message}`);
+    }
+    return data;
+}
+
+/** Numaranın Meta'daki durumu (görünen ad, doğrulama, kalite, kayıt). */
+export function getNumberStatus(): Promise<unknown> {
+    return graph(
+        "GET",
+        `${process.env.WHATSAPP_PHONE_NUMBER_ID}?fields=display_phone_number,verified_name,name_status,code_verification_status,quality_rating,platform_type,status,messaging_limit_tier`,
+    );
+}
+
+/** Numarayı Cloud API'ye kaydeder; pin, numaranın 6 haneli iki adımlı doğrulama kodudur. */
+export function registerNumber(pin: string): Promise<unknown> {
+    return graph("POST", `${process.env.WHATSAPP_PHONE_NUMBER_ID}/register`, { messaging_product: "whatsapp", pin });
+}
+
+/** Uygulamayı WhatsApp Business hesabına abone eder; mesaj webhook'ları için gereklidir. */
+export function subscribeApp(wabaId: string): Promise<unknown> {
+    return graph("POST", `${wabaId}/subscribed_apps`);
+}
+
 /** Meta'nın X-Hub-Signature-256 imzasını doğrular. */
 export function verifySignature(rawBody: string, header: string | null, appSecret: string): boolean {
     if (!header?.startsWith("sha256=")) return false;

@@ -1,247 +1,231 @@
 # WhatsApp Asistanı
 
-Sitedeki **Asil Asistan**'ın WhatsApp hattı (0530 432 20 25) üzerinde çalışan
-hâli. Büroya yazan müvekkil adaylarını karşılar, konuyu ilgili çalışma alanına
-yönlendirir, kısa genel bilgi verir, ön görüşme randevusu oluşturur ve
-gerektiğinde sohbeti Av. Emre Durmuş'a devreder.
+Sitedeki **Asil Asistan**'ın WhatsApp'ta çalışan hâli. Büroya yazan müvekkil
+adaylarını karşılar, konuyu ilgili çalışma alanına yönlendirir, kısa genel
+bilgi verir, ön görüşme randevusu oluşturur ve gerektiğinde konuyu
+Av. Emre Durmuş'a e-postayla iletir.
 
-Numara **birlikte kullanım** (Meta: "coexistence") ile bağlanır. Telefondaki
-WhatsApp Business uygulaması aynen çalışmaya devam eder: kişisel yazışmalar
-sürer, asistanın yazdıkları da telefonda görünür ve istediğiniz sohbeti
-telefondan devralabilirsiniz.
+Bot, **büronun sabit hattında** çalışır ve Meta'nın WhatsApp Cloud API'sine
+**doğrudan**, aracı firma olmadan bağlanır. Avukatın kişisel numarası
+(0530 432 20 25) bundan hiç etkilenmez.
 
 ## Nasıl çalışır?
 
 | Parça | Dosya |
 |---|---|
 | Webhook (Meta → site) | `app/api/whatsapp/route.ts` |
-| Rehber / geçmiş eşitlemesini başlatma | `app/api/whatsapp/sync/route.ts` |
+| Kurulum yardımcıları (durum, kayıt, abonelik) | `app/api/whatsapp/setup/route.ts` |
 | Kime yanıt verileceği, devir, sohbet akışı | `lib/whatsapp/bot.ts` |
 | WhatsApp API istemcisi | `lib/whatsapp/api.ts` |
 | Sohbet geçmişi ve durum (Upstash Redis) | `lib/whatsapp/store.ts` |
 | Ortak asistan çekirdeği (site + WhatsApp) | `lib/chatbot/agent.ts` |
 | Talimatlar ve bilgi tabanı (`whatsapp` kanalı) | `lib/chatbot/systemPrompt.ts` |
+| KVKK aydınlatma metni / gizlilik politikası | `app/kvkk/page.tsx` |
 
 Bilgi tabanı, randevu programı ve meslek kuralları sitedeki asistanla
-**aynıdır**; `data/services.ts`, `data/faq.ts` veya
-`data/appointmentSettings.ts` güncellendiğinde WhatsApp asistanı da güncellenir.
-
-### Kişisel sohbetler nasıl korunur?
-
-Numara kişisel olarak da kullanıldığı için asistan "şüphede sus" ilkesiyle
-çalışır. Aşağıdakilere **hiç yanıt vermez**:
-
-- **Telefon rehberinizdeki herkes.** Kurulumdan sonra rehber eşitlenir;
-  sonradan rehbere eklediğiniz kişiler de otomatik işlenir.
-- **Kurulumdan önce yazıştığınız herkes.** Son 6 ayın sohbet listesi eşitlenir.
-  Yalnızca numaralar işaretlenir, mesaj içerikleri saklanmaz.
-- **`WHATSAPP_PERSONAL_NUMBERS`** listesindeki numaralar.
-- **Telefondan yazdığınız her sohbet:** Bir kişiye telefondan yazdığınız anda
-  asistan o sohbette `WHATSAPP_HUMAN_HOURS` (varsayılan 72) saat susar.
-- **Gruplar:** Grup mesajları API'ye hiç gelmez.
-
-Böylece asistan pratikte yalnızca **sizinle ilk kez yazışan, rehberinizde
-olmayan** kişilere yanıt verir. Bu kişiler büyük ölçüde siteden ve Google'dan
-gelen müvekkil adaylarıdır. Kayıt deposuna (Redis) ulaşılamazsa asistan yine
-yanıt vermez.
+**aynıdır**. `data/services.ts`, `data/faq.ts` veya
+`data/appointmentSettings.ts` güncellendiğinde WhatsApp asistanı da
+güncellenir.
 
 ### Sohbet akışı
 
 1. **İlk mesaj:** Kullanıcıya önce otomatik bir tanıtım gider. Tanıtımda
    asistanın yapay zekâ olduğu, hukuki danışmanlık vermediği, avukatla görüşmek
-   için *avukat* yazılabileceği ve hassas bilgi paylaşılmaması gerektiği
-   belirtilir. Ardından asistanın yanıtı gelir.
+   için *avukat* yazılabileceği, hassas bilgi paylaşılmaması gerektiği ve KVKK
+   sayfasının bağlantısı yer alır. Ardından asistanın yanıtı gelir.
 2. **Art arda gelen mesajlar:** Birkaç saniye içinde gönderilen mesajlar tek
    yanıtta toplanır.
-3. **Randevu:** Randevu, sitedekiyle aynı kurallarla alınır (KVKK onayı, boş
-   saat kontrolü, e-posta bildirimi, Google Takvim). Telefon numarası
-   WhatsApp'tan bilindiği için ayrıca sorulmaz. Bildirim e-postasında kaynak
-   "WhatsApp asistanı" olarak görünür.
-4. **Avukata devir:** Asistan şu durumlarda sohbeti size devreder:
-   - kullanıcı *avukat* yazarsa ya da bir insanla görüşmek isterse,
+3. **Randevu:** Sitedekiyle aynı kurallarla alınır: KVKK onayı, boş saat
+   kontrolü, e-posta bildirimi ve Google Takvim. Telefon numarası WhatsApp'tan
+   bilindiği için ayrıca sorulmaz. Bildirim e-postasında kaynak olarak
+   "WhatsApp asistanı" yazar.
+4. **Avukata devir:** Şu durumlarda size **e-posta** gider (Formspree,
+   iletişim formuyla aynı adres); e-postada özet ve `wa.me` bağlantısı bulunur:
+   - kullanıcı *avukat* yazarsa veya bir insanla görüşmek isterse,
    - mevcut bir müvekkil kendi dosyası hakkında yazarsa,
    - acil bir durum varsa,
    - asistan yardımcı olamazsa.
 
-   Devirde size **e-posta** gider (Formspree, iletişim formuyla aynı adres).
-   E-postada özet ve `wa.me` bağlantısı bulunur. Asistan o sohbette 72 saat
-   susar; telefondan yanıt verirsiniz.
+   Kullanıcıya, mesai saatlerinde **0530 432 20 25'ten** dönüş yapılacağı
+   söylenir. Bot sohbette yardımcı olmayı sürdürür. Aynı kişi için 72 saat
+   içinde ikinci bir e-posta gönderilmez.
 5. **Ses, fotoğraf, belge:** Asistan bunları okuyamaz. Kullanıcıya bir kez
-   bilgi verir; içerik telefonunuzda sizi bekler.
+   bilgi verir.
+
+Sabit hattaki WhatsApp'a gelen mesajları başka bir yerden göremezsiniz. Size
+yalnızca devir ve randevu e-postaları ulaşır.
 
 ## Kurulum
 
-### 1. Kişisel WhatsApp'tan WhatsApp Business'a geçiş (telefonda, 10 dk)
+### 0. Ön koşullar
 
-Birlikte kullanım yalnızca **WhatsApp Business** uygulamasıyla çalışır.
+- **Sabit hat WhatsApp'ta kayıtlı olmamalı.** Daha önce WhatsApp Business
+  uygulamasında kullanıldıysa önce o uygulamada *Ayarlar → Hesap → Hesabımı
+  sil* ile kaldırın.
+- **Upstash Redis Vercel'e bağlı olmalı.** Bu adım tamamlandı
+  (`KV_REST_API_URL` / `KV_REST_API_TOKEN` tanımlı).
+- **360dialog kullanılmayacak.** Aboneliği iptal edin. Kişisel numaranızın
+  360dialog bağlantısı da kaldırılmalı.
 
-1. WhatsApp'ta yedek alın: *Ayarlar → Sohbetler → Sohbet yedeği*.
-2. Aynı telefona **WhatsApp Business** uygulamasını kurun ve 0530 432 20 25
-   numarasını girin. Uygulama, numaranın WhatsApp'ta kayıtlı olduğunu görür ve
-   sohbetleri taşımayı önerir; onaylayın. Sohbetler, gruplar ve medya taşınır.
-3. İşletme profilini doldurun: ad *Asil Hukuk Bürosu*, kategori *Hukuk
-   Hizmetleri*, adres, çalışma saatleri, `https://asilhukuk.net`.
-4. Uygulamanın güncel olduğundan emin olun (en az 2.24.17).
+### 1. Meta uygulamasına WhatsApp'ı ekleme
 
-Kişisel kullanım aynen sürer. Tek fark, kişilerinizin profilinizde "işletme
-hesabı" ibaresini görmesidir.
+1. https://developers.facebook.com/apps/1503483311684677 adresini açın.
+2. **Add product → WhatsApp → Set up** yolunu izleyin. Kullanım durumu
+   soruluyorsa *Connect with customers through WhatsApp* seçin. İşletme
+   portföyü olarak Asil Hukuk'u seçin (510298799379793).
+3. Sol menüde **WhatsApp → API Setup** sayfası açılır. Buradaki test
+   numarasıyla uğraşmanıza gerek yok.
 
-### 2. Numarayı API'ye bağlama (birlikte kullanım)
+### 2. Sabit hattı ekleme
 
-Meta, birlikte kullanım bağlantısını yalnızca **Embedded Signup** akışıyla ve
-yalnızca **Tech Provider** veya **Solution Partner** statüsündeki uygulamalar
-üzerinden yapıyor. İki yol var.
+1. **API Setup → Add phone number** düğmesine basın.
+2. Görünen ad *Asil Hukuk Bürosu*, kategori *Professional Services /
+   Hukuk*, saat dilimi İstanbul.
+3. Numara olarak büro sabit hattını girin (ülke: Türkiye). Doğrulama yöntemi
+   **Phone call (sesli arama)** olsun. Sabit hat çalınır, söylenen 6 haneli
+   kodu girin.
+4. Numara listede görünür. Yanındaki **Phone number ID** değerini not edin.
+   **WhatsApp Business Account ID** değerini de not edin.
+5. Görünen ad Meta incelemesine gider; onay genellikle kısa sürer. Onaydan
+   önce de mesajlaşma çoğu zaman çalışır.
 
-**Yol A: İş ortağı (BSP) üzerinden (seçilen yol)**
+### 3. Kalıcı erişim anahtarı (System User)
 
-Birlikte kullanımı destekleyen bir WhatsApp iş ortağına (ör. 360dialog)
-kaydolun. Kayıt akışında "mevcut WhatsApp Business uygulaması numaramı bağla"
-seçeneğini seçin. Telefonda *Ayarlar → Bağlı cihazlar*'dan gösterilen QR kodu
-okutun ve 6 aylık geçmiş paylaşımını onaylayın. İş ortağının verdiği API
-anahtarıyla Vercel'de `WHATSAPP_PROVIDER=360dialog` tanımlanır.
+API Setup sayfasındaki geçici anahtar 24 saatte biter. Kalıcı anahtar için:
 
-360dialog ile adımlar:
+1. https://business.facebook.com/settings → **Kullanıcılar → Sistem
+   kullanıcıları → Ekle** yolunu izleyin. Ad *asil-whatsapp*, rol *Admin*.
+2. **Varlık ata** adımında:
+   - **Uygulamalar** altında uygulamanızı seçin, *Tam kontrol* verin.
+   - **WhatsApp hesapları** altında hesabınızı seçin, *Tam kontrol* verin.
+3. **Yeni anahtar oluştur** adımında:
+   - uygulamayı seçin,
+   - süre olarak **Hiçbir zaman (Never)** seçin,
+   - izinler: `whatsapp_business_messaging` ve `whatsapp_business_management`.
+4. Anahtarı kopyalayın. Bir daha gösterilmez; sohbete yazmayın.
 
-1. 360dialog'a kaydolun ve WhatsApp hesabı oluştururken mevcut WhatsApp
-   Business uygulaması numarasını bağlama (coexistence) seçeneğini seçin.
-2. Telefonda gösterilen QR kodunu okutun ve geçmiş paylaşımını onaylayın.
-3. 360dialog panelinden bu numara için bir **API anahtarı** oluşturun. Bu
-   anahtar Vercel'de `WHATSAPP_ACCESS_TOKEN` olur.
-4. Webhook adresini 360dialog panelinden veya API'sinden numaraya tanımlayın
-   (bkz. adım 4).
+### 4. Vercel ortam değişkenleri
 
-Kurulum sırasında 360dialog'a şunları teyit ettirin (oturumda belgelerine
-erişilemediği için kodda doğrulanmamış varsayımlar):
-- Türkiye numarası için birlikte kullanımı destekliyor mu?
-- Webhook'u kendi adresimize olduğu gibi iletiyor mu? Şu alanlar dahil olmalı:
-  `smb_message_echoes`, `smb_app_state_sync`, `history`.
-- Mesaj gönderimi `https://waba-v2.360dialog.io/messages` adresine
-  `D360-API-KEY` başlığıyla mı yapılıyor? (Kod böyle varsayar.)
-- Rehber ve geçmiş eşitlemesi `https://waba-v2.360dialog.io/smb_app_data`
-  adresine `{"messaging_product":"whatsapp","sync_type":"smb_app_state_sync"}`
-  gövdesiyle mi başlatılıyor, yoksa 360dialog bunu kendisi mi yapıyor?
-- Aylık ücreti nedir?
+Vercel → Proje → **Settings → Environment Variables** (ortam: Production):
 
-**Yol B: Kendi Meta uygulamanızla (uygulama no 1503483311684677)**
+| Değişken | Değer |
+|---|---|
+| `WHATSAPP_ACCESS_TOKEN` | 3. adımdaki kalıcı anahtar |
+| `WHATSAPP_PHONE_NUMBER_ID` | 2. adımdaki Phone number ID |
+| `WHATSAPP_WABA_ID` | 2. adımdaki WhatsApp Business Account ID |
+| `WHATSAPP_APP_SECRET` | developers.facebook.com → Uygulama → **App settings → Basic → App secret** |
+| `WHATSAPP_VERIFY_TOKEN` | Kendi belirlediğiniz uzun, rastgele bir metin (30+ karakter, harf ve rakam) |
+| `WHATSAPP_ALLOWED_NUMBERS` | İlk test için yalnızca sizin cep numaranız (ör. `0530 432 20 25`) |
 
-Ara firmaya ücret ödenmez, ancak Meta'nın onay süreci gerekir:
+`WHATSAPP_BOT_ENABLED`'i henüz eklemeyin. Tanımlanmadıkça bot hiç yanıt
+vermez.
 
-1. business.facebook.com → *Güvenlik Merkezi*'nden işletme doğrulaması.
-2. developers.facebook.com'da uygulamayı **Tech Provider** olarak kaydetmek.
-   Bunun için `whatsapp_business_messaging` ve `whatsapp_business_management`
-   izinlerinde uygulama incelemesi gerekir. Süre birkaç gün ile birkaç hafta
-   arasıdır.
-3. *Facebook Login for Business* altında Embedded Signup yapılandırması
-   oluşturmak. Ardından `featureType: "whatsapp_business_app_onboarding"` ile
-   kayıt sayfasını sitede yayınlamak (bu sayfa ayrıca yazılmalıdır).
-4. Kendi numaranızla bu sayfadan geçip QR kodu okutmak.
+Ekledikten sonra **Deployments → ⋯ → Redeploy** ile yeniden yayınlayın.
 
-Bu yolda Vercel'de `WHATSAPP_PROVIDER` tanımlanmaz (varsayılan `meta`).
-`WHATSAPP_PHONE_NUMBER_ID`, kalıcı System User anahtarı ve App Secret girilir.
+### 5. Webhook
 
-### 3. Vercel ayarları
+1. developers.facebook.com → Uygulama → **WhatsApp → Configuration** sayfasını
+   açın.
+2. **Callback URL** olarak `https://asilhukuk.net/api/whatsapp` girin.
+   **Verify token** olarak `WHATSAPP_VERIFY_TOKEN` değerini girin. **Verify
+   and save** düğmesine basın.
+3. **Webhook fields** altında **messages** alanına abone olun (*Subscribe*).
 
-1. **Kayıt deposu (Upstash Redis):** Vercel'de Upstash, "Storage" sekmesinden
-   Marketplace üzerinden eklenir:
-   1. vercel.com'da projeyi açın → üst menüden **Storage** sekmesi.
-   2. **Create Database** (veya *Browse Marketplace*) → listeden **Upstash**
-      → **Upstash for Redis** → **Continue / Install**.
-   3. Bölge olarak **Frankfurt (eu-central-1)**, plan olarak **Free**'yi seçin,
-      bir ad verin (ör. `asil-whatsapp`) → **Create**.
-   4. Açılan ekranda **Connect Project** ile `asil-hukuk-web` projesine bağlayın
-      (Production, Preview, Development işaretli kalsın).
-   5. Projenin *Settings → Environment Variables* sayfasında `KV_REST_API_URL`
-      ve `KV_REST_API_TOKEN` değişkenlerinin oluştuğunu kontrol edin. Kod bu
-      adları otomatik tanır.
+### 6. Numarayı kaydetme ve uygulamayı abone etme (tarayıcıdan)
 
-   Storage sekmesinde Upstash görünmüyorsa: upstash.com'da ücretsiz hesap açıp
-   bir Redis veritabanı (Frankfurt) oluşturun, veritabanı sayfasındaki
-   **REST API** bölümünden `UPSTASH_REDIS_REST_URL` ve
-   `UPSTASH_REDIS_REST_TOKEN` değerlerini kopyalayıp Vercel'e ortam değişkeni
-   olarak elle ekleyin.
-2. **Ortam değişkenleri** (*Settings → Environment Variables*, örnek:
-   `.env.example`):
-   - `WHATSAPP_ACCESS_TOKEN`: Meta System User anahtarı veya iş ortağının API
-     anahtarı.
-   - `WHATSAPP_PHONE_NUMBER_ID`: yalnızca Yol B (WhatsApp Manager → Telefon
-     numaraları).
-   - `WHATSAPP_APP_SECRET`: yalnızca Yol B (Uygulama → *Ayarlar → Temel*).
-     Webhook imzasını doğrular.
-   - `WHATSAPP_VERIFY_TOKEN`: kendi belirlediğiniz uzun, rastgele bir metin.
-   - `WHATSAPP_PROVIDER=360dialog`: yalnızca Yol A.
-   - `WHATSAPP_ALLOWED_NUMBERS`: **ilk test için** yalnızca kendi ikinci
-     numaranız. Bu tanımlıyken asistan başka hiç kimseye yanıt vermez.
-   - `WHATSAPP_BOT_ENABLED=true`: tanımlanmadıkça asistan hiç yanıt vermez,
-     yalnızca rehber/geçmiş bilgisini kaydeder.
-3. Yeniden yayınlayın (*Deployments → ⋯ → Redeploy*).
+Aşağıdaki adresleri sırayla tarayıcıda açın. `<KEY>` yerine
+`WHATSAPP_VERIFY_TOKEN` değerini yazın.
 
-### 4. Webhook
+1. **Kayıt:** `123456` yerine kendi belirlediğiniz 6 haneli bir PIN yazın ve
+   PIN'i not edin; bu, numaranın iki adımlı doğrulama kodu olur.
+   ```
+   https://asilhukuk.net/api/whatsapp/setup?key=<KEY>&action=register&pin=123456
+   ```
+2. **Abonelik:**
+   ```
+   https://asilhukuk.net/api/whatsapp/setup?key=<KEY>&action=subscribe
+   ```
+3. **Durum kontrolü:**
+   ```
+   https://asilhukuk.net/api/whatsapp/setup?key=<KEY>&action=status
+   ```
+   Durum ekranında `"platform_type": "CLOUD_API"` ve `"status": "CONNECTED"`
+   görünmelidir.
 
-- **Adres:** `https://asilhukuk.net/api/whatsapp`. İmza göndermeyen iş
-  ortaklarında (Yol A) adres şöyle olur:
-  `https://asilhukuk.net/api/whatsapp?key=<WHATSAPP_VERIFY_TOKEN>`.
-- **Doğrulama anahtarı:** `WHATSAPP_VERIFY_TOKEN` değeri.
-- **Abone olunacak alanlar:** `messages`, `smb_message_echoes`,
-  `smb_app_state_sync`, `history`.
+Her adımda `"ok": true` görmelisiniz. Hata çıkarsa ekrandaki metni olduğu gibi
+iletin.
 
-### 5. Rehber ve geçmiş eşitlemesi (bağlantıdan sonraki 24 saat içinde!)
+### 7. Uygulamayı canlıya alma (Live)
 
-Tarayıcıda iki adresi birer kez açın:
+Geliştirme modundaki uygulamalara gerçek mesajların webhook'u gelmez.
 
-```
-https://asilhukuk.net/api/whatsapp/sync?key=<WHATSAPP_VERIFY_TOKEN>&type=contacts
-https://asilhukuk.net/api/whatsapp/sync?key=<WHATSAPP_VERIFY_TOKEN>&type=history
-```
+1. developers.facebook.com → Uygulama → **App settings → Basic** sayfasını
+   açın:
+   - **Privacy policy URL:** `https://asilhukuk.net/kvkk`
+   - **Category:** *Business and pages*
+   - **App icon:** büro logosu (1024×1024)
 
-Sonuç birkaç dakika içinde webhook'a gelir. Kontrol için Upstash
-konsolunda `wa:personal:*` anahtarları görünmelidir. Bu adım atlanırsa
-rehberdeki kişileriniz asistana yazabilir. Bu durumda en azından sık
-yazıştıklarınızı `WHATSAPP_PERSONAL_NUMBERS`'a ekleyin.
+   **Save** ile kaydedin.
+2. Üst kısımdaki **App mode** anahtarını **Live** yapın (bazı panellerde
+   **Publish**).
 
-### 6. Test ve yayına alma
+### 8. Test ve yayına alma
 
-1. `WHATSAPP_ALLOWED_NUMBERS` = ikinci telefonunuz. O telefondan şunları
-   deneyin:
+1. Vercel'de `WHATSAPP_BOT_ENABLED` = `true` ekleyip yeniden yayınlayın.
+2. Cep telefonunuzdan sabit hatta WhatsApp'tan yazın ve şunları deneyin:
    - selamlaşma,
    - bir hukuki soru,
    - randevu,
    - *avukat* yazmak,
    - sesli mesaj.
-2. Asistan yazarken telefondan aynı sohbete yazın; asistan susmalıdır.
-3. Kişisel bir kişinizden mesaj geldiğinde asistanın yanıt vermediğini görün.
-4. Her şey doğruysa `WHATSAPP_ALLOWED_NUMBERS`'ı silip yeniden yayınlayın.
+3. Her şey doğruysa `WHATSAPP_ALLOWED_NUMBERS`'ı silin. Artık herkese yanıt
+   verilir.
+4. İsterseniz sitedeki WhatsApp düğmelerini bota yönlendirin: Vercel'de
+   `NEXT_PUBLIC_WHATSAPP_NUMBER` = sabit hat (ör. `0216 XXX XX XX`)
+   tanımlayıp yeniden yayınlayın. Tanımlanmazsa düğmeler 0530'a gitmeye devam
+   eder.
+5. Sabit hattı kartvizit, Google İşletme Profili gibi yerlerde "WhatsApp" olarak
+   duyurabilirsiniz.
 
-## Birlikte kullanımda bilinmesi gerekenler
+## Maliyet
 
-- Telefondaki WhatsApp Business uygulamasını **en az 14 günde bir açın**. Aksi
-  hâlde Meta bağlantıyı askıya alabilir.
-- Kurulum sırasında WhatsApp Web / masaüstü bağlantıları kopar. Yeniden QR ile
-  bağlayın.
-- Kaybolan mesajlar ve tek seferlik görüntüleme gibi bazı özellikler
-  birlikte kullanımda kısıtlanabilir.
-- **Ücret:** Müvekkil yazdıktan sonraki 24 saat içinde API'den verilen yanıtlar
-  Meta tarafından ücretlendirilmez. Telefondan yazdıklarınız zaten ücretsizdir.
-  Asistan kendiliğinden mesaj başlatmaz.
+- **Meta:** Kullanıcı yazdıktan sonraki 24 saat içinde verilen yanıtlar
+  **ücretsizdir**. Bot kendiliğinden mesaj başlatmaz, şablon mesaj
+  göndermez. Meta kurulumda ödeme yöntemi isteyebilir; bu kullanımda ücret
+  doğmaz.
+- **Claude API:** Sitedeki asistanla aynı hesap kullanılır; konuşma başına
+  kuruşlar düzeyindedir.
+- **Upstash Redis:** Ücretsiz plan yeterlidir.
 
 ## İsteğe bağlı ayarlar
 
-- `WHATSAPP_HUMAN_HOURS`: devirden veya telefondan yazmanızdan sonra
-  asistanın susacağı süre (saat, varsayılan 72).
-- `WHATSAPP_PERSONAL_NUMBERS`: asistanın asla yanıt vermeyeceği numaralar
-  (virgülle ayrılmış, `0532 …` veya `+90 532 …` biçiminde).
-- `WHATSAPP_MARK_READ=true`: asistan mesajı okundu olarak işaretler ve
-  "yazıyor…" gösterir. Varsayılan kapalıdır. Açıldığında sohbet telefonunuzda
-  da okunmuş görünür ve yeni mesajları gözden kaçırabilirsiniz.
+- `WHATSAPP_PERSONAL_NUMBERS`: botun asla yanıt vermeyeceği numaralar
+  (virgülle ayrılmış).
+- `WHATSAPP_HUMAN_HOURS`: aynı kişi için tekrar devir e-postası gönderilmeyecek
+  süre (saat, varsayılan 72).
+- `WHATSAPP_MARK_READ=true`: mesajları okundu olarak işaretler ve "yazıyor…"
+  gösterir.
 - `WHATSAPP_GRAPH_VERSION`: Graph API sürümü (varsayılan `v23.0`).
+
+### Birlikte kullanım (aynı numarada telefon + bot)
+
+Kod, numaranın aynı zamanda telefondaki WhatsApp Business uygulamasında
+kullanıldığı **birlikte kullanım** modunu da destekler
+(`WHATSAPP_COEXISTENCE=true`). Bu modda:
+- rehberdeki kişilere ve eski sohbetlere yanıt verilmez,
+- avukat telefondan yazınca bot susar,
+- `action=sync-contacts` ve `action=sync-history` kurulum adımları kullanılır.
+
+Bu bağlantı ise yalnızca Meta onaylı bir iş ortağı (BSP) üzerinden ya da
+uygulamanın Tech Provider olmasıyla kurulabiliyor. İş ortağı yoluyla
+bağlanırsa `WHATSAPP_PROVIDER=360dialog` gibi ayarlar gerekir; ayrıntılar için
+`lib/whatsapp/api.ts`'ye bakın.
 
 ## Gizlilik ve meslek kuralları
 
 - Sohbet geçmişi Redis'te **7 gün** tutulur, sonra kendiliğinden silinir.
-  Rehber/geçmiş eşitlemesinden yalnızca numaralar saklanır.
 - Mesajlar Meta'ya (WhatsApp) ve yanıt üretmek için Anthropic'e (Claude API)
-  iletilir. Yol A'da iş ortağı da veri işleyendir. KVKK aydınlatma metninde
-  bu yurt dışı hizmet sağlayıcıların belirtilmesi gerekir. Sitede henüz ayrı bir
-  KVKK aydınlatma sayfası bulunmuyor.
+  iletilir. Bu durum `/kvkk` sayfasında belirtilmiştir.
 - Asistan kendiliğinden mesaj başlatmaz ve toplu veya tanıtım mesajı
   göndermez; yalnızca kendisine yazanlara yanıt verir. Sonuç garantisi, ücret
   rakamı ve somut olaya özel strateji yasakları sitedeki asistanla aynıdır.

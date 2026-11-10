@@ -92,7 +92,7 @@ Meta, birlikte kullanım bağlantısını yalnızca **Embedded Signup** akışı
 yalnızca **Tech Provider** veya **Solution Partner** statüsündeki uygulamalar
 üzerinden yapıyor. İki yol var.
 
-**Yol A: İş ortağı (BSP) üzerinden (önerilen, aynı gün)**
+**Yol A: İş ortağı (BSP) üzerinden (seçilen yol)**
 
 Birlikte kullanımı destekleyen bir WhatsApp iş ortağına (ör. 360dialog)
 kaydolun. Kayıt akışında "mevcut WhatsApp Business uygulaması numaramı bağla"
@@ -100,11 +100,26 @@ seçeneğini seçin. Telefonda *Ayarlar → Bağlı cihazlar*'dan gösterilen QR
 okutun ve 6 aylık geçmiş paylaşımını onaylayın. İş ortağının verdiği API
 anahtarıyla Vercel'de `WHATSAPP_PROVIDER=360dialog` tanımlanır.
 
-İş ortağını seçmeden önce şunları teyit edin:
+360dialog ile adımlar:
+
+1. 360dialog'a kaydolun ve WhatsApp hesabı oluştururken mevcut WhatsApp
+   Business uygulaması numarasını bağlama (coexistence) seçeneğini seçin.
+2. Telefonda gösterilen QR kodunu okutun ve geçmiş paylaşımını onaylayın.
+3. 360dialog panelinden bu numara için bir **API anahtarı** oluşturun. Bu
+   anahtar Vercel'de `WHATSAPP_ACCESS_TOKEN` olur.
+4. Webhook adresini 360dialog panelinden veya API'sinden numaraya tanımlayın
+   (bkz. adım 4).
+
+Kurulum sırasında 360dialog'a şunları teyit ettirin (oturumda belgelerine
+erişilemediği için kodda doğrulanmamış varsayımlar):
 - Türkiye numarası için birlikte kullanımı destekliyor mu?
 - Webhook'u kendi adresimize olduğu gibi iletiyor mu? Şu alanlar dahil olmalı:
   `smb_message_echoes`, `smb_app_state_sync`, `history`.
-- Cloud API uyumlu mesaj gönderimi sunuyor mu?
+- Mesaj gönderimi `https://waba-v2.360dialog.io/messages` adresine
+  `D360-API-KEY` başlığıyla mı yapılıyor? (Kod böyle varsayar.)
+- Rehber ve geçmiş eşitlemesi `https://waba-v2.360dialog.io/smb_app_data`
+  adresine `{"messaging_product":"whatsapp","sync_type":"smb_app_state_sync"}`
+  gövdesiyle mi başlatılıyor, yoksa 360dialog bunu kendisi mi yapıyor?
 - Aylık ücreti nedir?
 
 **Yol B: Kendi Meta uygulamanızla (uygulama no 1503483311684677)**
@@ -126,10 +141,24 @@ Bu yolda Vercel'de `WHATSAPP_PROVIDER` tanımlanmaz (varsayılan `meta`).
 
 ### 3. Vercel ayarları
 
-1. **Kayıt deposu:** Vercel → Proje → *Storage* → *Upstash Redis* (ücretsiz
-   plan yeterli) → projeye bağlayın. `UPSTASH_REDIS_REST_URL` /
-   `UPSTASH_REDIS_REST_TOKEN` (veya `KV_REST_API_URL` / `KV_REST_API_TOKEN`)
-   otomatik tanımlanır.
+1. **Kayıt deposu (Upstash Redis):** Vercel'de Upstash, "Storage" sekmesinden
+   Marketplace üzerinden eklenir:
+   1. vercel.com'da projeyi açın → üst menüden **Storage** sekmesi.
+   2. **Create Database** (veya *Browse Marketplace*) → listeden **Upstash**
+      → **Upstash for Redis** → **Continue / Install**.
+   3. Bölge olarak **Frankfurt (eu-central-1)**, plan olarak **Free**'yi seçin,
+      bir ad verin (ör. `asil-whatsapp`) → **Create**.
+   4. Açılan ekranda **Connect Project** ile `asil-hukuk-web` projesine bağlayın
+      (Production, Preview, Development işaretli kalsın).
+   5. Projenin *Settings → Environment Variables* sayfasında `KV_REST_API_URL`
+      ve `KV_REST_API_TOKEN` değişkenlerinin oluştuğunu kontrol edin. Kod bu
+      adları otomatik tanır.
+
+   Storage sekmesinde Upstash görünmüyorsa: upstash.com'da ücretsiz hesap açıp
+   bir Redis veritabanı (Frankfurt) oluşturun, veritabanı sayfasındaki
+   **REST API** bölümünden `UPSTASH_REDIS_REST_URL` ve
+   `UPSTASH_REDIS_REST_TOKEN` değerlerini kopyalayıp Vercel'e ortam değişkeni
+   olarak elle ekleyin.
 2. **Ortam değişkenleri** (*Settings → Environment Variables*, örnek:
    `.env.example`):
    - `WHATSAPP_ACCESS_TOKEN`: Meta System User anahtarı veya iş ortağının API

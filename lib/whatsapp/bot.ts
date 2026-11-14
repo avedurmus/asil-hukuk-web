@@ -280,7 +280,15 @@ async function drainPending(waId: string, profileName: string): Promise<void> {
             .filter(Boolean)
             .join(" ");
 
-        const result = await runAssistant({ channel: "whatsapp", history: conversation, limiterKey: `wa:${waId}`, context, extraTools: [transferTool] });
+        const result = await runAssistant({
+            channel: "whatsapp",
+            history: conversation,
+            limiterKey: `wa:${waId}`,
+            context,
+            // Numara WhatsApp tarafından doğrulanmıştır; kullanıcı kendi randevularını kod söylemeden sorgulayabilir.
+            verifiedPhone: formatLocalPhone(waId),
+            extraTools: [transferTool],
+        });
 
         // Asistan düşünürken avukat telefondan yazdıysa yanıt gönderilmez.
         if (!transferred && (await store.isHumanMode(waId))) return;

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
             // API uçları içerik değil; taranması tarama bütçesini boşa harcar.
-            disallow: '/api/',
+            disallow: ['/api/', '/randevu/yonetim'],
         },
         sitemap: 'https://asilhukuk.net/sitemap.xml',
         host: 'https://asilhukuk.net',

@@ -49,7 +49,7 @@ export default function Hero() {
                     {/* Eylem düğmeleri */}
                     <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:justify-start">
                         <Link
-                            href="/iletisim#randevu"
+                            href="/randevu"
                             className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary-900 px-8 py-4 text-base font-semibold text-white transition-colors duration-300 hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                         >
                             Randevu Alın

@@ -149,7 +149,7 @@ export default function AIHukukClient() {
               {t.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/iletisim" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all flex items-center justify-center shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)]">
+              <Link href="/randevu" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all flex items-center justify-center shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)]">
                 {t.ctaPrimary}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -255,7 +255,7 @@ export default function AIHukukClient() {
           <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">{t.bottomTitle}</h2>
             <p className="text-xl text-slate-600 dark:text-slate-300 mb-10">{t.bottomSubtitle}</p>
-            <Link href="/iletisim" className="inline-flex px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-[#0f1115] hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg font-bold text-lg transition-all items-center shadow-xl">
+            <Link href="/randevu" className="inline-flex px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-[#0f1115] hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg font-bold text-lg transition-all items-center shadow-xl">
               {t.ctaPrimary}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>

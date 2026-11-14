@@ -6,12 +6,12 @@ import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
 interface ContactCTAProps {
     title?: string;
     description?: string;
-    /** Formda konu satırını önceden doldurmak için (ör. hizmet adı). */
+    /** Randevu sayfasında konuyu önceden seçmek için (ör. hizmet adı). */
     topic?: string;
 }
 
 /**
- * Sayfa sonlarında kullanılan randevu çağrısı: form, telefon ve WhatsApp
+ * Sayfa sonlarında kullanılan randevu çağrısı: online randevu, telefon ve WhatsApp
  * seçeneklerini tek, sakin bir blokta sunar.
  */
 export default function ContactCTA({
@@ -19,7 +19,7 @@ export default function ContactCTA({
     description = "Sorunuzu dinleyelim, hangi yolun sizin için doğru olduğunu açık ve anlaşılır bir dille anlatalım.",
     topic,
 }: ContactCTAProps) {
-    const formHref = topic ? `/iletisim?konu=${encodeURIComponent(topic)}#randevu` : "/iletisim#randevu";
+    const formHref = topic ? `/randevu?konu=${encodeURIComponent(topic)}` : "/randevu";
     const waText = topic
         ? `Merhaba, ${topic} konusunda hukuki destek almak istiyorum.`
         : undefined;
@@ -43,7 +43,7 @@ export default function ContactCTA({
                             href={formHref}
                             className="group inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-8 py-4 font-semibold text-slate-950 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
                         >
-                            Randevu Talep Edin
+                            Online Randevu Alın
                             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                         <a

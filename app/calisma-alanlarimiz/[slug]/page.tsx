@@ -76,7 +76,7 @@ export default function ServiceDetailPage({ params }: Props) {
 
     const Icon = service.icon;
     const otherServices = services.filter((s) => s.id !== service.id);
-    const formHref = `/iletisim?konu=${encodeURIComponent(service.title)}#randevu`;
+    const formHref = `/randevu?konu=${encodeURIComponent(service.title)}`;
 
     return (
         <div className="flex min-h-screen flex-col bg-ivory-100 transition-colors duration-300 dark:bg-slate-950">
@@ -317,7 +317,7 @@ export default function ServiceDetailPage({ params }: Props) {
                                         href={formHref}
                                         className="flex items-center justify-center gap-2 rounded-full bg-primary-900 py-3.5 font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                                     >
-                                        <CalendarCheck className="h-4 w-4" /> Randevu Talep Et
+                                        <CalendarCheck className="h-4 w-4" /> Online Randevu Al
                                     </Link>
                                     <div className="grid grid-cols-2 gap-3">
                                         <a

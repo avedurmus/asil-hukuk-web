@@ -449,7 +449,7 @@ export default function BlogPostPage({ params }: Props) {
                                         </a>
                                     </div>
                                     <Link
-                                        href="/iletisim#randevu"
+                                        href="/randevu"
                                         className="block w-full rounded-full bg-primary-900 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                                     >
                                         Hukuki Destek Al

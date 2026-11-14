@@ -129,7 +129,7 @@ export default function Home() {
                         <p className="mt-10 text-center text-slate-600 dark:text-slate-400">
                             Konunuz listede yok mu? Tüketici ve diğer konular için de{" "}
                             <Link
-                                href="/iletisim#randevu"
+                                href="/randevu"
                                 className="font-semibold text-primary-900 underline decoration-gold-500/60 underline-offset-4 hover:text-gold-700 dark:text-slate-100 dark:hover:text-gold-400"
                             >
                                 bize yazın
@@ -186,7 +186,7 @@ export default function Home() {
                                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                             </Link>
                             <Link
-                                href="/iletisim#randevu"
+                                href="/randevu"
                                 className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950"
                             >
                                 Sorunuzu bize sorun

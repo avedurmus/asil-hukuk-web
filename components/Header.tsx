@@ -173,7 +173,7 @@ export default function Header() {
                         </a>
 
                         <Link
-                            href="/iletisim#randevu"
+                            href="/randevu"
                             onClick={() => trackEvent("click_appointment_button", "Header Desktop - Randevu Al")}
                             className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 hover:shadow-gold-glow dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                         >
@@ -276,14 +276,14 @@ export default function Header() {
                                 </a>
                             </div>
                             <Link
-                                href="/iletisim#randevu"
+                                href="/randevu"
                                 onClick={() => {
                                     setIsMenuOpen(false);
                                     trackEvent("click_appointment_button", "Header Mobile - Randevu Al");
                                 }}
                                 className="flex items-center justify-center gap-2 rounded-xl bg-white py-3 text-sm font-bold text-primary-900"
                             >
-                                <CalendarCheck className="h-4 w-4" /> Randevu Talep Et
+                                <CalendarCheck className="h-4 w-4" /> Online Randevu Al
                             </Link>
                         </div>
 

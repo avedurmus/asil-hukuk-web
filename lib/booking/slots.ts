@@ -1,4 +1,5 @@
 import { appointmentSettings as cfg } from "@/data/appointmentSettings";
+import type { DaySlots } from "./types";
 
 export interface Slot {
     /** Yerel saat ve UTC farkıyla ISO zaman, örn. "2026-10-05T10:00:00+03:00". Asistan bunu kimlik olarak kullanır. */
@@ -71,8 +72,15 @@ export function parseDateKey(value: string): number | null {
  * tüm aday randevu saatlerini üretir. Asgari bildirim süresi ve ileri tarih
  * sınırı uygulanır; dolu aralıklarla çakışan saatler elenir.
  */
-export function generateSlots(opts: { nowMs: number; fromMs?: number; toMs?: number; busy?: BusyInterval[] }): Slot[] {
-    const { nowMs, busy = [] } = opts;
+export function generateSlots(opts: {
+    nowMs: number;
+    fromMs?: number;
+    toMs?: number;
+    busy?: BusyInterval[];
+    /** Büronun yönetim panelinden kapattığı günler (YYYY-MM-DD). */
+    blockedDates?: string[];
+}): Slot[] {
+    const { nowMs, busy = [], blockedDates = [] } = opts;
     const earliest = nowMs + cfg.minNoticeHours * 3_600_000;
     const firstDay = localMidnightMs(Math.max(opts.fromMs ?? nowMs, nowMs));
     const horizonEnd = localMidnightMs(nowMs) + (cfg.horizonDays + 1) * DAY_MS;
@@ -82,7 +90,7 @@ export function generateSlots(opts: { nowMs: number; fromMs?: number; toMs?: num
     const slots: Slot[] = [];
     for (let day = firstDay; day < lastDayEnd; day += DAY_MS) {
         const key = localDateKey(day);
-        if (cfg.holidays.includes(key) || cfg.blockedDates.includes(key)) continue;
+        if (cfg.holidays.includes(key) || cfg.blockedDates.includes(key) || blockedDates.includes(key)) continue;
         const halfDay = cfg.halfDays.includes(key);
         const times = cfg.weeklySchedule[localParts(day).weekday] ?? [];
 
@@ -100,11 +108,32 @@ export function generateSlots(opts: { nowMs: number; fromMs?: number; toMs?: num
 }
 
 /** Asistanın gönderdiği slot kimliğini çözer; programa uymayan saatler için null döner. */
-export function resolveSlotId(id: string, nowMs: number, busy: BusyInterval[] = []): Slot | null {
+export function resolveSlotId(id: string, nowMs: number, busy: BusyInterval[] = [], blockedDates: string[] = []): Slot | null {
     const startMs = Date.parse(id);
     if (Number.isNaN(startMs)) return null;
-    const candidates = generateSlots({ nowMs, fromMs: startMs, toMs: startMs, busy });
+    const candidates = generateSlots({ nowMs, fromMs: startMs, toMs: startMs, busy, blockedDates });
     return candidates.find((s) => s.startMs === startMs) ?? null;
+}
+
+/** Zaman damgasını slot kimliğine ve etiketine çevirir (programa uygunluğu denetlemez). */
+export function slotAt(startMs: number): Slot {
+    return { id: toSlotId(startMs), label: formatLocal(startMs), startMs, endMs: startMs + cfg.durationMinutes * 60_000 };
+}
+
+/** Saatleri takvim arayüzü için günlere ayırır. */
+export function groupByDay(slots: Slot[]): DaySlots[] {
+    const days: DaySlots[] = [];
+    for (const slot of slots) {
+        const p = localParts(slot.startMs);
+        const date = localDateKey(slot.startMs);
+        let day = days[days.length - 1];
+        if (!day || day.date !== date) {
+            day = { date, weekday: WEEKDAYS[p.weekday], dayLabel: `${p.day} ${MONTHS[p.month]}`, slots: [] };
+            days.push(day);
+        }
+        day.slots.push({ id: slot.id, time: `${pad(p.hour)}:${pad(p.minute)}`, label: slot.label });
+    }
+    return days;
 }
 
 /** Asistana bağlam olarak verilen "şu an" bilgisi. */

@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import { siteContent } from "@/data/siteContent";
+import Link from "next/link";
 import { Mail, MapPin, Phone, Clock, MessageCircle, ArrowUpRight, FileText, ShieldCheck, CalendarCheck } from "lucide-react";
 import { OFFICE_HOURS, PHONE_HREF, whatsappHref } from "@/lib/contact";
 
@@ -81,17 +82,26 @@ export default function ContactPage() {
                             Size nasıl <em className="italic text-gold-300">yardımcı</em> olabiliriz?
                         </h1>
                         <p className="mx-auto mt-6 max-w-2xl text-lg font-light text-slate-300">
-                            Formu doldurun, arayın ya da WhatsApp&apos;tan yazın. Talebinizi dinleyip size en kısa
-                            sürede dönüş yapalım.
+                            Takvimden online randevu alın, formu doldurun, arayın ya da WhatsApp&apos;tan yazın. Talebinizi
+                            dinleyip size en kısa sürede dönüş yapalım.
                         </p>
-                        <OpenChatButton
-                            label="Iletisim Hero - Asistanla Randevu"
-                            message="Randevu almak istiyorum"
-                            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-gold-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
-                        >
-                            <CalendarCheck className="h-4 w-4" />
-                            Asil Asistan ile hemen randevu alın
-                        </OpenChatButton>
+                        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                            <Link
+                                href="/randevu"
+                                className="group inline-flex items-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-gold-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+                            >
+                                <CalendarCheck className="h-4 w-4" />
+                                Takvimden online randevu alın
+                            </Link>
+                            <OpenChatButton
+                                label="Iletisim Hero - Asistanla Randevu"
+                                message="Randevu almak istiyorum"
+                                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-gold-400"
+                            >
+                                <MessageCircle className="h-4 w-4 text-gold-300" />
+                                Asil Asistan ile randevu alın
+                            </OpenChatButton>
+                        </div>
                     </div>
                 </section>
 
@@ -102,9 +112,13 @@ export default function ContactPage() {
                             id="randevu"
                             className="rounded-3xl border border-slate-200/80 bg-white p-7 shadow-elegant dark:border-slate-800 dark:bg-slate-900 md:p-10 lg:col-span-7"
                         >
-                            <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">Randevu Talep Formu</h2>
+                            <h2 className="font-serif text-3xl text-slate-900 dark:text-slate-100">Bize Yazın</h2>
                             <p className="mb-8 mt-2 text-slate-600 dark:text-slate-400">
-                                Birkaç bilgi yeterli; ayrıntıları görüşmede konuşuruz.
+                                Sorunuzu iletin, size dönüş yapalım. Gününü ve saatini kendiniz seçmek isterseniz{" "}
+                                <Link href="/randevu" className="font-semibold text-primary-800 underline underline-offset-2 dark:text-gold-400">
+                                    online randevu
+                                </Link>{" "}
+                                alabilirsiniz.
                             </p>
                             <Suspense fallback={<div className="h-96" />}>
                                 <ContactForm />

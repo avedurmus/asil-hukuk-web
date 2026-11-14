@@ -4,23 +4,36 @@ import { siteContent } from "@/data/siteContent";
 import {
     bookAppointment,
     BookingError,
+    cancelAppointment,
+    findAppointment,
+    findAppointmentsByPhone,
     listAvailableSlots,
+    MANAGE_PAGE_URL,
+    rescheduleAppointment,
     type Booking,
     type BookingInput,
     type PartOfDay,
 } from "@/lib/booking";
 import { describeNow } from "@/lib/booking/slots";
+import type { DaySlots } from "@/lib/booking/types";
 import { buildSystemPrompt, type ChatChannel } from "@/lib/chatbot/systemPrompt";
+import { recentHits } from "@/lib/rateLimit";
+
+export { rateLimited, recentHits } from "@/lib/rateLimit";
 
 /**
  * Sitedeki sohbet penceresi ile WhatsApp asistanının ortak çekirdeği: Claude
  * API çağrısı, randevu araçları ve araç döngüsü. Kanala özgü işler (HTTP
  * isteği, WhatsApp'a gönderim, sohbet geçmişinin saklanması) çağıran tarafta.
+ *
+ * Randevu araçları, takvimli randevu sayfasıyla aynı çekirdeği (lib/booking)
+ * kullanır: asistanın oluşturduğu randevu sayfadan, sayfadan alınan randevu
+ * asistandan sorgulanabilir, ertelenebilir ve iptal edilebilir.
  */
 
 const MODEL = process.env.CHATBOT_MODEL || "claude-opus-5-5";
 const EFFORT = (process.env.CHATBOT_EFFORT as "low" | "medium" | "high" | undefined) || "low";
-const MAX_TOOL_ROUNDS = 6;
+const MAX_TOOL_ROUNDS = 8;
 
 export const MAX_HISTORY = 40;
 export const MAX_MESSAGE_CHARS = 2000;
@@ -43,11 +56,14 @@ export function isAssistantConfigured(): boolean {
     return Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
 }
 
+const SLOT_ID_HINT = "YYYY-MM-DDTHH:MM:00+03:00 biçiminde İstanbul saati (örn. 2026-11-17T10:00:00+03:00)";
+const PHONE_HINT = "Randevu alınırken verilen telefon numarası. WhatsApp'ta boş bırakılırsa kullanıcının yazdığı numara kullanılır.";
+
 const bookingTools: Anthropic.Beta.BetaTool[] = [
     {
         name: "list_available_slots",
         description:
-            "Av. Emre Durmuş'un ön görüşme için boş olan randevu saatlerini getirir. Kullanıcıya saat önermeden önce mutlaka çağır; yalnızca bu aracın döndürdüğü slot_id değerlerini kullan. Tarih verilmezse en yakın uygun saatler döner.",
+            "Av. Emre Durmuş'un ön görüşme için boş olan randevu saatlerini getirir. Kullanıcıya saat önermeden önce mutlaka çağır; yalnızca bu aracın döndürdüğü saatleri sun. Tarih verilmezse en yakın uygun saatler döner. Sonuçtaki later_days, sunulanlardan sonra da boş saati olan günlerdir.",
         input_schema: {
             type: "object",
             properties: {
@@ -69,13 +85,13 @@ const bookingTools: Anthropic.Beta.BetaTool[] = [
         input_schema: {
             type: "object",
             properties: {
-                slot_id: { type: "string", description: "list_available_slots sonucundaki slot_id değeri." },
+                slot_id: { type: "string", description: `Kullanıcının seçtiği saat: list_available_slots sonucundaki slot_id; ${SLOT_ID_HINT}.` },
                 full_name: { type: "string", description: "Kullanıcının adı soyadı." },
                 phone: { type: "string", description: "Kullanıcının telefon numarası." },
                 email: { type: "string", description: "E-posta adresi; kullanıcı vermediyse boş bırak." },
                 practice_area: {
                     type: "string",
-                    enum: [...siteContent.services.map((s) => s.title), "Miras Hukuku", "İcra Hukuku", "Diğer / Emin değilim"],
+                    enum: Array.from(new Set([...siteContent.services.map((s) => s.title), "Miras Hukuku", "İcra Hukuku", "Diğer / Emin değilim"])),
                     description: "Konunun ilgili olduğu çalışma alanı.",
                 },
                 case_summary: {
@@ -89,25 +105,52 @@ const bookingTools: Anthropic.Beta.BetaTool[] = [
             additionalProperties: false,
         },
     },
+    {
+        name: "find_appointment",
+        description:
+            "Mevcut bir randevuyu getirir (tarih, saat, görüşme şekli, durum). Kullanıcı randevusunu sorduğunda, ertelemek veya iptal etmek istediğinde önce bunu çağır. Referans kodu (AH-XXXXXX) ve randevu alınırken verilen telefon numarası birlikte gerekir.",
+        input_schema: {
+            type: "object",
+            properties: {
+                reference: {
+                    type: "string",
+                    description: "Randevu referans kodu, örn. AH-7K2M9Q. WhatsApp'ta kullanıcı kodu bilmiyorsa boş bırak; yazdığı numaraya ait randevular listelenir.",
+                },
+                phone: { type: "string", description: PHONE_HINT },
+            },
+            additionalProperties: false,
+        },
+    },
+    {
+        name: "cancel_appointment",
+        description:
+            "Randevuyu iptal eder ve saati yeniden randevuya açar. Yalnızca find_appointment ile randevuyu gösterdikten ve kullanıcı iptali açıkça onayladıktan sonra çağır.",
+        input_schema: {
+            type: "object",
+            properties: {
+                reference: { type: "string", description: "Randevu referans kodu (AH-XXXXXX)." },
+                phone: { type: "string", description: PHONE_HINT },
+            },
+            required: ["reference"],
+            additionalProperties: false,
+        },
+    },
+    {
+        name: "reschedule_appointment",
+        description:
+            "Mevcut randevuyu yeni bir saate taşır; referans kodu aynı kalır. Önce list_available_slots ile boş saatleri sun; kullanıcı yeni saati açıkça seçtikten sonra çağır.",
+        input_schema: {
+            type: "object",
+            properties: {
+                reference: { type: "string", description: "Randevu referans kodu (AH-XXXXXX)." },
+                phone: { type: "string", description: PHONE_HINT },
+                new_slot_id: { type: "string", description: `Yeni saat: list_available_slots sonucundaki slot_id; ${SLOT_ID_HINT}.` },
+            },
+            required: ["reference", "new_slot_id"],
+            additionalProperties: false,
+        },
+    },
 ];
-
-// ———————————————————————————————————————— Basit kötüye kullanım koruması
-// Sunucusuz ortamda örnekler arasında paylaşılmaz; amaç kaba otomasyonları
-// yavaşlatmaktır. Daha sıkı koruma için Vercel Firewall kuralları eklenebilir.
-const hits = new Map<string, number[]>();
-export function recentHits(key: string, windowMs: number): number[] {
-    const now = Date.now();
-    const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
-    hits.set(key, recent);
-    if (hits.size > 5000) hits.clear();
-    return recent;
-}
-export function rateLimited(key: string, limit: number, windowMs: number): boolean {
-    const recent = recentHits(key, windowMs);
-    if (recent.length >= limit) return true;
-    recent.push(Date.now());
-    return false;
-}
 
 export interface ChatMessage {
     role: "user" | "assistant";
@@ -148,17 +191,45 @@ export interface AssistantRequest {
     limiterKey: string;
     /** Güncel tarihin yanına eklenecek kanal bilgisi (ör. kullanıcının numarası). */
     context?: string;
+    /** Kanalın doğruladığı telefon numarası (WhatsApp); randevu sorgularında varsayılan olur. */
+    verifiedPhone?: string;
     extraTools?: ExtraTool[];
 }
+
+/** Bu yanıtta randevuya ne olduğu; sohbet penceresi kartı buna göre gösterir. */
+export type BookingEvent = "created" | "found" | "rescheduled" | "cancelled";
 
 export interface AssistantResult {
     /** false ise yanıt üretilemedi; reply yedek mesajdır. */
     ok: boolean;
     reply: string;
+    /** Bu yanıtta oluşturulan, getirilen veya değiştirilen randevu. */
     booking: Booking | null;
+    bookingEvent: BookingEvent | null;
+    /** Asistanın bu yanıtta sunduğu boş saatler (sohbet penceresinde tıklanabilir gösterilir). */
+    slots: DaySlots[] | null;
 }
 
-export async function runAssistant({ channel, history, limiterKey, context, extraTools = [] }: AssistantRequest): Promise<AssistantResult> {
+/** Yanıt metni üretilemese bile kullanıcının mutlaka görmesi gereken değişiklikler. */
+const CHANGE_REPLIES: Partial<Record<BookingEvent, string>> = {
+    created: "Randevu bilgileriniz kaydedildi.",
+    rescheduled: "Randevunuz yeni saate taşındı.",
+    cancelled: "Randevunuz iptal edildi.",
+};
+
+const describeBooking = (b: Booking) => ({
+    reference: b.reference,
+    status: b.status,
+    date_time: b.slotLabel,
+    slot_id: b.slotId,
+    meeting_type: b.meetingTypeLabel,
+    name: b.name,
+    practice_area: b.practiceArea,
+    can_change_online: b.canChange,
+    manage_page: MANAGE_PAGE_URL,
+});
+
+export async function runAssistant({ channel, history, limiterKey, context, verifiedPhone, extraTools = [] }: AssistantRequest): Promise<AssistantResult> {
     const messages: Anthropic.Beta.BetaMessageParam[] = [
         ...history,
         // Güncel tarih sistem talimatına değil buraya eklenir; böylece sabit
@@ -166,29 +237,79 @@ export async function runAssistant({ channel, history, limiterKey, context, extr
         { role: "system", content: [`Güncel tarih ve saat: ${describeNow(Date.now())}.`, context].filter(Boolean).join("\n") },
     ];
     const tools = [...bookingTools, ...extraTools.map((t) => t.definition)];
-    const bookings: Booking[] = [];
     const replyParts: string[] = [];
+    const state: { created: boolean; booking: Booking | null; event: BookingEvent | null; slots: DaySlots[] | null } = {
+        created: false,
+        booking: null,
+        event: null,
+        slots: null,
+    };
+    const changeReply = () => (state.event ? CHANGE_REPLIES[state.event] : undefined);
+
+    /** Referans + telefonla yapılan sorgular; hatalı denemeler sınırlanır ki kodlar deneme yoluyla bulunamasın. */
+    async function withLookup<T>(input: unknown, run: (reference: string, phone: string) => Promise<T>): Promise<T> {
+        const args = (input ?? {}) as { reference?: string; phone?: string };
+        const phone = args.phone?.trim() || verifiedPhone || "";
+        if (!phone) throw new BookingError("invalid", "Randevuyu bulmak için randevu alınırken verilen telefon numarası gerekli.");
+        const failures = recentHits(`lookup:${limiterKey}`, 3_600_000);
+        if (failures.length >= 6) {
+            throw new BookingError("limit", `Çok sayıda hatalı sorgu yapıldı. Kullanıcıyı ${PHONE} numarasına yönlendirin.`);
+        }
+        try {
+            return await run(args.reference ?? "", phone);
+        } catch (error) {
+            if (error instanceof BookingError && error.code === "not_found") failures.push(Date.now());
+            throw error;
+        }
+    }
 
     async function runTool(name: string, input: unknown): Promise<string> {
         if (name === "list_available_slots") {
             const args = (input ?? {}) as { start_date?: string; end_date?: string; part_of_day?: PartOfDay };
-            return JSON.stringify(await listAvailableSlots(args));
+            const { days, ...result } = await listAvailableSlots(args);
+            state.slots = days.length ? days : null;
+            return JSON.stringify(result);
         }
         if (name === "book_appointment") {
-            if (bookings.length > 0) throw new BookingError("Bu sohbette zaten bir randevu oluşturuldu.");
+            if (state.created) throw new BookingError("limit", "Bu sohbette zaten bir randevu oluşturuldu.");
             // Yalnızca başarılı randevular sayılır; hatalı denemeler kullanıcıyı kilitlemez.
             const booked = recentHits(`book:${limiterKey}`, 86_400_000);
             if (booked.length >= 3) {
-                throw new BookingError(`Bugün çok sayıda randevu talebi alındı. Kullanıcıyı ${PHONE} numarasına yönlendirin.`);
+                throw new BookingError("limit", `Bugün çok sayıda randevu talebi alındı. Kullanıcıyı ${PHONE} numarasına yönlendirin.`);
             }
             const booking = await bookAppointment(input as BookingInput, channel);
             booked.push(Date.now());
-            bookings.push(booking);
-            return JSON.stringify({ success: true, ...booking });
+            Object.assign(state, { created: true, booking, event: "created", slots: null });
+            return JSON.stringify({ success: true, ...describeBooking(booking) });
+        }
+        if (name === "find_appointment") {
+            const args = (input ?? {}) as { reference?: string };
+            if (!args.reference?.trim() && verifiedPhone) {
+                const found = await findAppointmentsByPhone(verifiedPhone);
+                if (found.length === 1 && !state.event) Object.assign(state, { booking: found[0], event: "found" });
+                return JSON.stringify({
+                    appointments: found.map(describeBooking),
+                    note: found.length ? undefined : "Bu numaraya kayıtlı ileri tarihli randevu yok.",
+                });
+            }
+            const found = await withLookup(input, findAppointment);
+            if (!state.event) Object.assign(state, { booking: found, event: "found" });
+            return JSON.stringify(describeBooking(found));
+        }
+        if (name === "cancel_appointment") {
+            const booking = await withLookup(input, (reference, phone) => cancelAppointment(reference, phone, channel));
+            Object.assign(state, { booking, event: "cancelled", slots: null });
+            return JSON.stringify({ success: true, ...describeBooking(booking) });
+        }
+        if (name === "reschedule_appointment") {
+            const { new_slot_id } = (input ?? {}) as { new_slot_id?: string };
+            const booking = await withLookup(input, (reference, phone) => rescheduleAppointment(reference, phone, new_slot_id ?? "", channel));
+            Object.assign(state, { booking, event: "rescheduled", slots: null });
+            return JSON.stringify({ success: true, ...describeBooking(booking) });
         }
         const extra = extraTools.find((t) => t.definition.name === name);
         if (extra) return extra.run(input);
-        throw new BookingError(`Bilinmeyen araç: ${name}`);
+        throw new BookingError("invalid", `Bilinmeyen araç: ${name}`);
     }
 
     try {
@@ -229,7 +350,7 @@ export async function runAssistant({ channel, history, limiterKey, context, extr
                     results.push({ type: "tool_result", tool_use_id: tool.id, content: await runTool(tool.name, tool.input) });
                 } catch (error) {
                     const message =
-                        error instanceof BookingError ? error.message : "Sisteme şu an ulaşılamıyor. Kullanıcıyı telefona yönlendirin.";
+                        error instanceof BookingError ? error.message : `Sisteme şu an ulaşılamıyor. Kullanıcıyı ${PHONE} numarasına yönlendirin.`;
                     if (!(error instanceof BookingError)) console.error(`[${channel}] tool error`, tool.name, error);
                     results.push({ type: "tool_result", tool_use_id: tool.id, content: message, is_error: true });
                 }
@@ -244,10 +365,16 @@ export async function runAssistant({ channel, history, limiterKey, context, extr
         } else {
             console.error(`[${channel}] unexpected error`, error);
         }
-        // Randevu bu turda kaydedildiyse kullanıcı bunu mutlaka görmeli.
-        if (!bookings.length) return { ok: false, reply: FALLBACK_REPLY, booking: null };
+        // Randevu bu turda kaydedildiyse ya da değiştiyse kullanıcı bunu mutlaka görmeli.
+        if (!changeReply()) return { ok: false, reply: FALLBACK_REPLY, booking: null, bookingEvent: null, slots: null };
     }
 
-    const reply = replyParts.join("\n\n") || (bookings.length ? "Randevu bilgileriniz kaydedildi." : FALLBACK_REPLY);
-    return { ok: Boolean(replyParts.length || bookings.length), reply, booking: bookings[0] ?? null };
+    const reply = replyParts.join("\n\n") || changeReply() || FALLBACK_REPLY;
+    return {
+        ok: Boolean(replyParts.length || changeReply()),
+        reply,
+        booking: state.booking,
+        bookingEvent: state.event,
+        slots: state.slots,
+    };
 }

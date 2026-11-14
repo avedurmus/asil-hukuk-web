@@ -78,7 +78,7 @@ export default function FAQPage() {
                         </p>
                         <div className="flex flex-col justify-center gap-3 sm:flex-row">
                             <Link
-                                href="/iletisim#randevu"
+                                href="/randevu"
                                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary-900 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
                             >
                                 Avukata Sorun

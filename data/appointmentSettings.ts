@@ -1,9 +1,11 @@
 /**
- * Sohbet asistanının randevu verirken uyduğu çalışma programı.
+ * Randevu sisteminin (takvimli randevu sayfası, sohbet asistanı ve WhatsApp
+ * asistanı) uyduğu çalışma programı.
  *
- * Asistan yalnızca burada tanımlı saatleri önerir. Google Takvim bağlantısı
- * yapılandırılmışsa (bkz. docs/sohbet-asistani.md) avukatın takvimindeki dolu
- * saatler ayrıca elenir ve onaylanan randevu takvime doğrudan işlenir.
+ * Yalnızca burada tanımlı saatler sunulur. Google Takvim bağlantısı çalışıyorsa
+ * (bkz. docs/randevu-sistemi.md) avukatın takvimindeki dolu saatler ayrıca
+ * elenir ve randevu takvime doğrudan işlenir; çalışmıyorsa sistem "talep"
+ * moduna düşer ve büro randevuyu teyit eder.
  *
  * Saatler İstanbul saatidir (UTC+3; Türkiye 2016'dan beri yaz saati
  * uygulamadığı için sabit fark kullanılır).
@@ -44,6 +46,18 @@ export const appointmentSettings = {
 
     /** Kaç gün ileriye kadar randevu verilebilir. */
     horizonDays: 21,
+
+    /**
+     * Müvekkil adayı randevusunu en geç kaç saat öncesine kadar kendisi
+     * erteleyebilir veya iptal edebilir. Daha geç değişiklikler için telefon.
+     */
+    changeCutoffHours: 2,
+
+    /** Aynı telefon numarasıyla aynı anda tutulabilecek ileri tarihli randevu sayısı. */
+    maxActivePerPhone: 2,
+
+    /** Randevu kayıtları, randevu tarihinden sonra kaç gün saklanır (KVKK metniyle uyumlu tutun). */
+    retentionDays: 90,
 
     /**
      * Resmî tatiller (YYYY-MM-DD). Dinî bayram tarihleri Diyanet takvimine göre

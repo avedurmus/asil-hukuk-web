@@ -55,6 +55,7 @@ async function accessToken(): Promise<string> {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion }),
         cache: "no-store",
+        signal: AbortSignal.timeout(8_000),
     });
     if (!res.ok) throw new Error(`Google kimlik doğrulaması başarısız: HTTP ${res.status}`);
     const data = (await res.json()) as { access_token: string; expires_in: number };
@@ -62,15 +63,18 @@ async function accessToken(): Promise<string> {
     return data.access_token;
 }
 
-async function calendarFetch<T>(path: string, body: unknown): Promise<T> {
+async function calendarFetch<T>(path: string, body: unknown, method: "POST" | "DELETE" = "POST"): Promise<T> {
     const res = await fetch(`${API_BASE}${path}`, {
-        method: "POST",
+        method,
         headers: { Authorization: `Bearer ${await accessToken()}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: method === "POST" ? JSON.stringify(body) : undefined,
         cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
     });
+    // Silinmiş bir etkinliği yeniden silmek hata sayılmaz.
+    if (method === "DELETE" && (res.status === 404 || res.status === 410)) return undefined as T;
     if (!res.ok) throw new Error(`Google Takvim isteği başarısız: HTTP ${res.status}`);
-    return (await res.json()) as T;
+    return (res.status === 204 ? undefined : await res.json()) as T;
 }
 
 /**
@@ -115,4 +119,10 @@ export async function createEvent(event: {
         reminders: { useDefault: true },
     });
     return data.id;
+}
+
+/** Etkinliği takvimden siler (iptal ve erteleme). */
+export async function deleteEvent(id: string): Promise<void> {
+    const cfg = config()!;
+    await calendarFetch<void>(`/calendars/${encodeURIComponent(cfg.calendarId)}/events/${encodeURIComponent(id)}`, null, "DELETE");
 }

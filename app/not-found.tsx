@@ -12,7 +12,8 @@ const suggestions = [
     { href: "/calisma-alanlarimiz", label: "Çalışma Alanlarımız" },
     { href: "/blog", label: "Hukuk Blogu" },
     { href: "/sss", label: "Sıkça Sorulan Sorular" },
-    { href: "/iletisim", label: "İletişim ve Randevu" },
+    { href: "/randevu", label: "Online Randevu" },
+    { href: "/iletisim", label: "İletişim" },
 ];
 
 export default function NotFound() {

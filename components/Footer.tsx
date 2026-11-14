@@ -17,7 +17,9 @@ const corporateLinks = [
     { href: "/blog", label: "Hukuk Blogu" },
     { href: "/sss", label: "Sıkça Sorulan Sorular" },
     { href: "/kentsel-donusum-rehberi", label: "Kentsel Dönüşüm Rehberi" },
-    { href: "/iletisim", label: "İletişim & Randevu" },
+    { href: "/randevu", label: "Online Randevu" },
+    { href: "/randevu/sorgula", label: "Randevu Sorgula / İptal" },
+    { href: "/iletisim", label: "İletişim" },
     { href: "/kvkk", label: "KVKK ve Gizlilik" },
 ];
 

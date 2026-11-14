@@ -37,5 +37,5 @@ export async function POST(req: NextRequest) {
 
     const result = await runAssistant({ channel: "web", history, limiterKey: ip });
     if (!result.ok) return NextResponse.json({ error: "upstream", reply: result.reply }, { status: 502 });
-    return NextResponse.json({ reply: result.reply, booking: result.booking });
+    return NextResponse.json({ reply: result.reply, booking: result.booking, bookingEvent: result.bookingEvent, slots: result.slots });
 }

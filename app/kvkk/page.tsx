@@ -12,17 +12,17 @@ export const metadata: Metadata = pageMetadata({
     path: "/kvkk",
 });
 
-const LAST_UPDATED = "10 Kasım 2026";
+const LAST_UPDATED = "14 Kasım 2026";
 const { contact } = siteContent;
 
 /** Kişisel verilerin aktarıldığı hizmet sağlayıcılar ve amaçları. */
 const processors = [
     { name: "Vercel Inc. (ABD)", purpose: "Web sitesinin barındırılması ve anonim ziyaret istatistikleri (Vercel Analytics)." },
-    { name: "Google LLC (ABD)", purpose: "Ziyaret istatistikleri (Google Analytics) ve randevuların avukatın takvimine işlenmesi (Google Takvim)." },
+    { name: "Google LLC (ABD)", purpose: "Ziyaret istatistikleri (Google Analytics), randevuların avukatın takvimine işlenmesi (Google Takvim) ve randevu bildirimlerinin büroya e-posta ile iletilmesi (Gmail)." },
     { name: "Formspree Inc. (ABD)", purpose: "İletişim formu ve randevu taleplerinin büroya e-posta ile iletilmesi." },
     { name: "Anthropic PBC (ABD)", purpose: "Sohbet asistanı ve WhatsApp asistanının yanıtlarının yapay zekâ ile üretilmesi." },
     { name: "Meta Platforms / WhatsApp (ABD, İrlanda)", purpose: "WhatsApp üzerinden yapılan yazışmaların iletilmesi." },
-    { name: "Upstash Inc. (sunucular Almanya'da)", purpose: "WhatsApp asistanındaki sohbet geçmişinin kısa süreli saklanması." },
+    { name: "Upstash Inc. (sunucular Almanya'da)", purpose: "Randevu kayıtlarının ve WhatsApp asistanındaki sohbet geçmişinin sınırlı süreyle saklanması." },
 ];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -67,7 +67,7 @@ export default function KvkkPage() {
                     <Section title="2. Hangi kişisel verileri işliyoruz?">
                         <ul className="list-disc space-y-2 pl-6">
                             <li>
-                                <strong>Kimlik ve iletişim bilgileri:</strong> İletişim formu, sohbet asistanı veya WhatsApp
+                                <strong>Kimlik ve iletişim bilgileri:</strong> İletişim formu, online randevu sayfası, sohbet asistanı veya WhatsApp
                                 üzerinden paylaştığınız ad soyad, telefon numarası ve e-posta adresi; WhatsApp profil adınız.
                             </li>
                             <li>
@@ -115,6 +115,13 @@ export default function KvkkPage() {
                             ve sekme kapatıldığında silinir. WhatsApp asistanındaki sohbet geçmişi, sohbetin sürdürülebilmesi
                             için en fazla 7 gün saklanır ve ardından kendiliğinden silinir. Avukata iletilmesini istediğiniz veya
                             randevu için paylaştığınız bilgiler büroya e-posta ile iletilir.
+                        </p>
+                        <p>
+                            Online randevu sayfası, sohbet asistanı veya WhatsApp asistanı üzerinden oluşturduğunuz randevunun
+                            bilgileri (ad soyad, telefon, varsa e-posta, konu, kısa özet, görüşme şekli ve randevu saati);
+                            randevunuzu referans kodunuzla görüntüleyebilmeniz, erteleyebilmeniz veya iptal edebilmeniz ve aynı
+                            saate ikinci bir randevu verilmemesi için randevu tarihinden sonra en fazla 90 gün saklanır ve
+                            ardından kendiliğinden silinir.
                         </p>
                     </Section>
 

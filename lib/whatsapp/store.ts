@@ -6,32 +6,12 @@
  * eklendiğinde ortam değişkenleri otomatik tanımlanır). Ek paket gerekmez.
  */
 
-type RedisValue = string | number | null | RedisValue[];
+import { isRedisConfigured, redis, RedisError } from "@/lib/redis";
 
-function credentials(): { url: string; token: string } | null {
-    const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
-    return url && token ? { url: url.replace(/\/$/, ""), token } : null;
-}
+export { RedisError as StoreError };
 
 export function isStoreConfigured(): boolean {
-    return credentials() !== null;
-}
-
-export class StoreError extends Error {}
-
-async function redis(command: (string | number)[]): Promise<RedisValue> {
-    const creds = credentials();
-    if (!creds) throw new StoreError("Upstash Redis tanımlı değil");
-    const res = await fetch(creds.url, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${creds.token}`, "Content-Type": "application/json" },
-        body: JSON.stringify(command),
-        cache: "no-store",
-    });
-    const data = (await res.json().catch(() => null)) as { result?: RedisValue; error?: string } | null;
-    if (!res.ok || !data || data.error) throw new StoreError(`Redis hatası: ${data?.error ?? res.status}`);
-    return data.result ?? null;
+    return isRedisConfigured();
 }
 
 const KEY_PREFIX = "wa:";

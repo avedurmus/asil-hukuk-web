@@ -2,34 +2,38 @@
 
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowUp, CalendarCheck, CalendarPlus, MessageCircle, Phone, RotateCcw, Scale, ShieldCheck, X } from "lucide-react";
-import { appointmentSettings } from "@/data/appointmentSettings";
+import { ArrowRight, ArrowUp, CalendarDays, MessageCircle, Phone, RotateCcw, Scale, ShieldCheck, X } from "lucide-react";
+import BookingDetails from "@/components/booking/BookingDetails";
+import type { Booking, DaySlots } from "@/lib/booking/types";
 import { CHAT_OPEN_EVENT, PHONE_HREF, trackEvent, whatsappHref } from "@/lib/contact";
 
 interface ChatMessage {
     role: "user" | "assistant";
     content: string;
-    /** Bu yanıtta oluşturulan randevu; kartı ilgili mesajın altında gösterilir. */
+    /** Bu yanıtta oluşturulan, getirilen veya değiştirilen randevu; kartı ilgili mesajın altında gösterilir. */
     booking?: Booking;
+    /** Asistanın bu yanıtta sunduğu boş saatler; tıklanabilir düğmeler olarak gösterilir. */
+    slots?: DaySlots[];
 }
 
-interface Booking {
-    reference: string;
-    status: "confirmed" | "requested";
-    slotLabel: string;
-    slotId: string;
-    meetingTypeLabel: string;
-    name: string;
-    practiceArea: string;
+/** Sunucunun /api/chat yanıtı. */
+interface ChatResponse {
+    reply?: string;
+    booking?: Booking | null;
+    bookingEvent?: "created" | "found" | "rescheduled" | "cancelled" | null;
+    slots?: DaySlots[] | null;
+    error?: string;
 }
 
-const STORAGE_KEY = "asil-chat-v1";
+// Saklanan mesaj biçimi değiştiğinde sürüm artırılır; eski kayıtlar yok sayılır.
+const STORAGE_KEY = "asil-chat-v2";
 
 const GREETING =
     "Merhaba, Asil Hukuk Bürosu'na hoş geldiniz. Ben Asil Asistan. Hukuki sorununuzu kısaca anlatırsanız sizi doğru alana yönlendirebilir, Av. Emre Durmuş ile ön görüşme randevusu oluşturabilirim.";
 
 const QUICK_REPLIES = [
     "Randevu almak istiyorum",
+    "Randevumu ertelemek / iptal etmek istiyorum",
     "Boşanma süreci hakkında bilgi",
     "Kira / tahliye sorunum var",
     "İşten çıkarıldım",
@@ -105,73 +109,61 @@ function MessageText({ text, onNavigate }: { text: string; onNavigate: () => voi
     );
 }
 
-/** Randevuyu takvime eklemek için .ics dosyası bağlantısı üretir. */
-function icsHref(booking: Booking): string {
-    const start = new Date(booking.slotId);
-    const end = new Date(start.getTime() + appointmentSettings.durationMinutes * 60_000);
-    const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
-    const ics = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Asil Hukuk//Sohbet Asistani//TR",
-        "BEGIN:VEVENT",
-        `UID:${booking.reference}@asilhukuk.net`,
-        `DTSTAMP:${fmt(new Date())}`,
-        `DTSTART:${fmt(start)}`,
-        `DTEND:${fmt(end)}`,
-        `SUMMARY:Asil Hukuk – Ön görüşme (${booking.meetingTypeLabel})`,
-        "LOCATION:Yalı Mah. Topselvi Cad. No:100 Mai Residence K:14 D:124 Kartal\\, İstanbul",
-        `DESCRIPTION:Referans: ${booking.reference}. Değişiklik için: 0530 432 20 25`,
-        "END:VEVENT",
-        "END:VCALENDAR",
-    ].join("\r\n");
-    return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+/** Asistanın sunduğu boş saatler: güne göre gruplanmış, tıklanınca seçimi sohbete gönderen düğmeler. */
+function SlotChips({ days, disabled, onPick, onNavigate }: { days: DaySlots[]; disabled: boolean; onPick: (label: string) => void; onNavigate: () => void }) {
+    return (
+        <div className="max-w-[94%] rounded-2xl border border-gold-500/40 bg-white p-3.5 shadow-card dark:bg-slate-900">
+            <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                <CalendarDays className="h-3.5 w-3.5 text-gold-600" /> Uygun saatler
+            </p>
+            <div className="mt-2.5 space-y-2.5">
+                {days.map((day) => (
+                    <div key={day.date}>
+                        <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                            {day.dayLabel} {day.weekday}
+                        </p>
+                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                            {day.slots.map((slot) => (
+                                <button
+                                    key={slot.id}
+                                    type="button"
+                                    disabled={disabled}
+                                    onClick={() => onPick(slot.label)}
+                                    aria-label={slot.label}
+                                    className="rounded-lg border border-gold-500/50 bg-gold-50 px-3 py-1.5 text-xs font-semibold text-primary-900 transition-colors hover:border-gold-500 hover:bg-gold-100 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-950 dark:text-gold-300 dark:hover:bg-slate-800"
+                                >
+                                    {slot.time}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <Link
+                href="/randevu"
+                onClick={onNavigate}
+                className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-gold-700 underline underline-offset-2 dark:text-gold-400"
+            >
+                Tüm takvimi görün <ArrowRight className="h-3 w-3" />
+            </Link>
+        </div>
+    );
 }
 
-function BookingCard({ booking }: { booking: Booking }) {
-    const confirmed = booking.status === "confirmed";
+/** Randevu kartı ve randevu yönetimi bağlantısı. */
+function BookingCard({ booking, onNavigate }: { booking: Booking; onNavigate: () => void }) {
     return (
-        <div className="rounded-2xl border border-gold-500/50 bg-gradient-to-br from-gold-50 to-white p-4 shadow-card dark:from-gold-950/40 dark:to-slate-900">
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary-900 dark:text-gold-300">
-                <CalendarCheck className="h-4 w-4 text-gold-600" />
-                {confirmed ? "Randevunuz oluşturuldu" : "Randevu talebiniz alındı"}
-            </div>
-            <dl className="mt-3 space-y-1 text-sm text-slate-700 dark:text-slate-300">
-                <div className="flex gap-2">
-                    <dt className="w-20 shrink-0 text-slate-500">Tarih</dt>
-                    <dd className="font-medium">{booking.slotLabel}</dd>
-                </div>
-                <div className="flex gap-2">
-                    <dt className="w-20 shrink-0 text-slate-500">Görüşme</dt>
-                    <dd>{booking.meetingTypeLabel}</dd>
-                </div>
-                <div className="flex gap-2">
-                    <dt className="w-20 shrink-0 text-slate-500">Referans</dt>
-                    <dd className="font-mono">{booking.reference}</dd>
-                </div>
-            </dl>
-            {!confirmed && (
-                <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                    Büromuz mesai saatleri içinde sizi arayarak saati teyit edecektir.
-                </p>
+        <div className="max-w-[94%]">
+            <BookingDetails booking={booking} compact />
+            {booking.status !== "cancelled" && (
+                <Link
+                    href={`/randevu/sorgula?ref=${booking.reference}`}
+                    onClick={onNavigate}
+                    className="mt-2 inline-flex items-center gap-1 px-1 text-xs font-semibold text-gold-700 underline underline-offset-2 dark:text-gold-400"
+                >
+                    Randevuyu ertele veya iptal et <ArrowRight className="h-3 w-3" />
+                </Link>
             )}
-            <div className="mt-4 flex flex-wrap gap-2">
-                <a
-                    href={icsHref(booking)}
-                    download={`asil-hukuk-randevu-${booking.reference}.ics`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
-                >
-                    <CalendarPlus className="h-3.5 w-3.5" /> Takvime ekle
-                </a>
-                <a
-                    href={whatsappHref(`Merhaba, ${booking.slotLabel} için ${booking.reference} referanslı randevum hakkında yazıyorum.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 px-3.5 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-gold-500 dark:border-slate-700 dark:text-slate-200"
-                >
-                    <MessageCircle className="h-3.5 w-3.5" /> WhatsApp ile yazın
-                </a>
-            </div>
         </div>
     );
 }
@@ -232,13 +224,16 @@ export default function ChatWidget() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ messages: next.map(({ role, content }) => ({ role, content })) }),
                 });
-                const data = (await res.json().catch(() => ({}))) as { reply?: string; booking?: Booking | null; error?: string };
+                const data = (await res.json().catch(() => ({}))) as ChatResponse;
                 if (data.error === "unavailable") setUnavailable(true);
                 const reply =
                     data.reply ||
                     "Bağlantıda bir sorun oluştu. Lütfen tekrar deneyin ya da 0530 432 20 25 numarasından bize ulaşın.";
-                setMessages((prev) => [...prev, { role: "assistant", content: reply, booking: data.booking ?? undefined }]);
-                if (data.booking) {
+                setMessages((prev) => [
+                    ...prev,
+                    { role: "assistant", content: reply, booking: data.booking ?? undefined, slots: data.slots ?? undefined },
+                ]);
+                if (data.booking && data.bookingEvent === "created") {
                     const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
                     gtag?.("event", "generate_lead", {
                         event_category: "Chat",
@@ -368,7 +363,11 @@ export default function ChatWidget() {
                                 >
                                     {m.role === "assistant" ? <MessageText text={m.content} onNavigate={() => setOpen(false)} /> : m.content}
                                 </div>
-                                {m.booking && <BookingCard booking={m.booking} />}
+                                {m.booking && <BookingCard booking={m.booking} onNavigate={() => setOpen(false)} />}
+                                {/* Saat düğmeleri yalnızca son yanıtta gösterilir; eski listeler güncelliğini yitirmiş olabilir. */}
+                                {m.slots && i === messages.length - 1 && (
+                                    <SlotChips days={m.slots} disabled={pending} onPick={(label) => void send(label)} onNavigate={() => setOpen(false)} />
+                                )}
                             </Fragment>
                         ))}
 
@@ -392,6 +391,13 @@ export default function ChatWidget() {
                                         {q}
                                     </button>
                                 ))}
+                                <Link
+                                    href="/randevu"
+                                    onClick={() => setOpen(false)}
+                                    className="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950"
+                                >
+                                    <CalendarDays className="h-3.5 w-3.5" /> Takvimden kendim seçeyim
+                                </Link>
                             </div>
                         )}
 

@@ -2,8 +2,8 @@ import type { BusyInterval } from "./slots";
 
 /**
  * Avukatın kendi Google hesabında çalışan Apps Script web uygulaması üzerinden
- * takvim bağlantısı. Google Cloud projesi veya takvim paylaşımı gerektirmez;
- * kurulum için bkz. docs/google-apps-script/Code.gs ve docs/sohbet-asistani.md.
+ * Google Takvim ve Gmail bağlantısı. Google Cloud projesi veya takvim paylaşımı gerektirmez;
+ * kurulum için bkz. docs/google-apps-script/Code.gs ve docs/randevu-sistemi.md.
  *
  * Gerekli ortam değişkenleri:
  *   APPS_SCRIPT_URL     web uygulamasının adresi (https://script.google.com/macros/s/.../exec)
@@ -25,7 +25,18 @@ export function isCalendarConfigured(): boolean {
     return config() !== null;
 }
 
-async function call<T>(payload: Record<string, unknown>): Promise<T> {
+/** HTTP durumuna göre, Vercel kayıtlarında sorunu doğrudan gösteren açıklama. */
+function describeHttpError(status: number): string {
+    if (status === 404) {
+        return "Apps Script web uygulaması bulunamadı (HTTP 404). Dağıtım silinmiş ya da arşivlenmiş olabilir veya APPS_SCRIPT_URL hatalı; yeni bir dağıtım yapıp adresi güncelleyin (docs/randevu-sistemi.md → Takvim bağlantısını onarmak).";
+    }
+    if (status === 401 || status === 403) {
+        return `Apps Script erişimi reddetti (HTTP ${status}). Web uygulaması "Erişimi olanlar: Herkes" olarak dağıtılmalı.`;
+    }
+    return `Apps Script isteği başarısız: HTTP ${status}`;
+}
+
+async function call<T>(payload: Record<string, unknown>, timeoutMs = 12_000): Promise<T> {
     const cfg = config()!;
     // Apps Script POST isteğini googleusercontent.com adresine yönlendirir;
     // yanıt bu yönlendirme izlenerek alınır.
@@ -35,9 +46,9 @@ async function call<T>(payload: Record<string, unknown>): Promise<T> {
         body: JSON.stringify({ ...payload, secret: cfg.secret }),
         redirect: "follow",
         cache: "no-store",
-        signal: AbortSignal.timeout(20_000),
+        signal: AbortSignal.timeout(timeoutMs),
     });
-    if (!res.ok) throw new Error(`Apps Script isteği başarısız: HTTP ${res.status}`);
+    if (!res.ok) throw new Error(describeHttpError(res.status));
     const text = await res.text();
     let data: (T & { error?: string }) | null = null;
     try {
@@ -47,16 +58,16 @@ async function call<T>(payload: Record<string, unknown>): Promise<T> {
     }
     if (!data) throw new Error("Apps Script boş yanıt döndürdü.");
     if (data.error === "slot_busy") throw new SlotTakenError("Seçilen saat takvimde dolu.");
+    if (data.error === "unauthorized") throw new Error("Apps Script gizli anahtarı uyuşmuyor: Code.gs içindeki SECRET ile APPS_SCRIPT_SECRET aynı olmalı.");
     if (data.error) throw new Error(`Apps Script hatası: ${data.error}`);
     return data;
 }
 
 export async function fetchBusy(fromMs: number, toMs: number): Promise<BusyInterval[]> {
-    const data = await call<{ busy: { start: string; end: string }[] }>({
-        action: "busy",
-        timeMin: new Date(fromMs).toISOString(),
-        timeMax: new Date(toMs).toISOString(),
-    });
+    const data = await call<{ busy: { start: string; end: string }[] }>(
+        { action: "busy", timeMin: new Date(fromMs).toISOString(), timeMax: new Date(toMs).toISOString() },
+        8_000,
+    );
     return data.busy.map((b) => ({ startMs: Date.parse(b.start), endMs: Date.parse(b.end) }));
 }
 
@@ -78,4 +89,27 @@ export async function createEvent(event: {
         },
     });
     return data.id;
+}
+
+/** Etkinliği takvimden siler (iptal ve erteleme). Köprünün güncel sürümünü gerektirir. */
+export async function deleteEvent(id: string): Promise<void> {
+    await call<{ deleted: boolean }>({ action: "delete", id });
+}
+
+/** Köprünün "notify" eylemini bilmeyen eski sürümü yayında ise fırlatılır. */
+export class NotifyUnsupportedError extends Error {}
+
+/**
+ * Bildirimi avukatın kendi Gmail hesabından kendisine gönderir. Köprünün
+ * 2. sürümünü gerektirir; eski sürümde NotifyUnsupportedError fırlatır.
+ */
+export async function sendMail(mail: { subject: string; rows: [string, string][]; replyTo?: string }): Promise<void> {
+    try {
+        await call<{ sent: boolean }>({ action: "notify", ...mail });
+    } catch (error) {
+        if (error instanceof Error && error.message.includes("unknown_action")) {
+            throw new NotifyUnsupportedError("Apps Script köprüsü eski sürümde; Gmail bildirimi için Code.gs güncellenmeli.");
+        }
+        throw error;
+    }
 }

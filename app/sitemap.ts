@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${SITE_URL}/blog`, lastModified: latest, changeFrequency: 'daily', priority: 0.9 },
         { url: `${SITE_URL}/calisma-alanlarimiz`, changeFrequency: 'monthly', priority: 0.9 },
         { url: `${SITE_URL}/hakkimizda`, changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${SITE_URL}/randevu`, changeFrequency: 'monthly', priority: 0.8 },
         { url: `${SITE_URL}/iletisim`, changeFrequency: 'yearly', priority: 0.7 },
         { url: `${SITE_URL}/sss`, changeFrequency: 'monthly', priority: 0.7 },
         { url: `${SITE_URL}/kentsel-donusum-rehberi`, changeFrequency: 'monthly', priority: 0.7 },

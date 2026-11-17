@@ -50,8 +50,8 @@ export function getEpisodeForPost(postId: string): PodcastEpisode | undefined {
 }
 
 /**
- * Programın dış bağlantıları: RSS.com'daki program sayfası (eski bölümler dahil
- * tüm bölümler ve dinleme platformları) ve tanımlıysa Spotify program sayfası.
+ * Programın dış bağlantıları: "Tüm bölümler" (showUrl, şu an Spotify program
+ * sayfası) ve tanımlıysa ayrıca "Spotify'da dinleyin" (spotifyShowUrl).
  */
 export function podcastLinks(): { label: string; href: string }[] {
     return [

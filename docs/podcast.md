@@ -9,11 +9,12 @@ seslendirilir. Bölüm:
   podcast'in barındırıldığı **RSS.com**'a elle yüklenir (aşağıda). RSS.com bölümü
   Spotify'a ve diğer platformlara kendisi dağıtır.
 
-Program sayfası (eski bölümler dahil): <https://rss.com/podcasts/anlatan-avukat/>.
-Sitedeki oynatıcılarda "Tüm bölümler" bağlantısı bu sayfaya gider
-(`data/podcast.json` → `showUrl`). `spotifyShowUrl` doldurulursa "Spotify'da
-dinleyin" bağlantısı da görünür; buraya bir bölümün değil, programın Spotify
-adresi (`https://open.spotify.com/show/…`) yazılmalıdır.
+Program sayfası (eski bölümler dahil), Spotify'da:
+<https://open.spotify.com/show/1SaWQn1KdfmOsT7pBGl2TH>. Sitedeki oynatıcılarda
+"Tüm bölümler" bağlantısı bu sayfaya gider (`data/podcast.json` → `showUrl`).
+`spotifyShowUrl` doldurulursa ayrıca "Spotify'da dinleyin" bağlantısı görünür;
+`showUrl` zaten Spotify'a gittiği için bu alan boş bırakılmıştır (aynı adrese
+iki bağlantı olmasın).
 
 Bu belge hem büro için açıklama hem de otomatik görevin podcast adımı için
 **çalışma talimatıdır**.

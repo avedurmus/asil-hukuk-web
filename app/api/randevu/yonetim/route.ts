@@ -39,7 +39,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     // Çerez SameSite=Lax olsa da başka siteden gönderilen formlar ayrıca reddedilir.
     const origin = req.headers.get("origin");
-    if (origin && new URL(origin).host !== req.headers.get("host")) {
+    let originHost: string | null = null;
+    try {
+        originHost = origin ? new URL(origin).host : null;
+    } catch {
+        /* geçersiz origin başlığı: reddedilir */
+    }
+    if (origin && originHost !== req.headers.get("host")) {
         return NextResponse.json({ error: "forbidden" }, { status: 403 });
     }
     if (!isAdminKey(req.cookies.get(ADMIN_COOKIE)?.value)) {

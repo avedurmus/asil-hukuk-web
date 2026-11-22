@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { safeEqual } from "@/lib/secureCompare";
 import { getNumberStatus, isWhatsAppConfigured, registerNumber, requestAppSync, subscribeApp } from "@/lib/whatsapp/api";
 
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
     const params = req.nextUrl.searchParams;
     const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN;
-    if (!verifyToken || params.get("key") !== verifyToken) {
+    if (!safeEqual(params.get("key"), verifyToken)) {
         return NextResponse.json({ error: "forbidden" }, { status: 403 });
     }
     if (!isWhatsAppConfigured()) {

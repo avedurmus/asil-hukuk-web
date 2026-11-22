@@ -386,9 +386,11 @@ export async function bookAppointment(input: BookingInput, channel: BookingChann
         });
         const upcoming = existing.filter((r) => r.status !== "cancelled" && r.startMs > nowMs);
         if (upcoming.length >= cfg.maxActivePerPhone) {
+            // Referans kodları ve saatler burada GÖSTERİLMEZ: numarayı yazan herkes
+            // (numara sahibi olmasa da) kodlarla randevuyu görüntüleyip iptal edebilirdi.
             throw new BookingError(
                 "limit",
-                `Bu telefon numarasıyla ileri tarihli ${upcoming.length} randevunuz bulunuyor (${upcoming.map((r) => `${r.reference}: ${formatLocal(r.startMs)}`).join("; ")}). Yeni randevu için önce mevcut randevunuzu erteleyebilir veya iptal edebilirsiniz.`,
+                `Bu telefon numarasıyla ileri tarihli randevu sınırına ulaşılmış. Yeni randevu için önce mevcut randevunuzu, size verilen referans kodu ile ertelemeniz veya iptal etmeniz gerekir. Kodunuzu bulamıyorsanız ${PHONE} numarasından büromuza ulaşın.`,
             );
         }
     }

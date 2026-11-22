@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { siteContent } from "@/data/siteContent";
-import { FALLBACK_REPLY, isAssistantConfigured, rateLimited, runAssistant, sanitizeHistory } from "@/lib/chatbot/agent";
+import { FALLBACK_REPLY, isAssistantConfigured, runAssistant, sanitizeHistory } from "@/lib/chatbot/agent";
+import { clientIp } from "@/lib/booking/http";
+import { limitHit } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,18 +10,28 @@ export const maxDuration = 60;
 
 const PHONE = siteContent.contact.phone;
 
+function hostOf(origin: string): string | null {
+    try {
+        return new URL(origin).host;
+    } catch {
+        return null;
+    }
+}
+
 export async function POST(req: NextRequest) {
     if (!isAssistantConfigured()) {
         return NextResponse.json({ error: "unavailable", reply: FALLBACK_REPLY }, { status: 503 });
     }
 
     const origin = req.headers.get("origin");
-    if (origin && new URL(origin).host !== req.headers.get("host")) {
+    if (origin && hostOf(origin) !== req.headers.get("host")) {
         return NextResponse.json({ error: "forbidden" }, { status: 403 });
     }
 
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.ip || "unknown";
-    if (rateLimited(`chat:${ip}`, 40, 10 * 60_000)) {
+    // Her mesaj ücretli bir yapay zekâ çağrısıdır. Sayaçlar Redis'te tutulur ki
+    // sınır tüm sunucu örneklerinde ortak olsun (bellekteki sayaç örnek başınaydı).
+    const ip = clientIp(req);
+    if ((await limitHit(`chat:${ip}`, 40, 600)) || (await limitHit(`chat-day:${ip}`, 200, 86_400))) {
         return NextResponse.json(
             { error: "rate_limited", reply: `Kısa sürede çok fazla mesaj gönderildi. Biraz sonra tekrar deneyebilir veya ${PHONE} numarasından bize ulaşabilirsiniz.` },
             { status: 429 },

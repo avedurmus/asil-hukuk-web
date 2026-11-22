@@ -2,7 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import BlogListClient from "./BlogListClient";
+import PodcastStrip from "@/components/PodcastStrip";
 import { getAllPosts, toSummary } from "@/lib/posts";
+import { getEpisodes } from "@/lib/podcast";
 import { Metadata } from "next";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -55,6 +57,9 @@ export default function BlogIndexPage() {
                         </>
                     }
                 />
+
+                {/* Yazı listesinin başında en son podcast bölümü */}
+                <PodcastStrip episode={getEpisodes()[0]} spacing="pt-12 lg:pt-16" />
 
                 <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
                     <BlogListClient posts={sortedPosts.map(toSummary)} />

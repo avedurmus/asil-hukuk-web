@@ -8,12 +8,19 @@ import { formatTrDate } from "@/lib/posts";
 const waveBars = [28, 52, 76, 44, 92, 60, 36, 70, 100, 54, 30, 66, 84, 40, 58, 24];
 
 /**
- * Ana sayfada, son eklenen yazılar şeridinin altında en son podcast bölümünü
- * öne çıkaran resimli kutu: solda Av. Emre Durmuş'un portresiyle program
+ * Ana sayfada (son eklenen yazılar şeridinin altında) ve blog sayfasının başında
+ * en son podcast bölümünü öne çıkaran resimli kutu: solda Av. Emre Durmuş'un portresiyle program
  * kapağı, sağda bölüm bilgisi ve oynatıcı. Bölüm yoksa ya da sitede gösterim
  * kapalıysa hiçbir şey göstermez.
  */
-export default function PodcastStrip({ episode }: { episode?: PodcastEpisode }) {
+export default function PodcastStrip({
+    episode,
+    spacing = "pb-14 pt-2 lg:pb-16",
+}: {
+    episode?: PodcastEpisode;
+    /** Kutunun üst/alt boşluğu; sayfaya göre ayarlanır. */
+    spacing?: string;
+}) {
     if (!episode || !podcastConfig.showOnSite) return null;
     const duration = formatDuration(episode.durationSec);
     // Açıklamanın ilk paragrafı bölümün kısa özetidir (bkz. docs/podcast.md).
@@ -21,7 +28,7 @@ export default function PodcastStrip({ episode }: { episode?: PodcastEpisode }) 
     const single = episode.articles.length === 1;
 
     return (
-        <section aria-labelledby="podcast-son-bolum" className="bg-ivory-100 pb-14 pt-2 dark:bg-slate-950 lg:pb-16">
+        <section aria-labelledby="podcast-son-bolum" className={`bg-ivory-100 dark:bg-slate-950 ${spacing}`}>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-gold-500/30 bg-white shadow-elegant dark:border-gold-500/20 dark:bg-slate-900 lg:grid-cols-12">
                     {/* --- Program kapağı --- */}

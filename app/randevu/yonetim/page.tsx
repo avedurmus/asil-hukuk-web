@@ -184,13 +184,15 @@ function BookingCard({ record }: { record: BookingRecord }) {
     );
 }
 
-export default async function OfficePanelPage({ searchParams }: { searchParams: { durum?: string } }) {
-    const authorized = isAdminKey(cookies().get(ADMIN_COOKIE)?.value);
+export default async function OfficePanelPage({ searchParams }: { searchParams: Promise<{ durum?: string | string[] }> }) {
+    const authorized = isAdminKey((await cookies()).get(ADMIN_COOKIE)?.value);
+    const { durum: durumRaw } = await searchParams;
+    const durum = typeof durumRaw === "string" ? durumRaw : undefined;
 
     if (!authorized) {
         return (
             <Shell>
-                <Notice code={searchParams.durum} />
+                <Notice code={durum} />
                 <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-card dark:border-slate-800 dark:bg-slate-900">
                     <h1 className="font-serif text-3xl text-slate-900 dark:text-slate-100">Randevu Yönetimi</h1>
                     <p className="mx-auto mt-3 max-w-md text-slate-600 dark:text-slate-400">
@@ -238,7 +240,7 @@ export default async function OfficePanelPage({ searchParams }: { searchParams: 
             </div>
 
             <div className="mt-8">
-                <Notice code={searchParams.durum} />
+                <Notice code={durum} />
                 <CalendarStatus calendar={overview.calendar} />
             </div>
 

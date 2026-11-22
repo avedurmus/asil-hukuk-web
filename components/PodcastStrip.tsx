@@ -2,16 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { Headphones, Mic, ExternalLink, ArrowRight, CalendarDays, Clock } from "lucide-react";
 import { formatDuration, podcastConfig, podcastLinks, type PodcastEpisode } from "@/lib/podcast";
-import { formatTrDate } from "@/lib/posts";
+import { formatTrDate, getPost } from "@/lib/posts";
 
 // Görseldeki dekoratif ses dalgası çubuklarının yükseklikleri (%)
 const waveBars = [28, 52, 76, 44, 92, 60, 36, 70, 100, 54, 30, 66, 84, 40, 58, 24];
 
 /**
  * Ana sayfada (son eklenen yazılar şeridinin altında) ve blog sayfasının başında
- * en son podcast bölümünü öne çıkaran resimli kutu: solda Av. Emre Durmuş'un portresiyle program
- * kapağı, sağda bölüm bilgisi ve oynatıcı. Bölüm yoksa ya da sitede gösterim
- * kapalıysa hiçbir şey göstermez.
+ * en son podcast bölümünü öne çıkaran resimli kutu: solda Av. Emre Durmuş'un
+ * portresiyle program kapağı, sağda bölüm bilgisi, oynatıcı ve bölümde anlatılan
+ * yazıların bağlantıları. Bölüm yoksa ya da sitede gösterim kapalıysa hiçbir şey
+ * göstermez.
  */
 export default function PodcastStrip({
     episode,
@@ -23,9 +24,10 @@ export default function PodcastStrip({
 }) {
     if (!episode || !podcastConfig.showOnSite) return null;
     const duration = formatDuration(episode.durationSec);
-    // Açıklamanın ilk paragrafı bölümün kısa özetidir (bkz. docs/podcast.md).
-    const summary = episode.description.split("\n\n")[0];
-    const single = episode.articles.length === 1;
+    // Bölümde anlatılan yazılar, başlıklarıyla ayrı bağlantı olarak gösterilir.
+    const posts = episode.articles
+        .map((id) => getPost(id))
+        .filter((post): post is NonNullable<typeof post> => Boolean(post));
 
     return (
         <section aria-labelledby="podcast-son-bolum" className={`bg-ivory-100 dark:bg-slate-950 ${spacing}`}>
@@ -92,12 +94,6 @@ export default function PodcastStrip({
                             )}
                         </p>
 
-                        {summary && (
-                            <p className="mt-4 line-clamp-3 text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
-                                {summary}
-                            </p>
-                        )}
-
                         <div className="mt-6 rounded-xl border border-slate-200/80 bg-ivory-50 p-3 dark:border-slate-800 dark:bg-slate-950/60">
                             <div className="mb-2 flex items-center gap-2 px-1 text-xs font-semibold text-primary-900 dark:text-slate-200">
                                 <Headphones className="h-4 w-4 text-gold-600 dark:text-gold-400" />
@@ -114,14 +110,32 @@ export default function PodcastStrip({
                             </audio>
                         </div>
 
+                        {posts.length > 0 && (
+                            <div className="mt-6">
+                                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+                                    {posts.length === 1 ? "Bu bölümde anlatılan yazı" : "Bu bölümde anlatılan yazılar"}
+                                </p>
+                                <ul className="mt-2 divide-y divide-slate-200/80 border-y border-slate-200/80 dark:divide-slate-800 dark:border-slate-800">
+                                    {posts.map((post) => (
+                                        <li key={post.id}>
+                                            <Link href={`/blog/${post.id}`} className="group flex items-center justify-between gap-4 py-3">
+                                                <span className="min-w-0">
+                                                    <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-700 dark:text-gold-400">
+                                                        {post.kind === "ictihat" ? "İçtihat Notu" : post.category}
+                                                    </span>
+                                                    <span className="mt-0.5 block font-serif text-[16px] leading-snug text-slate-900 transition-colors group-hover:text-primary-800 dark:text-slate-100 dark:group-hover:text-gold-300">
+                                                        {post.title}
+                                                    </span>
+                                                </span>
+                                                <ArrowRight className="h-4 w-4 shrink-0 text-primary-800 transition-transform duration-300 group-hover:translate-x-1 dark:text-gold-400" />
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
                         <div className="mt-6 flex flex-wrap items-center gap-3">
-                            <Link
-                                href={single ? `/blog/${episode.articles[0]}` : "/blog"}
-                                className="group inline-flex items-center gap-2 rounded-full bg-primary-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary-800 dark:bg-gold-500 dark:text-slate-950 dark:hover:bg-gold-400"
-                            >
-                                {single ? "Yazıyı okuyun" : "Yazıları okuyun"}
-                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                            </Link>
                             {podcastLinks().map((link) => (
                                 <a
                                     key={link.href}

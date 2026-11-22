@@ -26,9 +26,9 @@ import Image from "next/image";
 import { breadcrumbJsonLd, clipText, DEFAULT_OG_IMAGE, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
 
 interface Props {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 /** Yazılar derlemede üretilir; listede olmayan adresler 404 döner. */
@@ -63,7 +63,7 @@ function decisionLabel(decision: NonNullable<BlogPost["decisions"]>[number]): st
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const post = getPost(params.slug);
+    const post = getPost((await params).slug);
     if (!post) return { title: "Yazı Bulunamadı" };
 
     return pageMetadata({
@@ -84,8 +84,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default function BlogPostPage({ params }: Props) {
-    const post = getPost(params.slug);
+export default async function BlogPostPage({ params }: Props) {
+    const post = getPost((await params).slug);
 
     if (!post) {
         notFound();

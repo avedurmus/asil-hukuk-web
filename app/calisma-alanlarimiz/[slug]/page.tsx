@@ -14,9 +14,9 @@ import { Metadata } from "next";
 import { breadcrumbJsonLd, ORGANIZATION_ID, pageMetadata, SITE_URL } from "@/lib/seo";
 
 interface Props {
-    params: {
+    params: Promise<{
         slug: string;
-    }
+    }>;
 }
 
 export async function generateStaticParams() {
@@ -26,7 +26,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const service = services.find((s) => s.id === params.slug);
+    const { slug } = await params;
+    const service = services.find((s) => s.id === slug);
     if (!service) return { title: "Sayfa Bulunamadı" };
 
     return pageMetadata({
@@ -36,8 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default function ServiceDetailPage({ params }: Props) {
-    const service = services.find((s) => s.id === params.slug);
+export default async function ServiceDetailPage({ params }: Props) {
+    const { slug } = await params;
+    const service = services.find((s) => s.id === slug);
 
     if (!service) {
         notFound();

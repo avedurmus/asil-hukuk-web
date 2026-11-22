@@ -26,10 +26,30 @@ const legacyWixRedirects = [
     { source: "/asistan/:path*", destination: "/ai-hukuk" },
 ];
 
+/**
+ * Tüm sayfalara eklenen güvenlik başlıkları:
+ * - sayfa başka sitelerde çerçeve içinde açılamaz (tıklama tuzağı / clickjacking),
+ * - tarayıcı dosya türünü tahmin etmez,
+ * - başka sitelere giden bağlantılarda yalnızca alan adı paylaşılır
+ *   (ör. yönetim paneli bağlantısındaki anahtar dışarı sızmaz),
+ * - kamera, mikrofon ve konum gibi tarayıcı izinleri kapalıdır.
+ */
+const securityHeaders = [
+    { key: "X-Frame-Options", value: "SAMEORIGIN" },
+    { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+    { key: "X-Content-Type-Options", value: "nosniff" },
+    { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+    { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
         unoptimized: true,
+    },
+    poweredByHeader: false,
+    async headers() {
+        return [{ source: "/:path*", headers: securityHeaders }];
     },
     async redirects() {
         return [

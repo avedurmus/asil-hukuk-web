@@ -4,6 +4,7 @@ import { formatDuration, podcastConfig, podcastLinks, type PodcastEpisode } from
 /** Makale sayfasında, yazının anlatıldığı günlük podcast bölümünü çalar. */
 export default function PodcastPlayer({ episode }: { episode: PodcastEpisode }) {
     const duration = formatDuration(episode.durationSec);
+    const links = podcastLinks();
     return (
         <section
             aria-labelledby="podcast-bolumu"
@@ -22,23 +23,23 @@ export default function PodcastPlayer({ episode }: { episode: PodcastEpisode }) 
             <audio controls preload="none" src={episode.audio} className="w-full">
                 Tarayıcınız ses oynatmayı desteklemiyor.
             </audio>
-            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                {podcastConfig.aiDisclosure}
-                {podcastLinks().map((link) => (
-                    <span key={link.href}>
-                        {" "}
-                        <a
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-primary-800 dark:text-gold-400 hover:underline font-medium"
-                        >
-                            {link.label}
-                            <ExternalLink className="w-3 h-3" />
-                        </a>
-                    </span>
-                ))}
-            </p>
+            {links.length > 0 && (
+                <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+                    {links.map((link) => (
+                        <span key={link.href}>
+                            <a
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-primary-800 dark:text-gold-400 hover:underline font-medium"
+                            >
+                                {link.label}
+                                <ExternalLink className="w-3 h-3" />
+                            </a>
+                        </span>
+                    ))}
+                </p>
+            )}
         </section>
     );
 }

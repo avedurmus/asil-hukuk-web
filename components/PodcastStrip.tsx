@@ -119,10 +119,6 @@ export default function PodcastStrip({
                             </ul>
                         </div>
                     )}
-
-                    <p className="mt-4 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">
-                        {podcastConfig.aiDisclosure}
-                    </p>
                 </div>
             </div>
         </section>
